@@ -3,7 +3,7 @@
  * Custom template for displaying header small
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

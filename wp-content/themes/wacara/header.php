@@ -3,7 +3,7 @@
  * Template part for displaying header content
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

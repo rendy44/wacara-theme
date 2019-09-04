@@ -3,7 +3,7 @@
  * Custom template for displaying feature section in front page
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

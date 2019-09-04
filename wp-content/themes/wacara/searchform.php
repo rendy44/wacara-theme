@@ -3,7 +3,7 @@
  * Template for customizing search form
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -3,7 +3,7 @@
  * Use this class to enqueuing assets both in front-end and back-end
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  */
 
 namespace Skeleton;
@@ -48,7 +48,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|\Skeleton\Asset
+		 * @return null|Asset
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {
@@ -73,24 +73,33 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		private function map_front_asset() {
 			// CSS files.
 			$this->front_css = [
-				'bootstrap' => [
-					'url' => TEMP_URI . '/assets/vendor/bootstrap/dist/css/bootstrap.min.css',
+				'google_font' => [
+					'url' => 'https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700&amp;display=swap',
 				],
-				'remixicon' => [
-					'url' => TEMP_URI . '/assets/vendor/remixicon/remixicon.css',
+				'bootstrap'   => [
+					'url' => TEMP_URI . '/assets/vendor/bootstrap/css/bootstrap.min.css',
 				],
-				'app'       => [
-					'url' => TEMP_URI . '/assets/css/app.css',
+				'fontawesome' => [
+					'url' => TEMP_URI . '/assets/vendor/fontawesome-free/css/all.min.css',
+				],
+				'aos'         => [
+					'url' => TEMP_URI . '/assets/vendor/aos/aos.css',
+				],
+				'app'         => [
+					'url' => TEMP_URI . '/assets/css/app.min.css',
 				],
 			];
 
 			// JS files.
 			$this->front_js = [
 				'bootstrap' => [
-					'url' => TEMP_URI . '/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js',
+					'url' => TEMP_URI . '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
+				],
+				'aos'       => [
+					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
 				],
 				'app'       => [
-					'url'   => TEMP_URI . '/assets/js/app.js',
+					'url'   => TEMP_URI . '/assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 					],

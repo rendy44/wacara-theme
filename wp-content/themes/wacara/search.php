@@ -3,7 +3,7 @@
  * Template for displaying search result
  *
  * @author  Rendy
- * @package Pages
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

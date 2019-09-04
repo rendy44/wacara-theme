@@ -4,7 +4,7 @@
  * Please refer to CMB2 official documentation for further details
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  * @see     https://github.com/CMB2/CMB2/wiki
  */
 
@@ -32,7 +32,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|\Skeleton\Metabox
+		 * @return null|Metabox
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {

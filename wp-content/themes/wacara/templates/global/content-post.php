@@ -3,7 +3,7 @@
  * Custom template for displaying post content list
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

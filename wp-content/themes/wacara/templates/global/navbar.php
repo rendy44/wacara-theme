@@ -3,34 +3,39 @@
  * Custom template for displaying top navbar
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<div class="container">
-        <a class="navbar-brand" href="<?php echo home_url(); // phpcs:ignore ?>"><?php echo $site_name; // phpcs:ignore ?></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#skeletonNavBar" aria-controls="skeletonNavBar" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<?php
-		if ( has_nav_menu( 'main_nav' ) ) {
-			wp_nav_menu(
-				[
-					'theme_location'  => 'main_nav',
-					'depth'           => 2,
-					'container'       => 'div',
-					'container_class' => 'collapse navbar-collapse',
-					'container_id'    => 'skeletonNavBar',
-					'menu_class'      => 'navbar-nav mr-auto',
-					'walker'          => new Navwalker(),
-				]
-			);
-		}
-		?>
-	</div>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand scroll" href="#masthead">
+            <img src="<?php echo esc_attr( TEMP_URI . '/assets/img/sample-logo.png' ); ?>" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link scroll" href="#about"><?php echo esc_html__( 'What is it?', 'wacara' ); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scroll" href="#speakers"><?php echo esc_html__( 'Speakers', 'wacara' ); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scroll" href="#venue"><?php echo esc_html__( 'Venue', 'wacara' ); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scroll" href="#schedule"><?php echo esc_html__( 'Schedule', 'wacara' ); ?></a>
+                </li>
+                <li class="nav-item register">
+                    <a class="nav-link scroll" href="#register"><?php echo esc_html__( 'Register Now', 'wacara' ); ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>

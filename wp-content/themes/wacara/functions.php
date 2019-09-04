@@ -3,7 +3,7 @@
  * Main file to write custom php codes
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

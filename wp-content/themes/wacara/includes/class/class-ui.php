@@ -3,7 +3,7 @@
  * Use this class to define default layout, such as header and footer
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  */
 
 namespace Skeleton;
@@ -31,7 +31,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|\Skeleton\UI
+		 * @return null|UI
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {

@@ -3,7 +3,7 @@
  * Default template for displaying content list
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

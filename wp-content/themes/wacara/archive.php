@@ -3,7 +3,7 @@
  * Template for displaying archive page
  *
  * @author  Rendy
- * @package Pages
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

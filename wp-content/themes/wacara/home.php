@@ -3,7 +3,7 @@
  * Template for displaying blog post
  *
  * @author  Rendy
- * @package Pages
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

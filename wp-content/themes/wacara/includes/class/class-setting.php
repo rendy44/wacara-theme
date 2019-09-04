@@ -3,7 +3,7 @@
  * Use this class to add some configuration to override WordPress default behaviors
  *
  * @author  Rendy
- * @package Settings
+ * @package Wacara
  */
 
 namespace Skeleton;
@@ -30,7 +30,7 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|\Skeleton\Setting
+		 * @return null|Setting
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {

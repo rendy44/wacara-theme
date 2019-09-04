@@ -3,7 +3,7 @@
  * This is our main class, only use this class to load other classes and dependency libraries
  *
  * @author  Rendy
- * @package Includes
+ * @package Wacara
  */
 
 namespace Skeleton;
@@ -42,7 +42,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|\Skeleton\Skeleton
+		 * @return null|Skeleton
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {
@@ -81,7 +81,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 			$this->map_classes();
 
 			foreach ( $this->classes as $class ) {
-				require_once TEMP_PATH . "/includes/class/class-{$class}.php";
+				require TEMP_PATH . "/includes/class/class-{$class}.php";
 			}
 		}
 
@@ -92,7 +92,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 			$this->map_libraries();
 
 			foreach ( $this->libraries as $library ) {
-				require_once TEMP_PATH . "/includes/lib/{$library}.php";
+				require TEMP_PATH . "/includes/lib/{$library}.php";
 			}
 		}
 	}

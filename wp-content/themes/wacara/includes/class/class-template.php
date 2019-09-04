@@ -3,7 +3,7 @@
  * Simple helper class to render php file into output buffer
  *
  * @author  Rendy
- * @package Helpers
+ * @package Wacara
  */
 
 namespace Skeleton;

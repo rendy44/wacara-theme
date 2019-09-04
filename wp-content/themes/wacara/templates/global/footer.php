@@ -3,7 +3,7 @@
  * Custom template for displaying html closing tag
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

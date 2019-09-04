@@ -3,7 +3,7 @@
  * Template for displaying sidebar
  *
  * @author  Rendy
- * @package Template Part
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

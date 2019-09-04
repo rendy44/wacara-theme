@@ -3,7 +3,7 @@
  * Default template for displaying not found result
  *
  * @author  Rendy
- * @package Components
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -3,7 +3,7 @@
  * Default template for displaying page content
  *
  * @author  Rendy
- * @package Pages
+ * @package Wacara
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
