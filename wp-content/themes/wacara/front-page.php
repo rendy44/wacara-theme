@@ -34,4 +34,8 @@ echo Template::render( 'front/speakers', $speakers_args ); // phpcs:ignore
 $venue_args = [];
 echo Template::render( 'front/venue', $venue_args ); // phpcs:ignore
 
+// Render schedule section.
+$schedule_args = [];
+echo Template::render( 'front/schedule', $schedule_args ); // phpcs:ignore
+
 get_footer();
