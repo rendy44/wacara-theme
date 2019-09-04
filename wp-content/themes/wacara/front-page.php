@@ -30,4 +30,8 @@ echo Template::render( 'front/about', $about_args ); // phpcs:ignore
 $speakers_args = [];
 echo Template::render( 'front/speakers', $speakers_args ); // phpcs:ignore
 
+// Render venue section.
+$venue_args = [];
+echo Template::render( 'front/venue', $venue_args ); // phpcs:ignore
+
 get_footer();
