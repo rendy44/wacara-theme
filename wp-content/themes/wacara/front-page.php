@@ -26,4 +26,8 @@ echo Template::render( 'front/masthead', $masthead_args ); // phpcs:ignore
 $about_args = [];
 echo Template::render( 'front/about', $about_args ); // phpcs:ignore
 
+// Render speakers section.
+$speakers_args = [];
+echo Template::render( 'front/speakers', $speakers_args ); // phpcs:ignore
+
 get_footer();
