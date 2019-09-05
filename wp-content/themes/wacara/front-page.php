@@ -38,4 +38,8 @@ echo Template::render( 'front/venue', $venue_args ); // phpcs:ignore
 $schedule_args = [];
 echo Template::render( 'front/schedule', $schedule_args ); // phpcs:ignore
 
+// Render pricing section.
+$pricing_args = [];
+echo Template::render( 'front/pricing', $pricing_args ); // phpcs:ignore
+
 get_footer();
