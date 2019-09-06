@@ -64,7 +64,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 * Map all dependency classes that's required by our theme
 		 */
 		private function map_classes() {
-			$this->classes = [ 'template', 'asset', 'ui', 'setting', 'navwalker', 'helper', 'metabox' ];
+			$this->classes = [ 'template', 'asset', 'ui', 'setting', 'navwalker', 'helper', 'metabox', 'cpt' ];
 		}
 
 		/**

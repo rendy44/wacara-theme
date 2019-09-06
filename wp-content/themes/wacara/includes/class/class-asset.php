@@ -113,6 +113,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 */
 		private function load_front_asset() {
 			$this->map_front_asset();
+
 			add_action( 'wp_enqueue_scripts', [ $this, 'front_asset_callback' ] );
 		}
 
