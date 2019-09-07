@@ -81,9 +81,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 						'title'  => __( 'Basic Information', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Date start', 'wacara' ),
-								'id'   => $this->meta_prefix . 'date_start',
-								'type' => 'text_datetime_timestamp',
+								'name'        => __( 'Date start', 'wacara' ),
+								'id'          => $this->meta_prefix . 'date_start',
+								'type'        => 'text_datetime_timestamp',
+								'time_format' => Helper::get_time_format(),
 							],
 							[
 								'name'    => __( 'Single day', 'wacara' ),
@@ -93,18 +94,20 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'default' => 1,
 							],
 							[
-								'name'       => __( 'Time end', 'wacara' ),
-								'id'         => $this->meta_prefix . 'time_end',
-								'type'       => 'text_time',
-								'attributes' => [
+								'name'        => __( 'Time end', 'wacara' ),
+								'id'          => $this->meta_prefix . 'time_end',
+								'type'        => 'text_time',
+								'time_format' => Helper::get_time_format(),
+								'attributes'  => [
 									'data-conditional-id' => $this->meta_prefix . 'single_day',
 								],
 							],
 							[
-								'name'       => __( 'Date end', 'wacara' ),
-								'id'         => $this->meta_prefix . 'date_end',
-								'type'       => 'text_datetime_timestamp',
-								'attributes' => [
+								'name'        => __( 'Date end', 'wacara' ),
+								'id'          => $this->meta_prefix . 'date_end',
+								'type'        => 'text_datetime_timestamp',
+								'time_format' => Helper::get_time_format(),
+								'attributes'  => [
 									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],

@@ -295,10 +295,97 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @return false|string
 		 */
 		public static function convert_date( $timestamp, $include_time = false ) {
-			$date_format = get_option( 'date_format' );
-			$time_format = get_option( 'time_format' );
+			$date_format = self::get_date_format();
+			$time_format = self::get_time_format();
 
 			return date( $date_format . ( $include_time ? ' ' . $time_format : '' ), $timestamp );
+		}
+
+		/**
+		 * Translate country code into readable country name.
+		 *
+		 * @param string $country_code two digits of country code.
+		 *
+		 * @return mixed|string
+		 */
+		public static function translate_country_code( $country_code ) {
+			$counties = self::get_list_of_countries();
+
+			return ! empty( $counties[ $country_code ] ) ? $counties[ $country_code ] : '';
+		}
+
+		/**
+		 * Get full location info
+		 *
+		 * @param string $location_id location id.
+		 *
+		 * @return string
+		 */
+		public static function get_location_paragraph( $location_id ) {
+			$name         = self::get_post_meta( 'name', $location_id );
+			$address      = self::get_post_meta( 'address', $location_id );
+			$city         = self::get_post_meta( 'city', $location_id );
+			$province     = self::get_post_meta( 'province', $location_id );
+			$country_code = self::get_post_meta( 'country', $location_id );
+			$country_name = self::translate_country_code( $country_code );
+			$postal       = self::get_post_meta( 'postal', $location_id );
+
+			return $name . ', ' . $address . ', ' . $city . ', ' . $province . ' ' . $postal . ' ' . $country_name;
+		}
+
+		/**
+		 * Get date format from options
+		 *
+		 * @return mixed|void
+		 */
+		public static function get_date_format() {
+			return get_option( 'date_format' );
+		}
+
+		/**
+		 * Get time format from option
+		 *
+		 * @return mixed|void
+		 */
+		public static function get_time_format() {
+			return get_option( 'time_format' );
+		}
+
+		/**
+		 * Get readable utc.
+		 *
+		 * @return string
+		 */
+		public static function get_readable_utc() {
+			$utc    = (int) get_option( 'gmt_offset' );
+			$result = 'UTC';
+			if ( 0 !== $utc ) {
+				if ( $utc > 0 ) {
+					$result .= '+';
+				}
+				$result .= $utc;
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get full event time info
+		 *
+		 * @param bool|string $event_id event id.
+		 *
+		 * @return string
+		 */
+		public static function get_time_paragraph( $event_id = false ) {
+			$event_id             = ! $event_id ? get_the_ID() : $event_id;
+			$single_day           = self::get_post_meta( 'single_day', $event_id );
+			$date_start_timestamp = self::get_post_meta( 'date_start', $event_id );
+			$date_start           = self::convert_date( $date_start_timestamp, true );
+			$end                  = $single_day ? self::get_post_meta( 'time_end', $event_id ) : self::convert_date( self::get_post_meta( 'date_end', $event_id ), true );
+			$utc                  = self::get_readable_utc();
+
+			return $date_start . ' - ' . $end . ' ' . $utc;
+
 		}
 	}
 }

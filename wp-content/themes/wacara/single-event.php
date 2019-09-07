@@ -20,8 +20,8 @@ while ( have_posts() ) {
 
 	$date_start            = Helper::get_post_meta( 'date_start' );
 	$location              = Helper::get_post_meta( 'location' );
-	$location_province     = Helper::get_post_meta( 'province', $location );
 	$location_country_code = Helper::get_post_meta( 'country', $location );
+	$location_province     = Helper::get_post_meta( 'province', $location );
 	// Render masthead.
 	$masthead_args = [
 		'title'      => Helper::split_title( get_the_title() ),
@@ -31,7 +31,11 @@ while ( have_posts() ) {
 	echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 
 	// Render about section.
-	$about_args = [];
+	$about_args = [
+		'description' => Helper::get_post_meta( 'description' ),
+		'location'    => Helper::get_location_paragraph( $location ),
+		'time'        => Helper::get_time_paragraph(),
+	];
 	echo Template::render( 'event/about', $about_args ); // phpcs:ignore
 
 	// Render speakers section.
