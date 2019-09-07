@@ -64,14 +64,24 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 * Map all dependency classes that's required by our theme
 		 */
 		private function map_classes() {
-			$this->classes = [ 'template', 'asset', 'ui', 'setting', 'navwalker', 'helper', 'metabox', 'cpt' ];
+			$this->classes = [
+				'template',
+				'asset',
+				'ui',
+				'setting',
+				'navwalker',
+				'helper',
+				'metabox',
+				'cpt',
+				'cmb2-conditionals',
+			];
 		}
 
 		/**
 		 * Map all dependency libraries that`s required by our theme
 		 */
 		private function map_libraries() {
-			$this->libraries = [ 'cmb2/init' ];
+			$this->libraries = [ 'cmb2/init', 'cmb2-tabs/plugin' ];
 		}
 
 		/**

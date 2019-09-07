@@ -33,17 +33,30 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 */
 		private $version = '';
 		/**
-		 * Variable to map all css in front-end
+		 * Variable to mapping all css in front-end
 		 *
 		 * @var array
 		 */
 		private $front_css = [];
 		/**
-		 * Variable to map all js in front-end
+		 * Variable to mapping all js in front-end
 		 *
 		 * @var array
 		 */
 		private $front_js = [];
+
+		/**
+		 * variable for mapping all css in admin
+		 *
+		 * @var array
+		 */
+		private $admin_css = [];
+		/**
+		 * Variable for mapping all js in admin
+		 *
+		 * @var array
+		 */
+		private $admin_js = [];
 
 		/**
 		 * Singleton
@@ -65,10 +78,25 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 			$theme_object  = wp_get_theme();
 			$this->version = $theme_object->get( 'Version' );
 			$this->load_front_asset();
+			$this->load_admin_asset();
 		}
 
 		/**
-		 * Mapp all assets that will be loaded in front end
+		 * Load js file
+		 *
+		 * @param string $name   js name.
+		 * @param array  $obj_js js object.
+		 */
+		private function load_js( $name, array $obj_js ) {
+			$depth = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
+			wp_enqueue_script( $name, $obj_js['url'], $depth, $this->version, true );
+			if ( isset( $obj_js['vars'] ) ) {
+				wp_localize_script( $name, 'obj', $obj_js['vars'] );
+			}
+		}
+
+		/**
+		 * Map all assets that will be loaded in front end
 		 */
 		private function map_front_asset() {
 			// CSS files.
@@ -118,6 +146,27 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		}
 
 		/**
+		 * Map all assets that will be loaded in admin
+		 */
+		private function map_admin_asset() {
+			$this->admin_js = [
+				'cmb2_conditionals' => [
+					'url' => TEMP_URI . '/assets/admin/js/cmb2-conditionals.js',
+					'dep' => [ 'jquery', 'cmb2-scripts' ],
+				],
+			];
+		}
+
+		/**
+		 * Load all assets in admin.
+		 */
+		private function load_admin_asset() {
+			$this->map_admin_asset();
+
+			add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets_callback' ] );
+		}
+
+		/**
 		 * Callback for loading front end assets
 		 */
 		public function front_asset_callback() {
@@ -128,11 +177,17 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 
 			// Load all js files.
 			foreach ( $this->front_js as $js_name => $js_obj ) {
-				$depth = ! empty( $js_obj['depth'] ) ? $js_obj['depth'] : [];
-				wp_enqueue_script( $js_name, $js_obj['url'], $depth, $this->version, true );
-				if ( isset( $js_obj['vars'] ) ) {
-					wp_localize_script( $js_name, 'obj', $js_obj['vars'] );
-				}
+				$this->load_js( $js_name, $js_obj );
+			}
+		}
+
+		/**
+		 * Callback for loading admin assets.
+		 */
+		public function admin_assets_callback() {
+			// Load all js files.
+			foreach ( $this->admin_js as $js_name => $js_obj ) {
+				$this->load_js( $js_name, $js_obj );
 			}
 		}
 	}

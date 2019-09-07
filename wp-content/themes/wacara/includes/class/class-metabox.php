@@ -30,6 +30,13 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		private static $instance = null;
 
 		/**
+		 * Prefix for metabox's fields
+		 *
+		 * @var string
+		 */
+		private $meta_prefix = TEMP_PREFIX;
+
+		/**
 		 * Singleton
 		 *
 		 * @return null|Metabox
@@ -46,27 +53,67 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 * Metabox constructor.
 		 */
 		private function __construct() {
-			add_action( 'cmb2_admin_init', [ $this, 'sample_post_metabox_callback' ] );
+			// Add event detail metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
 		}
 
 		/**
-		 * Sample metabox configuration
+		 * Metabox configuration for detail of event.
 		 */
-		public function sample_post_metabox_callback() {
-			$cmb2_args = [
-				'id'           => 'sample_post_metabox',
-				'title'        => __( 'Sample Metabox', 'rendy' ),
-				'object_types' => [ 'post' ], // Post type.
+		public function detail_event_metabox_callback() {
+			$args = [
+				'id'           => 'detail_event_metabox',
+				'title'        => __( 'Detail', 'wacara' ),
+				'object_types' => [ 'event' ],
 				'context'      => 'normal',
 				'priority'     => 'high',
-				'show_names'   => true, // Show field names on the left.
+				'show_names'   => true,
 			];
-			$cmb2      = new_cmb2_box( $cmb2_args );
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'basic_info',
+						'title'  => __( 'Basic Information', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Date start', 'wacara' ),
+								'id'   => $this->meta_prefix . 'date_start',
+								'type' => 'text_datetime_timestamp',
+							],
+							[
+								'name'    => __( 'Single day', 'wacara' ),
+								'id'      => $this->meta_prefix . 'single_day',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Uncheck this if the event will take a place in multiple days', 'wacara' ),
+								'default' => 1,
+							],
+							[
+								'name'       => __( 'Date end', 'wacara' ),
+								'id'         => $this->meta_prefix . 'date_end',
+								'type'       => 'text_datetime_timestamp',
+								'attributes' => [
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
+									'data-conditional-value' => 'off',
+								],
+							],
+							[
+								'name' => __( 'Location', 'wacara' ),
+								'id'   => $this->meta_prefix . 'location',
+								'type' => 'text',
+								'desc' => __( 'Write the place name or its address', 'wacara' ),
+							],
+						],
+					],
+				],
+			];
 			$cmb2->add_field(
 				[
-					'name' => __( 'Sample Field', 'rendy' ),
-					'id'   => 'sample_field',
-					'type' => 'text',
+					'id'   => 'detail_event__tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
 				]
 			);
 		}

@@ -25,7 +25,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 *
 		 * @var string
 		 */
-		private static $metabox_prefix = 'skltn_';
+		private static $meta_prefix = TEMP_PREFIX;
 
 		/**
 		 * Get main column bootstrap css class width
@@ -103,7 +103,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		public static function save_post_meta( $post_id, $options = [] ) {
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option_value ) {
-					update_post_meta( $post_id, self::$metabox_prefix . $option_key, $option_value );
+					update_post_meta( $post_id, self::$meta_prefix . $option_key, $option_value );
 				}
 			}
 		}
@@ -117,7 +117,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		public static function save_user_meta( $user_id, $options = [] ) {
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option_value ) {
-					update_user_meta( $user_id, self::$metabox_prefix . $option_key, $option_value );
+					update_user_meta( $user_id, self::$meta_prefix . $option_key, $option_value );
 				}
 			}
 		}
@@ -129,7 +129,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @param string $key     user meta key.
 		 */
 		public static function delete_user_meta( $user_id, $key ) {
-			delete_user_meta( $user_id, self::$metabox_prefix . $key );
+			delete_user_meta( $user_id, self::$meta_prefix . $key );
 		}
 
 		/**
@@ -139,7 +139,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @param string $key     user meta key.
 		 */
 		public static function delete_post_meta( $post_id, $key ) {
-			delete_post_meta( $post_id, self::$metabox_prefix . $key );
+			delete_post_meta( $post_id, self::$meta_prefix . $key );
 		}
 
 		/**
@@ -152,7 +152,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @return mixed
 		 */
 		public static function get_user_meta( $key, $user_id, $single_value = true ) {
-			return get_user_meta( $user_id, self::$metabox_prefix . $key, $single_value );
+			return get_user_meta( $user_id, self::$meta_prefix . $key, $single_value );
 		}
 
 		/**
@@ -167,7 +167,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		public static function get_post_meta( $key, $post_id = false, $single_value = true ) {
 			$post_id = ! $post_id ? get_the_ID() : $post_id;
 
-			return get_post_meta( $post_id, self::$metabox_prefix . $key, $single_value );
+			return get_post_meta( $post_id, self::$meta_prefix . $key, $single_value );
 		}
 
 		/**
