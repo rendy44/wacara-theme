@@ -211,13 +211,49 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 *
 		 * @return array
 		 */
-		public static function get_list_country( $use_blank = false ) {
+		public static function get_list_of_countries( $use_blank = false ) {
 			$countries = include TEMP_PATH . '/i18n/country.php';
 			if ( $use_blank ) {
 				$countries = array_merge( [ '' => __( 'Select country', 'wacara' ) ], $countries );
 			}
 
 			return $countries;
+		}
+
+		/**
+		 * Get location list.
+		 *
+		 * @return array
+		 */
+		public static function get_list_of_locations() {
+			$cache_key = TEMP_PREFIX . 'locations_cache';
+			$locations = wp_cache_get( $cache_key );
+			if ( false === $locations ) {
+				global $wpdb;
+				$locations_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'location' ORDER BY ID DESC";
+				$locations       = $wpdb->get_results( $locations_query, OBJECT_K ); // phpcs:ignore
+				wp_cache_set( $cache_key, $locations );
+			}
+
+			return self::convert_wpdb_into_array( $locations );
+		}
+
+		/**
+		 * Convert data from wpdb into readable array for cmb2.
+		 *
+		 * @param array $data original array of object data.
+		 *
+		 * @return array
+		 */
+		private static function convert_wpdb_into_array( array $data ) {
+			$result = [];
+			if ( ! empty( $data ) ) {
+				foreach ( $data as $id => $obj ) {
+					$result[ $id ] = $obj->post_title;
+				}
+			}
+
+			return $result;
 		}
 	}
 }

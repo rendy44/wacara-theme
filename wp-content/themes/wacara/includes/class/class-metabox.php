@@ -102,10 +102,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								],
 							],
 							[
-								'name' => __( 'Location', 'wacara' ),
-								'id'   => $this->meta_prefix . 'location',
-								'type' => 'text',
-								'desc' => __( 'Write the place name or its address', 'wacara' ),
+								'name'    => __( 'Location', 'wacara' ),
+								'id'      => $this->meta_prefix . 'location',
+								'type'    => 'select',
+								'options' => Helper::get_list_of_locations(),
 							],
 						],
 					],
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name'    => __( 'Country', 'wacara' ),
 								'id'      => $this->meta_prefix . 'country',
 								'type'    => 'select',
-								'options' => Helper::get_list_country( true ),
+								'options' => Helper::get_list_of_countries(),
 							],
 							[
 								'name' => __( 'Province/State', 'wacara' ),

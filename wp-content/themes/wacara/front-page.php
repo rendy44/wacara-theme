@@ -6,6 +6,7 @@
  * @package Wacara
  */
 
+use Skeleton\Helper;
 use Skeleton\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
+echo '<pre>';
+var_dump( Helper::get_list_of_locations() );
+echo '</pre>';
 // Render masthead.
 $masthead_args = [
 	'title'        => get_bloginfo( 'name' ),
