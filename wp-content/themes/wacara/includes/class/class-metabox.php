@@ -55,6 +55,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		private function __construct() {
 			// Add event detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
+			// Add location detail metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
 		}
 
 		/**
@@ -75,7 +77,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				'layout' => 'vertical',
 				'tabs'   => [
 					[
-						'id'     => 'basic_info',
+						'id'     => 'event_basic_info',
 						'title'  => __( 'Basic Information', 'wacara' ),
 						'fields' => [
 							[
@@ -111,7 +113,95 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			];
 			$cmb2->add_field(
 				[
-					'id'   => 'detail_event__tabs',
+					'id'   => 'detail_event_tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
+				]
+			);
+		}
+
+		/**
+		 * Metabox configuration for detail of location.
+		 */
+		public function detail_location_metabox_callback() {
+			$args = [
+				'id'           => 'detail_location_metabox',
+				'title'        => __( 'Detail', 'wacara' ),
+				'object_types' => [ 'location' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'information_location',
+						'title'  => __( 'Detail', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Name', 'wacara' ),
+								'id'   => $this->meta_prefix . 'name',
+								'type' => 'text',
+								'desc' => __( 'Use the real name of the location', 'wacara' ),
+							],
+							[
+								'name'    => __( 'Country', 'wacara' ),
+								'id'      => $this->meta_prefix . 'country',
+								'type'    => 'select',
+								'options' => Helper::get_list_country( true ),
+							],
+							[
+								'name' => __( 'Province/State', 'wacara' ),
+								'id'   => $this->meta_prefix . 'province',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'City', 'wacara' ),
+								'id'   => $this->meta_prefix . 'city',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Address', 'wacara' ),
+								'id'   => $this->meta_prefix . 'address',
+								'type' => 'textarea_small',
+							],
+						],
+					],
+					[
+						'id'     => 'photo_location',
+						'title'  => __( 'Photo & Description', 'wacara' ),
+						'fields' => [
+							[
+								'name'         => __( 'Photo', 'wacara' ),
+								'desc'         => __( 'Add any pictures related to the location', 'wacara' ),
+								'id'           => $this->meta_prefix . 'photo',
+								'type'         => 'file_list',
+								'query_args'   => [ 'type' => 'image' ],
+								'preview_size' => [ 100, 100 ],
+								'text'         => [
+									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
+								],
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'description',
+								'type' => 'textarea_small',
+								'desc' => __( 'Write it short and representative', 'wacara' ),
+							],
+						],
+					],
+				],
+			];
+			$cmb2->add_field(
+				[
+					'id'   => 'information_location_tabs',
 					'type' => 'tabs',
 					'tabs' => $tabs,
 				]

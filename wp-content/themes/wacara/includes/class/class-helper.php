@@ -2,7 +2,7 @@
 /**
  * Put all helpful functions that you may use for multiple times
  *
- * @author Rendy
+ * @author  Rendy
  * @package Wacara
  */
 
@@ -202,6 +202,22 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 */
 		public static function array_val( array $array, $key ) {
 			return ! empty( $array[ $key ] ) ? $array[ $key ] : false;
+		}
+
+		/**
+		 * Get country list.
+		 *
+		 * @param bool $use_blank Whether include empty lists or not.
+		 *
+		 * @return array
+		 */
+		public static function get_list_country( $use_blank = false ) {
+			$countries = include TEMP_PATH . '/i18n/country.php';
+			if ( $use_blank ) {
+				$countries = array_merge( [ '' => __( 'Select country', 'wacara' ) ], $countries );
+			}
+
+			return $countries;
 		}
 	}
 }
