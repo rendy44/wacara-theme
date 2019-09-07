@@ -115,6 +115,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'    => 'select',
 								'options' => Helper::get_list_of_locations(),
 							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'description',
+								'type' => 'textarea_small',
+								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
+							],
 						],
 					],
 				],
