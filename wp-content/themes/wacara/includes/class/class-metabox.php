@@ -93,6 +93,14 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'default' => 1,
 							],
 							[
+								'name'       => __( 'Time end', 'wacara' ),
+								'id'         => $this->meta_prefix . 'time_end',
+								'type'       => 'text_time',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'single_day',
+								],
+							],
+							[
 								'name'       => __( 'Date end', 'wacara' ),
 								'id'         => $this->meta_prefix . 'date_end',
 								'type'       => 'text_datetime_timestamp',
