@@ -46,7 +46,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 */
 		private function __construct() {
 			add_action( 'sk_header_content', [ $this, 'header_open_tag_callback' ], 10 );
-//			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
+			// add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
 			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
 			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
 		}

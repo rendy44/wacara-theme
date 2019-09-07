@@ -23,7 +23,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 * @see   Walker_Nav_Menu::start_lvl()
 		 *
 		 * @since WP 3.0.0
-		 *
 		 */
 		public function start_lvl( &$output, $depth = 0, $args = [] ) {
 			if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
@@ -44,7 +43,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 			 * @param int      $depth   Depth of menu item. Used for padding.
 			 *
 			 * @since WP 4.8.0
-			 *
 			 */
 			$class_names = join( ' ', apply_filters( 'nav_menu_submenu_css_class', $classes, $args, $depth ) );
 			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
@@ -79,7 +77,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @since WP 3.0.0
 		 * @since WP 4.4.0 The {@see 'nav_menu_item_args'} filter was added.
-		 *
 		 */
 		public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
 			if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
@@ -138,10 +135,9 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 			 *
 			 * @since WP 3.0.1
 			 * @since WP 4.1.0 The `$depth` parameter was added.
-			 *
 			 */
-			$id     = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
-			$id     = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+			$id      = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
+			$id      = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 			$output .= $indent . '<li ' . $class_names . '>';
 			// initialize array for holding the $atts for the link item.
 			$atts           = [];
@@ -172,7 +168,7 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 			$attributes = '';
 			foreach ( $atts as $attr => $value ) {
 				if ( ! empty( $value ) ) {
-					$value      = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+					$value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
 					$attributes .= ' ' . $attr . '="' . $value . '"';
 				}
 			}
@@ -216,7 +212,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 			 * @param int      $depth Depth of menu item. Used for padding.
 			 *
 			 * @since WP 4.4.0
-			 *
 			 */
 			$title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
 			/**
@@ -269,7 +264,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 * @since WP 2.5.0
 		 *
 		 * @see   Walker::start_lvl()
-		 *
 		 */
 		public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
 			if ( ! $element ) {
@@ -354,7 +348,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return array  $classes         a maybe modified array of classnames.
 		 * @since 4.0.0
-		 *
 		 */
 		private function separate_linkmods_and_icons_from_classes( $classes, &$linkmod_classes, &$icon_classes, $depth ) {
 			// Loop through $classes array to find linkmod or icon classes.
@@ -392,7 +385,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return string                empty for default, a linkmod type string otherwise.
 		 * @since 4.0.0
-		 *
 		 */
 		private function get_linkmod_type( $linkmod_classes = [] ) {
 			$linkmod_type = '';
@@ -424,7 +416,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return array                 maybe updated array of attributes for item.
 		 * @since 4.0.0
-		 *
 		 */
 		private function update_atts_for_linkmod_type( $atts = [], $linkmod_classes = [] ) {
 			if ( ! empty( $linkmod_classes ) ) {
@@ -459,7 +450,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return string      the string wrapped in a span with the class.
 		 * @since 4.0.0
-		 *
 		 */
 		private function wrap_for_screen_reader( $text = '' ) {
 			if ( $text ) {
@@ -477,7 +467,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return string              a string with the openign tag for the element with attribibutes added.
 		 * @since 4.0.0
-		 *
 		 */
 		private function linkmod_element_open( $linkmod_type, $attributes = '' ) {
 			$output = '';
@@ -502,7 +491,6 @@ if ( ! class_exists( 'MaNavWalker' ) ) {
 		 *
 		 * @return string              a string with the closing tag for this linkmod type.
 		 * @since 4.0.0
-		 *
 		 */
 		private function linkmod_element_close( $linkmod_type ) {
 			$output = '';
