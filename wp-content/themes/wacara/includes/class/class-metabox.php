@@ -181,6 +181,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name' => __( 'Address', 'wacara' ),
 								'id'   => $this->meta_prefix . 'address',
 								'type' => 'textarea_small',
+								'desc' => __( 'Only short address, without city nor province/state name', 'wacara' ),
+							],
+							[
+								'name' => __( 'Postal code', 'wacara' ),
+								'id'   => $this->meta_prefix . 'postal',
+								'type' => 'text_small',
 							],
 						],
 					],
