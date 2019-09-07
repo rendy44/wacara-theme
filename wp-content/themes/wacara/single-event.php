@@ -28,27 +28,27 @@ while ( have_posts() ) {
 		'date_start' => Helper::convert_date( $date_start, true ),
 		'excerpt'    => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
 	];
-	echo Template::render( 'front/masthead', $masthead_args ); // phpcs:ignore
+	echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 
 	// Render about section.
 	$about_args = [];
-//	echo Template::render( 'front/about', $about_args ); // phpcs:ignore
+	echo Template::render( 'event/about', $about_args ); // phpcs:ignore
 
 	// Render speakers section.
 	$speakers_args = [];
-//	echo Template::render( 'front/speakers', $speakers_args ); // phpcs:ignore
+//	echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
 
 	// Render venue section.
 	$venue_args = [];
-//	echo Template::render( 'front/venue', $venue_args ); // phpcs:ignore
+//	echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
 
 	// Render schedule section.
 	$schedule_args = [];
-//	echo Template::render( 'front/schedule', $schedule_args ); // phpcs:ignore
+//	echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
 
 	// Render pricing section.
 	$pricing_args = [];
-//	echo Template::render( 'front/pricing', $pricing_args ); // phpcs:ignore
+//	echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
 
 }
 
