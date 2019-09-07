@@ -6,7 +6,6 @@
  * @package Wacara
  */
 
-use Skeleton\Helper;
 use Skeleton\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {

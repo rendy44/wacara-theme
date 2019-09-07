@@ -46,7 +46,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		private $front_js = [];
 
 		/**
-		 * variable for mapping all css in admin
+		 * Variable for mapping all css in admin
 		 *
 		 * @var array
 		 */

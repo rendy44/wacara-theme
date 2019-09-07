@@ -170,12 +170,6 @@ nav.navbar.scrolled:not(.opened) {
   }
 }
 
-@media (min-width: 992px) {
-  .masthead .countdown {
-    width: 50%;
-  }
-}
-
 .masthead .countdown .time {
   width: 25%;
 }
@@ -191,7 +185,6 @@ nav.navbar.scrolled:not(.opened) {
 
 .masthead .countdown .time span.value {
   color: #9f83c1;
-  display: block;
   font-size: 2.5rem;
   background: #9f83c1;
   background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
@@ -199,6 +192,10 @@ nav.navbar.scrolled:not(.opened) {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.masthead .countdown .time span:not(.value) {
+  display: block;
 }
 
 section {

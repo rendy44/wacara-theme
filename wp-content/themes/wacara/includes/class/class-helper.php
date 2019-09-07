@@ -255,5 +255,50 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Split title into theme format
+		 *
+		 * @param string $original_title original title that will be split.
+		 *
+		 * @return string
+		 */
+		public static function split_title( $original_title ) {
+			$title_array     = explode( ' ', $original_title );
+			$number_array    = count( $title_array );
+			$formatted_title = '';
+			$split_number    = 0;
+			if ( $number_array > 2 ) {
+				$split_number = $number_array - 2;
+			}
+			$num_arr = 0;
+			foreach ( $title_array as $item ) {
+				if ( $split_number === $num_arr ) {
+					$formatted_title .= '<span>';
+				}
+				$formatted_title .= $item . ' ';
+				if ( $number_array === $num_arr ) {
+					$formatted_title .= '</span>';
+				}
+				$num_arr ++;
+			}
+
+			return $formatted_title;
+		}
+
+		/**
+		 * Format timestamp into readable date;
+		 *
+		 * @param int  $timestamp    unformatted timestamp.
+		 * @param bool $include_time whether include time in result or not.
+		 *
+		 * @return false|string
+		 */
+		public static function convert_date( $timestamp, $include_time = false ) {
+			$date_format = get_option( 'date_format' );
+			$time_format = get_option( 'time_format' );
+
+			return date( $date_format . ( $include_time ? ' ' . $time_format : '' ), $timestamp );
+		}
 	}
 }
