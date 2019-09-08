@@ -317,11 +317,12 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		/**
 		 * Get full location info
 		 *
-		 * @param string $location_id location id.
+		 * @param string $location_id  location id.
+		 * @param bool   $include_name whether include location name or not.
 		 *
 		 * @return string
 		 */
-		public static function get_location_paragraph( $location_id ) {
+		public static function get_location_paragraph( $location_id, $include_name = true ) {
 			$name         = self::get_post_meta( 'name', $location_id );
 			$address      = self::get_post_meta( 'address', $location_id );
 			$city         = self::get_post_meta( 'city', $location_id );
@@ -330,7 +331,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			$country_name = self::translate_country_code( $country_code );
 			$postal       = self::get_post_meta( 'postal', $location_id );
 
-			return $name . ', ' . $address . ', ' . $city . ', ' . $province . ' ' . $postal . ' ' . $country_name;
+			return ( $include_name ? $name . ', ' : '' ) . $address . ', ' . $city . ', ' . $province . ' ' . $postal . ' ' . $country_name;
 		}
 
 		/**

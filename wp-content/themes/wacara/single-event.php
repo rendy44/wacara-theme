@@ -43,8 +43,12 @@ while ( have_posts() ) {
 //	echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
 
 	// Render venue section.
-	$venue_args = [];
-//	echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
+	$venue_args = [
+		'sliders'              => Helper::get_post_meta( 'photo', $location ),
+		'location_name'        => Helper::get_post_meta( 'name', $location ),
+		'location_description' => Helper::get_post_meta( 'description', $location ),
+	];
+	echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
 
 	// Render schedule section.
 	$schedule_args = [];
