@@ -38,9 +38,22 @@ while ( have_posts() ) {
 	];
 	echo Template::render( 'event/about', $about_args ); // phpcs:ignore
 
+	$speakers_arr = [];
+	$speakers     = Helper::get_post_meta( 'speakers' );
+	foreach ( $speakers as $speaker ) {
+		$speakers_arr[] = [
+			'image'    => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
+			'name'     => get_the_title( $speaker ),
+			'position' => Helper::get_post_meta( 'position', $speaker ),
+			'facebook' => Helper::get_post_meta( 'facebook', $speaker ),
+			'twitter'  => Helper::get_post_meta( 'twitter', $speaker ),
+		];
+	}
 	// Render speakers section.
-	$speakers_args = [];
-//	echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
+	$speakers_args = [
+		'speakers' => $speakers_arr,
+	];
+	echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
 
 	// Render venue section.
 	$venue_args = [
@@ -52,11 +65,11 @@ while ( have_posts() ) {
 
 	// Render schedule section.
 	$schedule_args = [];
-//	echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
+	echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
 
 	// Render pricing section.
 	$pricing_args = [];
-//	echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
+	echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
 
 }
 

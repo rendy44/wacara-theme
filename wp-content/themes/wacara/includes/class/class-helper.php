@@ -239,6 +239,24 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		}
 
 		/**
+		 * Get speaker list.
+		 *
+		 * @return array
+		 */
+		public static function get_list_of_speakers() {
+			$cache_key = TEMP_PREFIX . 'speakers_cache';
+			$speakers  = wp_cache_get( $cache_key );
+			if ( false === $speakers ) {
+				global $wpdb;
+				$speakers_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'speaker' ORDER BY ID DESC";
+				$speakers       = $wpdb->get_results( $speakers_query, OBJECT_K ); // phpcs:ignore
+				wp_cache_set( $cache_key, $speakers );
+			}
+
+			return self::convert_wpdb_into_array( $speakers );
+		}
+
+		/**
 		 * Convert data from wpdb into readable array for cmb2.
 		 *
 		 * @param array $data original array of object data.

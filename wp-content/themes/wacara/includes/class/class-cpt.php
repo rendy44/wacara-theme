@@ -47,6 +47,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			add_action( 'init', [ $this, 'register_event_post_type_callback' ] );
 			// Register location post type.
 			add_action( 'init', [ $this, 'register_location_post_type_callback' ] );
+			// Register speaker post type.
+			add_action( 'init', [ $this, 'register_speaker_post_type_callback' ] );
 		}
 
 		/**
@@ -129,6 +131,47 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			];
 
 			register_post_type( 'location', $args );
+		}
+
+		/**
+		 * Callback for registering speaker post type.
+		 */
+		public function register_speaker_post_type_callback() {
+			$labels = [
+				'name'               => _x( 'Speakers', 'post type general name', 'your-plugin-textdomain' ),
+				'singular_name'      => _x( 'Speaker', 'post type singular name', 'your-plugin-textdomain' ),
+				'menu_name'          => _x( 'Speakers', 'admin menu', 'your-plugin-textdomain' ),
+				'name_admin_bar'     => _x( 'Speaker', 'add new on admin bar', 'your-plugin-textdomain' ),
+				'add_new'            => _x( 'Add New', 'speaker', 'your-plugin-textdomain' ),
+				'add_new_item'       => __( 'Add New Speaker', 'your-plugin-textdomain' ),
+				'new_item'           => __( 'New Speaker', 'your-plugin-textdomain' ),
+				'edit_item'          => __( 'Edit Speaker', 'your-plugin-textdomain' ),
+				'view_item'          => __( 'View Speaker', 'your-plugin-textdomain' ),
+				'all_items'          => __( 'All Speakers', 'your-plugin-textdomain' ),
+				'search_items'       => __( 'Search Speakers', 'your-plugin-textdomain' ),
+				'parent_item_colon'  => __( 'Parent Speakers:', 'your-plugin-textdomain' ),
+				'not_found'          => __( 'No speakers found.', 'your-plugin-textdomain' ),
+				'not_found_in_trash' => __( 'No speakers found in Trash.', 'your-plugin-textdomain' ),
+			];
+
+			$args = [
+				'labels'             => $labels,
+				'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => [ 'slug' => 'speaker' ],
+				'capability_type'    => 'post',
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'menu_position'      => 7,
+				'supports'           => [ 'title', 'thumbnail' ],
+				'menu_icon'          => 'dashicons-businessperson',
+			];
+
+			register_post_type( 'speaker', $args );
 		}
 	}
 }

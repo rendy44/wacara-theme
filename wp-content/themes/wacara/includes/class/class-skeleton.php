@@ -74,6 +74,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'metabox',
 				'cpt',
 				'cmb2-conditionals',
+				'cmb2-hooks',
 			];
 		}
 
@@ -81,7 +82,11 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 * Map all dependency libraries that`s required by our theme
 		 */
 		private function map_libraries() {
-			$this->libraries = [ 'cmb2/init', 'cmb2-tabs/plugin' ];
+			$this->libraries = [
+				'cmb2/init',
+				'cmb2-tabs/plugin',
+				'cmb2-select2/cmb-field-select2',
+			];
 		}
 
 		/**

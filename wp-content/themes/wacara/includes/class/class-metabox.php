@@ -57,6 +57,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
 			// Add location detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
+			// Add speaker detail metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
 		}
 
 		/**
@@ -108,7 +110,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -123,6 +125,18 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'description',
 								'type' => 'textarea_small',
 								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_detail_info',
+						'title'  => __( 'Detail', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Speakers', 'wacara' ),
+								'id'      => $this->meta_prefix . 'speakers',
+								'type'    => 'pw_multiselect',
+								'options' => Helper::get_list_of_speakers(),
 							],
 						],
 					],
@@ -206,10 +220,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
@@ -230,6 +244,107 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				]
 			);
 		}
+
+		/**
+		 * Metabox configuration for detail of speaker.
+		 */
+		public function detail_speaker_metabox_callback() {
+			$args = [
+				'id'           => 'detail_speaker_metabox',
+				'title'        => __( 'Detail', 'wacara' ),
+				'object_types' => [ 'speaker' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'information_speaker',
+						'title'  => __( 'Detail', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Position', 'wacara' ),
+								'id'   => $this->meta_prefix . 'position',
+								'type' => 'text',
+								'desc' => __( 'Ex: CEO at random company', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'links_speaker',
+						'title'  => __( 'Social Networks', 'wacara' ),
+						'fields' => [
+							[
+								'name'      => __( 'Website URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'website',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+							[
+								'name'      => __( 'Facebook URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'facebook',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+							[
+								'name'      => __( 'Instagram URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'instagram',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+							[
+								'name'      => __( 'Youtube URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'youtube',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+							[
+								'name'      => __( 'Twitter URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'twitter',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+							[
+								'name'      => __( 'Linkedin URL', 'wacara' ),
+								'id'        => $this->meta_prefix . 'linkedin',
+								'type'      => 'text_url',
+								'protocols' => [
+									'http',
+									'https',
+								],
+							],
+						],
+					],
+				],
+			];
+			$cmb2->add_field(
+				[
+					'id'   => 'information_speaker_tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
+				]
+			);
+		}
+
 	}
 }
 
