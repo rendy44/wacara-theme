@@ -30,10 +30,31 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <h5 class="card-title mb-0"><?php echo esc_html( $speaker['name'] ); ?></h5>
                             <div class="card-text"><?php echo esc_html( $speaker['position'] ); ?></div>
                             <div class="card-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
+								<?php
+								if ( ! empty( $speaker['website'] ) ) {
+									echo '<a href="' . $speaker['website'] . '" target="_blank"><i class="fas fa-globe"></i></a>';
+								}
+								if ( ! empty( $speaker['facebook'] ) ) {
+									echo '<a href="' . $speaker['facebook'] . '" target="_blank"><i class="fab fa-facebook"></i></a>';
+								}
+								if ( ! empty( $speaker['linkedin'] ) ) {
+									echo '<a href="' . $speaker['linkedin'] . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
+								}
+								if ( ! empty( $speaker['twitter'] ) ) {
+									echo '<a href="' . $speaker['twitter'] . '" target="_blank"><i class="fab fa-twitter"></i></a>';
+								}
+								if ( ! empty( $speaker['instagram'] ) ) {
+									echo '<a href="' . $speaker['instagram'] . '" target="_blank"><i class="fab fa-instagram"></i></a>';
+								}
+								if ( ! empty( $speaker['youtube'] ) ) {
+									echo '<a href="' . $speaker['youtube'] . '" target="_blank"><i class="fab fa-youtube"></i></a>';
+								}
+								?>
+<!--                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>-->
+<!--                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>-->
+<!--                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>-->
+<!--                                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>-->
                             </div>
                         </div>
                     </div>

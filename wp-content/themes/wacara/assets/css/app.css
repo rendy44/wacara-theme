@@ -340,6 +340,12 @@ section h2.section-heading:before {
   background-color: rgba(33, 23, 46, 0.7);
 }
 
+.speakers .container .row .speaker-item .card img.card-img-top {
+  height: 250px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
 .speakers .container .row .speaker-item .card .card-body {
   position: absolute;
   left: 0;
@@ -374,7 +380,7 @@ section h2.section-heading:before {
 }
 
 .speakers .container .row .speaker-item .card .card-body .card-social a:hover {
-  color: rgba(95, 66, 131, 0.5);
+  color: rgba(225, 216, 236, 0.5);
 }
 
 .venue .container .row .col-map {

@@ -42,11 +42,15 @@ while ( have_posts() ) {
 	$speakers     = Helper::get_post_meta( 'speakers' );
 	foreach ( $speakers as $speaker ) {
 		$speakers_arr[] = [
-			'image'    => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
-			'name'     => get_the_title( $speaker ),
-			'position' => Helper::get_post_meta( 'position', $speaker ),
-			'facebook' => Helper::get_post_meta( 'facebook', $speaker ),
-			'twitter'  => Helper::get_post_meta( 'twitter', $speaker ),
+			'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
+			'name'      => get_the_title( $speaker ),
+			'position'  => Helper::get_post_meta( 'position', $speaker ),
+			'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
+			'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
+			'website'   => Helper::get_post_meta( 'website', $speaker ),
+			'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
+			'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
+			'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
 		];
 	}
 	// Render speakers section.
