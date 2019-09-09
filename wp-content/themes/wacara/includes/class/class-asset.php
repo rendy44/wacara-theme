@@ -169,6 +169,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.js',
 					'depth' => [ 'jquery', 'cmb2-scripts' ],
 				],
+				'app'               => [
+					'url' => TEMP_URI . '/assets/admin/js/app.js',
+				],
 			];
 
 			$this->admin_css = [

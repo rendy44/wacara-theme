@@ -59,6 +59,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
 			// Add speaker detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
+			// Add price detail metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'detail_price_metabox_callback' ] );
 		}
 
 		/**
@@ -345,6 +347,73 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			);
 		}
 
+		/**
+		 * Metabox configuration for detail of price.
+		 */
+		public function detail_price_metabox_callback() {
+			$args = [
+				'id'           => 'detail_price_metabox',
+				'title'        => __( 'Detail', 'wacara' ),
+				'object_types' => [ 'price' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'information_price',
+						'title'  => __( 'Detail', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Currency', 'wacara' ),
+								'id'      => $this->meta_prefix . 'currency',
+								'type'    => 'select',
+								'options' => [ 'USD', 'AUD', 'SGD', 'IDR', 'MYR', 'JPY', 'EUR', 'GBP' ],
+							],
+							[
+								'name'    => __( 'Price' ),
+								'id'      => $this->meta_prefix . 'price',
+								'type'    => 'text',
+								'classes' => 'number-only-field',
+								'desc'    => __( 'Only absolute number is allowed', 'wacara' ),
+								'default' => 00,
+							],
+						],
+					],
+					[
+						'id'     => 'features_price',
+						'title'  => __( 'Features', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Pros', 'wacara' ),
+								'id'      => $this->meta_prefix . 'pros',
+								'type'    => 'text',
+								'classes' => 'inputosaurus-field',
+								'desc'    => __( 'What user will get, use coma to separate the values', 'wacara' ),
+							],
+							[
+								'name'    => __( 'Cons', 'wacara' ),
+								'id'      => $this->meta_prefix . 'cons',
+								'type'    => 'text',
+								'classes' => 'inputosaurus-field',
+								'desc'    => __( 'What user will not get, use coma to separate the values', 'wacara' ),
+							],
+						],
+					],
+				],
+			];
+			$cmb2->add_field(
+				[
+					'id'   => 'information_price_tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
+				]
+			);
+		}
 	}
 }
 
