@@ -96,6 +96,17 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		}
 
 		/**
+		 * Load css file
+		 *
+		 * @param string $name    css name.
+		 * @param array  $obj_css css object.
+		 */
+		private function load_css( $name, array $obj_css ) {
+			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : [];
+			wp_enqueue_style( $name, $obj_css['url'], $depth, $this->version );
+		}
+
+		/**
 		 * Map all assets that will be loaded in front end
 		 */
 		private function map_front_asset() {
@@ -151,8 +162,19 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		private function map_admin_asset() {
 			$this->admin_js = [
 				'cmb2_conditionals' => [
-					'url' => TEMP_URI . '/assets/admin/js/cmb2-conditionals.js',
-					'dep' => [ 'jquery', 'cmb2-scripts' ],
+					'url'   => TEMP_URI . '/assets/admin/js/cmb2-conditionals.js',
+					'depth' => [ 'jquery', 'cmb2-scripts' ],
+				],
+				'inputosaurus'      => [
+					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.js',
+					'depth' => [ 'jquery', 'cmb2-scripts' ],
+				],
+			];
+
+			$this->admin_css = [
+				'inputosaurus' => [
+					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.css',
+					'depth' => [ 'cmb2-styles' ],
 				],
 			];
 		}
@@ -188,6 +210,11 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 			// Load all js files.
 			foreach ( $this->admin_js as $js_name => $js_obj ) {
 				$this->load_js( $js_name, $js_obj );
+			}
+
+			// Load all css files.
+			foreach ( $this->admin_css as $css_name => $css_obj ) {
+				$this->load_css( $css_name, $css_obj );
 			}
 		}
 	}

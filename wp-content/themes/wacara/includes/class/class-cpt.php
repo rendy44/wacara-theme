@@ -49,6 +49,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			add_action( 'init', [ $this, 'register_location_post_type_callback' ] );
 			// Register speaker post type.
 			add_action( 'init', [ $this, 'register_speaker_post_type_callback' ] );
+			// Register price post type.
+			add_action( 'init', [ $this, 'register_price_post_type_callback' ] );
 		}
 
 		/**
@@ -74,7 +76,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 
 			$args = [
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'wacara' ),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
@@ -115,7 +116,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 
 			$args = [
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'wacara' ),
 				'public'             => true,
 				'publicly_queryable' => false,
 				'show_ui'            => true,
@@ -156,7 +156,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 
 			$args = [
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'wacara' ),
 				'public'             => true,
 				'publicly_queryable' => false,
 				'show_ui'            => true,
@@ -172,6 +171,46 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			];
 
 			register_post_type( 'speaker', $args );
+		}
+
+		/**
+		 * Callback for registering price post type.
+		 */
+		public function register_price_post_type_callback() {
+			$labels = [
+				'name'               => _x( 'Prices', 'post type general name', 'wacara' ),
+				'singular_name'      => _x( 'Price', 'post type singular name', 'wacara' ),
+				'menu_name'          => _x( 'Prices', 'admin menu', 'wacara' ),
+				'name_admin_bar'     => _x( 'Price', 'add new on admin bar', 'wacara' ),
+				'add_new'            => _x( 'Add New', 'price', 'wacara' ),
+				'add_new_item'       => __( 'Add New Price', 'wacara' ),
+				'new_item'           => __( 'New Price', 'wacara' ),
+				'edit_item'          => __( 'Edit Price', 'wacara' ),
+				'view_item'          => __( 'View Price', 'wacara' ),
+				'all_items'          => __( 'All Prices', 'wacara' ),
+				'search_items'       => __( 'Search Prices', 'wacara' ),
+				'parent_item_colon'  => __( 'Parent Prices:', 'wacara' ),
+				'not_found'          => __( 'No prices found.', 'wacara' ),
+				'not_found_in_trash' => __( 'No prices found in Trash.', 'wacara' ),
+			];
+
+			$args = [
+				'labels'             => $labels,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => [ 'slug' => 'price' ],
+				'capability_type'    => 'post',
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'menu_position'      => 8,
+				'supports'           => [ 'title' ],
+				'menu_icon'          => 'dashicons-products',
+			];
+
+			register_post_type( 'price', $args );
 		}
 	}
 }

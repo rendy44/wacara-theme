@@ -80,7 +80,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				'tabs'   => [
 					[
 						'id'     => 'event_basic_info',
-						'title'  => __( 'Basic Information', 'wacara' ),
+						'title'  => _x( 'Basic', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
 								'name'        => __( 'Date start', 'wacara' ),
