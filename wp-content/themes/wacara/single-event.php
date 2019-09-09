@@ -71,8 +71,24 @@ while ( have_posts() ) {
 	$schedule_args = [];
 	echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
 
+	$pricing_arr = [];
+	$pricing     = Helper::get_post_meta( 'pricing' );
+	if ( ! empty( $pricing ) ) {
+		foreach ( $pricing as $price ) {
+			$pricing_arr[] = [
+				'id'       => $price,
+				'name'     => get_the_title( $price ),
+				'price'    => Helper::get_post_meta( 'price', $price ),
+				'currency' => Helper::get_post_meta( 'currency', $price ),
+				'pros'     => Helper::get_post_meta( 'pros', $price ),
+				'cons'     => Helper::get_post_meta( 'cons', $price ),
+			];
+		}
+	}
 	// Render pricing section.
-	$pricing_args = [];
+	$pricing_args = [
+		'price_lists' => $pricing_arr,
+	];
 	echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
 
 }

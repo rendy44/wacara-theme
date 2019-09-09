@@ -257,6 +257,24 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		}
 
 		/**
+		 * Get price list.
+		 *
+		 * @return array
+		 */
+		public static function get_list_of_prices() {
+			$cache_key = TEMP_PREFIX . 'prices_cache';
+			$prices    = wp_cache_get( $cache_key );
+			if ( false === $prices ) {
+				global $wpdb;
+				$prices_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'price' ORDER BY ID DESC";
+				$prices       = $wpdb->get_results( $prices_query, OBJECT_K ); // phpcs:ignore
+				wp_cache_set( $cache_key, $prices );
+			}
+
+			return self::convert_wpdb_into_array( $prices );
+		}
+
+		/**
 		 * Convert data from wpdb into readable array for cmb2.
 		 *
 		 * @param array $data original array of object data.
