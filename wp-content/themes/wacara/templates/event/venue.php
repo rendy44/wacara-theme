@@ -29,12 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3 data-aos="fade-left" data-aos-delay="800"><?php echo esc_html( $location_name ); ?></h3>
 				<p data-aos="fade-left" data-aos-delay="1000"><?php echo esc_html( $location_description ); ?></p>
 				<div class="carousel slide" id="gallery" data-ride="carousel" data-aos="fade-left" data-aos-delay="1200">
-					<!-- Indicators-->
-					<!--                    <ul class="carousel-indicators">-->
-					<!--                        <li class="active" data-target="#gallery" data-slide-to="0"></li>-->
-					<!--                        <li data-target="#gallery" data-slide-to="1"></li>-->
-					<!--                    </ul>-->
-					<!-- The slideshow-->
 					<div class="carousel-inner">
 						<?php
 						$slide_num = 0;

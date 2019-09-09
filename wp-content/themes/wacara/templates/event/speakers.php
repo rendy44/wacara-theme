@@ -14,9 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto text-center mb-3">
-				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200">Meet The Speakers</h2>
-				<p class="lead" data-aos="fade-right" data-aos-delay="400">These are amazing people who will share their
-					thoughts to us</p>
+				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html__( 'Meet The Speakers', 'wacara' ); ?></h2>
+				<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html__( 'These are amazing people who will share their thoughts to us', 'wacara' ); ?></p>
 			</div>
 		</div>
 		<div class="row justify-content-center">
@@ -50,11 +49,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo '<a href="' . $speaker['youtube'] . '" target="_blank"><i class="fab fa-youtube"></i></a>';
 								}
 								?>
-<!--                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>-->
-<!--                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
-<!--                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>-->
-<!--                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>-->
-<!--                                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>-->
+								<!--                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>-->
+								<!--                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
+								<!--                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>-->
+								<!--                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>-->
+								<!--                                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>-->
 							</div>
 						</div>
 					</div>

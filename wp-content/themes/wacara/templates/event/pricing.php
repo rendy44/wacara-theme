@@ -51,9 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									}
 									?>
 								</ul>
-								<button class="btn btn-block btn-primary btn-lg" data-price="<?php echo esc_attr( $list['id'] ); ?>">
-									Book Now
-								</button>
+								<button class="btn btn-block btn-primary btn-lg" data-price="<?php echo esc_attr( $list['id'] ); ?>">Book Now</button>
 							</div>
 						</div>
 					</div>
