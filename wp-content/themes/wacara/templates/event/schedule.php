@@ -15,8 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="row">
 			<div class="col-lg-8 mx-auto text-center mb-3">
 				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200">Event Rundown</h2>
-				<p class="lead" data-aos="fade-right" data-aos-delay="400">The details about schedule of the event from
-					the start until the end</p>
+				<p class="lead" data-aos="fade-right" data-aos-delay="400">The details about schedule of the event from the start until the end</p>
 			</div>
 		</div>
 		<div class="row justify-content-center">
