@@ -55,12 +55,67 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		private function __construct() {
 			// Add event detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
+			// Add event schedule metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'schedule_event_metabox_callback' ] );
 			// Add location detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
 			// Add speaker detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
 			// Add price detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_price_metabox_callback' ] );
+		}
+
+		/**
+		 * Metabox configuration for event schedule
+		 */
+		public function schedule_event_metabox_callback() {
+			$args           = [
+				'id'           => 'schedule_event_metabox',
+				'title'        => __( 'Schedule', 'wacara' ),
+				'object_types' => [ 'event' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2           = new_cmb2_box( $args );
+			$group_field_id = $cmb2->add_field(
+				[
+					'id'         => $this->meta_prefix . 'schedules',
+					'type'       => 'group',
+					'repeatable' => true,
+					'options'    => [
+						'group_title'   => __( 'Schedule {#}', 'wacara' ),
+						'add_button'    => __( 'Add schedule', 'wacara' ),
+						'remove_button' => __( 'Remove schedule', 'wacara' ),
+						'sortable'      => true,
+					],
+				]
+			);
+			$cmb2->add_group_field(
+				$group_field_id,
+				[
+					'name' => __( 'Period', 'wacara' ),
+					'id'   => 'period',
+					'type' => 'text',
+					'desc' => __( 'You can write year, date, clock, nor anything else', 'wacara' ),
+				]
+			);
+			$cmb2->add_group_field(
+				$group_field_id,
+				[
+					'name' => _x( 'Title', 'Title of schedule event', 'wacara' ),
+					'id'   => 'title',
+					'type' => 'text',
+				]
+			);
+			$cmb2->add_group_field(
+				$group_field_id,
+				[
+					'name' => _x( 'Content', 'Content of schedule event', 'wacara' ),
+					'id'   => 'content',
+					'type' => 'textarea_small',
+				]
+			);
 		}
 
 		/**
@@ -112,7 +167,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -228,10 +283,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[

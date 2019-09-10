@@ -179,6 +179,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.css',
 					'depth' => [ 'cmb2-styles' ],
 				],
+				'app'          => [
+					'url' => TEMP_URI . '/assets/admin/css/app.css',
+				],
 			];
 		}
 

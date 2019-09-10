@@ -68,8 +68,13 @@ while ( have_posts() ) {
 	echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
 
 	// Render schedule section.
-	$schedule_args = [];
-	echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
+	$schedules = Helper::get_post_meta( 'schedules' );
+	if ( ! empty( $schedules ) ) {
+		$schedule_args = [
+			'schedules' => $schedules,
+		];
+		echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
+	}
 
 	$pricing_arr = [];
 	$pricing     = Helper::get_post_meta( 'pricing' );

@@ -158,16 +158,26 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		/**
 		 * Get post meta
 		 *
-		 * @param string      $key          post meta key.
-		 * @param bool|string $post_id      post id.
-		 * @param bool        $single_value whether the meta is single or array.
+		 * @param string|array $key          post meta key.
+		 * @param bool|string  $post_id      post id.
+		 * @param bool         $single_value whether the meta is single or array.
+		 * @param bool         $with_prefix  whether format field with auto prefix or not.
 		 *
-		 * @return mixed
+		 * @return array|bool|mixed
 		 */
-		public static function get_post_meta( $key, $post_id = false, $single_value = true ) {
+		public static function get_post_meta( $key, $post_id = false, $single_value = true, $with_prefix = true ) {
+			$result  = false;
 			$post_id = ! $post_id ? get_the_ID() : $post_id;
+			$prefix  = $with_prefix ? self::$meta_prefix : '';
+			if ( is_array( $key ) ) {
+				foreach ( $key as $single_key ) {
+					$result[] = get_post_meta( $post_id, $prefix . $single_key, $single_value );
+				}
+			} else {
+				$result = get_post_meta( $post_id, $prefix . $key, $single_value );
+			}
 
-			return get_post_meta( $post_id, self::$meta_prefix . $key, $single_value );
+			return $result;
 		}
 
 		/**
