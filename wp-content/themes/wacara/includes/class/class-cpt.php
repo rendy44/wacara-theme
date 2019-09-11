@@ -51,6 +51,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			add_action( 'init', [ $this, 'register_speaker_post_type_callback' ] );
 			// Register price post type.
 			add_action( 'init', [ $this, 'register_price_post_type_callback' ] );
+			// Register participant post type.
+			add_action( 'init', [ $this, 'register_participant_post_type_callback' ] );
 		}
 
 		/**
@@ -85,7 +87,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'capability_type'    => 'post',
 				'has_archive'        => false,
 				'hierarchical'       => false,
-				'menu_position'      => 5,
 				'supports'           => [ 'title' ],
 				'menu_icon'          => 'dashicons-calendar-alt',
 			];
@@ -125,7 +126,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'capability_type'    => 'post',
 				'has_archive'        => false,
 				'hierarchical'       => false,
-				'menu_position'      => 6,
 				'supports'           => [ 'title' ],
 				'menu_icon'          => 'dashicons-location',
 			];
@@ -165,9 +165,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'capability_type'    => 'post',
 				'has_archive'        => false,
 				'hierarchical'       => false,
-				'menu_position'      => 7,
 				'supports'           => [ 'title', 'thumbnail' ],
-				'menu_icon'          => 'dashicons-businessperson',
+				'menu_icon'          => 'dashicons-megaphone',
 			];
 
 			register_post_type( 'speaker', $args );
@@ -205,12 +204,53 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'capability_type'    => 'post',
 				'has_archive'        => false,
 				'hierarchical'       => false,
-				'menu_position'      => 8,
 				'supports'           => [ 'title' ],
 				'menu_icon'          => 'dashicons-products',
 			];
 
 			register_post_type( 'price', $args );
+		}
+
+		/**
+		 * Callback for registering participant post type.
+		 */
+		public function register_participant_post_type_callback() {
+			$labels = [
+				'name'               => _x( 'Participants', 'post type general name', 'wacara' ),
+				'singular_name'      => _x( 'Participant', 'post type singular name', 'wacara' ),
+				'menu_name'          => _x( 'Participants', 'admin menu', 'wacara' ),
+				'name_admin_bar'     => _x( 'Participant', 'add new on admin bar', 'wacara' ),
+				'add_new'            => _x( 'Add New', 'participant', 'wacara' ),
+				'add_new_item'       => __( 'Add New Participant', 'wacara' ),
+				'new_item'           => __( 'New Participant', 'wacara' ),
+				'edit_item'          => __( 'Edit Participant', 'wacara' ),
+				'view_item'          => __( 'View Participant', 'wacara' ),
+				'all_items'          => __( 'All Participants', 'wacara' ),
+				'search_items'       => __( 'Search Participants', 'wacara' ),
+				'parent_item_colon'  => __( 'Parent Participants:', 'wacara' ),
+				'not_found'          => __( 'No participants found.', 'wacara' ),
+				'not_found_in_trash' => __( 'No participants found in Trash.', 'wacara' ),
+			];
+
+			$args = [
+				'labels'             => $labels,
+				'public'             => false,
+				'publicly_queryable' => false,
+				'show_ui'            => false,
+				'show_in_menu'       => false,
+				'query_var'          => false,
+				'rewrite'            => [ 'slug' => 'participant' ],
+				'capability_type'    => 'post',
+				'capabilities'       => [
+					'create_posts' => 'do_not_allow',
+				],
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'supports'           => [ 'title' ],
+				'menu_icon'          => 'dashicons-businessperson',
+			];
+
+			register_post_type( 'participant', $args );
 		}
 	}
 }

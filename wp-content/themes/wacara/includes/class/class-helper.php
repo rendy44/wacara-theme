@@ -181,6 +181,30 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		}
 
 		/**
+		 * Get serialized value
+		 *
+		 * @param array  $unserialized_data unserialized data to be parsed.
+		 * @param string $key               key name of data.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public static function get_serialized_val( $unserialized_data, $key ) {
+			$result           = '';
+			$temporary_result = [];
+			foreach ( $unserialized_data as $obj ) {
+				if ( $obj['name'] === $key ) {
+					$temporary_result[] = $obj['value'];
+				}
+			}
+			$count_result = count( $temporary_result );
+			if ( $count_result > 0 ) {
+				$result = count( $temporary_result ) > 1 ? $temporary_result : $temporary_result[0];
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Simple $_POST request handler
 		 *
 		 * @param string $key post key.
@@ -433,6 +457,166 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 
 			return $date_start . ' - ' . $end . ' ' . $utc;
 
+		}
+
+		/**
+		 * Check whether the event is available to be used for registration.
+		 *
+		 * @param bool|string $event_id event id, or current event id within loop if not assigned.
+		 *
+		 * @return Result
+		 */
+		public static function is_event_valid( $event_id = false ) {
+			$result   = new Result();
+			$event_id = ! $event_id ? get_the_ID() : $event_id;
+			// Is allowed to register.
+			$allow_register = self::get_post_meta( 'allow_register', $event_id );
+			if ( $allow_register ) {
+				// Is date_start assigned.
+				$date_start = self::get_post_meta( 'date_start', $event_id );
+				if ( $date_start ) {
+					// Is date end or time end assigned.
+					$maybe_single_day = self::get_post_meta( 'single_day', $event_id );
+					$event_end        = $maybe_single_day ? self::get_post_meta( 'time_end', $event_id ) : self::get_post_meta( 'date_end', $event_id );
+					if ( $event_end ) {
+						// Is location assigned.
+						$location = self::get_post_meta( 'location', $event_id );
+						if ( $location ) {
+							$result = self::is_location_valid( $location );
+						} else {
+							$result->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
+						}
+					} else {
+						$result->message = __( 'This event is not completed yet, the event end period has not been assigned yet', 'wacara' );
+					}
+				} else {
+					$result->message = __( 'This event is not completed yet, the starting date has not been assigned yet', 'wacara' );
+				}
+			} else {
+				$result->message = __( 'This event does not allow registration', 'wacara' );
+			}
+
+			return $result;
+		}
+
+
+		/**
+		 * Check whether the location is valid or not.
+		 *
+		 * @param string $location_id location id.
+		 *
+		 * @return Result
+		 */
+		public static function is_location_valid( $location_id ) {
+			$result = new Result();
+			// Is name assigned.
+			$name = self::get_post_meta( 'name', $location_id );
+			if ( $name ) {
+				// Is country assigned.
+				$country = self::get_post_meta( 'country', $location_id );
+				if ( $country ) {
+					// Is province assigned.
+					$province = self::get_post_meta( 'province', $location_id );
+					if ( $province ) {
+						// Is city assigned.
+						$city = self::get_post_meta( 'city', $location_id );
+						if ( $city ) {
+							// Is address assigned.
+							$address = self::get_post_meta( 'address', $location_id );
+							if ( $address ) {
+								// Is postal_code assigned.
+								$postal = self::get_post_meta( 'postal', $location_id );
+								if ( $postal ) {
+									// Is photo assigned.
+									$photo = self::get_post_meta( 'photo', $location_id );
+									if ( $photo ) {
+										// Is description assigned.
+										$description = self::get_post_meta( 'description', $location_id );
+										if ( $description ) {
+											$result->success = true;
+										} else {
+											$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid description', 'wacara' );
+										}
+									} else {
+										$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid photo', 'wacara' );
+									}
+								} else {
+									$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid postal code', 'wacara' );
+								}
+							} else {
+								$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid address', 'wacara' );
+							}
+						} else {
+							$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid city', 'wacara' );
+						}
+					} else {
+						$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid province', 'wacara' );
+					}
+				} else {
+					$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid country', 'wacara' );
+				}
+			} else {
+				$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid name', 'wacara' );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Check whether the pricing is valid or not.
+		 *
+		 * @param string $pricing_id pricing id.
+		 *
+		 * @return Result
+		 */
+		public static function is_pricing_valid( $pricing_id ) {
+			$result = new Result();
+			// Is price assigned.
+			$price = self::get_post_meta( 'price', $pricing_id );
+			if ( $price || 0 === (int) $price ) {
+				// Is currency assigned.
+				$currency = self::get_post_meta( 'currency', $pricing_id );
+				if ( $currency ) {
+					$result->success = true;
+				} else {
+					$result->message = __( 'The pricing is invalid, the currency has not been assigned yet', 'wacara' ) . $currency;
+				}
+			} else {
+				$result->message = __( 'The pricing is invalid, the price amount has not been assigned yet', 'wacara' );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Convert currency code into currency symbol.
+		 *
+		 * @param string $currency_code currency code that will be converted into currency symbol.
+		 *
+		 * @return mixed|void
+		 */
+		public static function get_currency_symbol_by_code( $currency_code ) {
+			// Use USD as default symbol.
+			$currency_symbol = '$';
+			$symbols         = [
+				'USD' => '$',
+				'AUD' => 'AU$',
+				'SGD' => 'SG$',
+				'IDR' => 'Rp',
+				'MYR' => 'RM',
+				'JPY' => '¥',
+				'EUR' => '€',
+				'GBP' => '£',
+			];
+
+			// Filter currency_symbols.
+			$symbols = apply_filters( 'wacara_currency_symbols', $symbols );
+
+			if ( ! empty( $symbols[ $currency_code ] ) ) {
+				$currency_symbol = $symbols[ $currency_code ];
+			}
+
+			return $currency_symbol;
 		}
 	}
 }

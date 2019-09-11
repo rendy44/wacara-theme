@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="card mb-3 mb-md-0 shadow" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( $delay ); ?>">
 							<div class="card-body">
 								<h5 class="card-title text-muted text-uppercase text-center"><?php echo esc_html( $list['name'] ); ?></h5>
-								<h6 class="card-price text-center">$<?php echo esc_html( (int) $list['price'] ); ?>
+								<h6 class="card-price text-center"><?php echo esc_html( $list['symbol'] ) . esc_html( (int) $list['price'] ); ?>
 									<span class="period"></span>
 								</h6>
 								<hr>
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									}
 									?>
 								</ul>
-								<button class="btn btn-block btn-primary btn-lg" data-price="<?php echo esc_attr( $list['id'] ); ?>">Book Now</button>
+								<button class="btn btn-block btn-primary btn-lg btn-do-register" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php echo esc_html__( 'Book Now', 'wacara' ); ?></button>
 							</div>
 						</div>
 					</div>

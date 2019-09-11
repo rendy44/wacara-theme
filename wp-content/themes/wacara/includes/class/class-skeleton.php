@@ -65,6 +65,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 */
 		private function map_classes() {
 			$this->classes = [
+				'result',
 				'template',
 				'asset',
 				'ui',
@@ -75,6 +76,8 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'cpt',
 				'cmb2-conditionals',
 				'cmb2-hooks',
+				'ajax',
+				'participant',
 			];
 		}
 

@@ -38,26 +38,29 @@ while ( have_posts() ) {
 	];
 	echo Template::render( 'event/about', $about_args ); // phpcs:ignore
 
+	// Render speakers section.
 	$speakers_arr = [];
 	$speakers     = Helper::get_post_meta( 'speakers' );
-	foreach ( $speakers as $speaker ) {
-		$speakers_arr[] = [
-			'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
-			'name'      => get_the_title( $speaker ),
-			'position'  => Helper::get_post_meta( 'position', $speaker ),
-			'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
-			'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
-			'website'   => Helper::get_post_meta( 'website', $speaker ),
-			'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
-			'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
-			'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
+	if ( ! empty( $speakers ) ) {
+		foreach ( $speakers as $speaker ) {
+			$speakers_arr[] = [
+				'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
+				'name'      => get_the_title( $speaker ),
+				'position'  => Helper::get_post_meta( 'position', $speaker ),
+				'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
+				'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
+				'website'   => Helper::get_post_meta( 'website', $speaker ),
+				'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
+				'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
+				'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
+			];
+		}
+
+		$speakers_args = [
+			'speakers' => $speakers_arr,
 		];
+		echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
 	}
-	// Render speakers section.
-	$speakers_args = [
-		'speakers' => $speakers_arr,
-	];
-	echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
 
 	// Render venue section.
 	$venue_args = [
@@ -80,11 +83,13 @@ while ( have_posts() ) {
 	$pricing     = Helper::get_post_meta( 'pricing' );
 	if ( ! empty( $pricing ) ) {
 		foreach ( $pricing as $price ) {
+			$currency_code = Helper::get_post_meta( 'currency', $price );
 			$pricing_arr[] = [
 				'id'       => $price,
 				'name'     => get_the_title( $price ),
 				'price'    => Helper::get_post_meta( 'price', $price ),
-				'currency' => Helper::get_post_meta( 'currency', $price ),
+				'currency' => $currency_code,
+				'symbol'   => Helper::get_currency_symbol_by_code( $currency_code ),
 				'pros'     => Helper::get_post_meta( 'pros', $price ),
 				'cons'     => Helper::get_post_meta( 'cons', $price ),
 			];
@@ -93,6 +98,7 @@ while ( have_posts() ) {
 	// Render pricing section.
 	$pricing_args = [
 		'price_lists' => $pricing_arr,
+		'event_id'    => get_the_ID(),
 	];
 	echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
 

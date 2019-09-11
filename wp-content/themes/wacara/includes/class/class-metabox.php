@@ -203,6 +203,19 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							],
 						],
 					],
+					[
+						'id'     => 'event_rule',
+						'title'  => _x( 'Rules', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Allow register', 'wacara' ),
+								'id'      => $this->meta_prefix . 'allow_register',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Allow participant register this event', 'wacara' ),
+								'default' => 1,
+							],
+						],
+					],
 				],
 			];
 			$cmb2->add_field(
@@ -433,7 +446,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name'    => __( 'Currency', 'wacara' ),
 								'id'      => $this->meta_prefix . 'currency',
 								'type'    => 'select',
-								'options' => [ 'USD', 'AUD', 'SGD', 'IDR', 'MYR', 'JPY', 'EUR', 'GBP' ],
+								'options' => [
+									'USD' => 'USD',
+									'AUD' => 'AUD',
+									'SGD' => 'SGD',
+									'IDR' => 'IDR',
+									'MYR' => 'MYR',
+									'JPY' => 'JPY',
+									'EUR' => 'EUR',
+									'GBP' => 'GBP',
+								],
 							],
 							[
 								'name'    => __( 'Price' ),

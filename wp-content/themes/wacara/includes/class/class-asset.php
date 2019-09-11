@@ -79,6 +79,16 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 			$this->version = $theme_object->get( 'Version' );
 			$this->load_front_asset();
 			$this->load_admin_asset();
+
+			add_filter( 'script_loader_tag', [ $this, 'load_as_module' ], 10, 3 );
+		}
+
+		public function load_as_module( $tag, $handle, $src ) {
+			if ( 'custom' === $handle ) {
+				$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
+			}
+
+			return $tag;
 		}
 
 		/**
@@ -136,6 +146,13 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				],
 				'aos'       => [
 					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
+				],
+				'custom'    => [
+					'url'   => TEMP_URI . '/assets/js/custom.js',
+					'vars'  => [
+						'ajax_url' => admin_url( 'admin-ajax.php' ),
+					],
+					'depth' => [ 'jquery' ],
 				],
 				'app'       => [
 					'url'   => TEMP_URI . '/assets/js/app.min.js',
