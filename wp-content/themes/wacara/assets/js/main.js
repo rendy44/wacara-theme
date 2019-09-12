@@ -2,20 +2,31 @@
 
 import Ajax from './class/ajax.js';
 
-class ajaxClass {
+const $ = jQuery;
+
+/**
+ * Instance the class.
+ */
+new class {
+    /**
+     * Class constructor.
+     */
     constructor() {
         this.register_event();
     }
 
+    /**
+     * Event when register button being clicked.
+     */
     register_event() {
         const instance = this;
-        jQuery('.btn-do-register').click(function (e) {
+        $('.btn-do-register').click(function (e) {
             e.preventDefault();
-            const event_id = jQuery(this).data('event'),
-                pricing_id = jQuery(this).data('pricing'),
-                original_caption = jQuery(this).html();
+            const event_id = $(this).data('event'),
+                pricing_id = $(this).data('pricing'),
+                original_caption = $(this).html();
             // Disable the button.
-            jQuery(this).prop('disabled', true).html('Loading...');
+            $(this).prop('disabled', true).html('Loading...');
             // Perform the registration.
             instance.do_register(event_id, pricing_id)
                 .done(function (data) {
@@ -24,7 +35,7 @@ class ajaxClass {
                         location.href = data.callback;
                     } else {
                         // Normalize the button.
-                        jQuery(this).prop('disabled', false).html(original_caption);
+                        $(this).prop('disabled', false).html(original_caption);
                     }
                 })
                 .fail(function (data) {
@@ -32,6 +43,12 @@ class ajaxClass {
         })
     }
 
+    /**
+     * Method to perform registration.
+     * @param event_id
+     * @param pricing_id
+     * @returns {Ajax}
+     */
     do_register(event_id, pricing_id) {
         return new Ajax(true, {
             action: 'register',
@@ -39,7 +56,4 @@ class ajaxClass {
             pricing_id: pricing_id,
         });
     }
-}
-
-// Instance the class.
-new ajaxClass();
+};
