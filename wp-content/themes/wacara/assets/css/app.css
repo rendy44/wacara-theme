@@ -34,8 +34,8 @@ body {
 }
 
 .btn.btn-primary:active, .btn.btn-primary:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(159, 131, 193, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(159, 131, 193, 0.5) !important;
+  -webkit-box-shadow: 0 0 0.5rem rgba(159, 131, 193, 0.5) !important;
+  box-shadow: 0 0 0.5rem rgba(159, 131, 193, 0.5) !important;
 }
 
 nav.navbar {
@@ -88,8 +88,8 @@ nav.navbar .navbar-toggler {
 
 nav.navbar.scrolled, nav.navbar.opened {
   background-color: #fff;
-  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1) !important;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 @media (min-width: 992px) {
@@ -110,6 +110,13 @@ nav.navbar.scrolled:not(.opened) {
 }
 
 .masthead {
+  height: 300px;
+  position: relative;
+  background-color: rgba(238, 233, 244, 0.9);
+  z-index: 2;
+}
+
+.masthead:not(.small) {
   height: 100vh;
   min-height: 500px;
   background-image: url("../img/illustration/events.svg");
@@ -118,7 +125,7 @@ nav.navbar.scrolled:not(.opened) {
   background-repeat: no-repeat;
 }
 
-.masthead:before {
+.masthead:not(.small):before {
   content: '';
   position: absolute;
   top: 0;
@@ -132,7 +139,7 @@ nav.navbar.scrolled:not(.opened) {
 }
 
 @media (min-width: 992px) {
-  .masthead:before {
+  .masthead:not(.small):before {
     width: 50%;
     opacity: 0.6;
     filter: alpha(opacity=60);
@@ -204,21 +211,21 @@ section {
 }
 
 @media (min-width: 768px) {
-  section {
+  section:not(.small) {
     padding-top: 4.5rem;
     padding-bottom: 4.5rem;
   }
 }
 
 @media (min-width: 992px) {
-  section {
+  section:not(.small) {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
 
 @media (min-width: 1200px) {
-  section {
+  section:not(.small) {
     padding-top: 7.5rem;
     padding-bottom: 7.5rem;
   }
@@ -610,4 +617,22 @@ section h2.section-heading:before {
 
 .pricing .card .fa-ul li .text-muted {
   opacity: 0.7;
+}
+
+#registration-form .container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  #registration-form .container {
+    background-color: #fff;
+    margin-top: -70px;
+    position: relative;
+    z-index: 3;
+    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border-radius: 5px;
+    padding: 3rem 2rem;
+  }
 }

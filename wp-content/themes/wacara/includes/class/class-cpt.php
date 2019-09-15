@@ -235,11 +235,11 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			$args = [
 				'labels'             => $labels,
 				'public'             => false,
-				'publicly_queryable' => false,
+				'publicly_queryable' => true,
 				'show_ui'            => false,
 				'show_in_menu'       => false,
 				'query_var'          => false,
-				'rewrite'            => [ 'slug' => 'participant' ],
+				'rewrite'            => [ 'slug' => 'reg' ],
 				'capability_type'    => 'post',
 				'capabilities'       => [
 					'create_posts' => 'do_not_allow',
