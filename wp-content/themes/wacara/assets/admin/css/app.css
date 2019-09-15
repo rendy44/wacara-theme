@@ -1,3 +1,18 @@
+.cmb2-wrap .cmb-row.master-field {
+  margin-top: 5px !important;
+  margin-bottom: 0 !important;
+}
+.cmb2-wrap .cmb-row.mini-label {
+  margin-bottom: 0 !important;
+}
+.cmb2-wrap .cmb-row.mini-label > .cmb-th label {
+  font-weight: 400;
+  font-size: small;
+  padding: 0 !important;
+}
+.cmb2-wrap .cmb-row.mini-label > .cmb-td input {
+  margin: 0 !important;
+}
 .cmb2-wrap .cmb-row .cmb2-metabox-description {
   padding-bottom: 0 !important;
 }

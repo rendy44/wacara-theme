@@ -167,7 +167,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id'    => $this->meta_prefix . 'single_day',
+									'data-conditional-id' => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -213,6 +213,184 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'    => 'checkbox',
 								'desc'    => __( 'Allow participant register this event', 'wacara' ),
 								'default' => 1,
+							],
+						],
+					],
+					[
+						'id'     => 'event_fields_info',
+						'title'  => _x( 'Fields', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							// Email field.
+							[
+								'name'       => __( 'Email', 'wacara' ),
+								'id'         => $this->meta_prefix . 'email',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Use email field', 'wacara' ),
+								'default'    => 1,
+								'classes'    => 'master-field',
+								'attributes' => [
+									'disabled' => 'disabled',
+								],
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'email_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'default'    => 1,
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'disabled' => 'disabled',
+								],
+							],
+							[
+								'name'    => __( 'Field name', 'wacara' ),
+								'id'      => $this->meta_prefix . 'email_field_name',
+								'type'    => 'text',
+								'default' => __( 'Email address', 'wacara' ),
+								'classes' => 'mini-label',
+							],
+							// Name field.
+							[
+								'name'       => __( 'Name', 'wacara' ),
+								'id'         => $this->meta_prefix . 'name',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Use name field', 'wacara' ),
+								'default'    => 1,
+								'classes'    => 'master-field',
+								'attributes' => [
+									'disabled' => 'disabled',
+								],
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'name_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'default'    => 1,
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'disabled' => 'disabled',
+								],
+							],
+							[
+								'name'    => __( 'Field name', 'wacara' ),
+								'id'      => $this->meta_prefix . 'name_field_name',
+								'type'    => 'text',
+								'default' => __( 'Full name', 'wacara' ),
+								'classes' => 'mini-label',
+							],
+							// Company field.
+							[
+								'name'    => __( 'Company', 'wacara' ),
+								'id'      => $this->meta_prefix . 'company',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Use company field', 'wacara' ),
+								'classes' => 'master-field',
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'company_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'company',
+								],
+							],
+							[
+								'name'       => __( 'Field name', 'wacara' ),
+								'id'         => $this->meta_prefix . 'company_field_name',
+								'type'       => 'text',
+								'default'    => __( 'Company', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'company',
+								],
+							],
+							// Position field.
+							[
+								'name'    => __( 'Position', 'wacara' ),
+								'id'      => $this->meta_prefix . 'position',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Use position field', 'wacara' ),
+								'classes' => 'master-field',
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'position_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'position',
+								],
+							],
+							[
+								'name'       => __( 'Field name', 'wacara' ),
+								'id'         => $this->meta_prefix . 'position_field_name',
+								'type'       => 'text',
+								'default'    => __( 'Position', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'position',
+								],
+							],
+							// ID number field.
+							[
+								'name'    => __( 'ID number', 'wacara' ),
+								'id'      => $this->meta_prefix . 'id_number',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Use id_number field', 'wacara' ),
+								'classes' => 'master-field',
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'id_number_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'id_number',
+								],
+							],
+							[
+								'name'       => __( 'Field name', 'wacara' ),
+								'id'         => $this->meta_prefix . 'id_number_field_name',
+								'type'       => 'text',
+								'default'    => __( 'ID number', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'id_number',
+								],
+							],
+							// Phone field.
+							[
+								'name'    => __( 'Phone', 'wacara' ),
+								'id'      => $this->meta_prefix . 'phone',
+								'type'    => 'checkbox',
+								'desc'    => __( 'Use phone field', 'wacara' ),
+								'classes' => 'master-field',
+							],
+							[
+								'name'       => __( 'Required', 'wacara' ),
+								'id'         => $this->meta_prefix . 'phone_required',
+								'type'       => 'checkbox',
+								'desc'       => __( 'Set as required field', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'phone',
+								],
+							],
+							[
+								'name'       => __( 'Field name', 'wacara' ),
+								'id'         => $this->meta_prefix . 'phone_field_name',
+								'type'       => 'text',
+								'default'    => __( 'Phone', 'wacara' ),
+								'classes'    => 'mini-label',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'phone',
+								],
 							],
 						],
 					],
@@ -296,10 +474,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
-									'file_text'             => __( 'Image:', 'wacara' ),
-									'file_download_text'    => __( 'Download', 'wacara' ),
-									'remove_text'           => __( 'Remove', 'wacara' ),
+									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
+									'file_text'          => __( 'Image:', 'wacara' ),
+									'file_download_text' => __( 'Download', 'wacara' ),
+									'remove_text'        => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
