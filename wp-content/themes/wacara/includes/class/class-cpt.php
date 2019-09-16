@@ -53,6 +53,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			add_action( 'init', [ $this, 'register_price_post_type_callback' ] );
 			// Register participant post type.
 			add_action( 'init', [ $this, 'register_participant_post_type_callback' ] );
+			// Register customer post type.
+			add_action( 'init', [ $this, 'register_customer_post_type_callback' ] );
 		}
 
 		/**
@@ -251,6 +253,48 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			];
 
 			register_post_type( 'participant', $args );
+		}
+
+		/**
+		 * Callback for registering customer post type.
+		 */
+		public function register_customer_post_type_callback() {
+			$labels = [
+				'name'               => _x( 'Customers', 'post type general name', 'wacara' ),
+				'singular_name'      => _x( 'Customer', 'post type singular name', 'wacara' ),
+				'menu_name'          => _x( 'Customers', 'admin menu', 'wacara' ),
+				'name_admin_bar'     => _x( 'Customer', 'add new on admin bar', 'wacara' ),
+				'add_new'            => _x( 'Add New', 'customer', 'wacara' ),
+				'add_new_item'       => __( 'Add New Customer', 'wacara' ),
+				'new_item'           => __( 'New Customer', 'wacara' ),
+				'edit_item'          => __( 'Edit Customer', 'wacara' ),
+				'view_item'          => __( 'View Customer', 'wacara' ),
+				'all_items'          => __( 'All Customers', 'wacara' ),
+				'search_items'       => __( 'Search Customers', 'wacara' ),
+				'parent_item_colon'  => __( 'Parent Customers:', 'wacara' ),
+				'not_found'          => __( 'No customers found.', 'wacara' ),
+				'not_found_in_trash' => __( 'No customers found in Trash.', 'wacara' ),
+			];
+
+			$args = [
+				'labels'             => $labels,
+				'public'             => false,
+				'publicly_queryable' => true,
+				'show_ui'            => false,
+				'show_in_menu'       => false,
+				'query_var'          => false,
+				'rewrite'            => [ 'slug' => 'customer' ],
+				'capability_type'    => 'post',
+				'capabilities'       => [
+					'create_posts' => 'do_not_allow',
+				],
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'supports'           => [ 'title' ],
+				'menu_icon'          => 'dashicons-businessperson',
+			];
+
+			register_post_type( 'customer', $args );
 		}
 	}
 }
