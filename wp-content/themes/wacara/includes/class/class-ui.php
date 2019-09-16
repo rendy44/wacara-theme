@@ -49,6 +49,8 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
 			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
 			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
+			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 3 );
+			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 		}
 
 		/**
@@ -107,6 +109,52 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 */
 		public function footer_close_tag_callback() {
 			echo Template::render( 'global/footer', [ 'content' => '&copy; ' . date( 'Y' ) . ' ' . get_bloginfo( 'name' ) ] ); // phpcs:ignore
+		}
+
+		/**
+		 * Callback for rendering single input field.
+		 *
+		 * @param string $field_id       will be used to print field id and fied name.
+		 * @param string $field_type     input type for simple text field, default = 'text'.
+		 * @param string $field_required whether set field as required or not.
+		 *
+		 * @return string
+		 */
+		public function input_field_callback( $field_id, $field_type = 'text', $field_required = 'required' ) {
+			$result = Template::render(
+				'global/form-input-text',
+				[
+					'field_id'       => $field_id,
+					'field_type'     => $field_type,
+					'field_required' => $field_required,
+				]
+			);
+
+			return $result;
+		}
+
+		/**
+		 * Callback for rendering event field.
+		 *
+		 * @param string $event_id event id.
+		 * @param string $key      field key.
+		 *
+		 * @return string
+		 */
+		public function input_field_event_callback( $event_id, $key ) {
+			$result         = '';
+			$use_field      = Helper::get_post_meta( $key, $event_id );
+			$field_label    = Helper::get_post_meta( $key . '_field_name', $event_id );
+			$field_required = Helper::get_post_meta( $key . '_required', $event_id );
+
+			if ( $use_field ) {
+				$result .= '<div class="form-group">';
+				$result .= '<label for="' . $key . '">' . $field_label . '</label>';
+				$result .= apply_filters( 'sk_input_field', $key, 'text', $field_required ? 'required' : '' );
+				$result .= '</div>';
+			}
+
+			return $result;
 		}
 	}
 }

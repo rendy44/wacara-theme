@@ -167,7 +167,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -223,7 +223,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							// Email field.
 							[
 								'name'       => __( 'Email', 'wacara' ),
-								'id'         => $this->meta_prefix . 'email',
+								'id'         => $this->meta_prefix . 'email_dummy',
 								'type'       => 'checkbox',
 								'desc'       => __( 'Use email field', 'wacara' ),
 								'default'    => 1,
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							],
 							[
 								'name'       => __( 'Required', 'wacara' ),
-								'id'         => $this->meta_prefix . 'email_required',
+								'id'         => $this->meta_prefix . 'email_required_dummy',
 								'type'       => 'checkbox',
 								'desc'       => __( 'Set as required field', 'wacara' ),
 								'default'    => 1,
@@ -253,7 +253,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							// Name field.
 							[
 								'name'       => __( 'Name', 'wacara' ),
-								'id'         => $this->meta_prefix . 'name',
+								'id'         => $this->meta_prefix . 'name_dummy',
 								'type'       => 'checkbox',
 								'desc'       => __( 'Use name field', 'wacara' ),
 								'default'    => 1,
@@ -264,7 +264,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							],
 							[
 								'name'       => __( 'Required', 'wacara' ),
-								'id'         => $this->meta_prefix . 'name_required',
+								'id'         => $this->meta_prefix . 'name_required_dummy',
 								'type'       => 'checkbox',
 								'desc'       => __( 'Set as required field', 'wacara' ),
 								'default'    => 1,
@@ -403,6 +403,40 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'tabs' => $tabs,
 				]
 			);
+			// Email and name will be set as statically to `on` by using hidden fields.
+			// And on the ui it will be use different id only for ui.
+			$cmb2->add_field(
+				[
+					'name'    => 'xyz',
+					'id'      => $this->meta_prefix . 'email',
+					'type'    => 'hidden',
+					'default' => 'on',
+				]
+			);
+			$cmb2->add_field(
+				[
+					'name'    => 'xyz',
+					'id'      => $this->meta_prefix . 'email_required',
+					'type'    => 'hidden',
+					'default' => 'on',
+				]
+			);
+			$cmb2->add_field(
+				[
+					'name'    => 'xyz',
+					'id'      => $this->meta_prefix . 'name',
+					'type'    => 'hidden',
+					'default' => 'on',
+				]
+			);
+			$cmb2->add_field(
+				[
+					'name'    => 'xyz',
+					'id'      => $this->meta_prefix . 'name_required',
+					'type'    => 'hidden',
+					'default' => 'on',
+				]
+			);
 		}
 
 		/**
@@ -474,10 +508,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
