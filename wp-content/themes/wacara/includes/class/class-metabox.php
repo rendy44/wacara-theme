@@ -63,6 +63,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
 			// Add price detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_price_metabox_callback' ] );
+			// Add options page.
+			add_action( 'cmb2_admin_init', [ $this, 'options_page_callback' ] );
 		}
 
 		/**
@@ -167,7 +169,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -508,10 +510,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
@@ -706,6 +708,74 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'id'   => 'information_price_tabs',
 					'type' => 'tabs',
 					'tabs' => $tabs,
+				]
+			);
+		}
+
+		/**
+		 * Callback for registering options page.
+		 */
+		public function options_page_callback() {
+			/**
+			 * Registers main options page menu item and form.
+			 */
+			$main_options = new_cmb2_box(
+				[
+					'id'           => $this->meta_prefix . 'tripe_options',
+					'title'        => esc_html__( 'Stripe Options', 'wacara' ),
+					'object_types' => [ 'options-page' ],
+					'option_key'   => $this->meta_prefix . 'stripe_options',
+					// The option key and admin menu page slug.
+					// 'icon_url'        => 'dashicons-palmtree', // Menu icon. Only applicable if 'parent_slug' is left empty.
+					// 'menu_title'      => esc_html__( 'Options', 'cmb2' ), // Falls back to 'title' (above).
+					// 'parent_slug'     => 'themes.php', // Make options page a submenu item of the themes menu.
+					// 'capability'      => 'manage_options', // Cap required to view options-page.
+					// 'position'        => 1, // Menu position. Only applicable if 'parent_slug' is left empty.
+					// 'admin_menu_hook' => 'network_admin_menu', // 'network_admin_menu' to add network-level options page.
+					// 'display_cb'      => false, // Override the options-page form output (CMB2_Hookup::options_page_output()).
+					// 'save_button'     => esc_html__( 'Save Theme Options', 'cmb2' ), // The text for the options-page save button. Defaults to 'Save'.
+					// 'disable_settings_errors' => true, // On settings pages (not options-general.php sub-pages), allows disabling.
+					// 'message_cb'      => 'yourprefix_options_page_message_callback',
+				]
+			);
+			$main_options->add_field(
+				[
+					'name' => __( 'Sandbox', 'wacara' ),
+					'desc' => __( 'Enable sandbox for testing', 'wacara' ),
+					'id'   => 'sandbox',
+					'type' => 'checkbox',
+				]
+			);
+			$main_options->add_field(
+				[
+					'name' => __( 'Sandbox secret key', 'wacara' ),
+					'id'   => 'sandbox_secret_key',
+					'type' => 'text',
+					'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
+				]
+			);
+			$main_options->add_field(
+				[
+					'name' => __( 'Sandbox publishable key', 'wacara' ),
+					'id'   => 'sandbox_publishable_key',
+					'type' => 'text',
+					'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
+				]
+			);
+			$main_options->add_field(
+				[
+					'name' => __( 'Live secret key', 'wacara' ),
+					'id'   => 'live_secret_key',
+					'type' => 'text',
+					'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
+				]
+			);
+			$main_options->add_field(
+				[
+					'name' => __( 'Live publishable key', 'wacara' ),
+					'id'   => 'live_publishable_key',
+					'type' => 'text',
+					'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
 				]
 			);
 		}
