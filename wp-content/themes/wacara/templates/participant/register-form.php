@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <section class="py-0" id="registration-form">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <form id="frm_register" method="post">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<form id="frm_register" method="post">
 					<?php
 					// Maybe render name field.
 					echo apply_filters( 'sk_input_field_event', $event_id, 'name' );
@@ -29,9 +29,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					// Maybe render phone field.
 					echo apply_filters( 'sk_input_field_event', $event_id, 'phone' );
 					?>
-                    <input class="btn btn-primary btn-lg btn-submit-reg" type="submit" value="Register">
-                </form>
-            </div>
-        </div>
-    </div>
+					<input class="btn btn-primary btn-lg btn-submit-reg" type="submit" value="Register">
+				</form>
+			</div>
+		</div>
+	</div>
 </section>
