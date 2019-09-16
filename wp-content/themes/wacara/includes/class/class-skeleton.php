@@ -89,6 +89,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'cmb2/init',
 				'cmb2-tabs/plugin',
 				'cmb2-select2/cmb-field-select2',
+				'stripe-php/init',
 			];
 		}
 
