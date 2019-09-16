@@ -18,8 +18,10 @@ while ( have_posts() ) {
 	the_post();
 	$reg_status    = Helper::get_post_meta( 'status' );
 	$register_args = [
-		'id'    => get_the_ID(),
-		'title' => get_the_title(),
+		'id'         => get_the_ID(),
+		'title'      => get_the_title(),
+		'pricing_id' => Helper::get_post_meta( 'pricing_id' ),
+		'event_id'   => Helper::get_post_meta( 'event_id' ),
 	];
 	switch ( $reg_status ) {
 		case 'success':

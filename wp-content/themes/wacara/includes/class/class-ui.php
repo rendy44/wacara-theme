@@ -64,6 +64,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		public function maybe_small_header_callback() {
 			if ( ! is_front_page() ) { // we don't need small header in front page, since front page already has a full-page header.
 				/* translators: %s: search term */
+				$header_subtitle = '';
 				if ( ! isset( $header_title ) ) {
 					if ( is_archive() ) {
 						$header_title = get_the_archive_title();
@@ -72,11 +73,25 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 						$header_title = sprintf( __( 'Search Results for "%s"', 'masjid' ), get_search_query() );
 					} elseif ( is_404() ) {
 						$header_title = __( 'Not Found', 'masjid' );
+					} elseif ( is_singular() ) {
+						$header_title = get_the_title();
+						if ( is_singular( 'participant' ) ) {
+							$event_id    = Helper::get_post_meta( 'event_id', get_the_ID() );
+							$event_title = get_the_title( $event_id );
+							/* translators: %s: event title name */
+							$header_subtitle = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
+						}
 					} else {
 						$header_title = single_post_title( '', false );
 					}
 				}
-				echo Template::render( 'global/header-small', [ 'title' => $header_title ] ); // phpcs:ignore
+				echo Template::render( // phpcs:ignore
+					'global/header-small',
+					[
+						'title'    => $header_title,
+						'subtitle' => $header_subtitle,
+					]
+				);
 			}
 		}
 
