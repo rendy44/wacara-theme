@@ -65,7 +65,7 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 			add_theme_support( 'post-thumbnails' );
 			register_nav_menus(
 				[
-					'main_nav' => __( 'Main Nav', 'rendy' ),
+					'main_nav' => __( 'Main Nav', 'wacara' ),
 				]
 			);
 			register_sidebar(

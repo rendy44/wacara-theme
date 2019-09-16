@@ -70,9 +70,9 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 						$header_title = get_the_archive_title();
 					} elseif ( is_search() ) {
 						// translators: %s: search term.
-						$header_title = sprintf( __( 'Search Results for "%s"', 'masjid' ), get_search_query() );
+						$header_title = sprintf( __( 'Search Results for "%s"', 'wacara' ), get_search_query() );
 					} elseif ( is_404() ) {
-						$header_title = __( 'Not Found', 'masjid' );
+						$header_title = __( 'Not Found', 'wacara' );
 					} elseif ( is_singular() ) {
 						$header_title = get_the_title();
 						if ( is_singular( 'participant' ) ) {
