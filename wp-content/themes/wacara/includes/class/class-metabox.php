@@ -169,7 +169,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id'    => $this->meta_prefix . 'single_day',
+									'data-conditional-id' => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -510,10 +510,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
-									'file_text'             => __( 'Image:', 'wacara' ),
-									'file_download_text'    => __( 'Download', 'wacara' ),
-									'remove_text'           => __( 'Remove', 'wacara' ),
+									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
+									'file_text'          => __( 'Image:', 'wacara' ),
+									'file_download_text' => __( 'Download', 'wacara' ),
+									'remove_text'        => __( 'Remove', 'wacara' ),
 								],
 							],
 							[

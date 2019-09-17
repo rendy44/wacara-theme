@@ -31,7 +31,9 @@ while ( have_posts() ) {
 			$template = 'failed';
 			break;
 		default:
-			$template = 'register-form';
+			$validate_pricing             = Helper::is_pricing_valid( $register_args['pricing_id'] );
+			$register_args['use_payment'] = $validate_pricing->success;
+			$template                     = 'register-form';
 			break;
 	}
 	echo Template::render( 'participant/' . $template, $register_args ); // phpcs:ignore

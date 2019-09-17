@@ -157,17 +157,17 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				'aos'       => [
 					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
 				],
+				'stripe'    => [
+					'url' => 'https://js.stripe.com/v3/',
+				],
 				'main'      => [
-					'url'   => TEMP_URI . '/assets/js/main.js',
-					'vars'  => [
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
-					],
-					'depth' => [ 'jquery' ],
+					'url' => TEMP_URI . '/assets/js/main.js',
 				],
 				'app'       => [
 					'url'   => TEMP_URI . '/assets/js/app.min.js',
 					'vars'  => [
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
+						'ajax_url'        => admin_url( 'admin-ajax.php' ),
+						'publishable_key' => Payment::get_publishable_key(),
 					],
 					'depth' => [ 'jquery' ],
 				],

@@ -17,19 +17,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<form id="frm_register" method="post">
 					<?php
 					// Maybe render name field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'name' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'name' ); // phpcs:ignore
 					// Maybe render email field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'email' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'email' ); // phpcs:ignore
 					// Maybe render company field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'company' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'company' ); // phpcs:ignore
 					// Maybe render position field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'position' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'position' ); // phpcs:ignore
 					// Maybe render id number field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'id_number' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'id_number' ); // phpcs:ignore
 					// Maybe render phone field.
-					echo apply_filters( 'sk_input_field_event', $event_id, 'phone' );
+					echo apply_filters( 'sk_input_field_event', $event_id, 'phone' ); // phpcs:ignore
+
+					// Check whether use payment or not.
+					if ( $use_payment ) {
+						?>
+						<div class="form-group">
+							<label for="card"><?php echo esc_html__( 'Credit card information', 'wacara' ); ?></label>
+							<div id="card" class="form-control form-control-lg"></div>
+						</div>
+						<?php
+					}
 					?>
-					<input class="btn btn-primary btn-lg btn-submit-reg" type="submit" value="Register">
+					<input class="btn btn-primary btn-lg btn-submit-reg" type="submit" value="<?php echo esc_attr__( 'Register', 'wacara' ); ?>">
 				</form>
 			</div>
 		</div>

@@ -67,7 +67,6 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 			$this->classes = [
 				'result',
 				'template',
-				'asset',
 				'ui',
 				'setting',
 				'navwalker',
@@ -78,6 +77,9 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'cmb2-hooks',
 				'ajax',
 				'participant',
+				'transaction',
+				'payment',
+				'asset',
 			];
 		}
 

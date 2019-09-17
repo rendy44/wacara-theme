@@ -59,25 +59,19 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				// Validate the event before using it for registration.
 				$validate_event = Helper::is_event_valid( $event_id );
 				if ( $validate_event->success ) {
-					// Validate the pricing before using it for registration.
-					$validate_pricing = Helper::is_pricing_valid( $pricing_id );
-					if ( $validate_pricing->success ) {
-						// create participant.
-						$new_participant = new Participant(
-							false,
-							[
-								'event_id'   => $event_id,
-								'pricing_id' => $pricing_id,
-							]
-						);
-						if ( $new_participant->success ) {
-							$result->success  = true;
-							$result->callback = $new_participant->participant_url;
-						} else {
-							$result->message = $new_participant->message;
-						}
+					// create participant.
+					$new_participant = new Participant(
+						false,
+						[
+							'event_id'   => $event_id,
+							'pricing_id' => $pricing_id,
+						]
+					);
+					if ( $new_participant->success ) {
+						$result->success  = true;
+						$result->callback = $new_participant->participant_url;
 					} else {
-						$result->message = $validate_pricing->message;
+						$result->message = $new_participant->message;
 					}
 				} else {
 					$result->message = $validate_event->message;
