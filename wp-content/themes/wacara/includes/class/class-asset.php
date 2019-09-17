@@ -151,19 +151,22 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 
 			// JS files.
 			$this->front_js = [
-				'bootstrap' => [
+				'bootstrap'         => [
 					'url' => TEMP_URI . '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
 				],
-				'aos'       => [
+				'aos'               => [
 					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
 				],
-				'stripe'    => [
+				'jquery-validation' => [
+					'url' => TEMP_URI . '/assets/vendor/jquery-validation/dist/jquery.validate.min.js',
+				],
+				'stripe'            => [
 					'url' => 'https://js.stripe.com/v3/',
 				],
-				'main'      => [
+				'main'              => [
 					'url' => TEMP_URI . '/assets/js/main.js',
 				],
-				'app'       => [
+				'app'               => [
 					'url'   => TEMP_URI . '/assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url'        => admin_url( 'admin-ajax.php' ),

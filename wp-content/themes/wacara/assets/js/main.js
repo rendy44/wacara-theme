@@ -1,6 +1,7 @@
 'use strict';
 
 import Ajax from './class/ajax.js';
+import WcStripe from "./class/stripe.js";
 
 const $ = jQuery;
 
@@ -14,6 +15,7 @@ new class {
     constructor() {
         this.register_event();
         this.render_stripe();
+        this.payment_event();
     }
 
     /**
@@ -44,40 +46,53 @@ new class {
         })
     }
 
+    /**
+     * Render and instance stripe credit card box
+     */
     render_stripe() {
         const card_elm = $('#card');
-        console.log(obj);
         if (card_elm.length) {
-            // Create a Stripe client.
-            const stripe = Stripe(obj.publishable_key);
-            // Create an instance of Elements.
-            const elements = stripe.elements();
-            // Custom styling can be passed to options when creating an Element.
-            // (Note that this demo uses a wider set of styles than the guide below.)
-            const style = {
-                base: {
-                    color: '#555',
-                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                    fontSmoothing: 'antialiased',
-                    fontSize: '16px',
-                    '::placeholder': {
-                        color: '#aab7c4'
-                    }
-                },
-                invalid: {
-                    color: '#fa755a',
-                    iconColor: '#fa755a'
-                }
-            };
-            // Create an instance of the card Element.
-            const card = elements.create('card', {style: style});
-            // Add an instance of the card Element into the `card-element` <div>.
-            card.mount('#card');
+            this.stripeObj = new WcStripe(obj.publishable_key);
         }
     }
 
     /**
+     * Event when payment button clicked.
+     */
+    payment_event() {
+        const instance = this;
+        $('#frm_register').validate({
+            focusInvalid: true,
+            submitHandler: function (form, e) {
+                e.preventDefault();
+                const user_info = {
+                    name: $(form).find('input[name=name]').val(),
+                    email: $(form).find('input[name=email]').val(),
+                };
+
+                //Create stripe source
+                instance.stripeObj.create_source(user_info).then(function (result) {
+                    if (result.error) {
+                        console.error(result.error.message);
+                        // Swal.fire({
+                        //     title: 'Error',
+                        //     html: result.error.message,
+                        //     type: 'error',
+                        //     confirmButtonText: 'OK'
+                        // })
+                    } else {
+                        console.log(result.source);
+                        // Send the source to your server
+                        // stripeSourceHandler(result.source, formdata);
+                    }
+                });
+            }
+        })
+    }
+
+    /**
      * Method to perform registration.
+     *
      * @param event_id
      * @param pricing_id
      * @returns {Ajax}
