@@ -39,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 					}
 					?>
+					<p><?php echo esc_html__( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
 					<input class="btn btn-primary btn-lg btn-submit-reg" type="submit" value="<?php echo esc_attr__( 'Register', 'wacara' ); ?>">
 				</form>
 			</div>
