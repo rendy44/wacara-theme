@@ -51,11 +51,13 @@ export default class WcStripe {
     add_event() {
         // Handle real-time validation errors from the card Element.
         this.card.addEventListener('change', function (event) {
-            const displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
+            const displayError = jQuery('#card-errors');
+            if (displayError.length) {
+                if (event.error) {
+                    displayError.text(event.error.message);
+                } else {
+                    displayError.text('');
+                }
             }
         });
     }

@@ -50,8 +50,8 @@ new class {
      * Render and instance stripe credit card box
      */
     render_stripe() {
-        const card_elm = $('#card');
-        if (card_elm.length) {
+        this.card_elm = $('#card');
+        if (this.card_elm.length) {
             this.stripeObj = new WcStripe(obj.publishable_key);
         }
     }
@@ -65,27 +65,56 @@ new class {
             focusInvalid: true,
             submitHandler: function (form, e) {
                 e.preventDefault();
+                // Define variables.
+                const submit_button = $(form).find('.btn-submit-reg'),
+                    btn_original_text = submit_button.html(),
+                    inputs = $(form).serializeArray();
                 const user_info = {
                     name: $(form).find('input[name=name]').val(),
                     email: $(form).find('input[name=email]').val(),
                 };
 
-                //Create stripe source
-                instance.stripeObj.create_source(user_info).then(function (result) {
-                    if (result.error) {
-                        console.error(result.error.message);
-                        // Swal.fire({
-                        //     title: 'Error',
-                        //     html: result.error.message,
-                        //     type: 'error',
-                        //     confirmButtonText: 'OK'
-                        // })
-                    } else {
-                        console.log(result.source);
-                        // Send the source to your server
-                        // stripeSourceHandler(result.source, formdata);
-                    }
-                });
+                // Disable button.
+                submit_button.prop('disabled', true).html('Loading...');
+
+                if (instance.card_elm.length) {
+                    //Create stripe source
+                    instance.stripeObj.create_source(user_info).then(function (result) {
+                        if (result.error) {
+                            // Normalize the button.
+                            submit_button.prop('disabled', false).html(btn_original_text);
+                            // Show alert.
+                            Swal.fire({
+                                html: result.error.message,
+                                type: 'error',
+                            })
+                        } else {
+                            // Append source id into input.
+                            inputs.push({
+                                name: 'stripe_source_id',
+                                value: result.source.id
+                            });
+
+                            // Perform payment.
+                            instance.do_payment(inputs)
+                                .done(function (data) {
+
+                                })
+                                .fail(function (x) {
+
+                                })
+                        }
+                    });
+                } else {
+                    // Perform payment.
+                    instance.do_payment(inputs)
+                        .done(function (data) {
+
+                        })
+                        .fail(function (x) {
+
+                        })
+                }
             }
         })
     }
@@ -102,6 +131,19 @@ new class {
             action: 'register',
             event_id: event_id,
             pricing_id: pricing_id,
+        });
+    }
+
+    /**
+     * Method to perform payment.
+     *
+     * @param inputs
+     * @returns {Ajax}
+     */
+    do_payment(inputs) {
+        return new Ajax(true, {
+            action: 'payment',
+            data: inputs
         });
     }
 };

@@ -49,7 +49,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
 			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
 			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
-			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 3 );
+			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 		}
 
@@ -117,16 +117,18 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 * @param string $field_id       will be used to print field id and fied name.
 		 * @param string $field_type     input type for simple text field, default = 'text'.
 		 * @param string $field_required whether set field as required or not.
+		 * @param string $value          default value of the input.
 		 *
 		 * @return string
 		 */
-		public function input_field_callback( $field_id, $field_type = 'text', $field_required = 'required' ) {
+		public function input_field_callback( $field_id, $field_type = 'text', $field_required = 'required', $value = '' ) {
 			$result = Template::render(
 				'global/form-input-text',
 				[
 					'field_id'       => $field_id,
 					'field_type'     => $field_type,
 					'field_required' => $field_required,
+					'field_value'    => $value,
 				]
 			);
 

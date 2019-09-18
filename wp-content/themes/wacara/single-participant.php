@@ -31,7 +31,7 @@ while ( have_posts() ) {
 			$template = 'failed';
 			break;
 		default:
-			$validate_pricing             = Helper::is_pricing_valid( $register_args['pricing_id'] );
+			$validate_pricing             = Helper::is_pricing_valid( $register_args['pricing_id'], true );
 			$register_args['use_payment'] = $validate_pricing->success;
 			$template                     = 'register-form';
 			break;
