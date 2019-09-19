@@ -11,7 +11,7 @@ namespace Skeleton;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Error\Base;
-use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -81,6 +81,8 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 			self::set_testing_status();
 			self::set_publishable_key();
 			self::set_secret_key();
+
+			self::set_stripe_secret_key();
 		}
 
 		/**
@@ -155,6 +157,13 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		}
 
 		/**
+		 * Set secret key to Stripe Core class
+		 */
+		private static function set_stripe_secret_key() {
+			Stripe::setApiKey( self::get_secret_key() );
+		}
+
+		/**
 		 * Create stripe customer.
 		 *
 		 * @param string $name             customer name.
@@ -162,7 +171,6 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		 * @param string $stripe_source_id customer source id which generated from inputting credit card information.
 		 *
 		 * @return Result
-		 * @throws ApiErrorException Error handler.
 		 */
 		public static function create_customer( $name, $email, $stripe_source_id ) {
 			$result = new Result();
@@ -190,7 +198,6 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		 * @param string $stripe_source_id   stripe source id.
 		 *
 		 * @return Result
-		 * @throws ApiErrorException Handle error from stripe.
 		 */
 		public static function update_customer_source( $stripe_customer_id, $stripe_source_id ) {
 			$result = new Result();
@@ -215,7 +222,6 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		 * @param string $description        name of the charge.
 		 *
 		 * @return Result
-		 * @throws ApiErrorException Handle error from stripe.
 		 */
 		public static function charge_customer( $stripe_customer_id, $stripe_source_id, $amount, $currency, $description ) {
 			$result = new Result();

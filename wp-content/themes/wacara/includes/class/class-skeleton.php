@@ -56,8 +56,8 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 * Skeleton constructor.
 		 */
 		private function __construct() {
-			$this->load_classes();
 			$this->load_libraries();
+			$this->load_classes();
 		}
 
 		/**
