@@ -229,7 +229,7 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 				$charge           = Charge::create(
 					[
 						'amount'      => $amount,
-						'currency'    => $currency,
+						'currency'    => strtolower( $currency ),
 						'description' => $description,
 						'source'      => $stripe_source_id,
 						'customer'    => $stripe_customer_id,

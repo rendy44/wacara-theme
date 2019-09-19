@@ -149,6 +149,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					// Check whether stripe customer id that will be used has been defined or not yet.
 					if ( $used_stripe_customer_id ) {
 
+						// First, convert the price into cent.
+						$pricing_price = $pricing_price * 100;
 						// Charge the customer.
 						/* translators: 1: the event name */
 						$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
