@@ -579,7 +579,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 				$currency = self::get_post_meta( 'currency', $pricing_id );
 				if ( $currency ) {
 					if ( $validate_the_price ) {
-						if ( 0 > (int) $price ) {
+						if ( (int) $price > 0 ) {
 							$result->success = true;
 						} else {
 							$result->message = __( 'The pricing amount should be greater than 0', 'wacara' );
