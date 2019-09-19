@@ -22,6 +22,7 @@ namespace Stripe;
  */
 class PaymentMethod extends ApiResource
 {
+
     const OBJECT_NAME = "payment_method";
 
     use ApiOperations\All;
@@ -32,8 +33,6 @@ class PaymentMethod extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return PaymentMethod The attached payment method.
      */
@@ -48,8 +47,6 @@ class PaymentMethod extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return PaymentMethod The detached payment method.
      */

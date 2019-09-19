@@ -2,7 +2,7 @@
 
 namespace Stripe\Util;
 
-use Stripe\Exception;
+use Stripe\Error;
 
 class RequestOptions
 {
@@ -103,6 +103,6 @@ class RequestOptions
            . 'optional per-request apiKey, which must be a string, or '
            . 'per-request options, which must be an array. (HINT: you can set '
            . 'a global apiKey by "Stripe::setApiKey(<apiKey>)")';
-        throw new Exception\InvalidArgumentException($message);
+        throw new Error\Api($message);
     }
 }

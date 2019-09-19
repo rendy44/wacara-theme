@@ -70,6 +70,7 @@ namespace Stripe;
  */
 class Invoice extends ApiResource
 {
+
     const OBJECT_NAME = "invoice";
 
     use ApiOperations\All;
@@ -119,8 +120,6 @@ class Invoice extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return Invoice The finalized invoice.
      */
     public function finalizeInvoice($params = null, $opts = null)
@@ -134,8 +133,6 @@ class Invoice extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Invoice The uncollectible invoice.
      */
@@ -151,8 +148,6 @@ class Invoice extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return Invoice The paid invoice.
      */
     public function pay($params = null, $opts = null)
@@ -166,8 +161,6 @@ class Invoice extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Invoice The sent invoice.
      */
@@ -183,8 +176,6 @@ class Invoice extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return Invoice The upcoming invoice.
      */
     public static function upcoming($params = null, $opts = null)
@@ -199,8 +190,6 @@ class Invoice extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Invoice The voided invoice.
      */

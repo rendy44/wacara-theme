@@ -24,6 +24,7 @@ namespace Stripe;
  */
 class Dispute extends ApiResource
 {
+
     const OBJECT_NAME = "dispute";
 
     use ApiOperations\All;
@@ -64,8 +65,6 @@ class Dispute extends ApiResource
 
     /**
      * @param array|string|null $options
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Dispute The closed dispute.
      */

@@ -24,6 +24,7 @@ namespace Stripe;
  */
 class ApplicationFee extends ApiResource
 {
+
     const OBJECT_NAME = "application_fee";
 
     use ApiOperations\All;
@@ -33,11 +34,22 @@ class ApplicationFee extends ApiResource
     const PATH_REFUNDS = '/refunds';
 
     /**
-     * @param string|null $id The ID of the application fee on which to create the refund.
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     * @return ApplicationFee The refunded application fee.
+     */
+    public function refund($params = null, $opts = null)
+    {
+        $this->refunds->create($params, $opts);
+        $this->refresh();
+        return $this;
+    }
+
+    /**
+     * @param string|null $id The ID of the application fee on which to create the refund.
+     * @param array|null $params
+     * @param array|string|null $opts
      *
      * @return ApplicationFeeRefund
      */
@@ -52,8 +64,6 @@ class ApplicationFee extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return ApplicationFeeRefund
      */
     public static function retrieveRefund($id, $refundId, $params = null, $opts = null)
@@ -67,8 +77,6 @@ class ApplicationFee extends ApiResource
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return ApplicationFeeRefund
      */
     public static function updateRefund($id, $refundId, $params = null, $opts = null)
@@ -80,8 +88,6 @@ class ApplicationFee extends ApiResource
      * @param string|null $id The ID of the application fee on which to retrieve the refunds.
      * @param array|null $params
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Collection The list of refunds.
      */

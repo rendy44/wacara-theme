@@ -20,6 +20,7 @@ namespace Stripe;
  */
 class TransferReversal extends ApiResource
 {
+
     const OBJECT_NAME = "transfer_reversal";
 
     use ApiOperations\Update {
@@ -34,7 +35,7 @@ class TransferReversal extends ApiResource
         $id = $this['id'];
         $transfer = $this['transfer'];
         if (!$id) {
-            throw new Exception\UnexpectedValueException(
+            throw new Error\InvalidRequest(
                 "Could not determine which URL to request: " .
                 "class instance has invalid ID: $id",
                 null
@@ -51,8 +52,6 @@ class TransferReversal extends ApiResource
 
     /**
      * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return TransferReversal The saved reversal.
      */

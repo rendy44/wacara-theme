@@ -26,6 +26,7 @@ namespace Stripe;
  */
 class Topup extends ApiResource
 {
+
     const OBJECT_NAME = "topup";
 
     use ApiOperations\All;
@@ -46,8 +47,6 @@ class Topup extends ApiResource
     /**
      * @param array|null $params
      * @param array|string|null $options
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Topup The canceled topup.
      */
