@@ -33,15 +33,10 @@ new class {
             // Perform the registration.
             instance.do_register(event_id, pricing_id)
                 .done(function (data) {
-                    // Validate the registration result.
-                    if (data.success) {
-                        location.href = data.callback;
-                    } else {
-                        // Normalize the button.
-                        $(this).prop('disabled', false).html(original_caption);
-                    }
+                    instance.normalize_error(data, $(this), original_caption);
                 })
                 .fail(function (data) {
+                    // TODO: Validate error ajax.
                 });
         })
     }
@@ -98,10 +93,10 @@ new class {
                             // Perform payment.
                             instance.do_payment(inputs)
                                 .done(function (data) {
-
+                                    instance.normalize_error(data, submit_button, btn_original_text);
                                 })
                                 .fail(function (x) {
-
+                                    // TODO: Validate error ajax.
                                 })
                         }
                     });
@@ -109,14 +104,35 @@ new class {
                     // Perform payment.
                     instance.do_payment(inputs)
                         .done(function (data) {
-
+                            instance.normalize_error(data, submit_button, btn_original_text);
                         })
                         .fail(function (x) {
-
+                            // TODO: Validate error ajax.
                         })
                 }
             }
         })
+    }
+
+    /**
+     * Normalize the button depends on ajax status
+     *
+     * @param data
+     * @param button_element
+     * @param button_caption
+     */
+    normalize_error(data, button_element, button_caption) {
+        if (data.success) {
+            // Reload the page once the payment is success.
+            location.href = data.callback;
+        } else {
+            button_element.prop('disabled', false).html(button_caption);
+
+            Swal.fire({
+                html: data.message,
+                type: 'error',
+            })
+        }
     }
 
     /**

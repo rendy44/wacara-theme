@@ -84,6 +84,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			} else {
 				$result->message = __( 'Please provide a valid event id', 'wacara' );
 			}
+
 			wp_send_json( $result );
 		}
 
@@ -161,7 +162,10 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							// Save charge id.
 							$update_meta['stripe_charge_id'] = $charge->callback;
 							$update_meta['reg_status']       = 'done';
-							$result->success                 = true;
+
+							// Update result.
+							$result->success  = true;
+							$result->callback = get_permalink( $registration_id );
 						} else {
 							$update_meta['charge_error_message'] = $charge->message;
 							$update_meta['reg_status']           = 'fail';
@@ -173,13 +177,16 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					}
 				} else {
 					// There is nothing to do here, just finidh the process :).
-					$result->success = true;
+					$result->success  = true;
+					$result->callback = get_permalink( $registration_id );
+
 					// Update registration status.
 					Helper::save_post_meta( $registration_id, [ 'reg_status' => 'done' ] );
 				}
 			} else {
 				$result->message = __( 'Please reload the page and try again', 'wacara' );
 			}
+
 			wp_send_json( $result );
 		}
 	}
