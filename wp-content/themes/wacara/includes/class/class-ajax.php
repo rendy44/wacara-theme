@@ -174,6 +174,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				} else {
 					// There is nothing to do here, just finidh the process :).
 					$result->success = true;
+					// Update registration status.
+					Helper::save_post_meta( $registration_id, [ 'reg_status' => 'done' ] );
 				}
 			} else {
 				$result->message = __( 'Please reload the page and try again', 'wacara' );
