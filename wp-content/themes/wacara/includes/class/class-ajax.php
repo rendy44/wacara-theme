@@ -89,8 +89,6 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 		/**
 		 * Callback for making payment.
-		 *
-		 * @throws ApiErrorException Handle error from stripe.
 		 */
 		public function payment_callback() {
 			$result          = new Result();
@@ -154,7 +152,16 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						// Charge the customer.
 						/* translators: 1: the event name */
 						$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
-						$result      = Payment::charge_customer( $used_stripe_customer_id, $stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
+						$charge      = Payment::charge_customer( $used_stripe_customer_id, $stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
+
+						// Validate charge result.
+						if ( $charge->success ) {
+							// Save charge id.
+							Helper::save_post_meta( $registration_id, [ 'stripe_charge_id' => $charge->callback ] );
+							$result->success = true;
+						} else {
+							$result->message = $charge->message;
+						}
 					}
 				} else {
 					// There is nothing to do here, just finidh the process :).
