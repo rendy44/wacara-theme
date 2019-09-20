@@ -78,7 +78,7 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 			$cache_key         = TEMP_PREFIX . 'customer_' . $email;
 			$local_customer_id = wp_cache_get( $cache_key );
 			if ( false === $local_customer_id ) {
-				$local_customer_id = $wpdb->get_var( "SELECT post_id FROM {$table_name} WHERE post_meta = '{$post_meta}' AND meta_value = '{$email}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
+				$local_customer_id = $wpdb->get_var( "SELECT post_id FROM {$table_name} WHERE meta_key = '{$post_meta}' AND meta_value = '{$email}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
 				wp_cache_set( $cache_key, $local_customer_id );
 			}
 
