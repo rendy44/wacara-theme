@@ -8,6 +8,8 @@
 
 namespace Skeleton;
 
+use WP_Error;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -52,12 +54,14 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 
 			// Create a new participant.
 			if ( ! $participant_id ) {
+
+				// Prepare default args.
 				$default_args = [
 					'event_id'   => false,
 					'pricing_id' => false,
 				];
 
-				// Prepare the arguments.
+				// Parse the arguments.
 				$args = wp_parse_args( $args, $default_args );
 
 				// Validate inputs.
@@ -66,7 +70,18 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					// Generate unique key.
 					$participant_key = wp_generate_password( 12, false );
 
-					// Perform action before creating a new participant.
+					/**
+					 * Perform the filter to modify participant key.
+					 *
+					 * @param string $participant_key participant random key.
+					 */
+					apply_filters( 'wacara_filter_participant_key', $participant_key );
+
+					/**
+					 * Perform action before creating participant
+					 *
+					 * @param array $args setting for creating new post.
+					 */
 					do_action( 'wacara_before_creating_participant', $args );
 
 					// Proceed creating participant.
@@ -79,21 +94,33 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						]
 					);
 
+					/**
+					 * Perform action after creating participant
+					 *
+					 * @param array        $args            setting for creating new post.
+					 * @param int|WP_Error $new_participant result of newly created participant.
+					 */
+					do_action( 'wacara_after_creating_participant', $args, $new_participant );
+
 					// Validate after creating participant.
 					if ( is_wp_error( $new_participant ) ) {
+
+						// Update result.
 						$this->message = $new_participant->get_error_messages();
 					} else {
+
+						// Update class object.
 						$this->success          = true;
 						$this->participant_id   = $new_participant;
 						$this->participant_url  = get_permalink( $new_participant );
 						$this->participant_data = $args;
+
 						// Update participant meta after successfully being created.
 						Helper::save_post_meta( $new_participant, $args );
 					}
-
-					// Perform action after creating a new participant.
-					do_action( 'wacara_after_creating_participant', $this->success, $new_participant );
 				} else {
+
+					// Update result.
 					$this->message = __( 'Please use valid input', 'wacara' );
 				}
 			} else {
