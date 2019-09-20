@@ -14,6 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
+				<?php
+				if ( $stripe_error_message && isset( $stripe_error_message ) ) {
+					?>
+					<div class="alert alert-warning mb-5">
+						<strong><?php echo esc_html__( 'Last Error:', 'wacara' ); ?></strong><br/>
+						<?php echo esc_html( $stripe_error_message ); ?>
+					</div>
+					<?php
+				}
+				?>
 				<form id="frm_register" method="post">
 					<?php
 					$fields = [ 'name', 'email', 'company', 'position', 'id_number', 'phone' ];

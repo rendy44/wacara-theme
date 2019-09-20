@@ -29,10 +29,10 @@ while ( have_posts() ) {
 			break;
 		case 'fail':
 		default:
-			$validate_pricing               = Helper::is_pricing_valid( $register_args['pricing_id'], true );
-			$register_args['use_payment']   = $validate_pricing->success;
-			$register_args['error_message'] = Helper::get_post_meta( 'charge_error_message' );
-			$template                       = 'register-form';
+			$validate_pricing                      = Helper::is_pricing_valid( $register_args['pricing_id'], true );
+			$register_args['use_payment']          = $validate_pricing->success;
+			$register_args['stripe_error_message'] = Helper::get_post_meta( 'stripe_error_message' );
+			$template                              = 'register-form';
 			break;
 	}
 	echo Template::render( 'participant/' . $template, $register_args ); // phpcs:ignore
