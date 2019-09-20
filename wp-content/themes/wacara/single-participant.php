@@ -16,7 +16,7 @@ get_header();
 
 while ( have_posts() ) {
 	the_post();
-	$reg_status    = Helper::get_post_meta( 'status' );
+	$reg_status    = Helper::get_post_meta( 'reg_status' );
 	$register_args = [
 		'id'         => get_the_ID(),
 		'title'      => get_the_title(),
@@ -24,16 +24,15 @@ while ( have_posts() ) {
 		'event_id'   => Helper::get_post_meta( 'event_id' ),
 	];
 	switch ( $reg_status ) {
-		case 'success':
-			$template = 'success';
+		case 'done':
+			$template = 'register-success';
 			break;
-		case 'failed':
-			$template = 'failed';
-			break;
+		case 'fail':
 		default:
-			$validate_pricing             = Helper::is_pricing_valid( $register_args['pricing_id'], true );
-			$register_args['use_payment'] = $validate_pricing->success;
-			$template                     = 'register-form';
+			$validate_pricing               = Helper::is_pricing_valid( $register_args['pricing_id'], true );
+			$register_args['use_payment']   = $validate_pricing->success;
+			$register_args['error_message'] = Helper::get_post_meta( 'charge_error_message' );
+			$template                       = 'register-form';
 			break;
 	}
 	echo Template::render( 'participant/' . $template, $register_args ); // phpcs:ignore
