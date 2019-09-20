@@ -154,14 +154,22 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
 						$charge      = Payment::charge_customer( $used_stripe_customer_id, $stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
 
+						// Define variable to store some useful information.
+						$update_meta = [];
 						// Validate charge result.
 						if ( $charge->success ) {
 							// Save charge id.
-							Helper::save_post_meta( $registration_id, [ 'stripe_charge_id' => $charge->callback ] );
-							$result->success = true;
+							$update_meta['stripe_charge_id'] = $charge->callback;
+							$update_meta['reg_status']       = 'done';
+							$result->success                 = true;
 						} else {
-							$result->message = $charge->message;
+							$update_meta['charge_error_message'] = $charge->message;
+							$update_meta['reg_status']           = 'fail';
+							$result->message                     = $charge->message;
 						}
+
+						// Update registration meta.
+						Helper::save_post_meta( $registration_id, $update_meta );
 					}
 				} else {
 					// There is nothing to do here, just finidh the process :).
