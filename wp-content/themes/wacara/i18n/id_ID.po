@@ -1,70 +1,115 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WAcara Event Organizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-08 15:11+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2019-09-20 14:48+0000\n"
+"PO-Revision-Date: 2019-09-20 14:48+0000\n"
+"Last-Translator: admin <rendy.de.p@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.2"
 
-#: includes/class/class-metabox.php:216
+#: includes/class/class-metabox.php:506
 msgid "Add any pictures related to the location"
 msgstr ""
 
-#: includes/class/class-metabox.php:222
+#: includes/class/class-metabox.php:512
 msgid "Add Images"
 msgstr ""
 
-#: includes/class/class-cpt.php:64
+#: includes/class/class-cpt.php:268
+msgid "Add New Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:70
 msgid "Add New Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:105
+#: includes/class/class-cpt.php:109
 msgid "Add New Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:62
+#: includes/class/class-cpt.php:266
+msgctxt "add new on admin bar"
+msgid "Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:68
 msgctxt "add new on admin bar"
 msgid "Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:103
+#: includes/class/class-cpt.php:107
 msgctxt "add new on admin bar"
 msgid "Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:144
+#: includes/class/class-cpt.php:224
+msgctxt "add new on admin bar"
+msgid "Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:185
+msgctxt "add new on admin bar"
+msgid "Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:146
 msgctxt "add new on admin bar"
 msgid "Speaker"
 msgstr ""
 
-#: includes/class/class-cpt.php:146
+#: includes/class/class-cpt.php:226
+msgid "Add New Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:187
+msgid "Add New Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:148
 msgid "Add New Speaker"
 msgstr ""
 
-#: includes/class/class-metabox.php:198
+#: includes/class/class-metabox.php:90
+msgid "Add schedule"
+msgstr ""
+
+#: includes/class/class-metabox.php:488
 msgid "Address"
 msgstr ""
 
-#: includes/class/class-cpt.php:61
+#: includes/class/class-cpt.php:265
+msgctxt "admin menu"
+msgid "Customers"
+msgstr ""
+
+#: includes/class/class-cpt.php:67
 msgctxt "admin menu"
 msgid "Events"
 msgstr ""
 
-#: includes/class/class-cpt.php:102
+#: includes/class/class-cpt.php:106
 msgctxt "admin menu"
 msgid "Locations"
 msgstr ""
 
-#: includes/class/class-cpt.php:143
+#: includes/class/class-cpt.php:223
+msgctxt "admin menu"
+msgid "Participants"
+msgstr ""
+
+#: includes/class/class-cpt.php:184
+msgctxt "admin menu"
+msgid "Prices"
+msgstr ""
+
+#: includes/class/class-cpt.php:145
 msgctxt "admin menu"
 msgid "Speakers"
 msgstr ""
@@ -81,16 +126,36 @@ msgstr ""
 msgid "Algeria"
 msgstr ""
 
-#: includes/class/class-cpt.php:68
+#: includes/class/class-cpt.php:272
+msgid "All Customers"
+msgstr ""
+
+#: includes/class/class-cpt.php:74
 msgid "All Events"
 msgstr ""
 
-#: includes/class/class-cpt.php:109
+#: includes/class/class-cpt.php:113
 msgid "All Locations"
 msgstr ""
 
-#: includes/class/class-cpt.php:150
+#: includes/class/class-cpt.php:230
+msgid "All Participants"
+msgstr ""
+
+#: includes/class/class-cpt.php:191
+msgid "All Prices"
+msgstr ""
+
+#: includes/class/class-cpt.php:152
 msgid "All Speakers"
+msgstr ""
+
+#: includes/class/class-metabox.php:216
+msgid "Allow participant register this event"
+msgstr ""
+
+#: includes/class/class-metabox.php:213
+msgid "Allow register"
 msgstr ""
 
 #: i18n/country.php:18
@@ -157,10 +222,6 @@ msgstr ""
 msgid "Barbados"
 msgstr ""
 
-#: includes/class/class-metabox.php:83
-msgid "Basic Information"
-msgstr ""
-
 #: i18n/country.php:34
 msgid "Belarus"
 msgstr ""
@@ -187,6 +248,14 @@ msgstr ""
 
 #: i18n/country.php:40
 msgid "Bolivia"
+msgstr ""
+
+#: templates/event/pricing.php:54
+msgid "Book Now"
+msgstr ""
+
+#: templates/event/pricing.php:18
+msgid "Book your seat right now"
 msgstr ""
 
 #: i18n/country.php:41
@@ -223,6 +292,11 @@ msgstr ""
 
 #: i18n/country.php:49
 msgid "Burundi"
+msgstr ""
+
+#: templates/participant/register-form.php:51
+msgid ""
+"By clicking register, you are automatically agree to our term of service"
 msgstr ""
 
 #: i18n/country.php:50
@@ -265,7 +339,7 @@ msgstr ""
 msgid "Christmas Island"
 msgstr ""
 
-#: includes/class/class-metabox.php:193
+#: includes/class/class-metabox.php:483
 msgid "City"
 msgstr ""
 
@@ -281,8 +355,25 @@ msgstr ""
 msgid "Comoros"
 msgstr ""
 
+#: includes/class/class-metabox.php:287 includes/class/class-metabox.php:307
+msgid "Company"
+msgstr ""
+
 #: i18n/country.php:63
 msgid "Congo"
+msgstr ""
+
+#: templates/participant/register-success.php:18
+msgid "Congratulation"
+msgstr ""
+
+#: includes/class/class-metabox.php:696
+msgid "Cons"
+msgstr ""
+
+#: includes/class/class-metabox.php:116
+msgctxt "Content of schedule event"
+msgid "Content"
 msgstr ""
 
 #: i18n/country.php:65
@@ -297,8 +388,12 @@ msgstr ""
 msgid "Cote D`ivoire"
 msgstr ""
 
-#: includes/class/class-metabox.php:182
+#: includes/class/class-metabox.php:472
 msgid "Country"
+msgstr ""
+
+#: templates/participant/register-form.php:39
+msgid "Credit card information"
 msgstr ""
 
 #: i18n/country.php:68
@@ -309,6 +404,19 @@ msgstr ""
 msgid "Cuba"
 msgstr ""
 
+#: includes/class/class-metabox.php:660
+msgid "Currency"
+msgstr ""
+
+#: includes/class/class-cpt.php:267
+msgctxt "customer"
+msgid "Add New"
+msgstr ""
+
+#: includes/class/class-transaction.php:140
+msgid "Customer not found"
+msgstr ""
+
 #: i18n/country.php:70
 msgid "Cyprus"
 msgstr ""
@@ -317,11 +425,11 @@ msgstr ""
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/class/class-metabox.php:108
+#: includes/class/class-metabox.php:167
 msgid "Date end"
 msgstr ""
 
-#: includes/class/class-metabox.php:86
+#: includes/class/class-metabox.php:145
 msgid "Date start"
 msgstr ""
 
@@ -337,22 +445,18 @@ msgstr ""
 msgid "Denmark"
 msgstr ""
 
-#: includes/class/class-metabox.php:127
+#: includes/class/class-metabox.php:186
 msgid "Describe the event in short sentence."
 msgstr ""
 
-#: includes/class/class-metabox.php:124 includes/class/class-metabox.php:230
+#: includes/class/class-metabox.php:183 includes/class/class-metabox.php:520
 msgid "Description"
 msgstr ""
 
-#: includes/class/class-cpt.php:77 includes/class/class-cpt.php:118
-#: includes/class/class-cpt.php:159
-msgid "Description."
-msgstr ""
-
-#: includes/class/class-metabox.php:70 includes/class/class-metabox.php:133
-#: includes/class/class-metabox.php:160 includes/class/class-metabox.php:173
-#: includes/class/class-metabox.php:254 includes/class/class-metabox.php:267
+#: includes/class/class-metabox.php:129 includes/class/class-metabox.php:192
+#: includes/class/class-metabox.php:450 includes/class/class-metabox.php:463
+#: includes/class/class-metabox.php:544 includes/class/class-metabox.php:557
+#: includes/class/class-metabox.php:644 includes/class/class-metabox.php:657
 msgid "Detail"
 msgstr ""
 
@@ -368,7 +472,7 @@ msgstr ""
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/class/class-metabox.php:225
+#: includes/class/class-metabox.php:515
 msgid "Download"
 msgstr ""
 
@@ -376,15 +480,27 @@ msgstr ""
 msgid "Ecuador"
 msgstr ""
 
-#: includes/class/class-cpt.php:66
+#: includes/class/class-cpt.php:270
+msgid "Edit Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:72
 msgid "Edit Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:107
+#: includes/class/class-cpt.php:111
 msgid "Edit Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:148
+#: includes/class/class-cpt.php:228
+msgid "Edit Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:189
+msgid "Edit Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:150
 msgid "Edit Speaker"
 msgstr ""
 
@@ -394,6 +510,18 @@ msgstr ""
 
 #: i18n/country.php:78
 msgid "El Salvador"
+msgstr ""
+
+#: includes/class/class-metabox.php:227
+msgid "Email"
+msgstr ""
+
+#: includes/class/class-metabox.php:252
+msgid "Email address"
+msgstr ""
+
+#: includes/class/class-metabox.php:744
+msgid "Enable sandbox for testing"
 msgstr ""
 
 #: i18n/country.php:79
@@ -412,16 +540,20 @@ msgstr ""
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/class/class-cpt.php:63
+#: includes/class/class-cpt.php:69
 msgctxt "event"
 msgid "Add New"
 msgstr ""
 
-#: includes/class/class-metabox.php:273
+#: templates/event/schedule.php:17
+msgid "Event Rundown"
+msgstr ""
+
+#: includes/class/class-metabox.php:563
 msgid "Ex: CEO at random company"
 msgstr ""
 
-#: includes/class/class-metabox.php:291
+#: includes/class/class-metabox.php:581
 msgid "Facebook URL"
 msgstr ""
 
@@ -431,6 +563,16 @@ msgstr ""
 
 #: i18n/country.php:84
 msgid "Faroe Islands"
+msgstr ""
+
+#: includes/class/class-metabox.php:686
+msgid "Features"
+msgstr ""
+
+#: includes/class/class-metabox.php:249 includes/class/class-metabox.php:279
+#: includes/class/class-metabox.php:304 includes/class/class-metabox.php:332
+#: includes/class/class-metabox.php:360 includes/class/class-metabox.php:388
+msgid "Field name"
 msgstr ""
 
 #: i18n/country.php:85
@@ -455,6 +597,10 @@ msgstr ""
 
 #: i18n/country.php:90
 msgid "French Southern Territories"
+msgstr ""
+
+#: includes/class/class-metabox.php:282
+msgid "Full name"
 msgstr ""
 
 #: i18n/country.php:91
@@ -557,7 +703,11 @@ msgstr ""
 msgid "Iceland"
 msgstr ""
 
-#: includes/class/class-metabox.php:224
+#: includes/class/class-metabox.php:343 includes/class/class-metabox.php:363
+msgid "ID number"
+msgstr ""
+
+#: includes/class/class-metabox.php:514
 msgid "Image:"
 msgstr ""
 
@@ -569,7 +719,7 @@ msgstr ""
 msgid "Indonesia"
 msgstr ""
 
-#: includes/class/class-metabox.php:300
+#: includes/class/class-metabox.php:590
 msgid "Instagram URL"
 msgstr ""
 
@@ -637,6 +787,10 @@ msgstr ""
 msgid "Lao People`s Democratic Republic"
 msgstr ""
 
+#: templates/participant/register-form.php:21
+msgid "Last Error:"
+msgstr ""
+
 #: i18n/country.php:134
 msgid "Latvia"
 msgstr ""
@@ -661,7 +815,7 @@ msgstr ""
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/class/class-metabox.php:327
+#: includes/class/class-metabox.php:617
 msgid "Linkedin URL"
 msgstr ""
 
@@ -669,11 +823,19 @@ msgstr ""
 msgid "Lithuania"
 msgstr ""
 
-#: includes/class/class-metabox.php:118
+#: includes/class/class-metabox.php:775
+msgid "Live publishable key"
+msgstr ""
+
+#: includes/class/class-metabox.php:767
+msgid "Live secret key"
+msgstr ""
+
+#: includes/class/class-metabox.php:177
 msgid "Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:104
+#: includes/class/class-cpt.php:108
 msgctxt "location"
 msgid "Add New"
 msgstr ""
@@ -692,6 +854,10 @@ msgstr ""
 
 #: i18n/country.php:144
 msgid "Madagascar"
+msgstr ""
+
+#: includes/class/class-setting.php:68
+msgid "Main Nav"
 msgstr ""
 
 #: i18n/country.php:145
@@ -732,6 +898,10 @@ msgstr ""
 
 #: i18n/country.php:154
 msgid "Mayotte"
+msgstr ""
+
+#: templates/event/speakers.php:17
+msgid "Meet The Speakers"
 msgstr ""
 
 #: i18n/country.php:155
@@ -778,7 +948,7 @@ msgstr ""
 msgid "Myanmar"
 msgstr ""
 
-#: includes/class/class-metabox.php:176
+#: includes/class/class-metabox.php:257 includes/class/class-metabox.php:466
 msgid "Name"
 msgstr ""
 
@@ -806,15 +976,27 @@ msgstr ""
 msgid "New Caledonia"
 msgstr ""
 
-#: includes/class/class-cpt.php:65
+#: includes/class/class-cpt.php:269
+msgid "New Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:71
 msgid "New Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:106
+#: includes/class/class-cpt.php:110
 msgid "New Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:147
+#: includes/class/class-cpt.php:227
+msgid "New Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:188
+msgid "New Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:149
 msgid "New Speaker"
 msgstr ""
 
@@ -838,32 +1020,72 @@ msgstr ""
 msgid "Niue"
 msgstr ""
 
-#: includes/class/class-cpt.php:72
+#: includes/class/class-cpt.php:276
+msgid "No customers found in Trash."
+msgstr ""
+
+#: includes/class/class-cpt.php:275
+msgid "No customers found."
+msgstr ""
+
+#: includes/class/class-cpt.php:78
 msgid "No events found in Trash."
 msgstr ""
 
-#: includes/class/class-cpt.php:71
+#: includes/class/class-cpt.php:77
 msgid "No events found."
 msgstr ""
 
-#: includes/class/class-cpt.php:113
+#: includes/class/class-cpt.php:117
 msgid "No locations found in Trash."
 msgstr ""
 
-#: includes/class/class-cpt.php:112
+#: includes/class/class-cpt.php:116
 msgid "No locations found."
 msgstr ""
 
-#: includes/class/class-cpt.php:154
+#: includes/class/class-cpt.php:234
+msgid "No participants found in Trash."
+msgstr ""
+
+#: includes/class/class-cpt.php:233
+msgid "No participants found."
+msgstr ""
+
+#: includes/class/class-cpt.php:195
+msgid "No prices found in Trash."
+msgstr ""
+
+#: includes/class/class-cpt.php:194
+msgid "No prices found."
+msgstr ""
+
+#: includes/class/class-cpt.php:156
 msgid "No speakers found in Trash."
 msgstr ""
 
-#: includes/class/class-cpt.php:153
+#: includes/class/class-cpt.php:155
 msgid "No speakers found."
 msgstr ""
 
 #: i18n/country.php:176
 msgid "Norfolk Island"
+msgstr ""
+
+#: includes/class/class-metabox.php:778
+msgid "Normally it something like this pk_live_xxx"
+msgstr ""
+
+#: includes/class/class-metabox.php:762
+msgid "Normally it something like this pk_test_xxx"
+msgstr ""
+
+#: includes/class/class-metabox.php:770
+msgid "Normally it something like this sk_live_xxx"
+msgstr ""
+
+#: includes/class/class-metabox.php:754
+msgid "Normally it something like this sk_test_xxx"
 msgstr ""
 
 #: i18n/country.php:177
@@ -874,11 +1096,19 @@ msgstr ""
 msgid "Norway"
 msgstr ""
 
+#: includes/class/class-ui.php:77
+msgid "Not Found"
+msgstr ""
+
 #: i18n/country.php:179
 msgid "Oman"
 msgstr ""
 
-#: includes/class/class-metabox.php:201
+#: includes/class/class-metabox.php:679
+msgid "Only absolute number is allowed"
+msgstr ""
+
+#: includes/class/class-metabox.php:491
 msgid "Only short address, without city nor province/state name"
 msgstr ""
 
@@ -906,16 +1136,43 @@ msgstr ""
 msgid "Paraguay"
 msgstr ""
 
-#: includes/class/class-cpt.php:70
+#: includes/class/class-cpt.php:274
+msgid "Parent Customers:"
+msgstr ""
+
+#: includes/class/class-cpt.php:76
 msgid "Parent Events:"
 msgstr ""
 
-#: includes/class/class-cpt.php:111
+#: includes/class/class-cpt.php:115
 msgid "Parent Locations:"
 msgstr ""
 
-#: includes/class/class-cpt.php:152
+#: includes/class/class-cpt.php:232
+msgid "Parent Participants:"
+msgstr ""
+
+#: includes/class/class-cpt.php:193
+msgid "Parent Prices:"
+msgstr ""
+
+#: includes/class/class-cpt.php:154
 msgid "Parent Speakers:"
+msgstr ""
+
+#: includes/class/class-cpt.php:225
+msgctxt "participant"
+msgid "Add New"
+msgstr ""
+
+#. 1: the event name
+#: includes/class/class-ajax.php:186
+#, php-format
+msgid "Payment for registering to %s"
+msgstr ""
+
+#: includes/class/class-metabox.php:99
+msgid "Period"
 msgstr ""
 
 #: i18n/country.php:186
@@ -926,16 +1183,32 @@ msgstr ""
 msgid "Philippines"
 msgstr ""
 
-#: includes/class/class-metabox.php:215
+#: includes/class/class-metabox.php:371 includes/class/class-metabox.php:391
+msgid "Phone"
+msgstr ""
+
+#: includes/class/class-metabox.php:505
 msgid "Photo"
 msgstr ""
 
-#: includes/class/class-metabox.php:212
+#: includes/class/class-metabox.php:502
 msgid "Photo & Description"
 msgstr ""
 
 #: i18n/country.php:188
 msgid "Pitcairn"
+msgstr ""
+
+#: includes/class/class-ajax.php:85
+msgid "Please provide a valid event id"
+msgstr ""
+
+#: includes/class/class-ajax.php:224
+msgid "Please reload the page and try again"
+msgstr ""
+
+#: includes/class/class-participant.php:97
+msgid "Please use valid input"
 msgstr ""
 
 #: i18n/country.php:189
@@ -946,45 +1219,89 @@ msgstr ""
 msgid "Portugal"
 msgstr ""
 
-#: includes/class/class-metabox.php:270
+#: includes/class/class-metabox.php:315 includes/class/class-metabox.php:335
+#: includes/class/class-metabox.php:560
 msgid "Position"
 msgstr ""
 
-#: includes/class/class-cpt.php:59
+#: includes/class/class-cpt.php:263
+msgctxt "post type general name"
+msgid "Customers"
+msgstr ""
+
+#: includes/class/class-cpt.php:65
 msgctxt "post type general name"
 msgid "Events"
 msgstr ""
 
-#: includes/class/class-cpt.php:100
+#: includes/class/class-cpt.php:104
 msgctxt "post type general name"
 msgid "Locations"
 msgstr ""
 
-#: includes/class/class-cpt.php:141
+#: includes/class/class-cpt.php:221
+msgctxt "post type general name"
+msgid "Participants"
+msgstr ""
+
+#: includes/class/class-cpt.php:182
+msgctxt "post type general name"
+msgid "Prices"
+msgstr ""
+
+#: includes/class/class-cpt.php:143
 msgctxt "post type general name"
 msgid "Speakers"
 msgstr ""
 
-#: includes/class/class-cpt.php:60
+#: includes/class/class-cpt.php:264
+msgctxt "post type singular name"
+msgid "Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:66
 msgctxt "post type singular name"
 msgid "Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:101
+#: includes/class/class-cpt.php:105
 msgctxt "post type singular name"
 msgid "Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:142
+#: includes/class/class-cpt.php:222
+msgctxt "post type singular name"
+msgid "Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:183
+msgctxt "post type singular name"
+msgid "Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:144
 msgctxt "post type singular name"
 msgid "Speaker"
 msgstr ""
 
-#: includes/class/class-metabox.php:204
+#: includes/class/class-metabox.php:494
 msgid "Postal code"
 msgstr ""
 
-#: includes/class/class-metabox.php:188
+#: includes/class/class-cpt.php:186
+msgctxt "price"
+msgid "Add New"
+msgstr ""
+
+#: includes/class/class-metabox.php:201
+msgid "Pricing"
+msgstr ""
+
+#: includes/class/class-metabox.php:689
+msgid "Pros"
+msgstr ""
+
+#: includes/class/class-metabox.php:478
 msgid "Province/State"
 msgstr ""
 
@@ -996,16 +1313,24 @@ msgstr ""
 msgid "Qatar"
 msgstr ""
 
+#: templates/event/pricing.php:17 templates/participant/register-form.php:52
+msgid "Register"
+msgstr ""
+
 #: templates/global/navbar.php:36
 msgid "Register Now"
 msgstr ""
 
-#: includes/class/class-metabox.php:226
+#: includes/class/class-metabox.php:516
 msgid "Remove"
 msgstr ""
 
-#: includes/class/class-metabox.php:223
+#: includes/class/class-metabox.php:513
 msgid "Remove Images"
+msgstr ""
+
+#: includes/class/class-metabox.php:91
+msgid "Remove schedule"
 msgstr ""
 
 #. Author of the theme
@@ -1014,6 +1339,12 @@ msgstr ""
 
 #: i18n/country.php:130
 msgid "Republic of Korea"
+msgstr ""
+
+#: includes/class/class-metabox.php:238 includes/class/class-metabox.php:268
+#: includes/class/class-metabox.php:294 includes/class/class-metabox.php:322
+#: includes/class/class-metabox.php:350 includes/class/class-metabox.php:378
+msgid "Required"
 msgstr ""
 
 #: i18n/country.php:193
@@ -1060,6 +1391,18 @@ msgstr ""
 msgid "San Marino"
 msgstr ""
 
+#: includes/class/class-metabox.php:743
+msgid "Sandbox"
+msgstr ""
+
+#: includes/class/class-metabox.php:759
+msgid "Sandbox publishable key"
+msgstr ""
+
+#: includes/class/class-metabox.php:751
+msgid "Sandbox secret key"
+msgstr ""
+
 #: i18n/country.php:204
 msgid "Sao Tome and Principe"
 msgstr ""
@@ -1068,19 +1411,49 @@ msgstr ""
 msgid "Saudi Arabia"
 msgstr ""
 
-#: templates/global/navbar.php:33
+#: templates/global/navbar.php:33 includes/class/class-metabox.php:76
 msgid "Schedule"
 msgstr ""
 
-#: includes/class/class-cpt.php:69
+#: includes/class/class-metabox.php:89
+msgid "Schedule {#}"
+msgstr ""
+
+#: searchform.php:16
+msgid "Search"
+msgstr ""
+
+#: includes/class/class-cpt.php:273
+msgid "Search Customers"
+msgstr ""
+
+#: includes/class/class-cpt.php:75
 msgid "Search Events"
 msgstr ""
 
-#: includes/class/class-cpt.php:110
+#: searchform.php:15
+msgid "Search for..."
+msgstr ""
+
+#: includes/class/class-cpt.php:114
 msgid "Search Locations"
 msgstr ""
 
-#: includes/class/class-cpt.php:151
+#: includes/class/class-cpt.php:231
+msgid "Search Participants"
+msgstr ""
+
+#: includes/class/class-cpt.php:192
+msgid "Search Prices"
+msgstr ""
+
+#. %s: search term.
+#: includes/class/class-ui.php:75
+#, php-format
+msgid "Search Results for \"%s\""
+msgstr ""
+
+#: includes/class/class-cpt.php:153
 msgid "Search Speakers"
 msgstr ""
 
@@ -1088,7 +1461,7 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: includes/class/class-helper.php:217
+#: includes/class/class-helper.php:251
 msgid "Select country"
 msgstr ""
 
@@ -1098,6 +1471,12 @@ msgstr ""
 
 #: i18n/country.php:207
 msgid "Serbia"
+msgstr ""
+
+#: includes/class/class-metabox.php:241 includes/class/class-metabox.php:271
+#: includes/class/class-metabox.php:297 includes/class/class-metabox.php:325
+#: includes/class/class-metabox.php:353 includes/class/class-metabox.php:381
+msgid "Set as required field"
 msgstr ""
 
 #: i18n/country.php:208
@@ -1112,7 +1491,7 @@ msgstr ""
 msgid "Singapore"
 msgstr ""
 
-#: includes/class/class-metabox.php:92
+#: includes/class/class-metabox.php:151
 msgid "Single day"
 msgstr ""
 
@@ -1124,7 +1503,7 @@ msgstr ""
 msgid "Slovenia"
 msgstr ""
 
-#: includes/class/class-metabox.php:279
+#: includes/class/class-metabox.php:569
 msgid "Social Networks"
 msgstr ""
 
@@ -1148,17 +1527,21 @@ msgstr ""
 msgid "Spain"
 msgstr ""
 
-#: includes/class/class-cpt.php:145
+#: includes/class/class-cpt.php:147
 msgctxt "speaker"
 msgid "Add New"
 msgstr ""
 
-#: templates/global/navbar.php:27 includes/class/class-metabox.php:136
+#: templates/global/navbar.php:27 includes/class/class-metabox.php:195
 msgid "Speakers"
 msgstr ""
 
 #: i18n/country.php:218
 msgid "Sri Lanka"
+msgstr ""
+
+#: includes/class/class-metabox.php:725
+msgid "Stripe Options"
 msgstr ""
 
 #: i18n/country.php:219
@@ -1189,6 +1572,21 @@ msgstr ""
 msgid "Syrian Arab Republic"
 msgstr ""
 
+#: includes/class/class-metabox.php:142
+msgctxt "Tab metabox title"
+msgid "Basic"
+msgstr ""
+
+#: includes/class/class-metabox.php:223
+msgctxt "Tab metabox title"
+msgid "Fields"
+msgstr ""
+
+#: includes/class/class-metabox.php:210
+msgctxt "Tab metabox title"
+msgid "Rules"
+msgstr ""
+
 #: i18n/country.php:226
 msgid "Taiwan, Province of China"
 msgstr ""
@@ -1209,12 +1607,109 @@ msgstr ""
 msgid "The Democratic Republic of The Congo"
 msgstr ""
 
-#: includes/class/class-metabox.php:99
+#: templates/event/schedule.php:18
+msgid "The details about schedule of the event from the start until the end"
+msgstr ""
+
+#: includes/class/class-helper.php:585
+msgid "The pricing amount should be greater than 0"
+msgstr ""
+
+#: includes/class/class-helper.php:591
+msgid "The pricing is invalid, the currency has not been assigned yet"
+msgstr ""
+
+#: includes/class/class-helper.php:594
+msgid "The pricing is invalid, the price amount has not been assigned yet"
+msgstr ""
+
+#: templates/global/404.php:13
+msgid "There is no post"
+msgstr ""
+
+#: templates/event/speakers.php:18
+msgid "These are amazing people who will share their thoughts to us"
+msgstr ""
+
+#: includes/class/class-helper.php:496
+msgid "This event does not allow registration"
+msgstr ""
+
+#: includes/class/class-helper.php:547
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid address"
+msgstr ""
+
+#: includes/class/class-helper.php:550
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid city"
+msgstr ""
+
+#: includes/class/class-helper.php:556
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid country"
+msgstr ""
+
+#: includes/class/class-helper.php:538
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid description"
+msgstr ""
+
+#: includes/class/class-helper.php:559
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid name"
+msgstr ""
+
+#: includes/class/class-helper.php:541
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid photo"
+msgstr ""
+
+#: includes/class/class-helper.php:544
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid postal code"
+msgstr ""
+
+#: includes/class/class-helper.php:553
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid province"
+msgstr ""
+
+#: includes/class/class-helper.php:490
+msgid ""
+"This event is not completed yet, the event end period has not been assigned "
+"yet"
+msgstr ""
+
+#: includes/class/class-helper.php:487
+msgid ""
+"This event is not completed yet, the event location has not been assigned yet"
+msgstr ""
+
+#: includes/class/class-helper.php:493
+msgid ""
+"This event is not completed yet, the starting date has not been assigned yet"
+msgstr ""
+
+#: includes/class/class-metabox.php:158
 msgid "Time end"
 msgstr ""
 
 #: i18n/country.php:230
 msgid "Timor-leste"
+msgstr ""
+
+#: includes/class/class-metabox.php:108
+msgctxt "Title of schedule event"
+msgid "Title"
 msgstr ""
 
 #: i18n/country.php:231
@@ -1253,7 +1748,7 @@ msgstr ""
 msgid "Tuvalu"
 msgstr ""
 
-#: includes/class/class-metabox.php:318
+#: includes/class/class-metabox.php:608
 msgid "Twitter URL"
 msgstr ""
 
@@ -1265,7 +1760,7 @@ msgstr ""
 msgid "Ukraine"
 msgstr ""
 
-#: includes/class/class-metabox.php:95
+#: includes/class/class-metabox.php:154
 msgid "Uncheck this if the event will take a place in multiple days"
 msgstr ""
 
@@ -1289,7 +1784,31 @@ msgstr ""
 msgid "Uruguay"
 msgstr ""
 
-#: includes/class/class-metabox.php:179
+#: includes/class/class-metabox.php:290
+msgid "Use company field"
+msgstr ""
+
+#: includes/class/class-metabox.php:230
+msgid "Use email field"
+msgstr ""
+
+#: includes/class/class-metabox.php:346
+msgid "Use id_number field"
+msgstr ""
+
+#: includes/class/class-metabox.php:260
+msgid "Use name field"
+msgstr ""
+
+#: includes/class/class-metabox.php:374
+msgid "Use phone field"
+msgstr ""
+
+#: includes/class/class-metabox.php:318
+msgid "Use position field"
+msgstr ""
+
+#: includes/class/class-metabox.php:469
 msgid "Use the real name of the location"
 msgstr ""
 
@@ -1313,15 +1832,27 @@ msgstr ""
 msgid "Viet Nam"
 msgstr ""
 
-#: includes/class/class-cpt.php:67
+#: includes/class/class-cpt.php:271
+msgid "View Customer"
+msgstr ""
+
+#: includes/class/class-cpt.php:73
 msgid "View Event"
 msgstr ""
 
-#: includes/class/class-cpt.php:108
+#: includes/class/class-cpt.php:112
 msgid "View Location"
 msgstr ""
 
-#: includes/class/class-cpt.php:149
+#: includes/class/class-cpt.php:229
+msgid "View Participant"
+msgstr ""
+
+#: includes/class/class-cpt.php:190
+msgid "View Price"
+msgstr ""
+
+#: includes/class/class-cpt.php:151
 msgid "View Speaker"
 msgstr ""
 
@@ -1341,7 +1872,13 @@ msgstr ""
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: includes/class/class-metabox.php:282
+#: templates/participant/register-success.php:19
+msgid ""
+"We have recorded your registration, please check your email for the further "
+"detail"
+msgstr ""
+
+#: includes/class/class-metabox.php:572
 msgid "Website URL"
 msgstr ""
 
@@ -1357,6 +1894,14 @@ msgstr ""
 msgid "What is it?"
 msgstr ""
 
+#: includes/class/class-metabox.php:693
+msgid "What user will get, use coma to separate the values"
+msgstr ""
+
+#: includes/class/class-metabox.php:700
+msgid "What user will not get, use coma to separate the values"
+msgstr ""
+
 #: templates/event/about.php:28
 msgid "When"
 msgstr ""
@@ -1365,7 +1910,7 @@ msgstr ""
 msgid "WordPress theme for event organizer"
 msgstr ""
 
-#: includes/class/class-metabox.php:233
+#: includes/class/class-metabox.php:523
 msgid "Write it short and representative"
 msgstr ""
 
@@ -1373,7 +1918,17 @@ msgstr ""
 msgid "Yemen"
 msgstr ""
 
-#: includes/class/class-metabox.php:309
+#. %s: event title name
+#: includes/class/class-ui.php:84
+#, php-format
+msgid "You are about to register to %s"
+msgstr ""
+
+#: includes/class/class-metabox.php:102
+msgid "You can write year, date, clock, nor anything else"
+msgstr ""
+
+#: includes/class/class-metabox.php:599
 msgid "Youtube URL"
 msgstr ""
 
