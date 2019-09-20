@@ -8,6 +8,8 @@
 
 namespace Skeleton;
 
+use WP_Error;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -30,9 +32,43 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 		 * @return Result
 		 */
 		public static function save_customer( $name, $email, $stripe_source_id ) {
-			$result               = new Result();
+			$result = new Result();
+
+			/**
+			 * Perform action before creating stripe customer.
+			 *
+			 * @param string $name             customer name.
+			 * @param string $email            customer email.
+			 * @param string $stripe_source_id customer source id based on credit card information.
+			 */
+			do_action( 'wacara_before_creating_stripe_customer', $name, $email, $stripe_source_id );
+
+			// Create strip customer.
 			$save_stripe_customer = Payment::create_customer( $name, $email, $stripe_source_id );
+
+			/**
+			 * Perform action after creating stripe customer.
+			 *
+			 * @param string $name                 customer name.
+			 * @param string $email                customer email.
+			 * @param string $stripe_source_id     customer source id based on credit card information.
+			 * @param Result $save_stripe_customer object class result after creating stripe customer.
+			 */
+			do_action( 'wacara_after_creating_stripe_customer', $name, $email, $stripe_source_id, $save_stripe_customer );
+
+			// Validate stripe customer status.
 			if ( $save_stripe_customer->success ) {
+
+				/**
+				 * Perform action before creating local customer based on stripe customer.
+				 *
+				 * @param string $name                 customer name.
+				 * @param string $email                customer email.
+				 * @param Result $save_stripe_customer object class result after creating stripe customer.
+				 */
+				do_action( 'wacara_before_creating_local_customer', $name, $email, $save_stripe_customer );
+
+				// Save local customer based on stripe customer.
 				$save_local_customer = wp_insert_post(
 					[
 						'post_type'   => 'customer',
@@ -41,7 +77,18 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 						'post_name'   => sanitize_title( $name ),
 					]
 				);
+
+				/**
+				 * Perform action after creating local customer.
+				 *
+				 * @param string       $name                customer name.
+				 * @param string       $email               customer email.
+				 * @param int|WP_Error $save_local_customer object class result after creating stripe customer.
+				 */
+				do_action( 'wacara_after_creating_local_customer', $name, $email, $save_local_customer );
+
 				if ( ! is_wp_error( $save_local_customer ) ) {
+
 					// Save all information into post meta.
 					Helper::save_post_meta(
 						$save_local_customer,
@@ -51,6 +98,8 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 							'stripe_customer_id' => $save_stripe_customer->callback,
 						]
 					);
+
+					// Return the result.
 					$result->success  = true;
 					$result->callback = $save_stripe_customer->callback;
 				} else {
