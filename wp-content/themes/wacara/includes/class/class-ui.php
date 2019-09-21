@@ -87,6 +87,15 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 						$header_title = single_post_title( '', false );
 					}
 				}
+
+				/**
+				 * Perform the filter to modify page title.
+				 *
+				 * @param string $header_title current page title.
+				 */
+				$header_title = apply_filters( 'wacara_filter_page_title', $header_title );
+
+				// Render the header.
 				echo Template::render( // phpcs:ignore
 					'global/header-small',
 					[

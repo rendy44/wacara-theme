@@ -124,7 +124,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					$this->message = __( 'Please use valid input', 'wacara' );
 				}
 			} else {
-				// Fetching participant.
+				// TODO: Fetching participant.
 			}
 		}
 	}
