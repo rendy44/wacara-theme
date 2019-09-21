@@ -469,31 +469,37 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		public static function is_event_valid( $event_id = false ) {
 			$result   = new Result();
 			$event_id = ! $event_id ? get_the_ID() : $event_id;
-			// Is allowed to register.
-			$allow_register = self::get_post_meta( 'allow_register', $event_id );
-			if ( $allow_register ) {
-				// Is date_start assigned.
-				$date_start = self::get_post_meta( 'date_start', $event_id );
-				if ( $date_start ) {
-					// Is date end or time end assigned.
-					$maybe_single_day = self::get_post_meta( 'single_day', $event_id );
-					$event_end        = $maybe_single_day ? self::get_post_meta( 'time_end', $event_id ) : self::get_post_meta( 'date_end', $event_id );
-					if ( $event_end ) {
-						// Is location assigned.
-						$location = self::get_post_meta( 'location', $event_id );
-						if ( $location ) {
-							$result = self::is_location_valid( $location );
+			// Is already past.
+			$is_event_past = self::is_event_past( $event_id );
+			if ( ! $is_event_past ) {
+				// Is allowed to register.
+				$allow_register = self::get_post_meta( 'allow_register', $event_id );
+				if ( $allow_register ) {
+					// Is date_start assigned.
+					$date_start = self::get_post_meta( 'date_start', $event_id );
+					if ( $date_start ) {
+						// Is date end or time end assigned.
+						$maybe_single_day = self::get_post_meta( 'single_day', $event_id );
+						$event_end        = $maybe_single_day ? self::get_post_meta( 'time_end', $event_id ) : self::get_post_meta( 'date_end', $event_id );
+						if ( $event_end ) {
+							// Is location assigned.
+							$location = self::get_post_meta( 'location', $event_id );
+							if ( $location ) {
+								$result = self::is_location_valid( $location );
+							} else {
+								$result->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
+							}
 						} else {
-							$result->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
+							$result->message = __( 'This event is not completed yet, the event end period has not been assigned yet', 'wacara' );
 						}
 					} else {
-						$result->message = __( 'This event is not completed yet, the event end period has not been assigned yet', 'wacara' );
+						$result->message = __( 'This event is not completed yet, the starting date has not been assigned yet', 'wacara' );
 					}
 				} else {
-					$result->message = __( 'This event is not completed yet, the starting date has not been assigned yet', 'wacara' );
+					$result->message = __( 'This event does not allow registration', 'wacara' );
 				}
 			} else {
-				$result->message = __( 'This event does not allow registration', 'wacara' );
+				$result->message = __( 'Event already past or the starting date has not been defined yet', 'wacara' );
 			}
 
 			return $result;
@@ -626,6 +632,24 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			}
 
 			return $currency_symbol;
+		}
+
+		/**
+		 * Check whether the event is past or not.
+		 *
+		 * @param string $event_id event id.
+		 *
+		 * @return bool
+		 */
+		public static function is_event_past( $event_id ) {
+			$result            = true;
+			$date_start        = self::get_post_meta( 'date_start', $event_id );
+			$current_date_time = current_time( 'timestamp' );
+			if ( $date_start && $current_date_time < $date_start ) {
+				$result = false;
+			}
+
+			return $result;
 		}
 	}
 }

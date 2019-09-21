@@ -636,3 +636,7 @@ section h2.section-heading:before {
     padding: 3rem 2rem;
   }
 }
+
+.expired {
+  height: calc(100vh - 72px);
+}
