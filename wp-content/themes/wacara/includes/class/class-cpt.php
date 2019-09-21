@@ -45,6 +45,8 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 		private function __construct() {
 			// Register event post type.
 			add_action( 'init', [ $this, 'register_event_post_type_callback' ] );
+			// Register header post type.
+			add_action( 'init', [ $this, 'register_header_post_type_callback' ] );
 			// Register location post type.
 			add_action( 'init', [ $this, 'register_location_post_type_callback' ] );
 			// Register speaker post type.
@@ -101,6 +103,52 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			];
 
 			register_post_type( 'event', $args );
+		}
+
+		/**
+		 * Callback for registering header post type.
+		 */
+		public function register_header_post_type_callback() {
+			$labels = [
+				'name'               => _x( 'Headers', 'post type general name', 'wacara' ),
+				'singular_name'      => _x( 'Header', 'post type singular name', 'wacara' ),
+				'menu_name'          => _x( 'Headers', 'admin menu', 'wacara' ),
+				'name_admin_bar'     => _x( 'Header', 'add new on admin bar', 'wacara' ),
+				'add_new'            => _x( 'Add New', 'header', 'wacara' ),
+				'add_new_item'       => __( 'Add New Header', 'wacara' ),
+				'new_item'           => __( 'New Header', 'wacara' ),
+				'edit_item'          => __( 'Edit Header', 'wacara' ),
+				'view_item'          => __( 'View Header', 'wacara' ),
+				'all_items'          => __( 'All Headers', 'wacara' ),
+				'search_items'       => __( 'Search Headers', 'wacara' ),
+				'parent_item_colon'  => __( 'Parent Headers:', 'wacara' ),
+				'not_found'          => __( 'No headers found.', 'wacara' ),
+				'not_found_in_trash' => __( 'No headers found in Trash.', 'wacara' ),
+			];
+
+			/**
+			 * Perform filter to modify header post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_header_labels', $labels );
+
+			$args = [
+				'labels'             => $labels,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => [ 'slug' => 'header' ],
+				'capability_type'    => 'post',
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'supports'           => [ 'title' ],
+				'menu_icon'          => 'dashicons-layout',
+			];
+
+			register_post_type( 'header', $args );
 		}
 
 		/**
