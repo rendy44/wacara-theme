@@ -651,5 +651,22 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Get event main logo url.
+		 *
+		 * @param string $event_id event id.
+		 *
+		 * @return false|string
+		 */
+		public static function get_event_logo_url( $event_id ) {
+			$static_logo = TEMP_URI . '/assets/img/sample-logo.png';
+			$main_logo   = self::get_post_meta( 'main_logo_id', $event_id );
+			if ( $main_logo ) {
+				$static_logo = wp_get_attachment_image_url( $main_logo, 'medium' );
+			}
+
+			return $static_logo;
+		}
 	}
 }

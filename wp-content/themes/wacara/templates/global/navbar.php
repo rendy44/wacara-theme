@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
 	<div class="container">
 		<a class="navbar-brand scroll" href="<?php echo esc_attr( $home_link ); ?>">
-			<img src="<?php echo esc_attr( TEMP_URI . '/assets/img/sample-logo.png' ); ?>" alt="">
+			<img src="<?php echo esc_attr( $logo_url ); ?>" alt="">
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span

@@ -394,6 +394,30 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							],
 						],
 					],
+					[
+						'id'     => 'event_design',
+						'title'  => _x( 'Design', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name'         => __( 'Main logo', 'wacara' ),
+								'id'           => $this->meta_prefix . 'main_logo',
+								'type'         => 'file',
+								'desc'         => __( 'Only image with .png extension is allowed', 'wacara' ),
+								'options'      => [
+									'url' => false,
+								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select Image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/png',
+									],
+								],
+								'preview_size' => 'medium',
+							],
+						],
+					],
 				],
 			];
 			$cmb2->add_field(

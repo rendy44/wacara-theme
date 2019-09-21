@@ -121,10 +121,11 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				$use_full_nav = false;
 				$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
 			}
+			$logo_url = Helper::get_event_logo_url( $post_id );
 			echo Template::render( // phpcs:ignore
 				'global/navbar',
 				[
-					'site_name'    => get_bloginfo( 'name' ),
+					'logo_url'     => $logo_url,
 					'use_full_nav' => $use_full_nav,
 					'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
 				]
