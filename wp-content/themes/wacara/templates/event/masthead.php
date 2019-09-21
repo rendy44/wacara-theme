@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<header class="masthead" id="masthead" data-aos="zoom-in">
+<header class="masthead half" id="masthead" data-aos="zoom-in" style="background-image: url(<?php echo esc_attr( $background_image_url ); ?>)">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-lg-6">

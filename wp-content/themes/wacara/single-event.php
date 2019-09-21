@@ -32,9 +32,10 @@ while ( have_posts() ) {
 		$location_province     = Helper::get_post_meta( 'province', $location );
 
 		$masthead_args = [
-			'title'      => Helper::split_title( get_the_title() ),
-			'date_start' => Helper::convert_date( $date_start, true ),
-			'excerpt'    => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
+			'title'                => Helper::split_title( get_the_title() ),
+			'date_start'           => Helper::convert_date( $date_start, true ),
+			'excerpt'              => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
+			'background_image_url' => TEMP_URI . '/assets/img/illustration/events.svg',
 		];
 		echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 
