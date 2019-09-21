@@ -64,28 +64,29 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 * Render small header
 		 */
 		public function maybe_small_header_callback() {
-			if ( ! is_front_page() ) { // we don't need small header in front page, since front page already has a full-page header.
-				/* translators: %s: search term */
+			// we don't need small header in front page, since front page already has a full-page header.
+			if ( ! is_front_page() ) {
 				$header_subtitle = '';
-				if ( ! isset( $header_title ) ) {
-					if ( is_archive() ) {
-						$header_title = get_the_archive_title();
-					} elseif ( is_search() ) {
-						// translators: %s: search term.
-						$header_title = sprintf( __( 'Search Results for "%s"', 'wacara' ), get_search_query() );
-					} elseif ( is_404() ) {
-						$header_title = __( 'Not Found', 'wacara' );
-					} elseif ( is_singular() ) {
-						$header_title = get_the_title();
-						if ( is_singular( 'participant' ) ) {
-							$event_id    = Helper::get_post_meta( 'event_id', get_the_ID() );
-							$event_title = get_the_title( $event_id );
-							/* translators: %s: event title name */
-							$header_subtitle = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
-						}
-					} else {
-						$header_title = single_post_title( '', false );
+				if ( is_archive() ) {
+					$header_title = get_the_archive_title();
+				} elseif ( is_search() ) {
+					// translators: %s: search term.
+					$header_title = sprintf( __( 'Search Results for "%s"', 'wacara' ), get_search_query() );
+				} elseif ( is_404() ) {
+					$header_title = __( 'Not Found', 'wacara' );
+				} elseif ( is_singular() ) {
+					$header_title = get_the_title();
+					if ( is_singular( 'participant' ) ) {
+						$event_id    = Helper::get_post_meta( 'event_id', get_the_ID() );
+						$event_title = get_the_title( $event_id );
+						/* translators: %s: event title name */
+						$header_subtitle = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
+					} elseif ( is_singular( 'event' ) ) {
+						// Remove title for event landing page because we do not need this small header.
+						$header_title = '';
 					}
+				} else {
+					$header_title = single_post_title( '', false );
 				}
 
 				/**
@@ -95,14 +96,18 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				 */
 				$header_title = apply_filters( 'wacara_filter_page_title', $header_title );
 
-				// Render the header.
-				echo Template::render( // phpcs:ignore
-					'global/header-small',
-					[
-						'title'    => $header_title,
-						'subtitle' => $header_subtitle,
-					]
-				);
+				// Only render the small header id header title is actually defined.
+				if ( $header_title ) {
+
+					// Render the header.
+					echo Template::render( // phpcs:ignore
+						'global/header-small',
+						[
+							'title'    => $header_title,
+							'subtitle' => $header_subtitle,
+						]
+					);
+				}
 			}
 		}
 
@@ -110,7 +115,20 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 * Render header navbar
 		 */
 		public function header_navbar_callback() {
-			echo Template::render( 'global/navbar', [ 'site_name' => get_bloginfo( 'name' ) ] ); // phpcs:ignore
+			$use_full_nav = true;
+			$post_id      = get_the_ID();
+			if ( is_singular( 'participant' ) ) {
+				$use_full_nav = false;
+				$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
+			}
+			echo Template::render( // phpcs:ignore
+				'global/navbar',
+				[
+					'site_name'    => get_bloginfo( 'name' ),
+					'use_full_nav' => $use_full_nav,
+					'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
+				]
+			);
 		}
 
 		/**
