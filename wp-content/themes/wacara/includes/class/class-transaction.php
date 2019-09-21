@@ -121,22 +121,35 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 		 */
 		public static function find_local_customer_id_by_email( $email ) {
 			global $wpdb;
-			$result            = new Result();
-			$table_meta        = $wpdb->prefix . 'postmeta';
-			$table_post        = $wpdb->prefix . 'posts';
-			$post_meta         = TEMP_PREFIX . 'email';
-			$cache_key         = TEMP_PREFIX . 'customer_' . $email;
+			$result     = new Result();
+			$table_meta = $wpdb->prefix . 'postmeta';
+			$table_post = $wpdb->prefix . 'posts';
+			$post_meta  = TEMP_PREFIX . 'email';
+			$cache_key  = TEMP_PREFIX . 'customer_' . $email;
+
+			// Find local customer id from the cache.
 			$local_customer_id = wp_cache_get( $cache_key );
+
+			// Validate the local customer id status.
 			if ( false === $local_customer_id ) {
+
+				// Perfom the direct query.
 				$local_customer_id = $wpdb->get_var( "SELECT {$table_meta}.post_id FROM {$table_meta} INNER JOIN {$table_post} ON {$table_meta}.post_id = {$table_post}.ID WHERE {$table_post}.post_type = 'customer' AND {$table_meta}.meta_key = '{$post_meta}' AND {$table_meta}.meta_value = '{$email}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
+
+				// Save the query into cache.
 				wp_cache_set( $cache_key, $local_customer_id );
 			}
 
+			// Validate local customer id status.
 			if ( $local_customer_id ) {
+
+				// Update the result.
 				$result->callback = $local_customer_id;
 				$result->success  = true;
 			} else {
 				$wpdb->hide_errors();
+
+				// Update the result.
 				$result->message = __( 'Customer not found', 'wacara' );
 			}
 
@@ -151,13 +164,34 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 		 * @return Result
 		 */
 		public static function find_stripe_customer_id_by_email( $email ) {
-			$result              = new Result();
+			$result = new Result();
+
+			// Find local customer.
 			$find_local_customer = self::find_local_customer_id_by_email( $email );
+
+			// Validate local customer status.
 			if ( $find_local_customer->success ) {
-				$stripe_customer_id = Helper::get_post_meta( 'stripe_customer_id', $find_local_customer->callback );
-				$result->success    = true;
-				$result->callback   = $stripe_customer_id;
+
+				// Save found local customer_id into variable.
+				$local_customer_id = $find_local_customer->callback;
+
+				// Get stripe id from local customer.
+				$stripe_customer_id = Helper::get_post_meta( 'stripe_customer_id', $local_customer_id );
+
+				/**
+				 * Perform filter to modify stripe customer id..
+				 *
+				 * @param string $stripe_customer_id found stripe customer id.
+				 * @param string $local_customer_id  local customer id.
+				 */
+				$stripe_customer_id = apply_filters( 'wacara_filter_stripe_customer_id', $stripe_customer_id, $local_customer_id );
+
+				// Update result.
+				$result->success  = true;
+				$result->callback = $stripe_customer_id;
 			} else {
+
+				// Update result.
 				$result->message = $find_local_customer->message;
 			}
 

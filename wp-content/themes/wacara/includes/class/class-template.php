@@ -58,6 +58,8 @@ if ( ! class_exists( '\Skeleton\Template' ) ) {
 		}
 
 		/**
+		 * Render the template
+		 *
 		 * @param string $template  template file path.
 		 * @param array  $variables variables that will be injected into template file.
 		 *

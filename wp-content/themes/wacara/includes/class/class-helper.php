@@ -359,7 +359,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		/**
 		 * Format timestamp into readable date;
 		 *
-		 * @param int  $timestamp    unformatted timestamp.
+		 * @param int  $timestamp    unformulated timestamp.
 		 * @param bool $include_time whether include time in result or not.
 		 *
 		 * @return false|string

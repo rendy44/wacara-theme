@@ -78,6 +78,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found_in_trash' => __( 'No events found in Trash.', 'wacara' ),
 			];
 
+			/**
+			 * Perform filter to modify event post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_event_labels', $labels );
+
 			$args = [
 				'labels'             => $labels,
 				'public'             => true,
@@ -116,6 +123,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found'          => __( 'No locations found.', 'wacara' ),
 				'not_found_in_trash' => __( 'No locations found in Trash.', 'wacara' ),
 			];
+
+			/**
+			 * Perform filter to modify location post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_location_labels', $labels );
 
 			$args = [
 				'labels'             => $labels,
@@ -156,6 +170,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found_in_trash' => __( 'No speakers found in Trash.', 'wacara' ),
 			];
 
+			/**
+			 * Perform filter to modify speaker post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_speaker_labels', $labels );
+
 			$args = [
 				'labels'             => $labels,
 				'public'             => true,
@@ -195,6 +216,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found_in_trash' => __( 'No prices found in Trash.', 'wacara' ),
 			];
 
+			/**
+			 * Perform filter to modify price post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_price_labels', $labels );
+
 			$args = [
 				'labels'             => $labels,
 				'public'             => true,
@@ -233,6 +261,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found'          => __( 'No participants found.', 'wacara' ),
 				'not_found_in_trash' => __( 'No participants found in Trash.', 'wacara' ),
 			];
+
+			/**
+			 * Perform filter to modify participant post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_participant_labels', $labels );
 
 			$args = [
 				'labels'             => $labels,
@@ -275,6 +310,13 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 				'not_found'          => __( 'No customers found.', 'wacara' ),
 				'not_found_in_trash' => __( 'No customers found in Trash.', 'wacara' ),
 			];
+
+			/**
+			 * Perform filter to modify customer post type's labels.
+			 *
+			 * @param array $labels settings array.
+			 */
+			$labels = apply_filters( 'wacara_filter_customer_labels', $labels );
 
 			$args = [
 				'labels'             => $labels,
