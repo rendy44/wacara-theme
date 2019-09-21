@@ -25,15 +25,16 @@ new class {
         const instance = this;
         $('.btn-do-register').click(function (e) {
             e.preventDefault();
-            const event_id = $(this).data('event'),
+            const submit_button = $(this),
+                event_id = $(this).data('event'),
                 pricing_id = $(this).data('pricing'),
                 original_caption = $(this).html();
             // Disable the button.
-            $(this).prop('disabled', true).html('Loading...');
+            submit_button.prop('disabled', true).html('Loading...');
             // Perform the registration.
             instance.do_register(event_id, pricing_id)
                 .done(function (data) {
-                    instance.normalize_error(data, $(this), original_caption);
+                    instance.normalize_error(data, submit_button, original_caption);
                 })
                 .fail(function (data) {
                     // TODO: Validate error ajax.
@@ -70,7 +71,7 @@ new class {
                 };
 
                 // Disable button.
-                submit_button.prop('disabled', true).html('Loading...');
+                submit_button.html('Loading...').prop('disabled', true);
 
                 if (instance.card_elm.length) {
                     //Create stripe source
