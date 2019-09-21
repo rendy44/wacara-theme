@@ -10,32 +10,32 @@ body {
 }
 
 .text-primary {
-  background: #9f83c1;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
-  background: linear-gradient(45deg, #9f83c1 0%, #9f83c1 0%, #6c63ff 100%);
+  background: #8dc17d;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
+  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn.btn-primary {
-  background: #9f83c1;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
-  background: linear-gradient(45deg, #9f83c1 0%, #9f83c1 0%, #6c63ff 100%);
+  background: #8dc17d;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
+  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
-  border-color: #9f83c1;
+  border-color: #8dc17d;
 }
 
 .btn.btn-primary:hover {
-  background: #8b6ab4;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8b6ab4), color-stop(0%, #8b6ab4), color-stop(100%, #483dff));
-  background: linear-gradient(45deg, #8b6ab4 0%, #8b6ab4 0%, #483dff 100%);
+  background: #76b563;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #76b563), color-stop(0%, #76b563), color-stop(100%, #62b58b));
+  background: linear-gradient(45deg, #76b563 0%, #76b563 0%, #62b58b 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
 }
 
 .btn.btn-primary:active, .btn.btn-primary:focus {
-  -webkit-box-shadow: 0 0 0.5rem rgba(159, 131, 193, 0.5) !important;
-  box-shadow: 0 0 0.5rem rgba(159, 131, 193, 0.5) !important;
+  -webkit-box-shadow: 0 0 0.5rem rgba(141, 193, 125, 0.5) !important;
+  box-shadow: 0 0 0.5rem rgba(141, 193, 125, 0.5) !important;
 }
 
 nav.navbar {
@@ -62,7 +62,7 @@ nav.navbar a.navbar-brand img {
 }
 
 nav.navbar .navbar-toggler {
-  color: #9f83c1;
+  color: #8dc17d;
 }
 
 @media (min-width: 992px) {
@@ -73,16 +73,16 @@ nav.navbar .navbar-toggler {
 
 @media (min-width: 992px) {
   nav.navbar ul.navbar-nav li.nav-item.register a.nav-link {
-    border: 1px solid #9272b9;
+    border: 1px solid #7eb96c;
     color: #fff;
-    background-color: #9f83c1;
+    background-color: #8dc17d;
     border-radius: 5px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
   }
   nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:hover, nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:active, nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:focus {
-    background-color: #ac94ca;
-    border-color: #ac94ca;
+    background-color: #9cc98e;
+    border-color: #9cc98e;
   }
 }
 
@@ -112,7 +112,7 @@ nav.navbar.scrolled:not(.opened) {
 .masthead {
   height: 300px;
   position: relative;
-  background-color: rgba(238, 233, 244, 0.9);
+  background-color: rgba(232, 242, 229, 0.9);
   z-index: 2;
 }
 
@@ -132,9 +132,9 @@ nav.navbar.scrolled:not(.opened) {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(238, 233, 244, 0.9);
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(238, 233, 244, 0.9)), color-stop(0%, rgba(238, 233, 244, 0.9)), color-stop(100%, rgba(252, 252, 255, 0.9)));
-  background: linear-gradient(45deg, rgba(238, 233, 244, 0.9) 0%, rgba(238, 233, 244, 0.9) 0%, rgba(252, 252, 255, 0.9) 100%);
+  background: rgba(232, 242, 229, 0.9);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(232, 242, 229, 0.9)), color-stop(0%, rgba(232, 242, 229, 0.9)), color-stop(100%, rgba(228, 242, 235, 0.9)));
+  background: linear-gradient(45deg, rgba(232, 242, 229, 0.9) 0%, rgba(232, 242, 229, 0.9) 0%, rgba(228, 242, 235, 0.9) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
 }
 
@@ -147,11 +147,11 @@ nav.navbar.scrolled:not(.opened) {
 }
 
 .masthead h1 {
-  color: #9f83c1;
+  color: #8dc17d;
   font-weight: 200;
-  background: #9f83c1;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
-  background: linear-gradient(45deg, #9f83c1 0%, #9f83c1 0%, #6c63ff 100%);
+  background: #8dc17d;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
+  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -191,11 +191,11 @@ nav.navbar.scrolled:not(.opened) {
 }
 
 .masthead .countdown .time span.value {
-  color: #9f83c1;
+  color: #8dc17d;
   font-size: 2.5rem;
-  background: #9f83c1;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
-  background: linear-gradient(45deg, #9f83c1 0%, #9f83c1 0%, #6c63ff 100%);
+  background: #8dc17d;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
+  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -234,9 +234,9 @@ section {
 section h2.section-heading {
   font-size: 1.8rem;
   font-weight: 300;
-  background: #9f83c1;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #9f83c1), color-stop(0%, #9f83c1), color-stop(100%, #6c63ff));
-  background: linear-gradient(45deg, #9f83c1 0%, #9f83c1 0%, #6c63ff 100%);
+  background: #8dc17d;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
+  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -259,7 +259,7 @@ section h2.section-heading:before {
   position: absolute;
   width: 60px;
   height: 60px;
-  background-color: rgba(185, 165, 210, 0.1);
+  background-color: rgba(171, 209, 160, 0.1);
   border-radius: 50%;
   top: -25px;
   right: calc(50% - 30px);
@@ -294,7 +294,7 @@ section h2.section-heading:before {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: rgba(198, 182, 219, 0.2);
+  background-color: rgba(186, 218, 177, 0.2);
   position: absolute;
   top: -25px;
   left: calc(50% - 10px);
@@ -344,7 +344,7 @@ section h2.section-heading:before {
 
 .speakers .container .row .speaker-item .card:hover .card-body {
   bottom: 0;
-  background-color: rgba(33, 23, 46, 0.7);
+  background-color: rgba(26, 43, 20, 0.7);
 }
 
 .speakers .container .row .speaker-item .card img.card-img-top {
@@ -358,7 +358,7 @@ section h2.section-heading:before {
   left: 0;
   right: 0;
   bottom: calc(-.5rem + -24px);
-  background-color: rgba(33, 23, 46, 0.5);
+  background-color: rgba(26, 43, 20, 0.5);
   color: #fff;
   padding: 10px;
   -webkit-transition: all 0.2s;
@@ -387,7 +387,7 @@ section h2.section-heading:before {
 }
 
 .speakers .container .row .speaker-item .card .card-body .card-social a:hover {
-  color: rgba(225, 216, 236, 0.5);
+  color: rgba(217, 234, 211, 0.5);
 }
 
 .venue .container .row .col-map {
@@ -515,7 +515,7 @@ section h2.section-heading:before {
   height: 30px;
   margin-left: 0;
   border-radius: 100%;
-  background-color: #9f83c1;
+  background-color: #8dc17d;
 }
 
 .timeline > li:nth-child(even) > .timeline-panel {
