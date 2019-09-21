@@ -8,6 +8,7 @@
 
 namespace Skeleton;
 
+use QRcode;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,6 +28,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @var bool
 		 */
 		public $participant_id = false;
+
+		/**
+		 * Participant key.
+		 *
+		 * @var string
+		 */
+		public $participant_key = '';
 
 		/**
 		 * Participant permalink.
@@ -112,11 +120,15 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						// Update class object.
 						$this->success          = true;
 						$this->participant_id   = $new_participant;
+						$this->participant_key  = $participant_key;
 						$this->participant_url  = get_permalink( $new_participant );
 						$this->participant_data = $args;
 
+						// Create qrcode for participant.
+						$this->save_qrcode_to_participant();
+
 						// Update participant meta after successfully being created.
-						Helper::save_post_meta( $new_participant, $args );
+						$this->save_meta( $args );
 					}
 				} else {
 
@@ -126,6 +138,45 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			} else {
 				// TODO: Fetching participant.
 			}
+		}
+
+		/**
+		 * Update participant meta data.
+		 *
+		 * @param array $meta_data participant meta data.
+		 */
+		private function save_meta( array $meta_data ) {
+			$participant_id = $this->participant_id;
+			Helper::save_post_meta( $participant_id, $meta_data );
+		}
+
+		/**
+		 * Save qrcode image locally.
+		 */
+		private function generate_qrcode_locally() {
+			$qrcode_name = $this->participant_key;
+			$file_name   = TEMP_PATH . "/assets/qrcode/{$qrcode_name}.png";
+			QRcode::png( $qrcode_name, $file_name, QR_ECLEVEL_H, 5 );
+		}
+
+		/**
+		 * Save qrcode information into participant.
+		 */
+		public function save_qrcode_to_participant() {
+			// Generate qrcode locally.
+			$this->generate_qrcode_locally();
+
+			// Save qrcode data.
+			$qrcode_name = $this->participant_key . '.png';
+			$qrcode_uri  = TEMP_URI . '/assets/qrcode/' . $qrcode_name;
+
+			// Save qrcode into participant.
+			$this->save_meta(
+				[
+					'qrcode_name' => $qrcode_name,
+					'qrcode_url'  => $qrcode_uri,
+				]
+			);
 		}
 	}
 }

@@ -16,3 +16,4 @@
 !/wp-content/themes
 /wp-content/themes/*
 !/wp-content/themes/wacara/
+/wp-content/themes/wacara/assets/qrcode/*
