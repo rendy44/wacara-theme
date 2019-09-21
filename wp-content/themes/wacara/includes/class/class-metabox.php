@@ -57,6 +57,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
 			// Add event schedule metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'schedule_event_metabox_callback' ] );
+			// Add header detail metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'detail_header_metabox_callback' ] );
 			// Add location detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
 			// Add speaker detail metabox.
@@ -168,7 +170,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -464,6 +466,101 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		}
 
 		/**
+		 * Metabox configuration for detail of header.
+		 */
+		public function detail_header_metabox_callback() {
+			$args = [
+				'id'           => 'detail_header_metabox',
+				'title'        => __( 'Detail', 'wacara' ),
+				'object_types' => [ 'header' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'header_layout',
+						'title'  => __( 'Layout', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Scheme', 'wacara' ),
+								'id'      => $this->meta_prefix . 'color_scheme',
+								'type'    => 'select',
+								'options' => [
+									'light' => __( 'Light color', 'wacara' ),
+									'dark'  => __( 'Dark color', 'wacara' ),
+								],
+							],
+							[
+								'name'    => __( 'Width', 'wacara' ),
+								'id'      => $this->meta_prefix . 'content_width',
+								'type'    => 'select',
+								'desc'    => __( 'If you select half-width, please use transparent background image for the best result', 'wacara' ),
+								'options' => [
+									'center' => __( 'Full-width content', 'wacara' ),
+									'half'   => __( 'Half-width content', 'wacara' ),
+								],
+							],
+							[
+								'name'    => __( 'Alignment', 'wacara' ),
+								'id'      => $this->meta_prefix . 'content_alignment',
+								'type'    => 'select',
+								'options' => [
+									'left'   => __( 'Left', 'wacara' ),
+									'center' => __( 'Center', 'wacara' ),
+									'right'  => __( 'Right', 'wacara' ),
+								],
+							],
+						],
+					],
+					[
+						'id'     => 'content_header',
+						'title'  => __( 'Content', 'wacara' ),
+						'fields' => [
+							[
+								'name'         => __( 'Default image', 'wacara' ),
+								'desc'         => __( 'This image will be used as default background', 'wacara' ),
+								'id'           => $this->meta_prefix . 'default_image',
+								'type'         => 'file',
+								'options'      => [
+									'url' => false,
+								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/gif',
+										'image/jpeg',
+										'image/png',
+									],
+								],
+								'preview_size' => 'large',
+							],
+							[
+								'name' => __( 'Countdown', 'wacara' ),
+								'id'   => $this->meta_prefix . 'countdown_content',
+								'type' => 'checkbox',
+								'desc' => __( 'Display countdown content', 'wacara' ),
+							],
+						],
+					],
+				],
+			];
+			$cmb2->add_field(
+				[
+					'id'   => 'information_header_tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
+				]
+			);
+		}
+
+		/**
 		 * Metabox configuration for detail of location.
 		 */
 		public function detail_location_metabox_callback() {
@@ -532,10 +629,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
