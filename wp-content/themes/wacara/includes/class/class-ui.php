@@ -121,10 +121,20 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				$use_full_nav = false;
 				$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
 			}
-			$logo_url = Helper::get_event_logo_url( $post_id );
+			$logo_url  = Helper::get_event_logo_url( $post_id );
+			$nav_class = '';
+
+			/**
+			 * Perform filter to modify navbar extra class.
+			 *
+			 * @param string $nav_class original navbar class.
+			 */
+			$final_nav_class = apply_filters( 'wacara_navbar_extra_class', $nav_class );
+
 			echo Template::render( // phpcs:ignore
 				'global/navbar',
 				[
+					'nav_class'    => $final_nav_class,
 					'logo_url'     => $logo_url,
 					'use_full_nav' => $use_full_nav,
 					'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
@@ -183,6 +193,32 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				$result .= apply_filters( 'sk_input_field', $key, 'text', $field_required ? 'required' : '' );
 				$result .= '</div>';
 			}
+
+			return $result;
+		}
+
+		/**
+		 * Get header extra classes.
+		 *
+		 * @param string $width     half|center header width.
+		 * @param string $scheme    light|dark header color scheme.
+		 * @param string $alignment left|center|right header alignment.
+		 *
+		 * @return array
+		 */
+		public static function get_header_extra_class( $width, $scheme, $alignment ) {
+			$result = [ $width, '', '' ];
+			if ( 'center' === $width ) {
+				$result[0] .= ' ' . $scheme;
+				$result[1] .= 'col-lg-8 col-md-10 mx-auto';
+			} else {
+				$result[1] .= 'col-lg-6';
+				if ( 'right' === $alignment ) {
+					$result[0] .= ' right';
+					$result[2] .= 'justify-content-end';
+				}
+			}
+			$result[0] .= ' text-' . $alignment;
 
 			return $result;
 		}

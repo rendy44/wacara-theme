@@ -8,10 +8,23 @@
 
 use Skeleton\Helper;
 use Skeleton\Template;
+use Skeleton\UI;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$header_template = Helper::get_post_meta( 'header' );
+$header_width    = Helper::get_post_meta( 'content_width', $header_template );
+$header_scheme   = Helper::get_post_meta( 'color_scheme', $header_template );
+
+// Add filter to the navbar.
+add_filter(
+	'wacara_navbar_extra_class',
+	function () use ( $header_width, $header_scheme ) {
+		return 'center' === $header_width ? $header_scheme : '';
+	}
+);
 
 get_header();
 
@@ -26,12 +39,16 @@ while ( have_posts() ) {
 		/**
 		 * Masthead section.
 		 */
+		$header_alignment      = Helper::get_post_meta( 'content_alignment', $header_template );
+		$header_default_image  = Helper::get_post_meta( 'default_image', $header_template );
+		$header_countdown      = Helper::get_post_meta( 'countdown_content', $header_template );
 		$date_start            = Helper::get_post_meta( 'date_start' );
 		$location              = Helper::get_post_meta( 'location' );
 		$location_country_code = Helper::get_post_meta( 'country', $location );
 		$location_province     = Helper::get_post_meta( 'province', $location );
 
 		$masthead_args = [
+			'header_extra_class'   => UI::get_header_extra_class( $header_width, $header_scheme, $header_alignment ),
 			'title'                => Helper::split_title( get_the_title() ),
 			'date_start'           => Helper::convert_date( $date_start, true ),
 			'excerpt'              => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,

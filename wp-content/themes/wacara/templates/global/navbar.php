@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top <?php echo esc_attr( $nav_class ); ?>">
 	<div class="container">
 		<a class="navbar-brand scroll" href="<?php echo esc_attr( $home_link ); ?>">
 			<img src="<?php echo esc_attr( $logo_url ); ?>" alt="">
