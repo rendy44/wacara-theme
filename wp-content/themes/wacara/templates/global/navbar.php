@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<a class="navbar-brand scroll" href="<?php echo esc_attr( $home_link ); ?>">
 			<img src="<?php echo esc_attr( $logo_url ); ?>" alt="">
 		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-					class="navbar-toggler-icon"></span></button>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fas fa-bars"></i>
+		</button>
 		<?php
 		if ( $use_full_nav && isset( $use_full_nav ) ) {
 			?>
