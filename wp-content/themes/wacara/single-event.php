@@ -53,6 +53,7 @@ while ( have_posts() ) {
 			'date_start'         => Helper::convert_date( $date_start, true ),
 			'excerpt'            => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
 			'background_image'   => UI::generate_header_background_image( $event_background_image, $header_default_image ),
+			'show_countdown'     => 'on' === $header_countdown ? true : false,
 		];
 		echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 
