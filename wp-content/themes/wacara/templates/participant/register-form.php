@@ -32,6 +32,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						echo apply_filters( 'sk_input_field_event', $event_id, $field ); // phpcs:ignore
 					}
 
+					/**
+					 * Perform action before rendering payment field..
+					 *
+					 * @param string $event_id event id.
+					 */
+					do_action( 'wacara_before_rendering_payment_field', $event_id );
+
 					// Check whether use payment or not.
 					if ( $use_payment ) {
 						?>
@@ -41,6 +48,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 						<?php
 					}
+
+					/**
+					 * Perform action after rendering register form.
+					 *
+					 * @param string $event_id event id.
+					 */
+					do_action( 'wacara_after_rendering_register_form', $event_id );
 
 					// Render current registration id.
 					echo apply_filters( 'sk_input_field', 'registration_id', 'hidden', '', $id ); // phpcs:ignore
