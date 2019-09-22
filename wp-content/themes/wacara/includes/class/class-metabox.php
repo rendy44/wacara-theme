@@ -418,6 +418,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								],
 								'preview_size' => 'medium',
 							],
+							[
+								'name'    => __( 'Header', 'wacara' ),
+								'id'      => $this->meta_prefix . 'header',
+								'type'    => 'select',
+								'options' => Helper::get_list_of_headers(),
+							],
 						],
 					],
 				],
@@ -487,15 +493,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 						'title'  => __( 'Layout', 'wacara' ),
 						'fields' => [
 							[
-								'name'    => __( 'Scheme', 'wacara' ),
-								'id'      => $this->meta_prefix . 'color_scheme',
-								'type'    => 'select',
-								'options' => [
-									'light' => __( 'Light color', 'wacara' ),
-									'dark'  => __( 'Dark color', 'wacara' ),
-								],
-							],
-							[
 								'name'    => __( 'Width', 'wacara' ),
 								'id'      => $this->meta_prefix . 'content_width',
 								'type'    => 'select',
@@ -503,6 +500,19 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'options' => [
 									'center' => __( 'Full-width content', 'wacara' ),
 									'half'   => __( 'Half-width content', 'wacara' ),
+								],
+							],
+							[
+								'name'       => __( 'Scheme', 'wacara' ),
+								'id'         => $this->meta_prefix . 'color_scheme',
+								'type'       => 'select',
+								'options'    => [
+									'light' => __( 'Light color', 'wacara' ),
+									'dark'  => __( 'Dark color', 'wacara' ),
+								],
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'content_width',
+									'data-conditional-value' => 'center',
 								],
 							],
 							[

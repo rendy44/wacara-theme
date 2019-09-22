@@ -309,6 +309,24 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		}
 
 		/**
+		 * Get header list.
+		 *
+		 * @return array
+		 */
+		public static function get_list_of_headers() {
+			$cache_key = TEMP_PREFIX . 'headers_cache';
+			$headers   = wp_cache_get( $cache_key );
+			if ( false === $headers ) {
+				global $wpdb;
+				$headers_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'header' ORDER BY ID DESC";
+				$headers       = $wpdb->get_results( $headers_query, OBJECT_K ); // phpcs:ignore
+				wp_cache_set( $cache_key, $headers );
+			}
+
+			return self::convert_wpdb_into_array( $headers );
+		}
+
+		/**
 		 * Convert data from wpdb into readable array for cmb2.
 		 *
 		 * @param array $data original array of object data.

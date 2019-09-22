@@ -109,6 +109,19 @@ nav.navbar.scrolled:not(.opened) {
   padding-bottom: .75rem !important;
 }
 
+nav.navbar.dark:not(.scrolled) .navbar-toggler, nav.navbar.dark:not(.scrolled) .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 992px) {
+  nav.navbar.dark:not(.scrolled) ul.navbar-nav li.nav-item:not(.register) a.nav-link, nav.navbar.dark:not(.scrolled) ul.navbar-nav li.nav-item:not(.register) a.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  nav.navbar.dark:not(.scrolled) ul.navbar-nav li.nav-item:not(.register) a.nav-link:hover, nav.navbar.dark:not(.scrolled) ul.navbar-nav li.nav-item:not(.register) a.nav-link:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 .masthead {
   height: 300px;
   position: relative;
@@ -117,7 +130,6 @@ nav.navbar.scrolled:not(.opened) {
 }
 
 .masthead h1 {
-  mix-blend-mode: multiply;
   color: #8dc17d;
   font-weight: 200;
   background: #8dc17d;
@@ -150,10 +162,6 @@ nav.navbar.scrolled:not(.opened) {
 
 .masthead .countdown .time {
   width: 25%;
-}
-
-.masthead .countdown .time:not(:first-child) {
-  padding-left: 1.5rem;
 }
 
 .masthead .countdown .time:not(:last-child) {
@@ -222,11 +230,6 @@ nav.navbar.scrolled:not(.opened) {
   right: 0;
 }
 
-.masthead:not(.small).half.right .countdown .time:not(:last-child) {
-  padding-left: 0;
-  padding-right: 1.5rem;
-}
-
 .masthead:not(.small).center {
   background-size: cover;
   background-position: center center;
@@ -237,8 +240,31 @@ nav.navbar.scrolled:not(.opened) {
   opacity: 1;
 }
 
-.masthead:not(.small).center .countdown .time {
-  padding-left: 0;
+.masthead:not(.small).center.dark:before {
+  background: rgba(0, 0, 0, 0.85);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0, 0, 0, 0.85)), color-stop(0%, rgba(0, 0, 0, 0.85)), color-stop(100%, rgba(0, 0, 0, 0.85)));
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.85) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
+}
+
+.masthead:not(.small).center.dark p.lead {
+  color: #fff;
+}
+
+.masthead:not(.small).center.dark .countdown .time {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.masthead:not(.small).center.dark .countdown .time span:not(.value) {
+  color: #fff;
+}
+
+.masthead:not(.small).text-left .countdown .time:not(:first-child) {
+  padding-left: 1.5rem;
+}
+
+.masthead:not(.small).text-right .countdown .time:not(:last-child) {
+  padding-right: 2rem;
 }
 
 section {
