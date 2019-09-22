@@ -170,7 +170,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -424,6 +424,26 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'    => 'select',
 								'options' => Helper::get_list_of_headers(),
 							],
+							[
+								'name'         => __( 'Background', 'wacara' ),
+								'desc'         => __( 'If you leave this empty, default background will be applied from header setting', 'wacara' ),
+								'id'           => $this->meta_prefix . 'background_image',
+								'type'         => 'file',
+								'options'      => [
+									'url' => false,
+								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/gif',
+										'image/jpeg',
+										'image/png',
+									],
+								],
+								'preview_size' => 'large',
+							],
 						],
 					],
 				],
@@ -511,7 +531,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'dark'  => __( 'Dark color', 'wacara' ),
 								],
 								'attributes' => [
-									'data-conditional-id' => $this->meta_prefix . 'content_width',
+									'data-conditional-id'    => $this->meta_prefix . 'content_width',
 									'data-conditional-value' => 'center',
 								],
 							],
@@ -639,10 +659,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[

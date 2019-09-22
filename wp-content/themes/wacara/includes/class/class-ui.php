@@ -222,6 +222,17 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 
 			return $result;
 		}
+
+		public static function generate_header_background_image( $event_background_image, $header_background_image ) {
+			$result   = '';
+			$image_id = $event_background_image ? $event_background_image : $header_background_image;
+			if ( $image_id ) {
+				$image_url = wp_get_attachment_image_url( $image_id, 'large' );
+				$result    = 'background-image:url(' . $image_url . ')';
+			}
+
+			return $result;
+		}
 	}
 }
 
