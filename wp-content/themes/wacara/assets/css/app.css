@@ -10,32 +10,32 @@ body {
 }
 
 .text-primary {
-  background: #8dc17d;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
-  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
+  background: #7dc1a5;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #7dc1a5), color-stop(0%, #7dc1a5), color-stop(100%, #6ccc85));
+  background: linear-gradient(45deg, #7dc1a5 0%, #7dc1a5 0%, #6ccc85 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn.btn-primary {
-  background: #8dc17d;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
-  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
+  background: #7dc1a5;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #7dc1a5), color-stop(0%, #7dc1a5), color-stop(100%, #6ccc85));
+  background: linear-gradient(45deg, #7dc1a5 0%, #7dc1a5 0%, #6ccc85 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
-  border-color: #8dc17d;
+  border-color: #7dc1a5;
 }
 
 .btn.btn-primary:hover {
-  background: #76b563;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #76b563), color-stop(0%, #76b563), color-stop(100%, #62b58b));
-  background: linear-gradient(45deg, #76b563 0%, #76b563 0%, #62b58b 100%);
+  background: #63b593;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #63b593), color-stop(0%, #63b593), color-stop(100%, #50c26d));
+  background: linear-gradient(45deg, #63b593 0%, #63b593 0%, #50c26d 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
 }
 
 .btn.btn-primary:active, .btn.btn-primary:focus {
-  -webkit-box-shadow: 0 0 0.5rem rgba(141, 193, 125, 0.5) !important;
-  box-shadow: 0 0 0.5rem rgba(141, 193, 125, 0.5) !important;
+  -webkit-box-shadow: 0 0 0.5rem rgba(125, 193, 165, 0.5) !important;
+  box-shadow: 0 0 0.5rem rgba(125, 193, 165, 0.5) !important;
 }
 
 nav.navbar {
@@ -62,7 +62,7 @@ nav.navbar a.navbar-brand img {
 }
 
 nav.navbar .navbar-toggler {
-  color: #8dc17d;
+  color: #7dc1a5;
 }
 
 @media (min-width: 992px) {
@@ -73,16 +73,16 @@ nav.navbar .navbar-toggler {
 
 @media (min-width: 992px) {
   nav.navbar ul.navbar-nav li.nav-item.register a.nav-link {
-    border: 1px solid #7eb96c;
+    border: 1px solid #6cb999;
     color: #fff;
-    background-color: #8dc17d;
+    background-color: #7dc1a5;
     border-radius: 5px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
   }
   nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:hover, nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:active, nav.navbar ul.navbar-nav li.nav-item.register a.nav-link:focus {
-    background-color: #9cc98e;
-    border-color: #9cc98e;
+    background-color: #8ec9b1;
+    border-color: #8ec9b1;
   }
 }
 
@@ -125,16 +125,16 @@ nav.navbar.dark:not(.scrolled) .navbar-toggler, nav.navbar.dark:not(.scrolled) .
 .masthead {
   height: 300px;
   position: relative;
-  background-color: rgba(232, 242, 229, 0.9);
+  background-color: rgba(229, 242, 237, 0.9);
   z-index: 2;
 }
 
 .masthead h1 {
-  color: #8dc17d;
+  color: #7dc1a5;
   font-weight: 200;
-  background: #8dc17d;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
-  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
+  background: #7dc1a5;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #7dc1a5), color-stop(0%, #7dc1a5), color-stop(100%, #6ccc85));
+  background: linear-gradient(45deg, #7dc1a5 0%, #7dc1a5 0%, #6ccc85 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -174,11 +174,11 @@ nav.navbar.dark:not(.scrolled) .navbar-toggler, nav.navbar.dark:not(.scrolled) .
 }
 
 .masthead .countdown .time span.value {
-  color: #8dc17d;
+  color: #7dc1a5;
   font-size: 2.5rem;
-  background: #8dc17d;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
-  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
+  background: #7dc1a5;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #7dc1a5), color-stop(0%, #7dc1a5), color-stop(100%, #6ccc85));
+  background: linear-gradient(45deg, #7dc1a5 0%, #7dc1a5 0%, #6ccc85 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -202,9 +202,9 @@ nav.navbar.dark:not(.scrolled) .navbar-toggler, nav.navbar.dark:not(.scrolled) .
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(232, 242, 229, 0.9);
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(232, 242, 229, 0.9)), color-stop(0%, rgba(232, 242, 229, 0.9)), color-stop(100%, rgba(228, 242, 235, 0.9)));
-  background: linear-gradient(45deg, rgba(232, 242, 229, 0.9) 0%, rgba(232, 242, 229, 0.9) 0%, rgba(228, 242, 235, 0.9) 100%);
+  background: rgba(229, 242, 237, 0.9);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(229, 242, 237, 0.9)), color-stop(0%, rgba(229, 242, 237, 0.9)), color-stop(100%, rgba(222, 243, 227, 0.9)));
+  background: linear-gradient(45deg, rgba(229, 242, 237, 0.9) 0%, rgba(229, 242, 237, 0.9) 0%, rgba(222, 243, 227, 0.9) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
 }
 
@@ -264,7 +264,7 @@ nav.navbar.dark:not(.scrolled) .navbar-toggler, nav.navbar.dark:not(.scrolled) .
 }
 
 .masthead:not(.small).text-right .countdown .time:not(:last-child) {
-  padding-right: 2rem;
+  padding-right: 1.5rem;
 }
 
 section {
@@ -296,9 +296,9 @@ section {
 section h2.section-heading {
   font-size: 1.8rem;
   font-weight: 300;
-  background: #8dc17d;
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, #8dc17d), color-stop(0%, #8dc17d), color-stop(100%, #7cc19e));
-  background: linear-gradient(45deg, #8dc17d 0%, #8dc17d 0%, #7cc19e 100%);
+  background: #7dc1a5;
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, #7dc1a5), color-stop(0%, #7dc1a5), color-stop(100%, #6ccc85));
+  background: linear-gradient(45deg, #7dc1a5 0%, #7dc1a5 0%, #6ccc85 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -321,7 +321,7 @@ section h2.section-heading:before {
   position: absolute;
   width: 60px;
   height: 60px;
-  background-color: rgba(171, 209, 160, 0.1);
+  background-color: rgba(160, 209, 189, 0.1);
   border-radius: 50%;
   top: -25px;
   right: calc(50% - 30px);
@@ -356,7 +356,7 @@ section h2.section-heading:before {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: rgba(186, 218, 177, 0.2);
+  background-color: rgba(177, 218, 201, 0.2);
   position: absolute;
   top: -25px;
   left: calc(50% - 10px);
@@ -406,7 +406,7 @@ section h2.section-heading:before {
 
 .speakers .container .row .speaker-item .card:hover .card-body {
   bottom: 0;
-  background-color: rgba(26, 43, 20, 0.7);
+  background-color: rgba(20, 43, 33, 0.7);
 }
 
 .speakers .container .row .speaker-item .card img.card-img-top {
@@ -420,7 +420,7 @@ section h2.section-heading:before {
   left: 0;
   right: 0;
   bottom: calc(-.5rem + -24px);
-  background-color: rgba(26, 43, 20, 0.5);
+  background-color: rgba(20, 43, 33, 0.5);
   color: #fff;
   padding: 10px;
   -webkit-transition: all 0.2s;
@@ -449,7 +449,7 @@ section h2.section-heading:before {
 }
 
 .speakers .container .row .speaker-item .card .card-body .card-social a:hover {
-  color: rgba(217, 234, 211, 0.5);
+  color: rgba(211, 234, 225, 0.5);
 }
 
 .venue .container .row .col-map {
@@ -577,7 +577,7 @@ section h2.section-heading:before {
   height: 30px;
   margin-left: 0;
   border-radius: 100%;
-  background-color: #8dc17d;
+  background-color: #7dc1a5;
 }
 
 .timeline > li:nth-child(even) > .timeline-panel {
