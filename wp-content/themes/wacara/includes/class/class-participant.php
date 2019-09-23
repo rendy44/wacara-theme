@@ -37,6 +37,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		public $participant_key = '';
 
 		/**
+		 * Participant unique key that will be used for checking in.
+		 *
+		 * @var string
+		 */
+		public $publishable_key = '';
+
+		/**
 		 * Participant permalink.
 		 *
 		 * @var string
@@ -74,6 +81,9 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 
 				// Validate inputs.
 				if ( $args['event_id'] && $args['pricing_id'] ) {
+
+					// Save event id to variable.
+					$event_id = $args['event_id'];
 
 					// Generate unique key.
 					$participant_key = wp_generate_password( 12, false );
@@ -117,10 +127,26 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						$this->message = $new_participant->get_error_messages();
 					} else {
 
+						// Create participant publishable key.
+						$publishable_key = $event_id . wp_generate_password( 6 ) . $new_participant;
+
+						/**
+						 * Perform filter to modify participant publishable key.
+						 *
+						 * @param string $publishable_key the original publishable key.
+						 * @param string $event_id        event id of the articipant.
+						 * @param int    $new_participant id number of newly created participant.
+						 */
+						$publishable_key = apply_filters( 'wacara_filter_participant_publishable_key', $publishable_key, $event_id, $new_participant );
+
+						// Add publishable key to participant meta.
+						$args['publishable_key'] = $publishable_key;
+
 						// Update class object.
 						$this->success          = true;
 						$this->participant_id   = $new_participant;
 						$this->participant_key  = $participant_key;
+						$this->publishable_key  = $publishable_key;
 						$this->participant_url  = get_permalink( $new_participant );
 						$this->participant_data = $args;
 
