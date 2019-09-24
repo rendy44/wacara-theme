@@ -678,10 +678,21 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @return false|string
 		 */
 		public static function get_event_logo_url( $event_id ) {
+			$main_logo = self::get_post_meta( 'main_logo_id', $event_id );
+
+			return $main_logo ? wp_get_attachment_image_url( $main_logo, 'medium' ) : self::get_site_logo_url();
+		}
+
+		/**
+		 * Get site logo url.
+		 *
+		 * @return false|string
+		 */
+		public static function get_site_logo_url() {
 			$static_logo = TEMP_URI . '/assets/img/sample-logo.png';
-			$main_logo   = self::get_post_meta( 'main_logo_id', $event_id );
-			if ( $main_logo ) {
-				$static_logo = wp_get_attachment_image_url( $main_logo, 'medium' );
+			$site_logo   = Options::get_theme_option( 'logo_id' );
+			if ( $site_logo ) {
+				$static_logo = wp_get_attachment_image_url( $site_logo, 'medium' );
 			}
 
 			return $static_logo;

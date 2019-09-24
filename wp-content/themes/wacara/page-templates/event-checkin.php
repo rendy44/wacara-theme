@@ -7,6 +7,7 @@
  * @package Wacara
  */
 
+use Skeleton\Helper;
 use Skeleton\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +19,7 @@ get_header();
 while ( have_posts() ) {
 	the_post();
 
-	echo Template::render( 'global/search-section' );
+	echo Template::render( 'global/search-section', [ 'logo_url' => Helper::get_site_logo_url() ] ); // phpcs:ignore
 }
 
 get_footer();

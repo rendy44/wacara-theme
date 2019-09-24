@@ -76,13 +76,20 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		 * Payment constructor.
 		 */
 		private function __construct() {
-			self::$options = get_option( TEMP_PREFIX . 'stripe_options' );
+			self::get_stripe_options();
 
 			self::set_testing_status();
 			self::set_publishable_key();
 			self::set_secret_key();
 
 			self::set_stripe_secret_key();
+		}
+
+		/**
+		 * Get stripe options
+		 */
+		private static function get_stripe_options() {
+			self::$options = Options::get_stripe_options();
 		}
 
 		/**

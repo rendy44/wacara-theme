@@ -71,6 +71,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'setting',
 				'navwalker',
 				'helper',
+				'options',
 				'metabox',
 				'cpt',
 				'cmb2-conditionals',

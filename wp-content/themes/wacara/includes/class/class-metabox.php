@@ -65,8 +65,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
 			// Add price detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_price_metabox_callback' ] );
-			// Add options page.
-			add_action( 'cmb2_admin_init', [ $this, 'options_page_callback' ] );
 		}
 
 		/**
@@ -857,92 +855,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'id'   => 'information_price_tabs',
 					'type' => 'tabs',
 					'tabs' => $tabs,
-				]
-			);
-		}
-
-		/**
-		 * Callback for registering options page.
-		 */
-		public function options_page_callback() {
-			/**
-			 * Registers main options page menu item and form.
-			 */
-			$theme_options = new_cmb2_box(
-				[
-					'id'           => $this->meta_prefix . 'theme_options',
-					'title'        => esc_html__( 'Theme Options', 'wacara' ),
-					'object_types' => [ 'options-page' ],
-					'option_key'   => $this->meta_prefix . 'theme_options',
-				]
-			);
-			$theme_options->add_field(
-				[
-					'name'         => __( 'Logo', 'wacara' ),
-					'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
-					'id'           => 'logo',
-					'type'         => 'file',
-					'options'      => [
-						'url' => false,
-					],
-					'text'         => [
-						'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-					],
-					'query_args'   => [
-						'type' => [
-							'image/png',
-						],
-					],
-					'preview_size' => 'medium',
-				]
-			);
-			$stripe_options = new_cmb2_box(
-				[
-					'id'           => $this->meta_prefix . 'stripe_options',
-					'title'        => esc_html__( 'Stripe Options', 'wacara' ),
-					'object_types' => [ 'options-page' ],
-					'option_key'   => $this->meta_prefix . 'stripe_options',
-					'parent_slug'  => $this->meta_prefix . 'theme_options',
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox', 'wacara' ),
-					'desc' => __( 'Enable sandbox for testing', 'wacara' ),
-					'id'   => 'sandbox',
-					'type' => 'checkbox',
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox secret key', 'wacara' ),
-					'id'   => 'sandbox_secret_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox publishable key', 'wacara' ),
-					'id'   => 'sandbox_publishable_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Live secret key', 'wacara' ),
-					'id'   => 'live_secret_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Live publishable key', 'wacara' ),
-					'id'   => 'live_publishable_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
 				]
 			);
 		}
