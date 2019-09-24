@@ -65,7 +65,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 */
 		public function maybe_small_header_callback() {
 			// we don't need small header in front page, since front page already has a full-page header.
-			if ( ! is_front_page() ) {
+			if ( ! is_front_page() && ! is_page_template( 'page-templates/event-checkin.php' ) ) {
 				$header_subtitle = '';
 				if ( is_archive() ) {
 					$header_title = get_the_archive_title();
@@ -115,31 +115,34 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		 * Render header navbar
 		 */
 		public function header_navbar_callback() {
-			$use_full_nav = true;
-			$post_id      = get_the_ID();
-			if ( is_singular( 'participant' ) ) {
-				$use_full_nav = false;
-				$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
+			// Hide navbar on landing page.
+			if ( ! is_page_template( 'page-templates/event-checkin.php' ) ) {
+				$use_full_nav = true;
+				$post_id      = get_the_ID();
+				if ( is_singular( 'participant' ) ) {
+					$use_full_nav = false;
+					$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
+				}
+				$logo_url  = Helper::get_event_logo_url( $post_id );
+				$nav_class = '';
+
+				/**
+				 * Perform filter to modify navbar extra class.
+				 *
+				 * @param string $nav_class original navbar class.
+				 */
+				$final_nav_class = apply_filters( 'wacara_navbar_extra_class', $nav_class );
+
+				echo Template::render( // phpcs:ignore
+					'global/navbar',
+					[
+						'nav_class'    => $final_nav_class,
+						'logo_url'     => $logo_url,
+						'use_full_nav' => $use_full_nav,
+						'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
+					]
+				);
 			}
-			$logo_url  = Helper::get_event_logo_url( $post_id );
-			$nav_class = '';
-
-			/**
-			 * Perform filter to modify navbar extra class.
-			 *
-			 * @param string $nav_class original navbar class.
-			 */
-			$final_nav_class = apply_filters( 'wacara_navbar_extra_class', $nav_class );
-
-			echo Template::render( // phpcs:ignore
-				'global/navbar',
-				[
-					'nav_class'    => $final_nav_class,
-					'logo_url'     => $logo_url,
-					'use_full_nav' => $use_full_nav,
-					'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
-				]
-			);
 		}
 
 		/**
