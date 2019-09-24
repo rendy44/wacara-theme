@@ -171,7 +171,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			$prefix  = $with_prefix ? self::$meta_prefix : '';
 			if ( is_array( $key ) ) {
 				foreach ( $key as $single_key ) {
-					$result[] = get_post_meta( $post_id, $prefix . $single_key, $single_value );
+					$result[ $single_key ] = get_post_meta( $post_id, $prefix . $single_key, $single_value );
 				}
 			} else {
 				$result = get_post_meta( $post_id, $prefix . $key, $single_value );
@@ -377,16 +377,27 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		/**
 		 * Format timestamp into readable date;
 		 *
-		 * @param int  $timestamp    unformulated timestamp.
-		 * @param bool $include_time whether include time in result or not.
+		 * @param int  $timestamp              unformulated timestamp.
+		 * @param bool $include_time_in_result whether include time in result or not.
 		 *
 		 * @return false|string
 		 */
-		public static function convert_date( $timestamp, $include_time = false ) {
+		public static function convert_date( $timestamp, $include_time_in_result = false ) {
 			$date_format = self::get_date_format();
 			$time_format = self::get_time_format();
 
-			return date( $date_format . ( $include_time ? ' ' . $time_format : '' ), $timestamp );
+			return date( $date_format . ( $include_time_in_result ? ' ' . $time_format : '' ), $timestamp );
+		}
+
+		/**
+		 * Get today timestamp.
+		 *
+		 * @return false|int
+		 */
+		public static function get_today_timestamp() {
+			$today_date = date( self::get_date_format() );
+
+			return strtotime( $today_date );
 		}
 
 		/**
@@ -457,72 +468,6 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 
 			return $result;
 		}
-
-		/**
-		 * Get full event time info
-		 *
-		 * @param bool|string $event_id event id.
-		 *
-		 * @return string
-		 */
-		public static function get_time_paragraph( $event_id = false ) {
-			$event_id             = ! $event_id ? get_the_ID() : $event_id;
-			$single_day           = self::get_post_meta( 'single_day', $event_id );
-			$date_start_timestamp = self::get_post_meta( 'date_start', $event_id );
-			$date_start           = self::convert_date( $date_start_timestamp, true );
-			$end                  = $single_day ? self::get_post_meta( 'time_end', $event_id ) : self::convert_date( self::get_post_meta( 'date_end', $event_id ), true );
-			$utc                  = self::get_readable_utc();
-
-			return $date_start . ' - ' . $end . ' ' . $utc;
-
-		}
-
-		/**
-		 * Check whether the event is available to be used for registration.
-		 *
-		 * @param bool|string $event_id event id, or current event id within loop if not assigned.
-		 *
-		 * @return Result
-		 */
-		public static function is_event_valid( $event_id = false ) {
-			$result   = new Result();
-			$event_id = ! $event_id ? get_the_ID() : $event_id;
-			// Is already past.
-			$is_event_past = self::is_event_past( $event_id );
-			if ( ! $is_event_past ) {
-				// Is allowed to register.
-				$allow_register = self::get_post_meta( 'allow_register', $event_id );
-				if ( $allow_register ) {
-					// Is date_start assigned.
-					$date_start = self::get_post_meta( 'date_start', $event_id );
-					if ( $date_start ) {
-						// Is date end or time end assigned.
-						$maybe_single_day = self::get_post_meta( 'single_day', $event_id );
-						$event_end        = $maybe_single_day ? self::get_post_meta( 'time_end', $event_id ) : self::get_post_meta( 'date_end', $event_id );
-						if ( $event_end ) {
-							// Is location assigned.
-							$location = self::get_post_meta( 'location', $event_id );
-							if ( $location ) {
-								$result = self::is_location_valid( $location );
-							} else {
-								$result->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
-							}
-						} else {
-							$result->message = __( 'This event is not completed yet, the event end period has not been assigned yet', 'wacara' );
-						}
-					} else {
-						$result->message = __( 'This event is not completed yet, the starting date has not been assigned yet', 'wacara' );
-					}
-				} else {
-					$result->message = __( 'This event does not allow registration', 'wacara' );
-				}
-			} else {
-				$result->message = __( 'Event already past or the starting date has not been defined yet', 'wacara' );
-			}
-
-			return $result;
-		}
-
 
 		/**
 		 * Check whether the location is valid or not.
@@ -653,24 +598,6 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		}
 
 		/**
-		 * Check whether the event is past or not.
-		 *
-		 * @param string $event_id event id.
-		 *
-		 * @return bool
-		 */
-		public static function is_event_past( $event_id ) {
-			$result            = true;
-			$date_start        = self::get_post_meta( 'date_start', $event_id );
-			$current_date_time = current_time( 'timestamp' );
-			if ( $date_start && $current_date_time < $date_start ) {
-				$result = false;
-			}
-
-			return $result;
-		}
-
-		/**
 		 * Get event main logo url.
 		 *
 		 * @param string $event_id event id.
@@ -678,9 +605,9 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * @return false|string
 		 */
 		public static function get_event_logo_url( $event_id ) {
-			$main_logo = self::get_post_meta( 'main_logo_id', $event_id );
+			$event = new Event( $event_id );
 
-			return $main_logo ? wp_get_attachment_image_url( $main_logo, 'medium' ) : self::get_site_logo_url();
+			return $event->get_logo_url();
 		}
 
 		/**

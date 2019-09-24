@@ -6,6 +6,7 @@
  * @package Wacara
  */
 
+use Skeleton\Event;
 use Skeleton\Helper;
 use Skeleton\Template;
 use Skeleton\UI;
@@ -31,8 +32,11 @@ get_header();
 while ( have_posts() ) {
 	the_post();
 
+	// Fetch event object.
+	$event = new Event( get_the_ID(), true );
+
 	// Define event date start.
-	$is_event_past = Helper::is_event_past( get_the_ID() );
+	$is_event_past = $event->is_event_past();
 
 	if ( ! $is_event_past ) {
 
@@ -63,7 +67,7 @@ while ( have_posts() ) {
 		$about_args = [
 			'description' => Helper::get_post_meta( 'description' ),
 			'location'    => Helper::get_location_paragraph( $location ),
-			'time'        => Helper::get_time_paragraph(),
+			'time'        => $event->get_event_date_time_paragraph(),
 		];
 		echo Template::render( 'event/about', $about_args ); // phpcs:ignore
 

@@ -21,27 +21,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 	 *
 	 * @package Skeleton
 	 */
-	class Participant extends Result {
+	class Participant extends Post {
 		/**
 		 * Participant id.
 		 *
 		 * @var bool
 		 */
 		public $participant_id = false;
-
-		/**
-		 * Participant key.
-		 *
-		 * @var string
-		 */
-		public $participant_key = '';
-
-		/**
-		 * Participant booking code that will be used for checking in.
-		 *
-		 * @var string
-		 */
-		public $booking_code = '';
 
 		/**
 		 * Participant permalink.
@@ -65,7 +51,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @param array $args           arguments to create a new participant.
 		 */
 		public function __construct( $participant_id = false, $args = [] ) {
-			parent::__construct();
+			parent::__construct( $participant_id, 'participant' );
 
 			// Create a new participant.
 			if ( ! $participant_id ) {
@@ -141,14 +127,12 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						 */
 						$booking_code = apply_filters( 'wacara_filter_participant_booking_code', $booking_code, $event_id, $new_participant );
 
-						// Add publishable key to participant meta.
+						// Add booking code to participant meta.
 						$args['booking_code'] = $booking_code;
 
 						// Update class object.
 						$this->success          = true;
 						$this->participant_id   = $new_participant;
-						$this->participant_key  = $participant_key;
-						$this->booking_code     = $booking_code;
 						$this->participant_url  = get_permalink( $new_participant );
 						$this->participant_data = $args;
 
@@ -164,25 +148,29 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					$this->message = __( 'Please use valid input', 'wacara' );
 				}
 			} else {
-				// TODO: Fetching participant.
-			}
-		}
 
-		/**
-		 * Update participant meta data.
-		 *
-		 * @param array $meta_data participant meta data.
-		 */
-		private function save_meta( array $meta_data ) {
-			$participant_id = $this->participant_id;
-			Helper::save_post_meta( $participant_id, $meta_data );
+				// Validate the participant id.
+				if ( $this->success ) {
+
+					// Fetch participant detail.
+					$this->participant_id   = $participant_id;
+					$this->participant_url  = get_permalink( $participant_id );
+					$this->participant_data = $this->get_meta(
+						[
+							'booking_code',
+							'event_id',
+							'pricing_id',
+						]
+					);
+				}
+			}
 		}
 
 		/**
 		 * Save qrcode image locally.
 		 */
 		private function generate_qrcode_locally() {
-			$qrcode_name = $this->participant_key;
+			$qrcode_name = $this->participant_id;
 			$file_name   = TEMP_PATH . "/assets/qrcode/{$qrcode_name}.png";
 			QRcode::png( $qrcode_name, $file_name, QR_ECLEVEL_H, 5 );
 		}
@@ -195,7 +183,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			$this->generate_qrcode_locally();
 
 			// Save qrcode data.
-			$qrcode_name = $this->participant_key . '.png';
+			$qrcode_name = $this->participant_id . '.png';
 			$qrcode_uri  = TEMP_URI . '/assets/qrcode/' . $qrcode_name;
 
 			// Save qrcode into participant.
@@ -205,6 +193,103 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					'qrcode_url'  => $qrcode_uri,
 				]
 			);
+		}
+
+		/**
+		 * Get checkin date lists.
+		 *
+		 * @return array
+		 */
+		public function get_checkin_lists() {
+			$checkin_dates = (array) parent::get_meta( 'checkin_dates' );
+
+			return array_filter( $checkin_dates );
+		}
+
+		/**
+		 * Maybe perform checkin.
+		 */
+		public function maybe_do_checkin() {
+			// Save participant id into variable.
+			$participant_id = $this->participant_id;
+
+			// Get participant status.
+			$reg_status = $this->get_meta( 'reg_status' );
+
+			// Validate participant status.
+			if ( 'done' === $reg_status ) {
+
+				// Save event id into variable.
+				$event_id = $this->get_meta( 'event_id' );
+
+				// Instance event obj.
+				$event = new Event( $event_id, true );
+
+				// Check is in checkin period.
+				$is_in_checkin_period = $event->is_in_checkin_period();
+				if ( $is_in_checkin_period ) {
+
+					// Check whether participant already checkin today.
+					$is_checkin_today = $this->is_today_checkin();
+
+					if ( ! $is_checkin_today ) {
+						/**
+						 * Perform action before participant checkin.
+						 *
+						 * @param string $participant_id id of participant that will be check-in.
+						 */
+						do_action( 'wacara_before_participant_checkin', $participant_id );
+
+						// Finally, do the checkin.
+						$this->do_checkin();
+
+						// Update the result.
+						$this->success = true;
+
+						/**
+						 * Perform action after participant checkin.
+						 *
+						 * @param string $participant_id id of participant that just checked-in.
+						 */
+						do_action( 'wacara_after_participant_checkin', $participant_id );
+
+					} else {
+						$this->message = __( 'You have already checked in for today', 'wacara' );
+					}
+				} else {
+					$this->message = __( 'You are not allowed to checkin, since the event is completely past', 'wacara' );
+				}
+			} else {
+				$this->message = __( 'You are not allowed to checkin', 'wacara' );
+			}
+		}
+
+		/**
+		 * Do checkin for today.
+		 */
+		private function do_checkin() {
+			$today_timestamp    = Helper::get_today_timestamp();
+			$previous_checkin   = $this->get_checkin_lists();
+			$previous_checkin[] = $today_timestamp;
+
+			// Update the checkin dates.
+			parent::save_meta( [ 'checkin_dates' => $previous_checkin ] );
+		}
+
+		/**
+		 * Check whether the participant already checkin for today ot not.
+		 *
+		 * @return bool
+		 */
+		private function is_today_checkin() {
+			$result          = false;
+			$today_timestamp = Helper::get_today_timestamp();
+			$checkin_dates   = $this->get_checkin_lists();
+			if ( in_array( $today_timestamp, $checkin_dates, true ) ) {
+				$result = true;
+			}
+
+			return $result;
 		}
 
 		/**

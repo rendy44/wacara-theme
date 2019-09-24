@@ -8,8 +8,6 @@
 
 namespace Skeleton;
 
-use Stripe\Exception\ApiErrorException;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -48,9 +46,14 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			// Register ajax endpoint for registering participant.
 			add_action( 'wp_ajax_nopriv_register', [ $this, 'register_callback' ] );
 			add_action( 'wp_ajax_register', [ $this, 'register_callback' ] );
+
 			// Register ajax endpoint for making payment.
 			add_action( 'wp_ajax_nopriv_payment', [ $this, 'payment_callback' ] );
 			add_action( 'wp_ajax_payment', [ $this, 'payment_callback' ] );
+
+			// Register ajax endpoint for finding participant by booking coce before checking in..
+			add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
+			add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
 		}
 
 		/**
@@ -60,10 +63,19 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			$result     = new Result();
 			$event_id   = Helper::post( 'event_id' );
 			$pricing_id = Helper::post( 'pricing_id' );
+
+			// Validate the inputs.
 			if ( $event_id && $pricing_id ) {
+
+				// Instance the event obj.
+				$event = new Event( $event_id, true );
+
 				// Validate the event before using it for registration.
-				$validate_event = Helper::is_event_valid( $event_id );
-				if ( $validate_event->success ) {
+				$event->validate_event();
+
+				// Validate the event.
+				if ( $event->success ) {
+
 					// create participant.
 					$new_participant = new Participant(
 						false,
@@ -72,14 +84,20 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							'pricing_id' => $pricing_id,
 						]
 					);
+
+					// Validate the newly created event.
 					if ( $new_participant->success ) {
+
+						// Update the result.
 						$result->success  = true;
 						$result->callback = $new_participant->participant_url;
 					} else {
+
+						// Update the result.
 						$result->message = $new_participant->message;
 					}
 				} else {
-					$result->message = $validate_event->message;
+					$result->message = $event->message;
 				}
 			} else {
 				$result->message = __( 'Please provide a valid event id', 'wacara' );
@@ -222,6 +240,35 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 				// Update the result.
 				$result->message = __( 'Please reload the page and try again', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
+		 * Callback for finding participant by booking code.
+		 */
+		public function find_by_booking_code_callback() {
+			$result       = new Result();
+			$booking_code = Helper::post( 'booking_code' );
+
+			// Validate the input.
+			if ( $booking_code ) {
+
+				// Find the participant by booking code.
+				$find_participant = Participant::find_participant_by_booking_code( $booking_code );
+
+				// Validate the find participant.
+				if ( $find_participant->success ) {
+
+					// Save participant id into variable.
+					$participant_id = $find_participant->callback;
+
+				} else {
+					$result->message = $find_participant->message;
+				}
+			} else {
+				$result->message = __( 'Please try again later', 'wacara' );
 			}
 
 			wp_send_json( $result );
