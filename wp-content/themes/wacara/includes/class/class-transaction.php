@@ -120,40 +120,7 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 		 * @return Result
 		 */
 		public static function find_local_customer_id_by_email( $email ) {
-			global $wpdb;
-			$result     = new Result();
-			$table_meta = $wpdb->prefix . 'postmeta';
-			$table_post = $wpdb->prefix . 'posts';
-			$post_meta  = TEMP_PREFIX . 'email';
-			$cache_key  = TEMP_PREFIX . 'customer_' . $email;
-
-			// Find local customer id from the cache.
-			$local_customer_id = wp_cache_get( $cache_key );
-
-			// Validate the local customer id status.
-			if ( false === $local_customer_id ) {
-
-				// Perfom the direct query.
-				$local_customer_id = $wpdb->get_var( "SELECT {$table_meta}.post_id FROM {$table_meta} INNER JOIN {$table_post} ON {$table_meta}.post_id = {$table_post}.ID WHERE {$table_post}.post_type = 'customer' AND {$table_meta}.meta_key = '{$post_meta}' AND {$table_meta}.meta_value = '{$email}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
-
-				// Save the query into cache.
-				wp_cache_set( $cache_key, $local_customer_id );
-			}
-
-			// Validate local customer id status.
-			if ( $local_customer_id ) {
-
-				// Update the result.
-				$result->callback = $local_customer_id;
-				$result->success  = true;
-			} else {
-				$wpdb->hide_errors();
-
-				// Update the result.
-				$result->message = __( 'Customer not found', 'wacara' );
-			}
-
-			return $result;
+			return Helper::get_post_id_bt_meta_key( 'email', $email, 'customer' );
 		}
 
 		/**

@@ -206,5 +206,16 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 				]
 			);
 		}
+
+		/**
+		 * Find participant by their booking code.
+		 *
+		 * @param string $booking_code booking code.
+		 *
+		 * @return Result
+		 */
+		public static function find_participant_by_booking_code( $booking_code ) {
+			return Helper::get_post_id_bt_meta_key( 'booking_code', $booking_code, 'participant' );
+		}
 	}
 }
