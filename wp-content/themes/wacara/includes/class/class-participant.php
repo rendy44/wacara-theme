@@ -22,26 +22,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 	 * @package Skeleton
 	 */
 	class Participant extends Post {
-		/**
-		 * Participant id.
-		 *
-		 * @var bool
-		 */
-		public $participant_id = false;
-
-		/**
-		 * Participant permalink.
-		 *
-		 * @var string
-		 */
-		public $participant_url = '';
 
 		/**
 		 * Participant data.
 		 *
 		 * @var array
 		 */
-		public $participant_data = [];
+		private $participant_data = [];
 
 		/**
 		 * Participant constructor.
@@ -51,7 +38,6 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @param array $args           arguments to create a new participant.
 		 */
 		public function __construct( $participant_id = false, $args = [] ) {
-			parent::__construct( $participant_id, 'participant' );
 
 			// Create a new participant.
 			if ( ! $participant_id ) {
@@ -132,8 +118,8 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 
 						// Update class object.
 						$this->success          = true;
-						$this->participant_id   = $new_participant;
-						$this->participant_url  = get_permalink( $new_participant );
+						$this->post_id          = $new_participant;
+						$this->post_url         = get_permalink( $new_participant );
 						$this->participant_data = $args;
 
 						// Create qrcode for participant.
@@ -149,12 +135,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 				}
 			} else {
 
+				// Fetch the detail.
+				parent::__construct( $participant_id, 'participant' );
+
 				// Validate the participant id.
 				if ( $this->success ) {
 
 					// Fetch participant detail.
-					$this->participant_id   = $participant_id;
-					$this->participant_url  = get_permalink( $participant_id );
 					$this->participant_data = $this->get_meta(
 						[
 							'booking_code',
@@ -170,7 +157,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * Save qrcode image locally.
 		 */
 		private function generate_qrcode_locally() {
-			$qrcode_name = $this->participant_id;
+			$qrcode_name = $this->post_id;
 			$file_name   = TEMP_PATH . "/assets/qrcode/{$qrcode_name}.png";
 			QRcode::png( $qrcode_name, $file_name, QR_ECLEVEL_H, 5 );
 		}
@@ -178,12 +165,12 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		/**
 		 * Save qrcode information into participant.
 		 */
-		public function save_qrcode_to_participant() {
+		private function save_qrcode_to_participant() {
 			// Generate qrcode locally.
 			$this->generate_qrcode_locally();
 
 			// Save qrcode data.
-			$qrcode_name = $this->participant_id . '.png';
+			$qrcode_name = $this->post_id . '.png';
 			$qrcode_uri  = TEMP_URI . '/assets/qrcode/' . $qrcode_name;
 
 			// Save qrcode into participant.
@@ -207,11 +194,34 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
+		 * Save more participant`s details
+		 *
+		 * @param string $name      participant name.
+		 * @param string $email     participant email.
+		 * @param string $company   participant company.
+		 * @param string $position  participant position.
+		 * @param string $phone     participant phone.
+		 * @param string $id_number participant id number.
+		 */
+		public function save_more_details( $name = '', $email = '', $company = '', $position = '', $phone = '', $id_number = '' ) {
+			parent::save_meta(
+				[
+					'name'      => $name,
+					'email'     => $email,
+					'company'   => $company,
+					'position'  => $position,
+					'phone'     => $phone,
+					'id_number' => $id_number,
+				]
+			);
+		}
+
+		/**
 		 * Maybe perform checkin.
 		 */
 		public function maybe_do_checkin() {
 			// Save participant id into variable.
-			$participant_id = $this->participant_id;
+			$participant_id = $this->post_id;
 
 			// Get participant status.
 			$reg_status = $this->get_meta( 'reg_status' );
@@ -290,6 +300,42 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Get participant data.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_data() {
+			return $this->participant_data;
+		}
+
+		/**
+		 * Get participant url.
+		 *
+		 * @return false|string
+		 */
+		public function get_participant_url() {
+			return $this->post_url;
+		}
+
+		/**
+		 * Set participant registration status.
+		 *
+		 * @param string $status status of registration.
+		 */
+		public function set_registration_status( $status = 'done' ) {
+			parent::save_meta( [ 'reg_status' => $status ] );
+		}
+
+		/**
+		 * Save stripe error message.
+		 *
+		 * @param string $error_message error message.
+		 */
+		public function save_stripe_error_message( $error_message = '' ) {
+			parent::save_meta( [ 'stripe_error_message' => $error_message ] );
 		}
 
 		/**

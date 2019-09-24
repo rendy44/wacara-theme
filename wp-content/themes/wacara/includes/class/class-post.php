@@ -24,14 +24,14 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		 *
 		 * @var int
 		 */
-		public $post_id = 0;
+		protected $post_id = 0;
 
 		/**
 		 * Post permalink.
 		 *
 		 * @var string
 		 */
-		public $post_url = '';
+		protected $post_url = '';
 
 		/**
 		 * Post constructor.
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_meta( $key ) {
+		protected function get_meta( $key ) {
 			return Helper::get_post_meta( $key, $this->post_id );
 		}
 
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		 *
 		 * @param array $meta_data participant meta data.
 		 */
-		public function save_meta( array $meta_data ) {
+		protected function save_meta( array $meta_data ) {
 			Helper::save_post_meta( $this->post_id, $meta_data );
 		}
 	}

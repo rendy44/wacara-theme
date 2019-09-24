@@ -90,7 +90,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 						// Update the result.
 						$result->success  = true;
-						$result->callback = $new_participant->participant_url;
+						$result->callback = $new_participant->get_participant_url();
 					} else {
 
 						// Update the result.
@@ -132,21 +132,15 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				$pricing_currency = Helper::get_post_meta( 'currency', $pricing_id );
 				$pricing_price    = Helper::get_post_meta( 'price', $pricing_id );
 
-				// Save the details.
-				Helper::save_post_meta(
-					$registration_id,
-					[
-						'email'     => $email,
-						'name'      => $name,
-						'company'   => $company,
-						'position'  => $position,
-						'phone'     => $phone,
-						'id_number' => $id_number,
-					]
-				);
+				// Instance the participant.
+				$participant = new Participant( $registration_id );
 
-				// Define variable to store some useful information.
-				$update_meta = [];
+				// Save the details.
+				$participant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+
+				// Define some variables related to registration.
+				$reg_status           = '';
+				$stripe_error_message = '';
 
 				// Only process the payment if the price if greater than 0.
 				if ( $pricing_price > 0 ) {
@@ -171,7 +165,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						} else {
 
 							// Save stripe error message.
-							$update_meta['stripe_error_message'] = $update_customer->message;
+							$stripe_error_message = $update_customer->message;
 
 							// Update the result.
 							$result->message = $update_customer->message;
@@ -207,9 +201,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						// Validate charge status.
 						if ( $charge->success ) {
 
-							// Save charge id.
-							$update_meta['stripe_charge_id'] = $charge->callback;
-							$update_meta['reg_status']       = 'done';
+							// Update reg status.
+							$reg_status = 'done';
 
 							// Update result.
 							$result->success  = true;
@@ -217,8 +210,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						} else {
 
 							// Save stripe error message.
-							$update_meta['stripe_error_message'] = $charge->message;
-							$update_meta['reg_status']           = 'fail';
+							$stripe_error_message = $charge->message;
+							$reg_status           = 'fail';
 
 							// Update result.
 							$result->message = $charge->message;
@@ -231,11 +224,13 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					$result->callback = get_permalink( $registration_id );
 
 					// Save registration status.
-					$update_meta['reg_status'] = 'done';
+					$reg_status = 'done';
 				}
 
-				// Update registration meta.
-				Helper::save_post_meta( $registration_id, $update_meta );
+				// Update registration status.
+				$participant->set_registration_status( $reg_status );
+				// Save stripe error message.
+				$participant->save_stripe_error_message( $stripe_error_message );
 			} else {
 
 				// Update the result.
@@ -263,6 +258,15 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 					// Save participant id into variable.
 					$participant_id = $find_participant->callback;
+
+					// Instance the participant.
+					$participant = new Participant( $participant_id );
+					if ( $participant->success ) {
+
+						$result->items = $participant->get_data();
+					} else {
+						$result->message = $participant->message;
+					}
 
 				} else {
 					$result->message = $find_participant->message;
