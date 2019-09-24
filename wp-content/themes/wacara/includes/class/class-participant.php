@@ -37,11 +37,11 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		public $participant_key = '';
 
 		/**
-		 * Participant unique key that will be used for checking in.
+		 * Participant booking code that will be used for checking in.
 		 *
 		 * @var string
 		 */
-		public $publishable_key = '';
+		public $booking_code = '';
 
 		/**
 		 * Participant permalink.
@@ -127,26 +127,28 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						$this->message = $new_participant->get_error_messages();
 					} else {
 
-						// Create participant publishable key.
-						$publishable_key = $event_id . wp_generate_password( 6 ) . $new_participant;
+						// Create participant booking code.
+						$event_and_id_length = strlen( $event_id . $new_participant );
+						$unique_length       = 8 - $event_and_id_length;
+						$booking_code        = strtoupper( $event_id . wp_generate_password( $unique_length, false ) . $new_participant );
 
 						/**
 						 * Perform filter to modify participant publishable key.
 						 *
-						 * @param string $publishable_key the original publishable key.
-						 * @param string $event_id        event id of the articipant.
+						 * @param string $booking_code    the original publishable key.
+						 * @param string $event_id        event id of the participant.
 						 * @param int    $new_participant id number of newly created participant.
 						 */
-						$publishable_key = apply_filters( 'wacara_filter_participant_publishable_key', $publishable_key, $event_id, $new_participant );
+						$booking_code = apply_filters( 'wacara_filter_participant_booking_code', $booking_code, $event_id, $new_participant );
 
 						// Add publishable key to participant meta.
-						$args['publishable_key'] = $publishable_key;
+						$args['booking_code'] = $booking_code;
 
 						// Update class object.
 						$this->success          = true;
 						$this->participant_id   = $new_participant;
 						$this->participant_key  = $participant_key;
-						$this->publishable_key  = $publishable_key;
+						$this->booking_code     = $booking_code;
 						$this->participant_url  = get_permalink( $new_participant );
 						$this->participant_data = $args;
 
