@@ -120,7 +120,7 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 		 * @return Result
 		 */
 		public static function find_local_customer_id_by_email( $email ) {
-			return Helper::get_post_id_bt_meta_key( 'email', $email, 'customer' );
+			return Helper::get_post_id_by_meta_key( 'email', $email, 'customer' );
 		}
 
 		/**

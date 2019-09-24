@@ -215,7 +215,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @return Result
 		 */
 		public static function find_participant_by_booking_code( $booking_code ) {
-			return Helper::get_post_id_bt_meta_key( 'booking_code', $booking_code, 'participant' );
+			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'participant' );
 		}
 	}
 }

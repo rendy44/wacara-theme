@@ -707,7 +707,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 *
 		 * @return Result
 		 */
-		public static function get_post_id_bt_meta_key( $meta_key, $meta_value, $post_type = 'post' ) {
+		public static function get_post_id_by_meta_key( $meta_key, $meta_value, $post_type = 'post' ) {
 			global $wpdb;
 			$result     = new Result();
 			$table_meta = $wpdb->prefix . 'postmeta';
