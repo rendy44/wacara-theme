@@ -649,7 +649,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			if ( false === $post_id ) {
 
 				// Perform the direct query.
-				$post_id = $wpdb->get_var( "SELECT {$table_meta}.post_id FROM {$table_meta} INNER JOIN {$table_post} ON {$table_meta}.post_id = {$table_post}.ID WHERE {$table_post}.post_type = {$post_type} AND {$table_meta}.meta_key = '{$post_meta}' AND {$table_meta}.meta_value = '{$meta_value}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
+				$post_id = $wpdb->get_var( "SELECT {$table_meta}.post_id FROM {$table_meta} INNER JOIN {$table_post} ON {$table_meta}.post_id = {$table_post}.ID WHERE {$table_post}.post_type = '{$post_type}' AND {$table_meta}.meta_key = '{$post_meta}' AND {$table_meta}.meta_value = '{$meta_value}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
 
 				// Save post id to cache.
 				wp_cache_set( $cache_key, $post_id );
