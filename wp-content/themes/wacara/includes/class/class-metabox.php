@@ -170,7 +170,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id'    => $this->meta_prefix . 'single_day',
+									'data-conditional-id' => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -531,7 +531,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'dark'  => __( 'Dark color', 'wacara' ),
 								],
 								'attributes' => [
-									'data-conditional-id'    => $this->meta_prefix . 'content_width',
+									'data-conditional-id' => $this->meta_prefix . 'content_width',
 									'data-conditional-value' => 'center',
 								],
 							],
@@ -659,10 +659,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
-									'file_text'             => __( 'Image:', 'wacara' ),
-									'file_download_text'    => __( 'Download', 'wacara' ),
-									'remove_text'           => __( 'Remove', 'wacara' ),
+									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
+									'file_text'          => __( 'Image:', 'wacara' ),
+									'file_download_text' => __( 'Download', 'wacara' ),
+									'remove_text'        => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
@@ -868,15 +868,44 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			/**
 			 * Registers main options page menu item and form.
 			 */
-			$main_options = new_cmb2_box(
+			$theme_options = new_cmb2_box(
 				[
-					'id'           => $this->meta_prefix . 'tripe_options',
+					'id'           => $this->meta_prefix . 'theme_options',
+					'title'        => esc_html__( 'Theme Options', 'wacara' ),
+					'object_types' => [ 'options-page' ],
+					'option_key'   => $this->meta_prefix . 'theme_options',
+				]
+			);
+			$theme_options->add_field(
+				[
+					'name'         => __( 'Logo', 'wacara' ),
+					'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
+					'id'           => 'logo',
+					'type'         => 'file',
+					'options'      => [
+						'url' => false,
+					],
+					'text'         => [
+						'add_upload_file_text' => __( 'Select Image', 'wacara' ),
+					],
+					'query_args'   => [
+						'type' => [
+							'image/png',
+						],
+					],
+					'preview_size' => 'medium',
+				]
+			);
+			$stripe_options = new_cmb2_box(
+				[
+					'id'           => $this->meta_prefix . 'stripe_options',
 					'title'        => esc_html__( 'Stripe Options', 'wacara' ),
 					'object_types' => [ 'options-page' ],
 					'option_key'   => $this->meta_prefix . 'stripe_options',
+					'parent_slug'  => $this->meta_prefix . 'theme_options',
 				]
 			);
-			$main_options->add_field(
+			$stripe_options->add_field(
 				[
 					'name' => __( 'Sandbox', 'wacara' ),
 					'desc' => __( 'Enable sandbox for testing', 'wacara' ),
@@ -884,7 +913,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'type' => 'checkbox',
 				]
 			);
-			$main_options->add_field(
+			$stripe_options->add_field(
 				[
 					'name' => __( 'Sandbox secret key', 'wacara' ),
 					'id'   => 'sandbox_secret_key',
@@ -892,7 +921,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
 				]
 			);
-			$main_options->add_field(
+			$stripe_options->add_field(
 				[
 					'name' => __( 'Sandbox publishable key', 'wacara' ),
 					'id'   => 'sandbox_publishable_key',
@@ -900,7 +929,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
 				]
 			);
-			$main_options->add_field(
+			$stripe_options->add_field(
 				[
 					'name' => __( 'Live secret key', 'wacara' ),
 					'id'   => 'live_secret_key',
@@ -908,7 +937,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
 				]
 			);
-			$main_options->add_field(
+			$stripe_options->add_field(
 				[
 					'name' => __( 'Live publishable key', 'wacara' ),
 					'id'   => 'live_publishable_key',
