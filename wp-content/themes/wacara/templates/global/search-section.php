@@ -19,10 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<img class="img-fluid logo mb-5" src="<?php echo esc_attr( $logo_url ); ?>">
 				<div class="row mb-3">
 					<div class="col-md-9 form-group">
-						<input class="form-control form-control-lg form-control-underlined" type="email" placeholder="<?php echo esc_attr__( 'Enter your booking code', 'wacara' ); ?>">
+						<input id="input_find_participant" class="form-control form-control-lg form-control-underlined" type="email" placeholder="<?php echo esc_attr__( 'Enter your booking code', 'wacara' ); ?>">
 					</div>
 					<div class="col-md-3 form-group">
-						<button class="btn btn-primary btn-lg btn-block shadow"><i class="fas fa-search"></i></button>
+						<button type="button" id="btn_find_participant" class="btn btn-primary btn-lg btn-block shadow"><i class="fas fa-search"></i></button>
 					</div>
 				</div>
 				<div class="row justify-content-center">

@@ -267,9 +267,9 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					} else {
 						$result->message = $participant->message;
 					}
-
 				} else {
-					$result->message = $find_participant->message;
+					$result->message  = $find_participant->message;
+					$result->callback = $find_participant->callback;
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );

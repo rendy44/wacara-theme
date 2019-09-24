@@ -94,7 +94,8 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 * @since 4.1.0
 		 */
 		public function load_as_module( $tag, $handle, $src ) {
-			if ( 'main' === $handle ) {
+			$modules = [ 'main', 'checkin' ];
+			if ( in_array( $handle, $modules, true ) ) {
 				$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>'; // phpcs:ignore
 			}
 
@@ -168,6 +169,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				],
 				'stripe'            => [
 					'url' => 'https://js.stripe.com/v3/',
+				],
+				'checkin'           => [
+					'url' => TEMP_URI . '/assets/js/checkin.js',
 				],
 				'main'              => [
 					'url' => TEMP_URI . '/assets/js/main.js',
