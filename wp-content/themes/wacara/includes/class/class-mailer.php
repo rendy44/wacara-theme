@@ -105,3 +105,5 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 		}
 	}
 }
+
+Mailer::init();
