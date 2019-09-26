@@ -215,14 +215,14 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							/**
 							 * Perform action after making payment.
 							 *
-							 * @param string $participant_id registration id.
+							 * @param string $participant_id participant id.
 							 */
 							do_action( 'wacara_after_making_payment', $participant_id, $pricing_price, $pricing_currency );
 
 							/**
 							 * Perform action after finishing registration.
 							 *
-							 * @param string $participant_id registration id.
+							 * @param string $participant_id participant id.
 							 */
 							do_action( 'wacara_after_finishing_registration', $participant_id );
 
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					/**
 					 * Perform action after finishing registration.
 					 *
-					 * @param string $participant_id registration id.
+					 * @param string $participant_id participant id.
 					 */
 					do_action( 'wacara_after_finishing_registration', $participant_id );
 				}
