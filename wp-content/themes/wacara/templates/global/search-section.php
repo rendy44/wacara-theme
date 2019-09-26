@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class="row justify-content-center">
 					<div class="btn-group shadow" role="group">
-						<a class="btn btn-light" id="link-qrcode" href="#"><?php echo esc_html__( 'Scan QRCode', 'wacara' ); ?></a><a class="btn btn-light" id="link-faq" href="#"><?php echo esc_html__( 'Need Help?', 'wacara' ); ?></a>
+						<a class="btn btn-light" id="link-qrcode" href="#modalTemplate" data-toggle="modal"><?php echo esc_html__( 'Scan QRCode', 'wacara' ); ?></a><a class="btn btn-light" id="link-faq" href="#"><?php echo esc_html__( 'Need Help?', 'wacara' ); ?></a>
 					</div>
 				</div>
 			</div>
