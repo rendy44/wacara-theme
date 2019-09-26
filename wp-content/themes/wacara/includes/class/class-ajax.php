@@ -117,7 +117,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			$result          = new Result();
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
-			$registration_id = Helper::get_serialized_val( $unserialize_obj, 'registration_id' );
+			$participant_id  = Helper::get_serialized_val( $unserialize_obj, 'participant_id' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
 			// Validate the nonce.
@@ -131,13 +131,13 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				$position         = Helper::get_serialized_val( $unserialize_obj, 'position' );
 				$phone            = Helper::get_serialized_val( $unserialize_obj, 'phone' );
 				$id_number        = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
-				$event_id         = Helper::get_post_meta( 'event_id', $registration_id );
-				$pricing_id       = Helper::get_post_meta( 'pricing_id', $registration_id );
+				$event_id         = Helper::get_post_meta( 'event_id', $participant_id );
+				$pricing_id       = Helper::get_post_meta( 'pricing_id', $participant_id );
 				$pricing_currency = Helper::get_post_meta( 'currency', $pricing_id );
 				$pricing_price    = Helper::get_post_meta( 'price', $pricing_id );
 
 				// Instance the participant.
-				$participant = new Participant( $registration_id );
+				$participant = new Participant( $participant_id );
 
 				// Save the details.
 				$participant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
@@ -210,21 +210,21 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 							// Update result.
 							$result->success  = true;
-							$result->callback = get_permalink( $registration_id );
+							$result->callback = get_permalink( $participant_id );
 
 							/**
 							 * Perform action after making payment.
 							 *
-							 * @param string $registration_id registration id.
+							 * @param string $participant_id registration id.
 							 */
-							do_action( 'wacara_after_making_payment', $registration_id, $pricing_price, $pricing_currency );
+							do_action( 'wacara_after_making_payment', $participant_id, $pricing_price, $pricing_currency );
 
 							/**
 							 * Perform action after finishing registration.
 							 *
-							 * @param string $registration_id registration id.
+							 * @param string $participant_id registration id.
 							 */
-							do_action( 'wacara_after_finishing_registration', $registration_id );
+							do_action( 'wacara_after_finishing_registration', $participant_id );
 
 						} else {
 
@@ -240,7 +240,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 					// There is nothing to do here, just finish the process :).
 					$result->success  = true;
-					$result->callback = get_permalink( $registration_id );
+					$result->callback = get_permalink( $participant_id );
 
 					// Save registration status.
 					$reg_status = 'done';
@@ -248,9 +248,9 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					/**
 					 * Perform action after finishing registration.
 					 *
-					 * @param string $registration_id registration id.
+					 * @param string $participant_id registration id.
 					 */
-					do_action( 'wacara_after_finishing_registration', $registration_id );
+					do_action( 'wacara_after_finishing_registration', $participant_id );
 				}
 
 				// Update registration status.
