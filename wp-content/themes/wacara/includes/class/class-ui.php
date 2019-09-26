@@ -226,6 +226,14 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			return $result;
 		}
 
+		/**
+		 * Generate header background image style for event.
+		 *
+		 * @param string $event_background_image  event background image.
+		 * @param string $header_background_image header background image.
+		 *
+		 * @return string
+		 */
 		public static function generate_header_background_image( $event_background_image, $header_background_image ) {
 			$result   = '';
 			$image_id = $event_background_image ? $event_background_image : $header_background_image;

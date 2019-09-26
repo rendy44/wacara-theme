@@ -96,6 +96,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					if ( is_wp_error( $new_participant ) ) {
 
 						// Update result.
+						$this->success = false;
 						$this->message = $new_participant->get_error_messages();
 					} else {
 
@@ -131,6 +132,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 				} else {
 
 					// Update result.
+					$this->success = false;
 					$this->message = __( 'Please use valid input', 'wacara' );
 				}
 			} else {
@@ -144,6 +146,12 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					// Fetch participant detail.
 					$this->participant_data = $this->get_meta(
 						[
+							'email',
+							'name',
+							'company',
+							'position',
+							'phone',
+							'id_number',
 							'booking_code',
 							'event_id',
 							'pricing_id',
@@ -264,12 +272,15 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						do_action( 'wacara_after_participant_checkin', $participant_id );
 
 					} else {
+						$this->success = false;
 						$this->message = __( 'You have already checked in for today', 'wacara' );
 					}
 				} else {
+					$this->success = false;
 					$this->message = __( 'You are not allowed to checkin, since the event is completely past', 'wacara' );
 				}
 			} else {
+				$this->success = false;
 				$this->message = __( 'You are not allowed to checkin', 'wacara' );
 			}
 		}
@@ -295,7 +306,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			$result          = false;
 			$today_timestamp = Helper::get_today_timestamp();
 			$checkin_dates   = $this->get_checkin_lists();
-			if ( in_array( $today_timestamp, $checkin_dates, true ) ) {
+			if ( in_array( $today_timestamp, $checkin_dates, false ) ) { // phpcs:ignore
 				$result = true;
 			}
 

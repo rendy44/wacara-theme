@@ -195,21 +195,27 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 								if ( $validate_location->success ) {
 									$this->success = true;
 								} else {
+									$this->success = false;
 									$this->message = $validate_location->message;
 								}
 							} else {
+								$this->success = false;
 								$this->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
 							}
 						} else {
+							$this->success = false;
 							$this->message = __( 'This event is not completed yet, the event end period has not been assigned yet', 'wacara' );
 						}
 					} else {
+						$this->success = false;
 						$this->message = __( 'This event is not completed yet, the starting date has not been assigned yet', 'wacara' );
 					}
 				} else {
+					$this->success = false;
 					$this->message = __( 'This event does not allow registration', 'wacara' );
 				}
 			} else {
+				$this->success = false;
 				$this->message = __( 'Event already past or the starting date has not been defined yet', 'wacara' );
 			}
 		}

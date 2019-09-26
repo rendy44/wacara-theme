@@ -54,6 +54,10 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			// Register ajax endpoint for finding participant by booking coce before checking in..
 			add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
 			add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
+
+			// Register ajax endpoint for processing checkin.
+			add_action( 'wp_ajax_nopriv_participant_checkin', [ $this, 'participant_checkin_callback' ] );
+			add_action( 'wp_ajax_participant_checkin', [ $this, 'participant_checkin_callback' ] );
 		}
 
 		/**
@@ -262,14 +266,43 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					// Instance the participant.
 					$participant = new Participant( $participant_id );
 					if ( $participant->success ) {
-
-						$result->items = $participant->get_data();
+						$result->success  = true;
+						$result->items    = $participant->get_data();
+						$result->callback = $participant_id;
 					} else {
 						$result->message = $participant->message;
 					}
 				} else {
 					$result->message  = $find_participant->message;
 					$result->callback = $find_participant->callback;
+				}
+			} else {
+				$result->message = __( 'Please try again later', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
+		 * Callback for processing checkin.
+		 */
+		public function participant_checkin_callback() {
+			$result         = new Result();
+			$participant_id = Helper::post( 'participant_id' );
+			if ( $participant_id ) {
+
+				// Instance participant.
+				$participant = new Participant( $participant_id );
+
+				// Perform checkin.
+				$participant->maybe_do_checkin();
+
+				// Validate checkin status.
+				if ( $participant->success ) {
+					$result->success = true;
+					$result->message = __( 'Thank you for checking in', 'wacara' );
+				} else {
+					$result->message = $participant->message;
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );
