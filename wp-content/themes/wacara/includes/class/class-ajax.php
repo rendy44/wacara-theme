@@ -211,6 +211,21 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							// Update result.
 							$result->success  = true;
 							$result->callback = get_permalink( $registration_id );
+
+							/**
+							 * Perform action after making payment.
+							 *
+							 * @param string $registration_id registration id.
+							 */
+							do_action( 'wacara_after_making_payment', $registration_id, $pricing_price, $pricing_currency );
+
+							/**
+							 * Perform action after finishing registration.
+							 *
+							 * @param string $registration_id registration id.
+							 */
+							do_action( 'wacara_after_finishing_registration', $registration_id );
+
 						} else {
 
 							// Save stripe error message.
@@ -229,6 +244,13 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 					// Save registration status.
 					$reg_status = 'done';
+
+					/**
+					 * Perform action after finishing registration.
+					 *
+					 * @param string $registration_id registration id.
+					 */
+					do_action( 'wacara_after_finishing_registration', $registration_id );
 				}
 
 				// Update registration status.

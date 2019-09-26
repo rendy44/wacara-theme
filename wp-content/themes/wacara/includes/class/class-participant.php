@@ -188,6 +188,17 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					'qrcode_url'  => $qrcode_uri,
 				]
 			);
+
+			// Save participant id into variable.
+			$participant_id = $this->post_id;
+
+			/**
+			 * Perform actions after creating participant qrcode.
+			 *
+			 * @param string $participant_id participant id.
+			 * @param string $qrcode_uri     the url of generated qrcode.
+			 */
+			do_action( 'wacara_after_creating_participant_qrcode', $participant_id, $qrcode_uri );
 		}
 
 		/**
