@@ -82,6 +82,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'transaction',
 				'participant',
 				'payment',
+				'mailer',
 				'asset',
 			];
 		}
