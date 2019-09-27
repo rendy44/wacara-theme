@@ -151,6 +151,21 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 		}
 
 		/**
+		 * Check whether participant is allowed to register to this event or not.
+		 *
+		 * @return bool
+		 */
+		public function is_event_allows_register() {
+			$result         = false;
+			$allow_register = parent::get_meta( 'allow_register' );
+			if ( 'on' === $allow_register ) {
+				$result = true;
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Check whether now is correct to to do checkin.
 		 *
 		 * @return bool
@@ -175,7 +190,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 			if ( ! $is_event_past ) {
 
 				// Is allowed to register.
-				$allow_register = parent::get_meta( 'allow_register' );
+				$allow_register = $this->is_event_allows_register();
 				if ( $allow_register ) {
 
 					// Is date_start assigned.
