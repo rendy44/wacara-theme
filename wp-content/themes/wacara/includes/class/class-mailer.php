@@ -97,6 +97,14 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 			/* translators: 1: participant name, 2: event name, 3: booking code*/
 			$email_content = sprintf( __( 'Hello %1$s, thank you for registering to %2$s. This is your booking code: %3$s', 'wacara' ), $participant_data['name'], $event_name, $participant_data['booking_code'] );
 
+			/**
+			 * Apply filters to modify email content after participant making registration.
+			 *
+			 * @param string $email_content  the original email content.
+			 * @param string $participant_id the id of registered participant.
+			 */
+			$email_content = apply_filters( 'wacara_filter_email_content_after_register', $email_content, $participant_id );
+
 			// Send the email.
 			$this->send_email( $participant_data['email'], $participant_data['name'], $email_subject, $email_content );
 		}
@@ -117,6 +125,14 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 			$email_subject = sprintf( __( 'Thank you for checking in to %s', 'wacara' ), $event_name );
 			/* translators: 1: participant name, 2: event name*/
 			$email_content = sprintf( __( 'Hello %1$s, thank you for checking in to %2$s', 'wacara' ), $participant_data['name'], $event_name );
+
+			/**
+			 * Apply filters to modify email content after participant checking in.
+			 *
+			 * @param string $email_content  the original email content.
+			 * @param string $participant_id the id of registered participant.
+			 */
+			$email_content = apply_filters( 'wacara_filter_email_content_after_checkin', $email_content, $participant_id );
 
 			// Send the email.
 			$this->send_email( $participant_data['email'], $participant_data['name'], $email_subject, $email_content );
