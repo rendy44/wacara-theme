@@ -168,7 +168,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -201,6 +201,13 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'      => $this->meta_prefix . 'pricing',
 								'type'    => 'pw_multiselect',
 								'options' => Helper::get_list_of_prices(),
+							],
+							[
+								'name'         => __( 'Sponsors', 'wacara' ),
+								'id'           => $this->meta_prefix . 'sponsors',
+								'type'         => 'file_list',
+								'preview_size' => [ 100, 100 ],
+								'query_args'   => [ 'type' => 'image' ],
 							],
 						],
 					],
@@ -529,7 +536,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'dark'  => __( 'Dark color', 'wacara' ),
 								],
 								'attributes' => [
-									'data-conditional-id' => $this->meta_prefix . 'content_width',
+									'data-conditional-id'    => $this->meta_prefix . 'content_width',
 									'data-conditional-value' => 'center',
 								],
 							],
@@ -657,10 +664,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
