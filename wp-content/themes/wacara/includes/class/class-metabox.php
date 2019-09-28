@@ -55,14 +55,22 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		private function __construct() {
 			// Add event detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_event_metabox_callback' ] );
+
 			// Add event schedule metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'schedule_event_metabox_callback' ] );
+
+			// Add event participants metabox.
+			add_action( 'add_meta_boxes', [ $this, 'custom_event_metabox_callback' ] );
+
 			// Add header detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_header_metabox_callback' ] );
+
 			// Add location detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_location_metabox_callback' ] );
+
 			// Add speaker detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_speaker_metabox_callback' ] );
+
 			// Add price detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_price_metabox_callback' ] );
 		}
@@ -118,6 +126,41 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					'type' => 'textarea_small',
 				]
 			);
+		}
+
+		/**
+		 * Custome metabox configuration for event.
+		 */
+		public function custom_event_metabox_callback() {
+			add_meta_box(
+				'event_participant_mb',
+				__( 'Participant', 'wacara' ),
+				[
+					$this,
+					'event_participant_metabox_callback',
+				],
+				'event',
+				'side'
+			);
+		}
+
+		/**
+		 * Callback for rendering event participant metabox.
+		 */
+		public function event_participant_metabox_callback() {
+			global $post;
+			$base_url        = admin_url( 'admin-post.php' );
+			$dowload_csv_url = add_query_arg(
+				[
+					'action'   => 'download_csv',
+					'event_id' => $post->ID,
+				],
+				$base_url
+			);
+			?>
+			<p><?php echo esc_html__( 'Click link below to download all participants', 'wacara' ); ?></p>
+			<a href="<?php echo esc_attr( $dowload_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
+			<?php
 		}
 
 		/**
