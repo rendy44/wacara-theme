@@ -718,6 +718,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
 							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'about_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'about_subtitle',
+								'type' => 'text',
+							],
 						],
 					],
 					[
@@ -729,6 +739,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'speakers_nav_title',
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'speakers_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'speakers_subtitle',
+								'type' => 'text',
 							],
 						],
 					],
@@ -742,6 +762,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
 							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'venue_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'venue_subtitle',
+								'type' => 'text',
+							],
 						],
 					],
 					[
@@ -753,6 +783,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'gallery_nav_title',
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'gallery_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'gallery_subtitle',
+								'type' => 'text',
 							],
 						],
 					],
@@ -766,6 +806,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
 							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'sponsors_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'sponsors_subtitle',
+								'type' => 'text',
+							],
 						],
 					],
 					[
@@ -778,6 +828,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
 							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'schedule_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'schedule_subtitle',
+								'type' => 'text',
+							],
 						],
 					],
 					[
@@ -789,6 +849,16 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'pricing_nav_title',
 								'type' => 'text',
 								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+							[
+								'name' => __( 'Title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'pricing_title',
+								'type' => 'text',
+							],
+							[
+								'name' => __( 'Subtitle', 'wacara' ),
+								'id'   => $this->meta_prefix . 'pricing_subtitle',
+								'type' => 'text',
 							],
 						],
 					],
