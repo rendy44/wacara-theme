@@ -504,27 +504,57 @@ section h2.section-heading:before {
   }
 }
 
+section.gallery {
+  overflow: hidden;
+}
+
 section.gallery a {
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
-}
-
-section.gallery a img {
-  opacity: .6;
+  height: 350px;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
 
-section.gallery a:hover img {
-  opacity: 1;
+section.gallery a i {
+  opacity: 0;
+  padding: 15px;
+  margin: auto;
+  background-color: #7dc1a5;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  -webkit-transform: scale(1.05);
-  z-index: 2;
-  position: relative;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+section.gallery a:hover {
+  text-decoration: none;
+}
+
+section.gallery a:hover:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+section.gallery a:hover i {
+  opacity: 1;
+  z-index: 3;
 }
 
 section.sponsors .sponsor-logos .slide {
