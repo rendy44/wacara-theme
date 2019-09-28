@@ -14,9 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto text-center mb-3">
-				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200">The Venue</h2>
-				<p class="lead" data-aos="fade-right" data-aos-delay="400">We would like to introduce the special place
-					where the event is going to be held</p>
+				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html__( 'The Venue', 'wacara' ); ?></h2>
+				<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html__( 'We would like to introduce the special place where the event is going to be held', 'wacara' ); ?></p>
 			</div>
 		</div>
 		<div class="row">

@@ -31,29 +31,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="card-social">
 								<?php
 								if ( ! empty( $speaker['website'] ) ) {
-									echo '<a href="' . $speaker['website'] . '" target="_blank"><i class="fas fa-globe"></i></a>';
+									echo '<a href="' . esc_url( $speaker['website'] ) . '" target="_blank"><i class="fas fa-globe"></i></a>';
 								}
 								if ( ! empty( $speaker['facebook'] ) ) {
-									echo '<a href="' . $speaker['facebook'] . '" target="_blank"><i class="fab fa-facebook"></i></a>';
+									echo '<a href="' . esc_url( $speaker['facebook'] ) . '" target="_blank"><i class="fab fa-facebook"></i></a>';
 								}
 								if ( ! empty( $speaker['linkedin'] ) ) {
-									echo '<a href="' . $speaker['linkedin'] . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
+									echo '<a href="' . esc_url( $speaker['linkedin'] ) . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
 								}
 								if ( ! empty( $speaker['twitter'] ) ) {
-									echo '<a href="' . $speaker['twitter'] . '" target="_blank"><i class="fab fa-twitter"></i></a>';
+									echo '<a href="' . esc_url( $speaker['twitter'] ) . '" target="_blank"><i class="fab fa-twitter"></i></a>';
 								}
 								if ( ! empty( $speaker['instagram'] ) ) {
-									echo '<a href="' . $speaker['instagram'] . '" target="_blank"><i class="fab fa-instagram"></i></a>';
+									echo '<a href="' . esc_url( $speaker['instagram'] ) . '" target="_blank"><i class="fab fa-instagram"></i></a>';
 								}
 								if ( ! empty( $speaker['youtube'] ) ) {
-									echo '<a href="' . $speaker['youtube'] . '" target="_blank"><i class="fab fa-youtube"></i></a>';
+									echo '<a href="' . esc_url( $speaker['youtube'] ) . '" target="_blank"><i class="fab fa-youtube"></i></a>';
 								}
 								?>
-								<!--                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>-->
-								<!--                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
-								<!--                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>-->
-								<!--                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>-->
-								<!--                                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>-->
 							</div>
 						</div>
 					</div>
