@@ -108,6 +108,17 @@ while ( have_posts() ) {
 		echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
 
 		/**
+		 * Gallery section.
+		 */
+		$gallery = Helper::get_post_meta( 'gallery' );
+		if ( ! empty( $gallery ) ) {
+			$gallery_args = [
+				'gallery' => $gallery,
+			];
+			echo Template::render( 'event/gallery', $gallery_args ); // phpcs:ignore
+		}
+
+		/**
 		 * Sponsors section.
 		 */
 		$sponsors = Helper::get_post_meta( 'sponsors' );

@@ -78,6 +78,7 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 					'after_widget'  => '</div>',
 				]
 			);
+			add_image_size( 'wacara_gallery_thumbnail', 350, 350, true );
 		}
 	}
 }

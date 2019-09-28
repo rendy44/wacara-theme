@@ -145,6 +145,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				'aos'         => [
 					'url' => TEMP_URI . '/assets/vendor/aos/aos.css',
 				],
+				'baguettebox' => [
+					'url' => TEMP_URI . '/assets/vendor/baguettebox/baguetteBox.min.css',
+				],
 				'sweetalert2' => [
 					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.css',
 				],
@@ -166,6 +169,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				],
 				'aos'               => [
 					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
+				],
+				'baguettebox'       => [
+					'url' => TEMP_URI . '/assets/vendor/baguettebox/baguetteBox.min.js',
 				],
 				'sweetalert2'       => [
 					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.js',

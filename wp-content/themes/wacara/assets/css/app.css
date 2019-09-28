@@ -504,6 +504,29 @@ section h2.section-heading:before {
   }
 }
 
+section.gallery a {
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+section.gallery a img {
+  opacity: .6;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+section.gallery a:hover img {
+  opacity: 1;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  z-index: 2;
+  position: relative;
+}
+
 section.sponsors .sponsor-logos .slide {
   height: 76px;
   text-align: center;
