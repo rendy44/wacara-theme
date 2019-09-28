@@ -149,18 +149,25 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 */
 		public function event_participant_metabox_callback() {
 			global $post;
-			$base_url         = admin_url( 'admin-post.php' );
-			$download_csv_url = add_query_arg(
-				[
-					'action'   => 'download_csv',
-					'event_id' => $post->ID,
-				],
-				$base_url
-			);
-			?>
-			<p><?php echo esc_html__( 'Click link below to download all participants', 'wacara' ); ?></p>
-			<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
-			<?php
+			$allow_register = Helper::get_post_meta( TEMP_PREFIX . 'allow_register', $post->ID );
+			if ( 'on' === $allow_register ) {
+				$base_url         = admin_url( 'admin-post.php' );
+				$download_csv_url = add_query_arg(
+					[
+						'action'   => 'download_csv',
+						'event_id' => $post->ID,
+					],
+					$base_url
+				);
+				?>
+				<p><?php echo esc_html__( 'Click link below to download all participants', 'wacara' ); ?></p>
+				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
+				<?php
+			} else {
+				?>
+				<p><?php echo esc_html__( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+				<?php
+			}
 		}
 
 		/**
