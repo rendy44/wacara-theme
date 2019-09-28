@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="bg-light info" id="about" data-aos="zoom-in">
+<section class="<?php echo esc_attr( $class ); ?> info" id="about" data-aos="zoom-in">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-12 col-lg-5 info-item" data-aos="fade-left" data-aos-delay="200">

@@ -55,8 +55,11 @@ get_header();
 while ( have_posts() ) {
 	the_post();
 
+	// Save the event id into variable.
+	$event_id = get_the_ID();
+
 	// Fetch event object.
-	$event = new Event( get_the_ID(), true );
+	$event = new Event( $event_id, true );
 
 	// Define event date start.
 	$is_event_past = $event->is_event_past();
@@ -85,114 +88,23 @@ while ( have_posts() ) {
 		echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 
 		/**
-		 * About section.
+		 * Render all sections.
 		 */
-		$about_args = [
-			'description' => Helper::get_post_meta( 'description' ),
-			'location'    => Helper::get_location_paragraph( $location ),
-			'time'        => $event->get_event_date_time_paragraph(),
-		];
-		echo Template::render( 'event/about', $about_args ); // phpcs:ignore
+		$section_num = 1;
+		foreach ( $sections as $section ) {
 
-		/**
-		 * Speakers section.
-		 */
-		$speakers_arr = [];
-		$speakers     = Helper::get_post_meta( 'speakers' );
-		if ( ! empty( $speakers ) ) {
-			foreach ( $speakers as $speaker ) {
-				$speakers_arr[] = [
-					'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
-					'name'      => get_the_title( $speaker ),
-					'position'  => Helper::get_post_meta( 'position', $speaker ),
-					'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
-					'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
-					'website'   => Helper::get_post_meta( 'website', $speaker ),
-					'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
-					'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
-					'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
-				];
-			}
+			// Define section class based on odd or even position.
+			$section_class = 0 === $section_num % 2 ? 'bg-white' : 'bg-light';
 
-			$speakers_args = [
-				'speakers' => $speakers_arr,
-			];
-			echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
-		}
+			/**
+			 * Render the selected section.
+			 *
+			 * @param Event  $event         the object of current event.
+			 * @param string $section_class the css class of selected section.
+			 */
+			do_action( "wacara_render_{$section}_section", $event, $section_class );
 
-		/**
-		 * Venue section.
-		 */
-		$venue_args = [
-			'sliders'              => Helper::get_post_meta( 'photo', $location ),
-			'location_name'        => Helper::get_post_meta( 'name', $location ),
-			'location_description' => Helper::get_post_meta( 'description', $location ),
-		];
-		echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
-
-		/**
-		 * Gallery section.
-		 */
-		$gallery = Helper::get_post_meta( 'gallery' );
-		if ( ! empty( $gallery ) ) {
-			$gallery_args = [
-				'gallery' => $gallery,
-			];
-			echo Template::render( 'event/gallery', $gallery_args ); // phpcs:ignore
-		}
-
-		/**
-		 * Sponsors section.
-		 */
-		$sponsors = Helper::get_post_meta( 'sponsors' );
-		if ( ! empty( $sponsors ) ) {
-			$sponsors_args = [
-				'sponsors' => $sponsors,
-			];
-			echo Template::render( 'event/sponsors', $sponsors_args ); // phpcs:ignore
-		}
-
-		/**
-		 * Schedule section.
-		 */
-		$schedules = Helper::get_post_meta( 'schedules' );
-		if ( ! empty( $schedules ) ) {
-			$schedule_args = [
-				'schedules' => $schedules,
-			];
-			echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
-		}
-
-		/**
-		 * Pricing section
-		 */
-		$allow_registration = Helper::get_post_meta( 'allow_register' );
-
-		// Only render the pricing section if registration is required to join the event.
-		if ( 'on' === $allow_registration ) {
-			$pricing_arr = [];
-			$pricing     = Helper::get_post_meta( 'pricing' );
-			if ( ! empty( $pricing ) ) {
-				foreach ( $pricing as $price ) {
-					$currency_code = Helper::get_post_meta( 'currency', $price );
-					$pricing_arr[] = [
-						'id'       => $price,
-						'name'     => get_the_title( $price ),
-						'price'    => Helper::get_post_meta( 'price', $price ),
-						'currency' => $currency_code,
-						'symbol'   => Helper::get_currency_symbol_by_code( $currency_code ),
-						'pros'     => Helper::get_post_meta( 'pros', $price ),
-						'cons'     => Helper::get_post_meta( 'cons', $price ),
-					];
-				}
-			}
-			$pricing_args = [
-				'price_lists' => $pricing_arr,
-				'event_id'    => get_the_ID(),
-			];
-			echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
-		} else {
-			echo Template::render( 'event/directly' ); // phpcs:ignore
+			$section_num ++;
 		}
 	} else {
 

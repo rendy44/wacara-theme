@@ -51,6 +51,27 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
 			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
+
+			// Render the about section.
+			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 2 );
+
+			// Render the speakers section.
+			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 2 );
+
+			// Render the venue section.
+			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 2 );
+
+			// Render the gallery section.
+			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 2 );
+
+			// Render the sponsors section.
+			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 2 );
+
+			// Render the schedule section.
+			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 2 );
+
+			// Render the pricing section.
+			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 2 );
 		}
 
 		/**
@@ -207,6 +228,161 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Callback for rendering about section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_about_section_callback( $event, $section_class ) {
+			$location   = Helper::get_post_meta( 'location', $event->post_id );
+			$about_args = [
+				'class'       => $section_class,
+				'description' => Helper::get_post_meta( 'description', $event->post_id ),
+				'location'    => Helper::get_location_paragraph( $location ),
+				'time'        => $event->get_event_date_time_paragraph(),
+			];
+			echo Template::render( 'event/about', $about_args ); // phpcs:ignore
+		}
+
+		/**
+		 * Callback for rendering speakers section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_speakers_section_callback( $event, $section_class ) {
+			$speakers_arr = [];
+			$speakers     = Helper::get_post_meta( 'speakers', $event->post_id );
+			if ( ! empty( $speakers ) ) {
+				foreach ( $speakers as $speaker ) {
+					$speakers_arr[] = [
+						'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
+						'name'      => get_the_title( $speaker ),
+						'position'  => Helper::get_post_meta( 'position', $speaker ),
+						'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
+						'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
+						'website'   => Helper::get_post_meta( 'website', $speaker ),
+						'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
+						'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
+						'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
+					];
+				}
+
+				$speakers_args = [
+					'class'    => $section_class,
+					'speakers' => $speakers_arr,
+				];
+				echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
+			}
+		}
+
+		/**
+		 * Callback for rendering venue section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_venue_section_callback( $event, $section_class ) {
+			$location   = Helper::get_post_meta( 'location', $event->post_id );
+			$venue_args = [
+				'class'                => $section_class,
+				'sliders'              => Helper::get_post_meta( 'photo', $location ),
+				'location_name'        => Helper::get_post_meta( 'name', $location ),
+				'location_description' => Helper::get_post_meta( 'description', $location ),
+			];
+			echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
+		}
+
+		/**
+		 * Callback for rendering gallery section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_gallery_section_callback( $event, $section_class ) {
+			$gallery = Helper::get_post_meta( 'gallery', $event->post_id );
+			if ( ! empty( $gallery ) ) {
+				$gallery_args = [
+					'class'   => $section_class,
+					'gallery' => $gallery,
+				];
+				echo Template::render( 'event/gallery', $gallery_args ); // phpcs:ignore
+			}
+		}
+
+		/**
+		 * Callback for rendering sponsors section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_sponsors_section_callback( $event, $section_class ) {
+			$sponsors = Helper::get_post_meta( 'sponsors', $event->post_id );
+			if ( ! empty( $sponsors ) ) {
+				$sponsors_args = [
+					'class'    => $section_class,
+					'sponsors' => $sponsors,
+				];
+				echo Template::render( 'event/sponsors', $sponsors_args ); // phpcs:ignore
+			}
+		}
+
+		/**
+		 * Callback for rendering schedule section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_schedule_section_callback( $event, $section_class ) {
+			$schedules = Helper::get_post_meta( 'schedules', $event->post_id );
+			if ( ! empty( $schedules ) ) {
+				$schedule_args = [
+					'class'     => $section_class,
+					'schedules' => $schedules,
+				];
+				echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
+			}
+		}
+
+		/**
+		 * Callback for rendering pricing section.
+		 *
+		 * @param Event  $event         the object of current event.
+		 * @param string $section_class the css class of section.
+		 */
+		public function render_pricing_section_callback( $event, $section_class ) {
+			$allow_registration = Helper::get_post_meta( 'allow_register', $event->post_id );
+
+			// Only render the pricing section if registration is required to join the event.
+			if ( 'on' === $allow_registration ) {
+				$pricing_arr = [];
+				$pricing     = Helper::get_post_meta( 'pricing', $event->post_id );
+				if ( ! empty( $pricing ) ) {
+					foreach ( $pricing as $price ) {
+						$currency_code = Helper::get_post_meta( 'currency', $price );
+						$pricing_arr[] = [
+							'id'       => $price,
+							'name'     => get_the_title( $price ),
+							'price'    => Helper::get_post_meta( 'price', $price ),
+							'currency' => $currency_code,
+							'symbol'   => Helper::get_currency_symbol_by_code( $currency_code ),
+							'pros'     => Helper::get_post_meta( 'pros', $price ),
+							'cons'     => Helper::get_post_meta( 'cons', $price ),
+						];
+					}
+				}
+				$pricing_args = [
+					'class'       => $section_class,
+					'price_lists' => $pricing_arr,
+					'event_id'    => $event->post_id,
+				];
+				echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
+			} else {
+				echo Template::render( 'event/directly', [ 'class' => $section_class ] ); // phpcs:ignore
+			}
 		}
 
 		/**

@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="bg-light gallery py-0" id="galleries" data-aos="zoom-in">
+<section class="<?php echo esc_attr( $class ); ?> gallery py-0" id="gallery" data-aos="zoom-in">
 	<div class="container-wrap">
-		<div class="row no-gutters justify-content-center galleries">
+		<div class="row no-gutters justify-content-center gallery-list">
 			<?php
 			foreach ( $gallery as $image_id => $image_url ) {
 				?>

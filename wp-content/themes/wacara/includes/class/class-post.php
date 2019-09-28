@@ -24,14 +24,14 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		 *
 		 * @var int
 		 */
-		protected $post_id = 0;
+		public $post_id = 0;
 
 		/**
 		 * Post permalink.
 		 *
 		 * @var string
 		 */
-		protected $post_url = '';
+		public $post_url = '';
 
 		/**
 		 * Post constructor.

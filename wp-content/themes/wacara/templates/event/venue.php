@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="bg-light venue" id="venue" data-aos="zoom-in">
+<section class="<?php echo esc_attr( $class ); ?> venue" id="venue" data-aos="zoom-in">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto text-center mb-3">
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="col-lg-6 d-flex flex-column">
 				<h3 data-aos="fade-left" data-aos-delay="800"><?php echo esc_html( $location_name ); ?></h3>
 				<p data-aos="fade-left" data-aos-delay="1000"><?php echo esc_html( $location_description ); ?></p>
-				<div class="carousel slide" id="gallery" data-ride="carousel" data-aos="fade-left" data-aos-delay="1200">
+				<div class="carousel slide" id="location_images" data-ride="carousel" data-aos="fade-left" data-aos-delay="1200">
 					<div class="carousel-inner">
 						<?php
 						$slide_num = 0;
@@ -42,10 +42,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 						?>
 					</div>
 					<!-- Left and right controls-->
-					<a class="carousel-control-prev" href="#gallery" data-slide="prev">
+					<a class="carousel-control-prev" href="#location_images" data-slide="prev">
 						<span class="carousel-control-prev-icon"></span>
 					</a>
-					<a class="carousel-control-next" href="#gallery" data-slide="next">
+					<a class="carousel-control-next" href="#location_images" data-slide="next">
 						<span class="carousel-control-next-icon"></span>
 					</a>
 				</div>
