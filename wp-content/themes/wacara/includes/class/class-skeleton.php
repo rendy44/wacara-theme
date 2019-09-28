@@ -77,6 +77,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'cmb2-conditionals',
 				'cmb2-hooks',
 				'ajax',
+				'action',
 				'post',
 				'event',
 				'transaction',

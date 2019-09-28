@@ -8,6 +8,8 @@
 
 namespace Skeleton;
 
+use WP_Query;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -19,20 +21,6 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 	 * @package Skeleton
 	 */
 	class Event extends Post {
-
-		/**
-		 * Event id.
-		 *
-		 * @var string
-		 */
-		private $event_id = '';
-
-		/**
-		 * Event permalink.
-		 *
-		 * @var string
-		 */
-		private $event_permalink = '';
 
 		/**
 		 * Whether the event is single day.
@@ -87,9 +75,6 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 
 			// Validate the event.
 			if ( $this->success ) {
-				$this->event_id        = $event_id;
-				$this->event_permalink = get_permalink( $event_id );
-
 				// Parse more detail.
 				if ( $get_detail ) {
 					$is_single_day              = parent::get_meta( 'single_day' );
@@ -233,6 +218,54 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				$this->success = false;
 				$this->message = __( 'Event already past or the starting date has not been defined yet', 'wacara' );
 			}
+		}
+
+		/**
+		 * Generate all participants.
+		 */
+		public function get_all_participants() {
+			$key        = TEMP_PREFIX;
+			$query_args = [
+				'post_type'      => 'participant',
+				'post_status'    => 'publish',
+				'posts_per_page' => - 1,
+				'orderby'        => 'date',
+				'order'          => 'desc',
+				'meta_query'     => [
+					[
+						'key'   => $key . 'reg_status',
+						'value' => 'done',
+					],
+					[
+						'key'   => $key . 'event_id',
+						'value' => $this->post_id,
+					],
+				],
+			];
+
+			$query = new WP_Query( $query_args );
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+					$post_id       = get_the_ID();
+					$this->items[] = Helper::get_post_meta(
+						[
+							'name',
+							'email',
+							'company',
+							'position',
+							'phone',
+							'id_number',
+						],
+						$post_id
+					);
+				}
+				$this->success = true;
+			} else {
+				$this->success = false;
+				$this->message = __( 'No participant found', 'wacara' );
+			}
+			wp_reset_postdata();
 		}
 	}
 }
