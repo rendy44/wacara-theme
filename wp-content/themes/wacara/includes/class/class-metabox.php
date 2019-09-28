@@ -149,8 +149,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 */
 		public function event_participant_metabox_callback() {
 			global $post;
-			$base_url        = admin_url( 'admin-post.php' );
-			$dowload_csv_url = add_query_arg(
+			$base_url         = admin_url( 'admin-post.php' );
+			$download_csv_url = add_query_arg(
 				[
 					'action'   => 'download_csv',
 					'event_id' => $post->ID,
@@ -159,7 +159,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			);
 			?>
 			<p><?php echo esc_html__( 'Click link below to download all participants', 'wacara' ); ?></p>
-			<a href="<?php echo esc_attr( $dowload_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
+			<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
 			<?php
 		}
 
