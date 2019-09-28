@@ -59,6 +59,9 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			// Add event schedule metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'schedule_event_metabox_callback' ] );
 
+			// Add event design metabox.
+			add_action( 'cmb2_admin_init', [ $this, 'design_event_metabox_callback' ] );
+
 			// Add event participants metabox.
 			add_action( 'add_meta_boxes', [ $this, 'custom_event_metabox_callback' ] );
 
@@ -652,6 +655,148 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			$cmb2->add_field(
 				[
 					'id'   => 'information_header_tabs',
+					'type' => 'tabs',
+					'tabs' => $tabs,
+				]
+			);
+		}
+
+		/**
+		 * Metabox configuration for design event.
+		 */
+		public function design_event_metabox_callback() {
+			$args = [
+				'id'           => 'design_event_metabox',
+				'title'        => __( 'Design', 'wacara' ),
+				'object_types' => [ 'event' ],
+				'context'      => 'normal',
+				'priority'     => 'high',
+				'show_names'   => true,
+			];
+			$cmb2 = new_cmb2_box( $args );
+			$tabs = [
+				'config' => $args,
+				'layout' => 'vertical',
+				'tabs'   => [
+					[
+						'id'     => 'event_basic_design',
+						'title'  => _x( 'Basic', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name'    => __( 'Section order', 'wacara' ),
+								'id'      => $this->meta_prefix . 'section_order',
+								'type'    => 'pw_multiselect',
+								'options' => [
+									'about'    => __( 'About section', 'wacara' ),
+									'speakers' => __( 'Speakers section', 'wacara' ),
+									'venue'    => __( 'Venue section', 'wacara' ),
+									'gallery'  => __( 'Gallery section', 'wacara' ),
+									'sponsors' => __( 'Sponsors section', 'wacara' ),
+									'schedule' => __( 'Schedule section', 'wacara' ),
+									'pricing'  => __( 'Pricing section', 'wacara' ),
+								],
+								'desc'    => __( 'Drag item to reorder the section', 'wacara' ),
+								'default' => [
+									'about',
+									'speakers',
+									'venue',
+									'gallery',
+									'sponsors',
+									'schedule',
+									'pricing',
+								],
+							],
+						],
+					],
+					[
+						'id'     => 'event_about_design',
+						'title'  => _x( 'About section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'about_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_speakers_design',
+						'title'  => _x( 'Speakers section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'speakers_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_venue_design',
+						'title'  => _x( 'Venue section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'venue_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_gallery_design',
+						'title'  => _x( 'Gallery section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'gallery_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_sponsors_design',
+						'title'  => _x( 'Sponsors section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'sponsors_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_schedule_design',
+						'title'  => _x( 'Schedule section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'schedule_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+					[
+						'id'     => 'event_pricing_design',
+						'title'  => _x( 'Pricing section', 'Tab metabox title', 'wacara' ),
+						'fields' => [
+							[
+								'name' => __( 'Nav title', 'wacara' ),
+								'id'   => $this->meta_prefix . 'pricing_nav_title',
+								'type' => 'text',
+								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
+							],
+						],
+					],
+				],
+			];
+			$cmb2->add_field(
+				[
+					'id'   => 'design_event_tabs',
 					'type' => 'tabs',
 					'tabs' => $tabs,
 				]
