@@ -125,6 +125,7 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				}
 				$logo_url  = Helper::get_event_logo_url( $post_id );
 				$nav_class = '';
+				$nav_items = [];
 
 				/**
 				 * Perform filter to modify navbar extra class.
@@ -133,9 +134,17 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				 */
 				$final_nav_class = apply_filters( 'wacara_navbar_extra_class', $nav_class );
 
+				/**
+				 * Apply filters to modify navbar items.
+				 *
+				 * @param array $nav_items original navbar items.
+				 */
+				$nav_items = apply_filters( 'wacara_navbar_items', $nav_items );
+
 				echo Template::render( // phpcs:ignore
 					'global/navbar',
 					[
+						'nav_items'    => $nav_items,
 						'nav_class'    => $final_nav_class,
 						'logo_url'     => $logo_url,
 						'use_full_nav' => $use_full_nav,

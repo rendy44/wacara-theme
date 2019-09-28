@@ -15,6 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Save all sections alias into variable.
+$sections = Helper::get_post_meta( 'section_order' );
+
+// If sections is empty, add pricing as the default.
+if ( empty( $sections ) ) {
+	$sections[] = 'pricing';
+}
+
 $header_template = Helper::get_post_meta( 'header' );
 $header_width    = Helper::get_post_meta( 'content_width', $header_template );
 $header_scheme   = Helper::get_post_meta( 'color_scheme', $header_template );
@@ -24,6 +32,21 @@ add_filter(
 	'wacara_navbar_extra_class',
 	function () use ( $header_width, $header_scheme ) {
 		return 'center' === $header_width ? $header_scheme : '';
+	}
+);
+
+// Add filter to add navbar items.
+$nav_items = [];
+foreach ( $sections as $section ) {
+	$nav_label = Helper::get_post_meta( $section . '_nav_title' );
+	if ( $nav_label ) {
+		$nav_items[ $section ] = $nav_label;
+	}
+}
+add_filter(
+	'wacara_navbar_items',
+	function () use ( $nav_items ) {
+		return $nav_items;
 	}
 );
 
