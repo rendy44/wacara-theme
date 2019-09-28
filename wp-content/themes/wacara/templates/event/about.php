@@ -12,6 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <section class="<?php echo esc_attr( $class ); ?> info" id="about" data-aos="zoom-in">
 	<div class="container">
+		<?php
+		if ( $title || $subtitle ) {
+			?>
+			<div class="row">
+				<div class="col-lg-8 mx-auto text-center mb-3">
+					<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html( $title ); ?></h2>
+					<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html( $subtitle ); ?></p>
+				</div>
+			</div>
+			<?php
+		}
+		?>
 		<div class="row justify-content-center">
 			<div class="col-md-12 col-lg-5 info-item" data-aos="fade-left" data-aos-delay="200">
 				<i class="fa fa-volume-up fa-3x text-primary"></i>

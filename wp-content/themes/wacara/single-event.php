@@ -81,7 +81,9 @@ while ( have_posts() ) {
 		foreach ( $sections as $section ) {
 
 			// Define section class based on odd or even position.
-			$section_class = 0 === $section_num % 2 ? 'bg-white' : 'bg-light';
+			$section_class    = 0 === $section_num % 2 ? 'bg-white' : 'bg-light';
+			$section_title    = Helper::get_post_meta( $section . '_title' );
+			$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
 
 			/**
 			 * Perform action to render selected section.
@@ -89,7 +91,7 @@ while ( have_posts() ) {
 			 * @param Event  $event         the object of current event.
 			 * @param string $section_class the css class of selected section.
 			 */
-			do_action( "wacara_render_{$section}_section", $event, $section_class );
+			do_action( "wacara_render_{$section}_section", $event, $section_class, $section_title, $section_subtitle );
 
 			$section_num ++;
 		}

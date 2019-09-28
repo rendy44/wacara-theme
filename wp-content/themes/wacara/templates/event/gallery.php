@@ -10,7 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="<?php echo esc_attr( $class ); ?> gallery py-0" id="gallery" data-aos="zoom-in">
+<section class="<?php echo esc_attr( $class ); ?> gallery <?php echo esc_attr( ! $title && ! $subtitle ? 'pt-0' : '' ); ?> pb-0" id="gallery" data-aos="zoom-in">
+	<?php
+	if ( $title || $subtitle ) {
+		?>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mx-auto text-center mb-3">
+					<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html( $title ); ?></h2>
+					<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html( $subtitle ); ?></p>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+	?>
 	<div class="container-wrap">
 		<div class="row no-gutters justify-content-center gallery-list">
 			<?php

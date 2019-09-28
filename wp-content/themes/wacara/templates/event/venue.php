@@ -12,12 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <section class="<?php echo esc_attr( $class ); ?> venue" id="venue" data-aos="zoom-in">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 mx-auto text-center mb-3">
-				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html__( 'The Venue', 'wacara' ); ?></h2>
-				<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html__( 'We would like to introduce the special place where the event is going to be held', 'wacara' ); ?></p>
+		<?php
+		if ( $title || $subtitle ) {
+			?>
+			<div class="row">
+				<div class="col-lg-8 mx-auto text-center mb-3">
+					<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html( $title ); ?></h2>
+					<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html( $subtitle ); ?></p>
+				</div>
 			</div>
-		</div>
+			<?php
+		}
+		?>
 		<div class="row">
 			<div class="col-lg-6 col-map">
 				<div class="embed-responsive" data-aos="zoom-in" data-aos-delay="600">

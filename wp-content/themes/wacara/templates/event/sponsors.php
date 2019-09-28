@@ -10,14 +10,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="<?php echo esc_attr( $class ); ?> sponsors" id="sponsors" data-aos="zoom-in">
+<section class="<?php echo esc_attr( $class ); ?> sponsors <?php echo esc_attr( ! $title && ! $subtitle ? 'py-3' : '' ); ?>" id="sponsors" data-aos="zoom-in">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 mx-auto text-center mb-3">
-				<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html__( 'Our Sponsors', 'wacara' ); ?></h2>
-				<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html__( 'We are backed among the the best', 'wacara' ); ?></p>
+		<?php
+		if ( $title || $subtitle ) {
+			?>
+			<div class="row">
+				<div class="col-lg-8 mx-auto text-center mb-3">
+					<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html( $title ); ?></h2>
+					<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html( $subtitle ); ?></p>
+				</div>
 			</div>
-		</div>
+			<?php
+		}
+		?>
 		<div class="row">
 			<div class="col">
 				<div class="sponsor-logos slider">
