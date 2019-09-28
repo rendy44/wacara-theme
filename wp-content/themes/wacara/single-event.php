@@ -113,7 +113,7 @@ while ( have_posts() ) {
 		$sponsors = Helper::get_post_meta( 'sponsors' );
 		if ( ! empty( $sponsors ) ) {
 			$sponsors_args = [
-				'sponsors' => Helper::get_post_meta( 'sponsors' ),
+				'sponsors' => $sponsors,
 			];
 			echo Template::render( 'event/sponsors', $sponsors_args ); // phpcs:ignore
 		}
