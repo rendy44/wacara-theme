@@ -108,6 +108,17 @@ while ( have_posts() ) {
 		echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
 
 		/**
+		 * Sponsors section.
+		 */
+		$sponsors = Helper::get_post_meta( 'sponsors' );
+		if ( ! empty( $sponsors ) ) {
+			$sponsors_args = [
+				'sponsors' => Helper::get_post_meta( 'sponsors' ),
+			];
+			echo Template::render( 'event/sponsors', $sponsors_args ); // phpcs:ignore
+		}
+
+		/**
 		 * Schedule section.
 		 */
 		$schedules = Helper::get_post_meta( 'schedules' );

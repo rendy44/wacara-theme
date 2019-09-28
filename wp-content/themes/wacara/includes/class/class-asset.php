@@ -148,6 +148,12 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				'sweetalert2' => [
 					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.css',
 				],
+				'slick'       => [
+					'url' => TEMP_URI . '/assets/vendor/slick/slick.css',
+				],
+				'slick-theme' => [
+					'url' => TEMP_URI . '/assets/vendor/slick/slick-theme.css',
+				],
 				'app'         => [
 					'url' => TEMP_URI . '/assets/css/app.min.css',
 				],
@@ -163,6 +169,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				],
 				'sweetalert2'       => [
 					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.js',
+				],
+				'slick'             => [
+					'url' => TEMP_URI . '/assets/vendor/slick/slick.min.js',
 				],
 				'jquery-validation' => [
 					'url' => TEMP_URI . '/assets/vendor/jquery-validation/dist/jquery.validate.min.js',
