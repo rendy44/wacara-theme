@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="speakers" id="speakers" data-aos="zoom-in">
+<section class="bg-white speakers" id="speakers" data-aos="zoom-in">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto text-center mb-3">

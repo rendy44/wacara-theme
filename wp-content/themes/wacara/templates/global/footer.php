@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<footer class="py-4 bg-light" id="sticky-footer">
+<footer class="py-4 bg-white" id="sticky-footer">
     <div class="container text-center"><small><?php echo $content; // phpcs:ignore ?></small></div>
 </footer>
 <?php wp_footer(); ?>
