@@ -117,7 +117,7 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 			$theme_options = new_cmb2_box(
 				[
 					'id'           => $this->meta_prefix . 'theme_options',
-					'title'        => esc_html__( 'Theme Options', 'wacara' ),
+					'title'        => esc_html__( 'Wacara Options', 'wacara' ),
 					'object_types' => [ 'options-page' ],
 					'option_key'   => $this->meta_prefix . 'theme_options',
 				]
