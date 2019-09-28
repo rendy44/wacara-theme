@@ -665,7 +665,8 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 				$wpdb->hide_errors();
 
 				// Update the result.
-				$result->message = __( 'Post not found', 'wacara' );
+				/* translators: 1: the post type name */
+				$result->message = sprintf( __( '%s not found', 'wacara' ), ucfirst( $post_type ) );
 			}
 
 			return $result;
