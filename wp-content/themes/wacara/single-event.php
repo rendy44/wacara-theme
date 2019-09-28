@@ -67,25 +67,12 @@ while ( have_posts() ) {
 	if ( ! $is_event_past ) {
 
 		/**
-		 * Masthead section.
+		 * Perform actions to render masthead.
+		 *
+		 * @param Event $event the object of current event.
+		 * @param string the id of header template.
 		 */
-		$header_alignment       = Helper::get_post_meta( 'content_alignment', $header_template );
-		$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
-		$header_countdown       = Helper::get_post_meta( 'countdown_content', $header_template );
-		$date_start             = Helper::get_post_meta( 'date_start' );
-		$location               = Helper::get_post_meta( 'location' );
-		$location_country_code  = Helper::get_post_meta( 'country', $location );
-		$location_province      = Helper::get_post_meta( 'province', $location );
-		$event_background_image = Helper::get_post_meta( 'background_image_id' );
-		$masthead_args          = [
-			'header_extra_class' => UI::get_header_extra_class( $header_width, $header_scheme, $header_alignment ),
-			'title'              => Helper::split_title( get_the_title() ),
-			'date_start'         => Helper::convert_date( $date_start, true ),
-			'excerpt'            => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
-			'background_image'   => UI::generate_header_background_image( $event_background_image, $header_default_image ),
-			'show_countdown'     => 'on' === $header_countdown ? true : false,
-		];
-		echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
+		do_action( 'wacara_render_masthead_section', $event, $header_template );
 
 		/**
 		 * Render all sections.
@@ -97,7 +84,7 @@ while ( have_posts() ) {
 			$section_class = 0 === $section_num % 2 ? 'bg-white' : 'bg-light';
 
 			/**
-			 * Render the selected section.
+			 * Perform action to render selected section.
 			 *
 			 * @param Event  $event         the object of current event.
 			 * @param string $section_class the css class of selected section.

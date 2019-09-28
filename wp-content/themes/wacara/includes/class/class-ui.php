@@ -52,6 +52,9 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 
+			// Render the masthead section.
+			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_section_callback' ], 10, 2 );
+
 			// Render the about section.
 			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 2 );
 
@@ -228,6 +231,35 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Callback for rendering masthead section.
+		 *
+		 * @param Event  $event           the object of current event.
+		 * @param string $header_template id of selected header template.
+		 */
+		public function render_masthead_section_callback( $event, $header_template ) {
+			$header_width           = Helper::get_post_meta( 'content_width', $header_template );
+			$header_scheme          = Helper::get_post_meta( 'color_scheme', $header_template );
+			$header_alignment       = Helper::get_post_meta( 'content_alignment', $header_template );
+			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
+			$header_countdown       = Helper::get_post_meta( 'countdown_content', $header_template );
+			$date_start             = Helper::get_post_meta( 'date_start', $event->post_id );
+			$location               = Helper::get_post_meta( 'location', $event->post_id );
+			$location_country_code  = Helper::get_post_meta( 'country', $location );
+			$location_province      = Helper::get_post_meta( 'province', $location );
+			$event_background_image = Helper::get_post_meta( 'background_image_id', $event->post_id );
+			$event_title            = get_the_title( $event->post_id );
+			$masthead_args          = [
+				'header_extra_class' => self::get_header_extra_class( $header_width, $header_scheme, $header_alignment ),
+				'title'              => Helper::split_title( $event_title ),
+				'date_start'         => Helper::convert_date( $date_start, true ),
+				'excerpt'            => Helper::convert_date( $date_start ) . ' - ' . $location_province . ', ' . $location_country_code,
+				'background_image'   => self::generate_header_background_image( $event_background_image, $header_default_image ),
+				'show_countdown'     => 'on' === $header_countdown ? true : false,
+			];
+			echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
 		}
 
 		/**
