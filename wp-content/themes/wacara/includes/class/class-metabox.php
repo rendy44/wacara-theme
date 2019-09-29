@@ -191,8 +191,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				'layout' => 'vertical',
 				'tabs'   => [
 					[
-						'id'     => 'event_basic_info',
-						'title'  => _x( 'Basic', 'Tab metabox title', 'wacara' ),
+						'id'     => 'event_general_info',
+						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
 								'name'        => __( 'Date start', 'wacara' ),
@@ -236,44 +236,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'description',
 								'type' => 'textarea_small',
 								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
-							],
-						],
-					],
-					[
-						'id'     => 'event_detail_info',
-						'title'  => __( 'Detail', 'wacara' ),
-						'fields' => [
-							[
-								'name'    => __( 'Speakers', 'wacara' ),
-								'id'      => $this->meta_prefix . 'speakers',
-								'type'    => 'pw_multiselect',
-								'options' => Helper::get_list_of_speakers(),
-							],
-							[
-								'name'    => __( 'Pricing', 'wacara' ),
-								'id'      => $this->meta_prefix . 'pricing',
-								'type'    => 'pw_multiselect',
-								'options' => Helper::get_list_of_prices(),
-							],
-							[
-								'name'         => __( 'Sponsors', 'wacara' ),
-								'id'           => $this->meta_prefix . 'sponsors',
-								'type'         => 'file_list',
-								'preview_size' => [ 100, 100 ],
-								'query_args'   => [ 'type' => 'image' ],
-							],
-						],
-					],
-					[
-						'id'     => 'event_gallery',
-						'title'  => _x( 'Gallery', 'Tab metabox title', 'wacara' ),
-						'fields' => [
-							[
-								'name'         => __( 'Gallery', 'wacara' ),
-								'id'           => $this->meta_prefix . 'gallery',
-								'type'         => 'file_list',
-								'preview_size' => [ 100, 100 ],
-								'query_args'   => [ 'type' => 'image' ],
 							],
 						],
 					],
@@ -467,56 +429,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 							],
 						],
 					],
-					[
-						'id'     => 'event_design',
-						'title'  => _x( 'Design', 'Tab metabox title', 'wacara' ),
-						'fields' => [
-							[
-								'name'         => __( 'Main logo', 'wacara' ),
-								'id'           => $this->meta_prefix . 'main_logo',
-								'type'         => 'file',
-								'desc'         => __( 'Only image with .png extension is allowed', 'wacara' ),
-								'options'      => [
-									'url' => false,
-								],
-								'text'         => [
-									'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-								],
-								'query_args'   => [
-									'type' => [
-										'image/png',
-									],
-								],
-								'preview_size' => 'medium',
-							],
-							[
-								'name'    => __( 'Header', 'wacara' ),
-								'id'      => $this->meta_prefix . 'header',
-								'type'    => 'select',
-								'options' => Helper::get_list_of_headers(),
-							],
-							[
-								'name'         => __( 'Background', 'wacara' ),
-								'desc'         => __( 'If you leave this empty, default background will be applied from header setting', 'wacara' ),
-								'id'           => $this->meta_prefix . 'background_image',
-								'type'         => 'file',
-								'options'      => [
-									'url' => false,
-								],
-								'text'         => [
-									'add_upload_file_text' => __( 'Select image', 'wacara' ),
-								],
-								'query_args'   => [
-									'type' => [
-										'image/gif',
-										'image/jpeg',
-										'image/png',
-									],
-								],
-								'preview_size' => 'large',
-							],
-						],
-					],
 				],
 			];
 			$cmb2->add_field(
@@ -679,8 +591,8 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				'layout' => 'vertical',
 				'tabs'   => [
 					[
-						'id'     => 'event_basic_design',
-						'title'  => _x( 'Basic', 'Tab metabox title', 'wacara' ),
+						'id'     => 'event_general_design',
+						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
 								'name'    => __( 'Section order', 'wacara' ),
@@ -705,6 +617,50 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'schedule',
 									'pricing',
 								],
+							],
+							[
+								'name'         => __( 'Main logo', 'wacara' ),
+								'id'           => $this->meta_prefix . 'main_logo',
+								'type'         => 'file',
+								'desc'         => __( 'Only image with .png extension is allowed', 'wacara' ),
+								'options'      => [
+									'url' => false,
+								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select Image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/png',
+									],
+								],
+								'preview_size' => 'medium',
+							],
+							[
+								'name'    => __( 'Header', 'wacara' ),
+								'id'      => $this->meta_prefix . 'header',
+								'type'    => 'select',
+								'options' => Helper::get_list_of_headers(),
+							],
+							[
+								'name'         => __( 'Background', 'wacara' ),
+								'desc'         => __( 'If you leave this empty, default background will be applied from header setting', 'wacara' ),
+								'id'           => $this->meta_prefix . 'background_image',
+								'type'         => 'file',
+								'options'      => [
+									'url' => false,
+								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/gif',
+										'image/jpeg',
+										'image/png',
+									],
+								],
+								'preview_size' => 'large',
 							],
 						],
 					],
@@ -750,6 +706,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'speakers_subtitle',
 								'type' => 'text',
 							],
+							[
+								'name'    => __( 'Speakers', 'wacara' ),
+								'id'      => $this->meta_prefix . 'speakers',
+								'type'    => 'pw_multiselect',
+								'options' => Helper::get_list_of_speakers(),
+							],
 						],
 					],
 					[
@@ -794,6 +756,13 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'gallery_subtitle',
 								'type' => 'text',
 							],
+							[
+								'name'         => __( 'Gallery', 'wacara' ),
+								'id'           => $this->meta_prefix . 'gallery',
+								'type'         => 'file_list',
+								'preview_size' => [ 100, 100 ],
+								'query_args'   => [ 'type' => 'image' ],
+							],
 						],
 					],
 					[
@@ -815,6 +784,13 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'sponsors_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name'         => __( 'Sponsors', 'wacara' ),
+								'id'           => $this->meta_prefix . 'sponsors',
+								'type'         => 'file_list',
+								'preview_size' => [ 100, 100 ],
+								'query_args'   => [ 'type' => 'image' ],
 							],
 						],
 					],
@@ -859,6 +835,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'pricing_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name'    => __( 'Pricing', 'wacara' ),
+								'id'      => $this->meta_prefix . 'pricing',
+								'type'    => 'pw_multiselect',
+								'options' => Helper::get_list_of_prices(),
 							],
 						],
 					],
