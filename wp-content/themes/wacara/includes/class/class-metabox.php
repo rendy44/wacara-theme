@@ -225,18 +225,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'data-conditional-value' => 'off',
 								],
 							],
-							[
-								'name'    => __( 'Location', 'wacara' ),
-								'id'      => $this->meta_prefix . 'location',
-								'type'    => 'select',
-								'options' => Helper::get_list_of_locations(),
-							],
-							[
-								'name' => __( 'Description', 'wacara' ),
-								'id'   => $this->meta_prefix . 'description',
-								'type' => 'textarea_small',
-								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
-							],
 						],
 					],
 					[
@@ -684,6 +672,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'about_subtitle',
 								'type' => 'text',
 							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'description',
+								'type' => 'textarea_small',
+								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
+							],
 						],
 					],
 					[
@@ -733,6 +727,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'venue_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name'    => __( 'Location', 'wacara' ),
+								'id'      => $this->meta_prefix . 'location',
+								'type'    => 'select',
+								'options' => Helper::get_list_of_locations(),
 							],
 						],
 					],
