@@ -79,6 +79,14 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 				]
 			);
 			add_image_size( 'wacara_gallery_thumbnail', 350, 350, true );
+			add_action( 'after_setup_theme', [ $this, 'wacara_language_domain_callback' ] );
+		}
+
+		/**
+		 * Callback for loading languages domain.
+		 */
+		public function wacara_language_domain_callback() {
+			load_theme_textdomain( 'wacara', get_template_directory() . '/i18n' );
 		}
 	}
 }
