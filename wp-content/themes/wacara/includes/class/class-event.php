@@ -182,7 +182,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 					if ( $this->date_start ) {
 
 						// Is date end or time end assigned.
-						$event_end = $this->is_single_day ? $this->maybe_time_end : $this->$this->date_end;
+						$event_end = $this->is_single_day ? $this->maybe_time_end : $this->date_end;
 						if ( $event_end ) {
 
 							// Is location assigned.
