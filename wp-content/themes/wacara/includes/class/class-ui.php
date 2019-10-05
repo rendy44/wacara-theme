@@ -489,6 +489,22 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Get event custom theme.
+		 *
+		 * @param bool|string $event_id the id of event.
+		 *
+		 * @return string
+		 */
+		public static function get_event_theme_scheme( $event_id = false ) {
+			$event_id             = $event_id ? $event_id : get_the_ID();
+			$default_color_scheme = '66aeae';
+			$custom_color_scheme  = Helper::get_post_meta( 'color_scheme', $event_id );
+			$path_style           = $custom_color_scheme ? $custom_color_scheme : $default_color_scheme;
+
+			return TEMP_URI . "/assets/css/{$path_style}/app.min.css";
+		}
 	}
 }
 

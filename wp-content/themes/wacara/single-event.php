@@ -9,7 +9,6 @@
 use Skeleton\Event;
 use Skeleton\Helper;
 use Skeleton\Template;
-use Skeleton\UI;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

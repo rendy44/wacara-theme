@@ -158,7 +158,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url' => TEMP_URI . '/assets/vendor/slick/slick-theme.css',
 				],
 				'app'         => [
-					'url' => TEMP_URI . '/assets/css/app.min.css',
+					'url' => UI::get_event_theme_scheme(),
 				],
 			];
 
