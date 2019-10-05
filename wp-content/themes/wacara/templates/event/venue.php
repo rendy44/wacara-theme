@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						foreach ( $sliders as $image_id => $image_url ) {
 							?>
 							<div class="carousel-item <?php echo 0 === $slide_num ? esc_attr( 'active' ) : ''; ?>">
-								<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'large' ) ); ?>" alt="">
+								<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'wacara_location_gallery_thumbnail' ) ); ?>" alt="">
 							</div>
 							<?php
 							$slide_num ++;

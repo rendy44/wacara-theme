@@ -79,6 +79,7 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 				]
 			);
 			add_image_size( 'wacara_gallery_thumbnail', 350, 350, true );
+			add_image_size( 'wacara_location_gallery_thumbnail', 768, 350, true );
 			add_action( 'after_setup_theme', [ $this, 'wacara_language_domain_callback' ] );
 		}
 
