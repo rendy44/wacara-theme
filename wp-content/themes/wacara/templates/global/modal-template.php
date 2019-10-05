@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button type="button" class="btn btn-light" data-dismiss="modal"><?php echo esc_html__( 'Close', 'wacara' ); ?></button>
+				<button type="button" class="btn btn-light" data-dismiss="modal"><?php esc_html_e( 'Close', 'wacara' ); ?></button>
 			</div>
 		</div>
 	</div>

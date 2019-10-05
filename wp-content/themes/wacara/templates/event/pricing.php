@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									}
 									?>
 								</ul>
-								<button class="btn btn-block btn-primary btn-lg btn-do-register" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php echo esc_html__( 'Book Now', 'wacara' ); ?></button>
+								<button class="btn btn-block btn-primary btn-lg btn-do-register" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
 							</div>
 						</div>
 					</div>

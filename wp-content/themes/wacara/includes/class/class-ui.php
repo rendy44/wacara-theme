@@ -414,6 +414,17 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 		public function render_pricing_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
 			$allow_registration = Helper::get_post_meta( 'allow_register', $event->post_id );
 
+			// Set default template name.
+			$default_template = 'event/directly';
+
+			// Prepare the args.
+			$pricing_args = [
+				'class'    => $section_class,
+				'title'    => $section_title,
+				'subtitle' => $section_subtitle,
+				'event_id' => $event->post_id,
+			];
+
 			// Only render the pricing section if registration is required to join the event.
 			if ( 'on' === $allow_registration ) {
 				$pricing_arr = [];
@@ -432,17 +443,16 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 						];
 					}
 				}
-				$pricing_args = [
-					'class'       => $section_class,
-					'title'       => $section_title,
-					'subtitle'    => $section_subtitle,
-					'price_lists' => $pricing_arr,
-					'event_id'    => $event->post_id,
-				];
-				echo Template::render( 'event/pricing', $pricing_args ); // phpcs:ignore
-			} else {
-				echo Template::render( 'event/directly', [ 'class' => $section_class ] ); // phpcs:ignore
+
+				// Add more args.
+				$pricing_args['price_lists'] = $pricing_arr;
+
+				// Alter the default template.
+				$default_template = 'event/pricing';
 			}
+
+			// Render the pricing section.
+			echo Template::render( $default_template, $pricing_args ); // phpcs:ignore
 		}
 
 		/**

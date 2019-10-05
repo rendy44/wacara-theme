@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( $stripe_error_message && isset( $stripe_error_message ) ) {
 					?>
 					<div class="alert alert-warning mb-5">
-						<strong><?php echo esc_html__( 'Last Error:', 'wacara' ); ?></strong><br/>
+						<strong><?php esc_html_e( 'Last Error:', 'wacara' ); ?></strong><br/>
 						<?php echo esc_html( $stripe_error_message ); ?>
 					</div>
 					<?php
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( $use_payment ) {
 						?>
 						<div class="form-group">
-							<label for="card"><?php echo esc_html__( 'Credit card information', 'wacara' ); ?></label>
+							<label for="card"><?php esc_html_e( 'Credit card information', 'wacara' ); ?></label>
 							<div id="card" class="form-control form-control-lg"></div>
 						</div>
 						<?php
@@ -62,8 +62,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					// Add nonce.
 					wp_nonce_field( 'sk_nonce', 'sk_payment' );
 					?>
-					<p><?php echo esc_html__( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
-					<button class="btn btn-primary btn-lg btn-submit-reg" type="submit"><?php echo esc_html__( 'Register', 'wacara' ); ?></button>
+					<p><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
+					<button class="btn btn-primary btn-lg btn-submit-reg" type="submit"><?php esc_html_e( 'Register', 'wacara' ); ?></button>
 				</form>
 			</div>
 		</div>
