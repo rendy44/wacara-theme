@@ -66,11 +66,11 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		private function map_classes() {
 			$this->classes = [
 				'result',
+				'helper',
 				'template',
 				'ui',
 				'setting',
 				'navwalker',
-				'helper',
 				'options',
 				'metabox',
 				'cpt',

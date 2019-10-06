@@ -39,12 +39,12 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		/**
 		 * Custom pagination
 		 *
-		 * @param int $numpages max numpage.
+		 * @param int $number_pages max number page.
 		 * @param int $paged    current page.
 		 *
 		 * @return string
 		 */
-		public static function custom_pagination( $numpages, $paged ) {
+		public static function custom_pagination( $number_pages, $paged ) {
 
 			/**
 			 * This first part of our function is a fallback
@@ -56,11 +56,11 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			 * and custom queries.
 			 */
 			$paged = empty( $paged ) ? 1 : $paged;
-			if ( '' === $numpages ) {
+			if ( '' === $number_pages ) {
 				global $wp_query;
-				$numpages = $wp_query->max_num_pages;
-				if ( ! $numpages ) {
-					$numpages = 1;
+				$number_pages = $wp_query->max_num_pages;
+				if ( ! $number_pages ) {
+					$number_pages = 1;
 				}
 			}
 			/**
@@ -69,7 +69,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			 */
 			$pagination_args = [
 				'base'         => add_query_arg( 'paged', '%#%' ),
-				'total'        => $numpages,
+				'total'        => $number_pages,
 				'current'      => $paged,
 				'show_all'     => false,
 				'end_size'     => 1,
