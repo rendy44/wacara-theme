@@ -671,5 +671,44 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Dirty way to get current post id.
+		 *
+		 * @return bool|int
+		 */
+		public static function get_dirty_current_post_id() {
+			$result = false;
+
+			$request_uri = $_SERVER['REQUEST_URI']; // phpcs:ignore
+			$event_obj   = get_page_by_path( $request_uri, OBJECT, 'event' ); // phpcs:ignore
+
+			// Maybe remove trailing slash.
+			if ( ! $event_obj ) {
+				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, 'event' );
+			}
+
+			// Maybe remove the first slash.
+			if ( ! $event_obj ) {
+				$event_obj = get_page_by_path( substr( untrailingslashit( $request_uri ), 1 ), OBJECT, 'event' );
+			}
+
+			// Convert into array.
+			$path_arr     = explode( '/', substr( untrailingslashit( $request_uri ), 1 ) );
+			$path_arr_num = count( $path_arr );
+			if ( ! empty( $path_arr ) ) {
+				for ( $i = 0; $i < $path_arr_num; $i ++ ) {
+					unset( $path_arr[ $i ] );
+					$new_path  = implode( '/', $path_arr );
+					$event_obj = get_page_by_path( $new_path, OBJECT, 'event' );
+					if ( $event_obj ) {
+						$result = $event_obj->ID;
+						break;
+					}
+				}
+			}
+
+			return $result;
+		}
 	}
 }

@@ -515,6 +515,23 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 
 			return TEMP_URI . "/assets/css/{$path_style}/app.min.css";
 		}
+
+		/**
+		 * Get event custom locale id.
+		 *
+		 * @param bool|string $event_id the id of event.
+		 *
+		 * @return bool|mixed
+		 */
+		public static function get_event_language_locale( $event_id ) {
+			$locale        = false;
+			$custom_locale = Helper::get_post_meta( 'language', $event_id );
+			if ( $custom_locale ) {
+				$locale = $custom_locale;
+			}
+
+			return $locale;
+		}
 	}
 }
 

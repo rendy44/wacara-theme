@@ -60,14 +60,13 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 		 * Add theme support
 		 */
 		private function add_theme_support() {
+
+			// Add theme supports.
 			add_theme_support( 'title-tag' );
 			add_theme_support( 'menus' );
 			add_theme_support( 'post-thumbnails' );
-			register_nav_menus(
-				[
-					'main_nav' => __( 'Main Nav', 'wacara' ),
-				]
-			);
+
+			// Register custom sidebar.
 			register_sidebar(
 				[
 					'name'          => __( 'Sidebar' ),
@@ -78,16 +77,42 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 					'after_widget'  => '</div>',
 				]
 			);
+
+			// Register custom image size.
 			add_image_size( 'wacara_gallery_thumbnail', 350, 350, true );
 			add_image_size( 'wacara_location_gallery_thumbnail', 768, 350, true );
+
+			// Load translation files.
 			add_action( 'after_setup_theme', [ $this, 'wacara_language_domain_callback' ] );
+
+			// Set custom locale.
+			add_filter( 'locale', [ $this, 'set_locale_callback' ] );
+		}
+
+		/**
+		 * Callback for setting event locale.
+		 *
+		 * @param string $locale current local id.
+		 *
+		 * @return string
+		 */
+		public function set_locale_callback( $locale ) {
+			$event_id = Helper::get_dirty_current_post_id();
+			if ( $event_id ) {
+				$event_language = UI::get_event_language_locale( $event_id );
+				if ( $event_language ) {
+					$locale = $event_language;
+				}
+			}
+
+			return $locale;
 		}
 
 		/**
 		 * Callback for loading languages domain.
 		 */
 		public function wacara_language_domain_callback() {
-			load_theme_textdomain( 'wacara', get_template_directory() . '/i18n' );
+			load_theme_textdomain( 'wacara', TEMP_DIR . '/i18n' );
 		}
 	}
 }
