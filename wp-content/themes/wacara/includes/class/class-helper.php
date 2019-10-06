@@ -40,7 +40,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 * Custom pagination
 		 *
 		 * @param int $number_pages max number page.
-		 * @param int $paged    current page.
+		 * @param int $paged        current page.
 		 *
 		 * @return string
 		 */
@@ -681,16 +681,23 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			$result = false;
 
 			$request_uri = $_SERVER['REQUEST_URI']; // phpcs:ignore
-			$event_obj   = get_page_by_path( $request_uri, OBJECT, 'event' ); // phpcs:ignore
+			$event_obj   = get_page_by_path( $request_uri, OBJECT, [ 'event', 'participant' ] ); // phpcs:ignore
 
 			// Maybe remove trailing slash.
 			if ( ! $event_obj ) {
-				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, 'event' );
+				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, [ 'event', 'participant' ] );
 			}
 
 			// Maybe remove the first slash.
 			if ( ! $event_obj ) {
-				$event_obj = get_page_by_path( substr( untrailingslashit( $request_uri ), 1 ), OBJECT, 'event' );
+				$event_obj = get_page_by_path(
+					substr( untrailingslashit( $request_uri ), 1 ),
+					OBJECT,
+					[
+						'event',
+						'participant',
+					]
+				);
 			}
 
 			// Convert into array.
@@ -700,7 +707,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 				for ( $i = 0; $i < $path_arr_num; $i ++ ) {
 					unset( $path_arr[ $i ] );
 					$new_path  = implode( '/', $path_arr );
-					$event_obj = get_page_by_path( $new_path, OBJECT, 'event' );
+					$event_obj = get_page_by_path( $new_path, OBJECT, [ 'event', 'participant' ] );
 					if ( $event_obj ) {
 						$result = $event_obj->ID;
 						break;
