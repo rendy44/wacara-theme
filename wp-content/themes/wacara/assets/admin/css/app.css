@@ -37,23 +37,41 @@
   line-height: 16px;
   background-color: red;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="66ae66"]:before {
-  background-color: #66ae66;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="55bb55"]:before {
+  background-color: #55bb55;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="66aeae"]:before {
-  background-color: #66aeae;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="55bb88"]:before {
+  background-color: #55bb88;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="6666ae"]:before {
-  background-color: #6666ae;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="55bbbb"]:before {
+  background-color: #55bbbb;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae66ae]:before {
-  background-color: #ae66ae;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="88bb55"]:before {
+  background-color: #88bb55;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae6659]:before {
-  background-color: #ae6659;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="5555bb"]:before {
+  background-color: #5555bb;
 }
-.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae9966]:before {
-  background-color: #ae9966;
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="5588bb"]:before {
+  background-color: #5588bb;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="8855bb"]:before {
+  background-color: #8855bb;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=bb55bb]:before {
+  background-color: #bb55bb;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=bb5555]:before {
+  background-color: #bb5555;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=bb5588]:before {
+  background-color: #bb5588;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=bb8855]:before {
+  background-color: #bb8855;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=bbbb55]:before {
+  background-color: #bbbb55;
 }
 
 /*# sourceMappingURL=app.css.map */

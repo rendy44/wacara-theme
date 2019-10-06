@@ -56,39 +56,75 @@
         background-color: red;
       }
 
-      &[value='66ae66'] {
+      &[value='55bb55'] {
         &:before {
-          background-color: #66ae66;
+          background-color: #55bb55;
         }
       }
 
-      &[value='66aeae'] {
+      &[value='55bb88'] {
         &:before {
-          background-color: #66aeae;
+          background-color: #55bb88;
         }
       }
 
-      &[value='6666ae'] {
+      &[value='55bbbb'] {
         &:before {
-          background-color: #6666ae;
+          background-color: #55bbbb;
         }
       }
 
-      &[value='ae66ae'] {
+      &[value='88bb55'] {
         &:before {
-          background-color: #ae66ae;
+          background-color: #88bb55;
         }
       }
 
-      &[value='ae6659'] {
+      &[value='5555bb'] {
         &:before {
-          background-color: #ae6659;
+          background-color: #5555bb;
         }
       }
 
-      &[value='ae9966'] {
+      &[value='5588bb'] {
         &:before {
-          background-color: #ae9966;
+          background-color: #5588bb;
+        }
+      }
+
+      &[value='8855bb'] {
+        &:before {
+          background-color: #8855bb;
+        }
+      }
+
+      &[value='bb55bb'] {
+        &:before {
+          background-color: #bb55bb;
+        }
+      }
+
+      &[value='bb5555'] {
+        &:before {
+          background-color: #bb5555;
+        }
+      }
+
+      &[value='bb5588'] {
+        &:before {
+          background-color: #bb5588;
+        }
+      }
+
+      &[value='bb8855'] {
+        &:before {
+          background-color: #bb8855;
+        }
+      }
+
+      &[value='bbbb55'] {
+        &:before {
+          background-color: #bbbb55;
         }
       }
     }

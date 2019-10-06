@@ -163,12 +163,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					$base_url
 				);
 				?>
-				<p><?php esc_html_e( 'Click link below to download all participants', 'wacara' ); ?></p>
-				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
+                <p><?php esc_html_e( 'Click link below to download all participants', 'wacara' ); ?></p>
+                <a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
 				?>
-				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+                <p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
 				<?php
 			}
 		}
@@ -231,7 +231,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
@@ -512,7 +512,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 									'dark'  => __( 'Dark color', 'wacara' ),
 								],
 								'attributes' => [
-									'data-conditional-id' => $this->meta_prefix . 'content_width',
+									'data-conditional-id'    => $this->meta_prefix . 'content_width',
 									'data-conditional-value' => 'center',
 								],
 							],
@@ -597,12 +597,18 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'id'      => $this->meta_prefix . 'color_scheme',
 								'type'    => 'radio',
 								'options' => [
-									'66ae66' => __( 'Color 1', 'wacara' ),
-									'66aeae' => __( 'Color 2', 'wacara' ),
-									'6666ae' => __( 'Color 3', 'wacara' ),
-									'ae66ae' => __( 'Color 4', 'wacara' ),
-									'ae6659' => __( 'Color 5', 'wacara' ),
-									'ae9966' => __( 'Color 6', 'wacara' ),
+									'55bb55' => __( 'Color 1', 'wacara' ),
+									'55bb88' => __( 'Color 2', 'wacara' ),
+									'55bbbb' => __( 'Color 3', 'wacara' ),
+									'88bb55' => __( 'Color 4', 'wacara' ),
+									'5555bb' => __( 'Color 5', 'wacara' ),
+									'5588bb' => __( 'Color 6', 'wacara' ),
+									'8855bb' => __( 'Color 7', 'wacara' ),
+									'bb55bb' => __( 'Color 8', 'wacara' ),
+									'bb5555' => __( 'Color 9', 'wacara' ),
+									'bb5588' => __( 'Color 10', 'wacara' ),
+									'bb8855' => __( 'Color 11', 'wacara' ),
+									'bbbb55' => __( 'Color 12', 'wacara' ),
 								],
 								'default' => '66ae66',
 							],
@@ -948,10 +954,10 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 								'preview_size' => [ 100, 100 ],
 								'text'         => [
 									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+									'remove_image_text'     => __( 'Remove Images', 'wacara' ),
+									'file_text'             => __( 'Image:', 'wacara' ),
+									'file_download_text'    => __( 'Download', 'wacara' ),
+									'remove_text'           => __( 'Remove', 'wacara' ),
 								],
 							],
 							[
