@@ -40,3 +40,57 @@
     }
   }
 }
+
+.cmb2-id-wcr-color-scheme {
+  input[type=radio] {
+    &:checked {
+      &:before {
+        content: "\2022";
+        text-indent: -9999px;
+        border-radius: 50px;
+        font-size: 24px;
+        width: 12px;
+        height: 12px;
+        margin: 1px;
+        line-height: 16px;
+        background-color: red;
+      }
+
+      &[value='66ae66'] {
+        &:before {
+          background-color: #66ae66;
+        }
+      }
+
+      &[value='66aeae'] {
+        &:before {
+          background-color: #66aeae;
+        }
+      }
+
+      &[value='6666ae'] {
+        &:before {
+          background-color: #6666ae;
+        }
+      }
+
+      &[value='ae66ae'] {
+        &:before {
+          background-color: #ae66ae;
+        }
+      }
+
+      &[value='ae6659'] {
+        &:before {
+          background-color: #ae6659;
+        }
+      }
+
+      &[value='ae9966'] {
+        &:before {
+          background-color: #ae9966;
+        }
+      }
+    }
+  }
+}

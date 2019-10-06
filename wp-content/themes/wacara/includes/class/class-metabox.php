@@ -152,7 +152,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 */
 		public function event_participant_metabox_callback() {
 			global $post;
-			$allow_register = Helper::get_post_meta( TEMP_PREFIX . 'allow_register', $post->ID );
+			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
 			if ( 'on' === $allow_register ) {
 				$base_url         = admin_url( 'admin-post.php' );
 				$download_csv_url = add_query_arg(
@@ -163,12 +163,12 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 					$base_url
 				);
 				?>
-				<p><?php echo esc_html__( 'Click link below to download all participants', 'wacara' ); ?></p>
-				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php echo esc_html__( 'Download', 'wacara' ); ?></a>
+				<p><?php esc_html_e( 'Click link below to download all participants', 'wacara' ); ?></p>
+				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
 				?>
-				<p><?php echo esc_html__( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
 				<?php
 			}
 		}
@@ -592,6 +592,20 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 						'id'     => 'event_general_design',
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
+							[
+								'name'    => __( 'Color scheme', 'wacara' ),
+								'id'      => $this->meta_prefix . 'color_scheme',
+								'type'    => 'radio',
+								'options' => [
+									'66ae66' => __( 'Color 1', 'wacara' ),
+									'66aeae' => __( 'Color 2', 'wacara' ),
+									'6666ae' => __( 'Color 3', 'wacara' ),
+									'ae66ae' => __( 'Color 4', 'wacara' ),
+									'ae6659' => __( 'Color 5', 'wacara' ),
+									'ae9966' => __( 'Color 6', 'wacara' ),
+								],
+								'default' => '66ae66',
+							],
 							[
 								'name'    => __( 'Section order', 'wacara' ),
 								'id'      => $this->meta_prefix . 'section_order',

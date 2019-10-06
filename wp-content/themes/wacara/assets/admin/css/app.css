@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .cmb2-wrap .cmb-row.master-field {
   margin-top: 5px !important;
   margin-bottom: 0 !important;
@@ -23,6 +24,36 @@
 
 .cmb-repeatable-group .inside .cmb-row {
   padding: 0 !important;
+}
+
+.cmb2-id-wcr-color-scheme input[type=radio]:checked:before {
+  content: "•";
+  text-indent: -9999px;
+  border-radius: 50px;
+  font-size: 24px;
+  width: 12px;
+  height: 12px;
+  margin: 1px;
+  line-height: 16px;
+  background-color: red;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="66ae66"]:before {
+  background-color: #66ae66;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="66aeae"]:before {
+  background-color: #66aeae;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value="6666ae"]:before {
+  background-color: #6666ae;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae66ae]:before {
+  background-color: #ae66ae;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae6659]:before {
+  background-color: #ae6659;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked[value=ae9966]:before {
+  background-color: #ae9966;
 }
 
 /*# sourceMappingURL=app.css.map */
