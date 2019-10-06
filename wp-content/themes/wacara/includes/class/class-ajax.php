@@ -92,6 +92,9 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					// Validate the newly created event.
 					if ( $new_participant->success ) {
 
+						// Recount the event.
+						$event->maybe_recount_limitation();
+
 						// Update the result.
 						$result->success  = true;
 						$result->callback = $new_participant->get_participant_url();

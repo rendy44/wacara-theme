@@ -166,6 +166,58 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 		}
 
 		/**
+		 * Check whether event is limiting registration.
+		 *
+		 * @return bool
+		 */
+		public function is_registration_limited() {
+			$result = false;
+			$limit  = $this->get_meta( 'limit_register' );
+			if ( 'on' === $limit ) {
+				$result = true;
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Check whether the event already exceeded the registration.
+		 */
+		private function check_exceeding_registration() {
+			$is_limited = $this->is_registration_limited();
+
+			// Check whether the event is limiting registration or not.
+			if ( $is_limited ) {
+
+				// Save limitation info into variables.
+				$maybe_limited_by_number                  = (int) $this->get_meta( 'max_participant' );
+				$current_number_of_registered_participant = (int) $this->get_meta( 'number_of_participant' );
+				$maybe_limited_by_date                    = $this->get_meta( 'max_date' );
+				$current_timestamp                        = current_time( 'timestamp' );
+
+				// Check maybe limited by number of participant.
+				if ( $maybe_limited_by_number ) {
+					if ( $current_number_of_registered_participant >= $maybe_limited_by_number ) {
+
+						// Update the result.
+						$this->success = false;
+						$this->message = __( 'This event already exceeded the maximum number of participant', 'wacara' );
+					}
+				}
+
+				// Check maybe limited by date.
+				if ( $maybe_limited_by_date ) {
+					if ( $current_timestamp >= $maybe_limited_by_date ) {
+
+						// Update the result.
+						$this->success = false;
+						$this->message = __( 'This event already past the date of allowed registration', 'wacara' );
+					}
+				}
+			}
+		}
+
+		/**
 		 * Check whether the event is available to be used for registration.
 		 */
 		public function validate_event() {
@@ -194,6 +246,10 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 
 								if ( $validate_location->success ) {
 									$this->success = true;
+
+									// Maybe check limitation.
+									$this->check_exceeding_registration();
+
 								} else {
 									$this->success = false;
 									$this->message = $validate_location->message;
@@ -218,6 +274,15 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				$this->success = false;
 				$this->message = __( 'Event already past or the starting date has not been defined yet', 'wacara' );
 			}
+		}
+
+		/**
+		 * Maybe update the limitation.
+		 */
+		public function maybe_recount_limitation() {
+			$current_number_of_registered_participant = (int) $this->get_meta( 'number_of_participant' );
+			$new_number_of_registered_participant     = $current_number_of_registered_participant + 1;
+			$this->save_meta( [ 'number_of_participant' => $new_number_of_registered_participant ] );
 		}
 
 		/**
