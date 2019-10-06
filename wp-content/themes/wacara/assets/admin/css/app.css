@@ -26,6 +26,24 @@
   padding: 0 !important;
 }
 
+.cmb2-id-wcr-color-scheme ul.cmb2-radio-list li {
+  display: inline-block !important;
+}
+.cmb2-id-wcr-color-scheme ul.cmb2-radio-list li label {
+  display: none;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:before {
+  content: "";
+  text-indent: -9999px;
+  border-radius: 50px;
+  font-size: 24px;
+  width: 12px;
+  height: 12px;
+  margin: 1px;
+  line-height: 16px;
+  background-color: red;
+  transition: all 0.2s;
+}
 .cmb2-id-wcr-color-scheme input[type=radio]:checked:before {
   content: "•";
   text-indent: -9999px;
@@ -36,6 +54,11 @@
   margin: 1px;
   line-height: 16px;
   background-color: red;
+  transition: all 0.2s;
+}
+.cmb2-id-wcr-color-scheme input[type=radio]:checked:hover:before {
+  position: relative;
+  transform: scale(3);
 }
 .cmb2-id-wcr-color-scheme input[type=radio]:checked[value="55bb55"]:before {
   background-color: #55bb55;

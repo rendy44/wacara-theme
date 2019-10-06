@@ -42,7 +42,30 @@
 }
 
 .cmb2-id-wcr-color-scheme {
+  ul.cmb2-radio-list {
+    li {
+      display: inline-block !important;
+
+      label {
+        display: none;
+      }
+    }
+  }
+
   input[type=radio] {
+    &:before {
+      content: "";
+      text-indent: -9999px;
+      border-radius: 50px;
+      font-size: 24px;
+      width: 12px;
+      height: 12px;
+      margin: 1px;
+      line-height: 16px;
+      background-color: red;
+      transition: all .2s;
+    }
+
     &:checked {
       &:before {
         content: "\2022";
@@ -54,6 +77,14 @@
         margin: 1px;
         line-height: 16px;
         background-color: red;
+        transition: all .2s;
+      }
+
+      &:hover {
+        &:before {
+          position: relative;
+          transform: scale(3);
+        }
       }
 
       &[value='55bb55'] {
