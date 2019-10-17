@@ -27,6 +27,9 @@ while ( have_posts() ) {
 		case 'done':
 			$template = 'register-success';
 			break;
+		case 'wait_payment':
+			$template = 'waiting-payment';
+			break;
 		case 'fail':
 		default:
 			$validate_pricing                      = Helper::is_pricing_valid( $register_args['pricing_id'], true );

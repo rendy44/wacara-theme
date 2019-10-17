@@ -127,17 +127,21 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
 
 				// Define variables.
-				$stripe_source_id = Helper::get_serialized_val( $unserialize_obj, 'stripe_source_id' );
-				$email            = Helper::get_serialized_val( $unserialize_obj, 'email' );
-				$name             = Helper::get_serialized_val( $unserialize_obj, 'name' );
-				$company          = Helper::get_serialized_val( $unserialize_obj, 'company' );
-				$position         = Helper::get_serialized_val( $unserialize_obj, 'position' );
-				$phone            = Helper::get_serialized_val( $unserialize_obj, 'phone' );
-				$id_number        = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
-				$event_id         = Helper::get_post_meta( 'event_id', $participant_id );
-				$pricing_id       = Helper::get_post_meta( 'pricing_id', $participant_id );
-				$pricing_currency = Helper::get_post_meta( 'currency', $pricing_id );
-				$pricing_price    = Helper::get_post_meta( 'price', $pricing_id );
+				$maybe_payment_method   = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
+				$maybe_stripe_source_id = Helper::get_serialized_val( $unserialize_obj, 'stripe_source_id' );
+				$email                  = Helper::get_serialized_val( $unserialize_obj, 'email' );
+				$name                   = Helper::get_serialized_val( $unserialize_obj, 'name' );
+				$company                = Helper::get_serialized_val( $unserialize_obj, 'company' );
+				$position               = Helper::get_serialized_val( $unserialize_obj, 'position' );
+				$phone                  = Helper::get_serialized_val( $unserialize_obj, 'phone' );
+				$id_number              = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
+				$event_id               = Helper::get_post_meta( 'event_id', $participant_id );
+				$pricing_id             = Helper::get_post_meta( 'pricing_id', $participant_id );
+				$pricing_currency       = Helper::get_post_meta( 'currency', $pricing_id );
+				$pricing_price          = Helper::get_post_meta( 'price', $pricing_id );
+
+				// First, convert the price into cent.
+				$pricing_price = $pricing_price * 100;
 
 				// Instance the participant.
 				$participant = new Participant( $participant_id );
@@ -145,121 +149,145 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				// Save the details.
 				$participant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
 
+				// Save invoice info.
+				$participant->save_invoicing_info( $pricing_price, $pricing_currency );
+
 				// Define some variables related to registration.
-				$reg_status           = '';
-				$stripe_error_message = '';
+				$reg_status = '';
 
-				// Only process the payment if the price if greater than 0.
-				if ( $pricing_price > 0 ) {
+				/**
+				 * Perform actions before finishing registration.
+				 *
+				 * @param string $participant_id       the id of participant.
+				 * @param string $maybe_payment_method maybe selected payment method.
+				 */
+				do_action( 'wacara_before_finishing_registration', $participant_id, $maybe_payment_method );
 
-					// Look for saved customer.
-					$find_stripe_customer = Transaction::find_stripe_customer_id_by_email( $email );
+				// Switch which payment will be used.
+				switch ( $maybe_payment_method ) {
 
-					// Prepare the variable that will be used to store stripe customer id.
-					$used_stripe_customer_id = '';
+					case 'manual':
+						// There is nothing to do here, just finish the process and wait for the payment :).
+						$result->success  = true;
+						$result->callback = get_permalink( $participant_id );
 
-					// Validate find stripe customer status.
-					if ( $find_stripe_customer->success ) {
+						// Save registration status.
+						$reg_status = 'wait_payment';
+						break;
 
-						// Update customer source information, just in case they use different cc information.
-						$update_customer = Payment::update_customer_source( $find_stripe_customer->callback, $stripe_source_id );
+					case 'stripe':
+						// Prepare variable to store stripe error message.
+						$stripe_error_message = '';
 
-						// Validate update customer status.
-						if ( $update_customer->success ) {
+						// Look for saved customer.
+						$find_stripe_customer = Transaction::find_stripe_customer_id_by_email( $email );
 
-							// Use stripe customer id.
-							$used_stripe_customer_id = $update_customer->callback;
+						// Prepare the variable that will be used to store stripe customer id.
+						$used_stripe_customer_id = '';
+
+						// Validate find stripe customer status.
+						if ( $find_stripe_customer->success ) {
+
+							// Update customer source information, just in case they use different cc information.
+							$update_customer = Payment::update_customer_source( $find_stripe_customer->callback, $maybe_stripe_source_id );
+
+							// Validate update customer status.
+							if ( $update_customer->success ) {
+
+								// Use stripe customer id.
+								$used_stripe_customer_id = $update_customer->callback;
+							} else {
+
+								// Save stripe error message.
+								$stripe_error_message = $update_customer->message;
+
+								// Update the result.
+								$result->message = $update_customer->message;
+							}
 						} else {
 
-							// Save stripe error message.
-							$stripe_error_message = $update_customer->message;
+							// Save a new customer.
+							$new_customer = Transaction::save_customer( $name, $email, $maybe_stripe_source_id );
 
-							// Update the result.
-							$result->message = $update_customer->message;
+							// Validate save new customer status.
+							if ( $new_customer->success ) {
+
+								// Use stripe customer id of new customer.
+								$used_stripe_customer_id = $new_customer->callback;
+							} else {
+
+								// Update the result.
+								$result->message = $new_customer->message;
+							}
 						}
-					} else {
 
-						// Save a new customer.
-						$new_customer = Transaction::save_customer( $name, $email, $stripe_source_id );
+						// Check whether stripe customer id that will be used has been defined or not yet.
+						if ( $used_stripe_customer_id ) {
 
-						// Validate save new customer status.
-						if ( $new_customer->success ) {
+							// Charge the customer.
+							/* translators: 1: the event name */
+							$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
+							$charge      = Payment::charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
 
-							// Use stripe customer id of new customer.
-							$used_stripe_customer_id = $new_customer->callback;
+							// Validate charge status.
+							if ( $charge->success ) {
+
+								// Update reg status.
+								$reg_status = 'done';
+
+								// Update result.
+								$result->success  = true;
+								$result->callback = get_permalink( $participant_id );
+
+								/**
+								 * Perform actions after making payment.
+								 *
+								 * @param string $participant_id participant id.
+								 */
+								do_action( 'wacara_after_making_payment', $participant_id, $pricing_price, $pricing_currency );
+
+							} else {
+
+								// Save stripe error message.
+								$stripe_error_message = $charge->message;
+								$reg_status           = 'fail';
+
+								// Update result.
+								$result->message = $charge->message;
+							}
 						} else {
-
-							// Update the result.
-							$result->message = $new_customer->message;
-						}
-					}
-
-					// Check whether stripe customer id that will be used has been defined or not yet.
-					if ( $used_stripe_customer_id ) {
-
-						// First, convert the price into cent.
-						$pricing_price = $pricing_price * 100;
-
-						// Charge the customer.
-						/* translators: 1: the event name */
-						$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
-						$charge      = Payment::charge_customer( $used_stripe_customer_id, $stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
-
-						// Validate charge status.
-						if ( $charge->success ) {
-
-							// Update reg status.
-							$reg_status = 'done';
 
 							// Update result.
-							$result->success  = true;
-							$result->callback = get_permalink( $participant_id );
-
-							/**
-							 * Perform action after making payment.
-							 *
-							 * @param string $participant_id participant id.
-							 */
-							do_action( 'wacara_after_making_payment', $participant_id, $pricing_price, $pricing_currency );
-
-							/**
-							 * Perform action after finishing registration.
-							 *
-							 * @param string $participant_id participant id.
-							 */
-							do_action( 'wacara_after_finishing_registration', $participant_id );
-
-						} else {
-
-							// Save stripe error message.
-							$stripe_error_message = $charge->message;
-							$reg_status           = 'fail';
-
-							// Update result.
-							$result->message = $charge->message;
+							$result->message = __( 'Failed to contact stripe, please try again later', 'wacara' );
 						}
-					}
-				} else {
 
-					// There is nothing to do here, just finish the process :).
-					$result->success  = true;
-					$result->callback = get_permalink( $participant_id );
+						// Save stripe error message.
+						$participant->save_stripe_error_message( $stripe_error_message );
+						break;
 
-					// Save registration status.
-					$reg_status = 'done';
+					default:
+						// There is nothing to do here, just finish the process :).
+						$result->success  = true;
+						$result->callback = get_permalink( $participant_id );
 
-					/**
-					 * Perform action after finishing registration.
-					 *
-					 * @param string $participant_id participant id.
-					 */
-					do_action( 'wacara_after_finishing_registration', $participant_id );
+						// Save registration status.
+						$reg_status = 'done';
+						break;
 				}
+
+				/**
+				 * Perform actions after finishing registration.
+				 *
+				 * @param string $participant_id participant id.
+				 */
+				do_action( 'wacara_after_finishing_registration', $participant_id );
 
 				// Update registration status.
 				$participant->set_registration_status( $reg_status );
-				// Save stripe error message.
-				$participant->save_stripe_error_message( $stripe_error_message );
+
+				// Save payment method information.
+				$participant->save_payment_method_info( $maybe_payment_method );
+
 			} else {
 
 				// Update the result.

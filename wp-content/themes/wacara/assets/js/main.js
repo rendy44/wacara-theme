@@ -15,10 +15,66 @@ new class {
     constructor() {
         this.register_event();
         this.render_stripe();
+        this.default_payment_event();
+        this.change_payment_event();
         this.payment_event();
         this.render_sponsors_event();
     }
 
+    /**
+     * Event to set the first payment as default payment.
+     */
+    default_payment_event() {
+        // Hide all payments.
+        this.hide_all_payments();
+
+        const payment_methods_wrapper = $('#payment_methods');
+        if (payment_methods_wrapper.length) {
+            const first_payment = payment_methods_wrapper.find('.custom-control.custom-radio:first input:radio');
+            first_payment.prop('checked', true);
+
+            // trigger the payment change method.
+            this.select_payment_method(first_payment.val());
+
+        }
+    }
+
+    /**
+     * Method to hide all payments.
+     */
+    hide_all_payments() {
+        $('.individual_payment_method').hide();
+    }
+
+    /**
+     * Event when payment method changed.
+     */
+    change_payment_event() {
+        const instance = this;
+        $('input[name=payment_method]').change(function () {
+            const selected_payment_method = $(this).val();
+            instance.select_payment_method(selected_payment_method);
+        })
+    }
+
+    /**
+     * Method to change payment method.
+     * @param payment
+     */
+    select_payment_method(payment) {
+        // Save payment status to object.
+        this.selected_payment = payment;
+
+        // Hide all payments.
+        this.hide_all_payments();
+
+        // SHow only selected payment.
+        $('#' + payment + '_payment_method').fadeIn();
+    }
+
+    /**
+     * Event to render sponsors list.
+     */
     render_sponsors_event() {
         $(document).ready(function () {
             const sponsors = $('#sponsors');
@@ -116,43 +172,56 @@ new class {
                 // Disable button.
                 submit_button.html('Loading...').prop('disabled', true);
 
-                if (instance.card_elm.length) {
-                    //Create stripe source
-                    instance.stripeObj.create_source(user_info).then(function (result) {
-                        if (result.error) {
-                            // Normalize the button.
-                            submit_button.prop('disabled', false).html(btn_original_text);
-                            // Show alert.
-                            Swal.fire({
-                                html: result.error.message,
-                                type: 'error',
+                switch (instance.selected_payment) {
+                    case 'manual':
+                        // Perform payment with manual bank transfer.
+                        instance.do_payment(inputs)
+                            .done(function (data) {
+                                instance.normalize_error(data, submit_button, btn_original_text);
                             })
-                        } else {
-                            // Append source id into input.
-                            inputs.push({
-                                name: 'stripe_source_id',
-                                value: result.source.id
+                            .fail(function (x) {
+                                // TODO: Validate error ajax.
                             });
+                        break;
+                    case 'stripe':
+                        // Perform payment with stripe
+                        instance.stripeObj.create_source(user_info).then(function (result) {
+                            if (result.error) {
+                                // Normalize the button.
+                                submit_button.prop('disabled', false).html(btn_original_text);
+                                // Show alert.
+                                Swal.fire({
+                                    html: result.error.message,
+                                    type: 'error',
+                                })
+                            } else {
+                                // Append source id into input.
+                                inputs.push({
+                                    name: 'stripe_source_id',
+                                    value: result.source.id
+                                });
 
-                            // Perform payment.
-                            instance.do_payment(inputs)
-                                .done(function (data) {
-                                    instance.normalize_error(data, submit_button, btn_original_text);
-                                })
-                                .fail(function (x) {
-                                    // TODO: Validate error ajax.
-                                })
-                        }
-                    });
-                } else {
-                    // Perform payment.
-                    instance.do_payment(inputs)
-                        .done(function (data) {
-                            instance.normalize_error(data, submit_button, btn_original_text);
-                        })
-                        .fail(function (x) {
-                            // TODO: Validate error ajax.
-                        })
+                                // Perform payment.
+                                instance.do_payment(inputs)
+                                    .done(function (data) {
+                                        instance.normalize_error(data, submit_button, btn_original_text);
+                                    })
+                                    .fail(function (x) {
+                                        // TODO: Validate error ajax.
+                                    })
+                            }
+                        });
+                        break;
+                    default:
+                        // Perform payment without stripe.
+                        instance.do_payment(inputs)
+                            .done(function (data) {
+                                instance.normalize_error(data, submit_button, btn_original_text);
+                            })
+                            .fail(function (x) {
+                                // TODO: Validate error ajax.
+                            });
+                        break;
                 }
             }
         })

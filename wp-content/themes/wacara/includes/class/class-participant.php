@@ -361,6 +361,30 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
+		 * Save payment method information
+		 *
+		 * @param string $payment_method selected payment method.
+		 */
+		public function save_payment_method_info( $payment_method ) {
+			parent::save_meta( [ 'payment_method' => $payment_method ] );
+		}
+
+		/**
+		 * Save invoice information
+		 *
+		 * @param int    $price_need_to_pay_in_cent the amount that should be paid in cent.
+		 * @param string $currency                  currency code of invoice.
+		 */
+		public function save_invoicing_info( $price_need_to_pay_in_cent, $currency ) {
+			parent::save_meta(
+				[
+					'price_in_cent' => $price_need_to_pay_in_cent,
+					'currency'      => $currency,
+				]
+			);
+		}
+
+		/**
 		 * Find participant by their booking code.
 		 *
 		 * @param string $booking_code booking code.

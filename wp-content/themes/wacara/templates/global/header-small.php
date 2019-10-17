@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<header class="masthead small" id="masthead" data-aos="zoom-in">
+<header class="masthead small bg-light" id="masthead" data-aos="zoom-in">
 	<div class="container h-100">
-		<div class="row h-100 align-items-center">
+		<div class="row h-100">
 			<div class="col-lg-8 mx-auto text-center">
 				<h1><?php echo esc_html( $title ); ?></h1>
 				<?php

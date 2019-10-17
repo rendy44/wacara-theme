@@ -99,13 +99,14 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 				} elseif ( is_404() ) {
 					$header_title = __( 'Not Found', 'wacara' );
 				} elseif ( is_singular() ) {
-					$header_title = get_the_title();
 					if ( is_singular( 'participant' ) ) {
-						$event_id    = Helper::get_post_meta( 'event_id', get_the_ID() );
-						$event_title = get_the_title( $event_id );
+						$header_title = __( 'Payment', 'wacara' );
+						$event_id     = Helper::get_post_meta( 'event_id', get_the_ID() );
+						$event_title  = get_the_title( $event_id );
 						/* translators: %s: event title name */
 						$header_subtitle = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
 					} elseif ( is_singular( 'event' ) ) {
+						$header_title = get_the_title();
 						// Remove title for event landing page because we do not need this small header.
 						$header_title = '';
 					}

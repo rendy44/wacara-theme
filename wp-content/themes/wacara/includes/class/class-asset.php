@@ -160,6 +160,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 				'app'         => [
 					'url' => UI::get_event_theme_scheme(),
 				],
+				'override'    => [
+					'url' => TEMP_URI . '/assets/css/override.css',
+				],
 			];
 
 			// JS files.

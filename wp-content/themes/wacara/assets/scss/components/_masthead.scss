@@ -1,0 +1,23 @@
+.masthead {
+  height: 220px;
+
+  .container {
+    .row {
+      align-items: flex-end;
+    }
+  }
+
+  @include breakpoint(768) {
+    height: 300px;
+    .container {
+      .row {
+        align-items: center;
+      }
+    }
+  }
+
+  h1,
+  h2 {
+    font-weight: 200;
+  }
+}

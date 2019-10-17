@@ -42,7 +42,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 					// Check whether use payment or not.
 					if ( $use_payment ) {
 						?>
-						<div class="form-group">
+						<div class="form-group" id="payment_methods">
+							<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
+							<?php
+							$payment_methods = [
+								'manual' => __( 'Manual bank transfer', 'wacara' ),
+								'stripe' => __( 'Stripe', 'wacara' ),
+							];
+
+							foreach ( $payment_methods as $payment_key => $payment_label ) {
+								?>
+								<div class="custom-control custom-radio">
+									<input type="radio" class="custom-control-input" id="payment_<?php echo esc_attr( $payment_key ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_key ); ?>">
+									<label class="custom-control-label" for="payment_<?php echo esc_attr( $payment_key ); ?>"><?php echo esc_html( $payment_label ); ?></label>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<div class="form-group individual_payment_method" id="manual_payment_method">
+							<div class="alert alert-info">
+								<?php esc_html_e( 'Bank detail will be informed after making registration', 'wacara' ); ?>
+							</div>
+						</div>
+						<div class="form-group individual_payment_method" id="stripe_payment_method">
 							<label for="card"><?php esc_html_e( 'Credit card information', 'wacara' ); ?></label>
 							<div id="card" class="form-control form-control-lg"></div>
 						</div>

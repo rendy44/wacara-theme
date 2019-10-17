@@ -1,0 +1,28 @@
+//Variables
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$variant_1: #5555bb !default;
+$variant_2: #5588bb !default;
+$variant_3: #55bb55 !default;
+$variant_4: #55bb88 !default;
+$variant_5: #55bbbb !default;
+$variant_6: #8855bb !default;
+$variant_7: #88bb55 !default;
+$variant_8: #bb5555 !default;
+$variant_9: #bb5588 !default;
+$variant_10: #bb55bb !default;
+$variant_11: #bb8855 !default;
+$variant_12: #bbbb55 !default;
+
+$primary_color: $variant_12 !default;
+$primary_alt_color: lighten($primary_color, 10%) !default;
