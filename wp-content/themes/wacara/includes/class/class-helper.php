@@ -379,14 +379,16 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 		 *
 		 * @param int  $timestamp              unformulated timestamp.
 		 * @param bool $include_time_in_result whether include time in result or not.
+		 * @param bool $localize               whether convert date into localize result or not.
 		 *
 		 * @return false|string
 		 */
-		public static function convert_date( $timestamp, $include_time_in_result = false ) {
+		public static function convert_date( $timestamp, $include_time_in_result = false, $localize = false ) {
 			$date_format = self::get_date_format();
 			$time_format = self::get_time_format();
+			$used_format = $date_format . ( $include_time_in_result ? ' ' . $time_format : '' );
 
-			return date( $date_format . ( $include_time_in_result ? ' ' . $time_format : '' ), $timestamp );
+			return $localize ? date_i18n( $used_format, $timestamp ) : date( $used_format, $timestamp );
 		}
 
 		/**

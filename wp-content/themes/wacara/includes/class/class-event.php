@@ -296,7 +296,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				'posts_per_page' => - 1,
 				'orderby'        => 'date',
 				'order'          => 'desc',
-				'meta_query'     => [
+				'meta_query'     => [ // phpcs:ignore
 					[
 						'key'   => $key . 'reg_status',
 						'value' => 'done',
