@@ -26,3 +26,15 @@ $variant_12: #bbbb55 !default;
 
 $primary_color: $variant_12 !default;
 $primary_alt_color: lighten($primary_color, 10%) !default;
+
+$success: #28a745 !default;
+$info: #17a2b8 !default;
+$warning: #ffc107 !default;
+$danger: #dc3545 !default;
+$light: #f8f9fa !default;
+$dark: #343a40 !default;
+
+$breakpoint-sm: 576px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-lg: 900px !default;
+$breakpoint-xl: 1200px !default;

@@ -7,7 +7,7 @@
     }
   }
 
-  @include breakpoint(768) {
+  @include breakpoint($breakpoint-md) {
     height: 300px;
     .container {
       .row {
