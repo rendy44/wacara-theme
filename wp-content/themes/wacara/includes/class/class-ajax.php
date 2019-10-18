@@ -139,6 +139,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				$pricing_id             = Helper::get_post_meta( 'pricing_id', $participant_id );
 				$pricing_currency       = Helper::get_post_meta( 'currency', $pricing_id );
 				$pricing_price          = Helper::get_post_meta( 'price', $pricing_id );
+				$pricing_unique_code    = Helper::get_post_meta( 'use_unique_code', $pricing_id );
 
 				// First, convert the price into cent.
 				$pricing_price = $pricing_price * 100;
@@ -167,9 +168,22 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				switch ( $maybe_payment_method ) {
 
 					case 'manual':
-						// Generate and save the unique number.
-						$unique = wp_rand( 0, 100 );
-						$participant->save_unique_number( $unique );
+						// Check maybe requires unique code.
+						if ( 'on' === $pricing_unique_code ) {
+
+							// Set default unique number range to maximal 100 cent.
+							$unique = wp_rand( 0, 100 );
+
+							// Determine the amount of unique number.
+							// If the pricing price is greater than 100000 it's probably weak currency such a Rupiah which does not use cent.
+							// So we will multiple the unique number by 100.
+							if ( 100000 < $pricing_price ) {
+								$unique *= 100;
+							}
+
+							// Save the unique number.
+							$participant->save_unique_number( $unique );
+						}
 
 						// There is nothing to do here, just finish the process and wait for the payment :).
 						$result->success  = true;
