@@ -29,8 +29,14 @@ while ( have_posts() ) {
 			break;
 		case 'wait_payment':
 			$bank_accounts                  = Options::get_bank_accounts();
+			$amount_cent                    = Helper::get_post_meta( 'price_in_cent' );
+			$amount_fixed                   = $amount_cent / 100;
+			$amount_formatted               = number_format( $amount_fixed, 2, ',', '.' );
 			$register_args['bank_accounts'] = $bank_accounts;
-			$template                       = 'waiting-payment';
+			$register_args['currency_code'] = Helper::get_post_meta( 'currency' );
+			$register_args['amount']        = $amount_formatted;
+
+			$template = 'waiting-payment';
 			break;
 		case 'fail':
 		default:

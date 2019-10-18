@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="row">
 			<div class="col-lg-6 col-md-8 mx-auto text-center">
 				<p class="lead"><?php esc_html_e( 'In order to save your seat, please make a payment as detailed below:', 'wacara' ); ?></p>
-				<h1 class="amount">IDR 50.000</h1>
+				<h1 class="amount"><?php echo esc_html( sprintf( '%s%s', $currency_code, $amount ) ); ?></h1>
 				<div class="alert alert-warning mb-3">
 					<i class="fa fa-exclamation-circle"></i>
-					<strong><?php esc_html_e( 'Penting!', 'wacara' ); ?></strong>
-					<?php esc_html_e( 'The transfer amount must be exactly same as above, including the last 3 digits', 'wacara' ); ?>
+					<strong><?php esc_html_e( 'Important!', 'wacara' ); ?></strong>
+					<?php esc_html_e( 'The transfer amount must be exactly same as above, including the coma if any', 'wacara' ); ?>
 				</div>
 				<p><?php esc_html_e( 'Make a transfer to one of the following bank accounts', 'wacara' ); ?></p>
 				<div class="row justify-content-center bank-lists py-3">
