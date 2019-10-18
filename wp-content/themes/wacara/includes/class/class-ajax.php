@@ -167,6 +167,10 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				switch ( $maybe_payment_method ) {
 
 					case 'manual':
+						// Generate and save the unique number.
+						$unique = wp_rand( 0, 100 );
+						$participant->save_unique_number( $unique );
+
 						// There is nothing to do here, just finish the process and wait for the payment :).
 						$result->success  = true;
 						$result->callback = get_permalink( $participant_id );

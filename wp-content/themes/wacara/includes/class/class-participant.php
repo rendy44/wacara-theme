@@ -385,6 +385,22 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
+		 * Save unique number for easier payment confirmation.
+		 *
+		 * @param int $unique_number the unique number.
+		 */
+		public function save_unique_number( $unique_number ) {
+			$old_price_in_cent                    = parent::get_meta( 'price_in_cent' );
+			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique_number;
+			parent::save_meta(
+				[
+					'unique_number'             => $unique_number,
+					'price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
+				]
+			);
+		}
+
+		/**
 		 * Find participant by their booking code.
 		 *
 		 * @param string $booking_code booking code.
