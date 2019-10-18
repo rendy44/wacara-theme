@@ -1,1 +1,43 @@
-label.error{display:block;font-size:small;color:#a71d2a;border:1px solid #a71d2a;padding:3px 10px;margin-top:7px;background-color:#fceced;-webkit-border-radius:.3rem;-moz-border-radius:.3rem;border-radius:.3rem}.masthead{height:220px}.masthead .container .row{align-items:flex-end}@media(min-width: 768pxpx){.masthead{height:300px}.masthead .container .row{align-items:center}}.masthead h1,.masthead h2{font-weight:200}/*# sourceMappingURL=override.css.map */
+label.error {
+  display: block;
+  font-size: small;
+  color: #a71d2a;
+  border: 1px solid #a71d2a;
+  padding: 3px 10px;
+  margin-top: 7px;
+  background-color: #fceced;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  border-radius: 0.3rem;
+}
+
+.masthead {
+  height: 220px;
+}
+.masthead .container .row {
+  align-items: flex-end;
+}
+@media (min-width: 768px) {
+  .masthead {
+    height: 300px;
+  }
+  .masthead .container .row {
+    align-items: center;
+  }
+}
+.masthead h1,
+.masthead h2 {
+  font-weight: 200;
+}
+
+.bank-lists .bank-item {
+  border-bottom: 1px solid #dee2e6;
+}
+.bank-lists .bank-item p {
+  margin-bottom: 0;
+}
+.bank-lists .bank-item p.number {
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=override.css.map */

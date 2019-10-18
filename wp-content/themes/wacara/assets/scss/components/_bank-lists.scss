@@ -1,0 +1,13 @@
+.bank-lists {
+  .bank-item {
+    border-bottom: 1px solid $gray-300;
+
+    p {
+      margin-bottom: 0;
+
+      &.number {
+        font-weight: 500;
+      }
+    }
+  }
+}

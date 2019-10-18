@@ -48,6 +48,13 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		private static $stripe_options = [];
 
 		/**
+		 * Bank information variable.
+		 *
+		 * @var array
+		 */
+		private static $bank_information = [];
+
+		/**
 		 * Singleton function.
 		 *
 		 * @return Options|null
@@ -74,8 +81,9 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 * Load the options from database.
 		 */
 		private function get_options() {
-			self::$stripe_options = get_option( $this->meta_prefix . 'stripe_options' );
-			self::$theme_options  = get_option( $this->meta_prefix . 'theme_options' );
+			self::$stripe_options   = get_option( $this->meta_prefix . 'stripe_options' );
+			self::$theme_options    = get_option( $this->meta_prefix . 'theme_options' );
+			self::$bank_information = get_option( $this->meta_prefix . 'bank_information' );
 		}
 
 		/**
@@ -83,7 +91,7 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 *
 		 * @return array
 		 */
-		public static function get_theme_options() {
+		private static function get_theme_options() {
 			return self::$theme_options;
 		}
 
@@ -95,7 +103,25 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 * @return bool|mixed
 		 */
 		public static function get_theme_option( $key ) {
-			return ! empty( self::$theme_options[ $key ] ) ? self::$theme_options[ $key ] : false;
+			return ! empty( self::get_theme_options()[ $key ] ) ? self::get_theme_options()[ $key ] : false;
+		}
+
+		/**
+		 * Get bank information.
+		 *
+		 * @return array
+		 */
+		private static function get_bank_information() {
+			return self::$bank_information;
+		}
+
+		/**
+		 * Get list of bank accounts
+		 *
+		 * @return bool|mixed
+		 */
+		public static function get_bank_accounts() {
+			return ! empty( self::get_bank_information()['bank_accounts'] ) ? self::get_bank_information()['bank_accounts'] : false;
 		}
 
 		/**
@@ -142,6 +168,8 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 					'preview_size' => 'medium',
 				]
 			);
+
+			// Add stripe options.
 			$stripe_options = new_cmb2_box(
 				[
 					'id'           => $this->meta_prefix . 'stripe_options',
@@ -189,6 +217,61 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 					'id'   => 'live_publishable_key',
 					'type' => 'text',
 					'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
+				]
+			);
+
+			// Add bank options.
+			$bank_information = new_cmb2_box(
+				[
+					'id'           => $this->meta_prefix . 'bank_information',
+					'title'        => esc_html__( 'Bank Information', 'wacara' ),
+					'object_types' => [ 'options-page' ],
+					'option_key'   => $this->meta_prefix . 'bank_information',
+					'parent_slug'  => $this->meta_prefix . 'theme_options',
+				]
+			);
+			$group_field_id   = $bank_information->add_field(
+				[
+					'id'      => 'bank_accounts',
+					'type'    => 'group',
+					'options' => [
+						'group_title'   => __( 'Bank {#}', 'wacara' ),
+						'add_button'    => __( 'Add Bank', 'wacara' ),
+						'remove_button' => __( 'Remove Bank', 'wacara' ),
+						'sortable'      => false,
+					],
+				]
+			);
+			$bank_information->add_group_field(
+				$group_field_id,
+				[
+					'name' => __( 'Bank Name', 'wacara' ),
+					'id'   => 'name',
+					'type' => 'text',
+				]
+			);
+			$bank_information->add_group_field(
+				$group_field_id,
+				[
+					'name' => __( 'Number', 'wacara' ),
+					'id'   => 'number',
+					'type' => 'text',
+				]
+			);
+			$bank_information->add_group_field(
+				$group_field_id,
+				[
+					'name' => __( 'Branch', 'wacara' ),
+					'id'   => 'branch',
+					'type' => 'text',
+				]
+			);
+			$bank_information->add_group_field(
+				$group_field_id,
+				[
+					'name' => __( 'Holder', 'wacara' ),
+					'id'   => 'holder',
+					'type' => 'text',
 				]
 			);
 		}

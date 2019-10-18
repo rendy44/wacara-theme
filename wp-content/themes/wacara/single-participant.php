@@ -28,7 +28,9 @@ while ( have_posts() ) {
 			$template = 'register-success';
 			break;
 		case 'wait_payment':
-			$template = 'waiting-payment';
+			$bank_accounts                  = Options::get_bank_accounts();
+			$register_args['bank_accounts'] = $bank_accounts;
+			$template                       = 'waiting-payment';
 			break;
 		case 'fail':
 		default:
