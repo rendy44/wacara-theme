@@ -18,6 +18,7 @@ new class {
         this.default_payment_event();
         this.change_payment_event();
         this.payment_event();
+        this.confirmation_event();
         this.render_sponsors_event();
     }
 
@@ -228,6 +229,38 @@ new class {
     }
 
     /**
+     * Event when confirmation button clicked
+     */
+    confirmation_event() {
+        const instance = this;
+        $('#frm_confirmation').validate({
+                focusInvalid: true,
+                submitHandler: function (form, e) {
+                    e.preventDefault();
+                    // Define variables.
+                    const submit_button = $(form).find('.btn-go-confirm'),
+                        btn_original_text = submit_button.html(),
+                        inputs = $(form).serializeArray();
+
+                    // Disable button.
+                    submit_button.html('Loading...').prop('disabled', true);
+
+                    // Perform payment with manual bank transfer.
+                    instance.do_confirmation(inputs)
+                        .done(function (data) {
+                            instance.normalize_error(data, submit_button, btn_original_text);
+                        })
+                        .fail(function (x,y) {
+                            console.error(x);
+                            console.error(y);
+                            // TODO: Validate error ajax.
+                        });
+                }
+            }
+        )
+    }
+
+    /**
      * Normalize the button depends on ajax status
      *
      * @param data
@@ -272,6 +305,19 @@ new class {
     do_payment(inputs) {
         return new Ajax(true, {
             action: 'payment',
+            data: inputs
+        });
+    }
+
+    /**
+     * Method to perform confirmation.
+     *
+     * @param inputs
+     * @returns {Ajax}
+     */
+    do_confirmation(inputs) {
+        return new Ajax(true, {
+            action: 'confirmation',
             data: inputs
         });
     }

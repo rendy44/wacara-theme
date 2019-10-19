@@ -9,3 +9,15 @@ label.error {
   background-color: lighten($danger, 42%);
   @include border-radius(0.3rem);
 }
+
+// Confirmation page
+h1.amount {
+  font-weight: 400;
+  font-size: 1.5rem;
+  @include breakpoint($breakpoint-md) {
+    font-size: 2rem;
+  }
+  @include breakpoint($breakpoint-lg) {
+    font-size: 2.5rem;
+  }
+}

@@ -385,6 +385,36 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
+		 * Update the registration status after confirming the transfer.
+		 *
+		 * @param int $bank_account_number the index number of bank account array.
+		 */
+		public function update_confirmation( $bank_account_number ) {
+			$date_update           = current_time( 'timestamp' );
+			$bank_accounts         = Options::get_bank_accounts();
+			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts : false;
+
+			// Validate the selected bank accounts.
+			if ( $selected_bank_account ) {
+
+				// Update the status.
+				$this->success = true;
+				$this->set_registration_status( 'waiting_confirmation' );
+
+				// Update the status.
+				parent::save_meta(
+					[
+						'confirmation_timestamp' => $date_update,
+						'selected_bank_account'  => $selected_bank_account,
+					]
+				);
+			} else {
+				$this->success = false;
+				$this->message = __( 'Invalid bank account selected', 'wacara' );
+			}
+		}
+
+		/**
 		 * Maybe save unique number for easier payment confirmation.
 		 *
 		 * @param int $unique_number the unique number.

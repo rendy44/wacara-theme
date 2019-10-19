@@ -21,29 +21,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<strong><?php esc_html_e( 'Important!', 'wacara' ); ?></strong>
 					<?php esc_html_e( 'The transfer amount must be exactly same as above, including the coma if any', 'wacara' ); ?>
 				</div>
-				<p><?php esc_html_e( 'Make a transfer to one of the following bank accounts', 'wacara' ); ?></p>
-				<div class="row justify-content-center bank-lists py-3">
-					<?php
-					if ( ! empty( $bank_accounts ) ) {
-						foreach (
-							$bank_accounts
-
-							as $account
-						) {
-							?>
-							<div class="col-lg-6 bank-item py-3">
-								<?php /* translators: %1: bank name &2: branch name */ ?>
-								<p class="name"><?php echo esc_html( sprintf( _x( '%1$s, %2$s', 'Dislaying bank information', 'wacara' ), $account['name'], $account['branch'] ) ); ?></p>
-								<p class="number"><?php echo esc_html( $account['number'] ); ?></p>
-								<p class="holder"><?php echo esc_html( $account['holder'] ); ?></p>
-							</div>
-							<?php
+				<p><?php esc_html_e( 'Select one of the following bank accounts you want to transfer to', 'wacara' ); ?></p>
+				<form id="frm_confirmation" method="post">
+					<div class="row justify-content-center bank-lists">
+						<?php
+						if ( ! empty( $bank_accounts ) ) {
+							$row_num = 0;
+							foreach ( $bank_accounts as $account ) {
+								?>
+								<div class="col-lg-6 bank-item py-3">
+									<input type="radio" name="selected_bank" id="bank_<?php echo esc_attr( $row_num ); ?>" value="<?php echo esc_attr( $row_num ); ?>">
+									<label for="bank_<?php echo esc_attr( $row_num ); ?>">
+										<i class="text-success fa fa-check-circle fa-2x"></i>
+										<?php /* translators: %1: bank name &2: branch name */ ?>
+										<p class="name"><?php echo esc_html( sprintf( _x( '%1$s, %2$s', 'Dislaying bank information', 'wacara' ), $account['name'], $account['branch'] ) ); ?></p>
+										<p class="number"><?php echo esc_html( $account['number'] ); ?></p>
+										<p class="holder"><?php echo esc_html( $account['holder'] ); ?></p>
+									</label>
+								</div>
+								<?php
+								$row_num ++;
+							}
 						}
-					}
-					?>
-				</div>
-				<p class="lead"><?php esc_html_e( 'Once you made a transfer, please click button below to confirm', 'wacara' ); ?></p>
-				<button type="button" class="btn btn-primary btn-lg btn-block"><?php esc_html_e( 'I have made a payment', 'wacara' ); ?></button>
+
+						// Render current participant id.
+						echo apply_filters( 'sk_input_field', 'participant_id', 'hidden', '', $id ); // phpcs:ignore
+
+						// Add nonce.
+						wp_nonce_field( 'sk_nonce', 'sk_payment' );
+						?>
+					</div>
+					<p class="lead"><?php esc_html_e( 'Once you made a transfer, please click button below to confirm', 'wacara' ); ?></p>
+					<button type="submit" class="btn btn-primary btn-lg btn-block btn-go-confirm"><?php esc_html_e( 'I have made a payment', 'wacara' ); ?></button>
+				</form>
 			</div>
 		</div>
 	</div>
