@@ -168,6 +168,9 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				switch ( $maybe_payment_method ) {
 
 					case 'manual':
+						// Set default unique number.
+						$unique = 0;
+
 						// Check maybe requires unique code.
 						if ( 'on' === $pricing_unique_code ) {
 
@@ -180,10 +183,10 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							if ( 100000 < $pricing_price ) {
 								$unique *= 100;
 							}
-
-							// Save the unique number.
-							$participant->save_unique_number( $unique );
 						}
+
+						// Save the unique number.
+						$participant->maybe_save_unique_number( $unique );
 
 						// There is nothing to do here, just finish the process and wait for the payment :).
 						$result->success  = true;

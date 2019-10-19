@@ -29,7 +29,7 @@ while ( have_posts() ) {
 			break;
 		case 'wait_payment':
 			$bank_accounts                  = Options::get_bank_accounts();
-			$amount_cent                    = Helper::get_post_meta( 'price_in_cent_with_unique' );
+			$amount_cent                    = Helper::get_post_meta( 'maybe_price_in_cent_with_unique' );
 			$amount_fixed                   = $amount_cent / 100;
 			$amount_formatted               = number_format( $amount_fixed, 2, ',', '.' );
 			$register_args['bank_accounts'] = $bank_accounts;
