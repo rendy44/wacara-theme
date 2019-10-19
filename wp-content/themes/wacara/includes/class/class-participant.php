@@ -399,7 +399,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 
 				// Update the status.
 				$this->success = true;
-				$this->set_registration_status( 'waiting_confirmation' );
+				$this->set_registration_status( 'wait_verification' );
 
 				// Update the status.
 				parent::save_meta(

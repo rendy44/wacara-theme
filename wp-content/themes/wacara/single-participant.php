@@ -35,8 +35,10 @@ while ( have_posts() ) {
 			$register_args['bank_accounts'] = $bank_accounts;
 			$register_args['currency_code'] = Helper::get_post_meta( 'currency' );
 			$register_args['amount']        = $amount_formatted;
-
-			$template = 'waiting-payment';
+			$template                       = 'waiting-payment';
+			break;
+		case 'wait_verification':
+			$template = 'waiting-verification';
 			break;
 		case 'fail':
 		default:
