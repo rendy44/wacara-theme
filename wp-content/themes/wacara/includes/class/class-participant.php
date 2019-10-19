@@ -390,12 +390,24 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @param int $bank_account_number the index number of bank account array.
 		 */
 		public function update_confirmation( $bank_account_number ) {
+
+			// Save participant id into variable.
+			$participant_id = $this->post_id;
+
+			// Prepare some variables.
 			$date_update           = current_time( 'timestamp' );
 			$bank_accounts         = Options::get_bank_accounts();
 			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts : false;
 
 			// Validate the selected bank accounts.
 			if ( $selected_bank_account ) {
+
+				/**
+				 * Perform actions before confirming payment
+				 *
+				 * @param string $participant_id the participant id.
+				 */
+				do_action( 'wacara_before_confirming_payment', $participant_id );
 
 				// Update the status.
 				$this->success = true;
@@ -408,6 +420,14 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						'selected_bank_account'  => $selected_bank_account,
 					]
 				);
+
+				/**
+				 * Perform actions after confirming payment.
+				 *
+				 * @param string $participant_id the participant id.
+				 */
+				do_action( 'wacara_after_confirming_payment', $participant_id );
+
 			} else {
 				$this->success = false;
 				$this->message = __( 'Invalid bank account selected', 'wacara' );

@@ -141,13 +141,6 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					// Instance the participant.
 					$participant = new Participant( $participant_id );
 
-					/**
-					 * Perform actions before user making confirmation
-					 *
-					 * @param string $participant_id the participant id.
-					 */
-					do_action( 'wacara_before_confirming_payment', $participant_id );
-
 					// Update the registration.
 					$participant->update_confirmation( $bank_account );
 
