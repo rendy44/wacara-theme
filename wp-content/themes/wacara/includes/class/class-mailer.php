@@ -43,8 +43,8 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 		 * Mailer constructor.
 		 */
 		private function __construct() {
-			// Send email after finishing registration.
-			add_action( 'wacara_after_finishing_registration', [ $this, 'send_email_after_registration' ], 10 );
+			// Send email after participant status changed.
+			add_action( 'wacara_after_setting_participant_status', [ $this, 'send_email_based_on_status' ], 10, 3 );
 
 			// Send email after checking in.
 			add_action( 'wacara_after_participant_checkin', [ $this, 'send_email_after_checkin' ], 10 );
@@ -83,8 +83,10 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 		 * Callback for sending email after finishing registration.
 		 *
 		 * @param string $participant_id participant id.
+		 * @param string $new_status     the new status of registration.
+		 * @param string $old_status     the old status of registration.
 		 */
-		public function send_email_after_registration( $participant_id ) {
+		public function send_email_based_on_status( $participant_id, $new_status, $old_status ) {
 
 			// Fetch participant detail.
 			$participant      = new Participant( $participant_id );
@@ -96,6 +98,26 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 			$email_subject = sprintf( __( 'Welcome To %s', 'wacara' ), $site_name );
 			/* translators: 1: participant name, 2: event name, 3: booking code*/
 			$email_content = sprintf( __( 'Hello %1$s, thank you for registering to %2$s. This is your booking code: %3$s', 'wacara' ), $participant_data['name'], $event_name, $participant_data['booking_code'] );
+
+			switch ( $new_status ) {
+				case 'wait_payment':
+					/* translators: 1: participant name, 2: event name */
+					$email_content = sprintf( __( 'Hello %1$s, thank you for registering to %2$s. Please do a payment to save your seat', 'wacara' ), $participant_data['name'], $event_name );
+					break;
+				case 'wait_verification':
+					$email_subject = __( 'Thank You For Confirmation', 'wacara' );
+					/* translators: 1: participant name, 2: event name */
+					$email_content = sprintf( __( 'Hello %1$s, thank you for the confirmation. We are verifying your payment. And we will get back to you once we have an update', 'wacara' ), $participant_data['name'] );
+					break;
+				case 'done':
+					// Check whether participant previously from other status or directly to done status.
+					if ( 'wait_verification' === $old_status ) {
+						$email_subject = __( 'Congratulation', 'wacara' );
+						/* translators: 1: participant name, 2: event name, 3: booking code*/
+						$email_content = sprintf( __( 'Hello %1$s, we have verified your payment. You are ready to join the %2$s. This is your booking code: %3$s ', 'wacara' ), $participant_data['name'], $event_name, $participant_data['booking_code'] );
+					}
+					break;
+			}
 
 			/**
 			 * Apply filters to modify email content after participant making registration.

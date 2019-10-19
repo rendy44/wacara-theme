@@ -133,7 +133,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
 			// Validate the inputs.
-			if ( $participant_id && $bank_account ) {
+			if ( $participant_id && isset( $bank_account ) ) {
 
 				// Validate the nonce.
 				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
@@ -245,7 +245,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 							// There is nothing to do here, just finish the process and wait for the payment :).
 							$result->success  = true;
-							$result->callback = get_permalink( $participant_id );
+							$result->callback = $participant->get_participant_url();
 
 							// Save registration status.
 							$reg_status = 'wait_payment';

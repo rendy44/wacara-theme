@@ -348,7 +348,24 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @param string $status status of registration.
 		 */
 		public function set_registration_status( $status = 'done' ) {
+
+			// Save old status into variable.
+			$old_status = parent::get_meta( 'reg_status' );
+
+			// Save participant id into variable.
+			$participant_id = $this->post_id;
+
+			// Change the status.
 			parent::save_meta( [ 'reg_status' => $status ] );
+
+			/**
+			 * Perform action when participant status changed.
+			 *
+			 * @param string $participant_id the participant id.
+			 * @param string $status         the new status of participant.
+			 * @param string $old_status     the old status of participant.
+			 */
+			do_action( 'wacara_after_setting_participant_status', $participant_id, $status, $old_status );
 		}
 
 		/**
