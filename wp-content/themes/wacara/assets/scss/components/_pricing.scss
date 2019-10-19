@@ -1,0 +1,14 @@
+#pricing {
+  .container {
+    .fa-ul {
+      margin-bottom: calc(2rem + 48px);
+    }
+
+    .btn-do-register {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      width: calc(100% - (1.25rem + 1.25rem));
+    }
+  }
+}

@@ -30,11 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$delay = 600;
 				foreach ( $price_lists as $list ) {
 					?>
-					<div class="col-md-6 col-lg-4">
-						<div class="card mb-3 mb-md-0 shadow" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( $delay ); ?>">
+					<div class="col-md-6 col-lg-4 mb-3">
+						<div class="card h-100 mb-md-0 shadow" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( $delay ); ?>">
 							<div class="card-body">
 								<h5 class="card-title text-muted text-uppercase text-center"><?php echo esc_html( $list['name'] ); ?></h5>
-								<h6 class="card-price text-center"><?php echo esc_html( $list['symbol'] ) . esc_html( (int) $list['price'] ); ?>
+								<h6 class="card-price text-center"><?php echo esc_html( $list['symbol'] ) . esc_html( number_format( (int) $list['price'], 0, ',', '.' ) ); ?>
 									<span class="period"></span>
 								</h6>
 								<hr>
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									}
 									?>
 								</ul>
-								<button class="btn btn-block btn-primary btn-lg btn-do-register" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
+								<button class="btn btn-primary btn-lg btn-do-register" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
 							</div>
 						</div>
 					</div>
