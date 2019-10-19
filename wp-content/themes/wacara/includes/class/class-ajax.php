@@ -141,6 +141,13 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					// Instance the participant.
 					$participant = new Participant( $participant_id );
 
+					/**
+					 * Perform actions before user making confirmation
+					 *
+					 * @param string $participant_id the participant id.
+					 */
+					do_action( 'wacara_before_confirming_payment', $participant_id );
+
 					// Update the registration.
 					$participant->update_confirmation( $bank_account );
 
@@ -315,13 +322,6 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 									$result->success  = true;
 									$result->callback = get_permalink( $participant_id );
 
-									/**
-									 * Perform actions after making payment.
-									 *
-									 * @param string $participant_id participant id.
-									 */
-									do_action( 'wacara_after_making_payment', $participant_id, $pricing_price, $pricing_currency );
-
 								} else {
 
 									// Save stripe error message.
@@ -331,6 +331,17 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 									// Update result.
 									$result->message = $charge->message;
 								}
+
+								/**
+								 * Perform actions after making payment by stripe.
+								 *
+								 * @param string $participant_id   participant id.
+								 * @param int    $pricing_price    the price of pricing in cent.
+								 * @param string $pricing_currency the currency of pricing.
+								 * @param Result $charge           the object of payment.
+								 */
+								do_action( 'wacara_after_making_stripe_payment', $participant_id, $pricing_price, $pricing_currency, $charge );
+
 							} else {
 
 								// Update result.
@@ -344,7 +355,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						default:
 							// There is nothing to do here, just finish the process :).
 							$result->success  = true;
-							$result->callback = get_permalink( $participant_id );
+							$result->callback = $participant->get_participant_url();
 
 							// Save registration status.
 							$reg_status = 'done';
@@ -355,8 +366,9 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					 * Perform actions after finishing registration.
 					 *
 					 * @param string $participant_id participant id.
+					 * @param string $reg_status     the status of registration.
 					 */
-					do_action( 'wacara_after_finishing_registration', $participant_id );
+					do_action( 'wacara_after_finishing_registration', $participant_id, $reg_status );
 
 					// Update registration status.
 					$participant->set_registration_status( $reg_status );
