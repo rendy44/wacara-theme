@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WAcara Event Organizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-06 11:02+0000\n"
-"PO-Revision-Date: 2019-10-06 11:05+0000\n"
+"POT-Creation-Date: 2019-10-19 05:15+0000\n"
+"PO-Revision-Date: 2019-10-19 05:21+0000\n"
 "Last-Translator: admin <rendy.de.p@gmail.com>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.0; wp-5.2.2"
+"X-Loco-Version: 2.3.0; wp-5.2.4"
 
 #: searchform.php:15
 msgid "Search for..."
@@ -1117,25 +1117,75 @@ msgid "Last Error:"
 msgstr "Galat Terakhir"
 
 #: templates/participant/register-form.php:46
+msgid "Payment Method"
+msgstr "Metode pembayaran"
+
+#: templates/participant/register-form.php:49
+msgid "Manual bank transfer"
+msgstr "Bank transfer"
+
+#: templates/participant/register-form.php:50
+msgid "Stripe"
+msgstr "Stripe"
+
+#: templates/participant/register-form.php:65
+msgid "Bank detail will be informed after making registration"
+msgstr "Detail bank akan diinformasikan setelah melakukan registrasi"
+
+#: templates/participant/register-form.php:69
 msgid "Credit card information"
 msgstr "Informasi kartu kredit"
 
-#: templates/participant/register-form.php:65
+#: templates/participant/register-form.php:88
 msgid ""
 "By clicking register, you are automatically agree to our term of service"
 msgstr ""
 "Dengan mengklik daftar, Anda secara otomatis setuju dengan ketentuan layanan "
 "kami"
 
-#: templates/participant/register-form.php:66
+#: templates/participant/register-form.php:89
 msgid "Register"
 msgstr "Daftar"
+
+#: templates/participant/waiting-payment.php:17
+msgid "In order to save your seat, please make a payment as detailed below:"
+msgstr ""
+"Untuk mengamankan kursi Anda, mohon lakukan pembayaran sesuai di bawah ini:"
+
+#: templates/participant/waiting-payment.php:21
+msgid "Important!"
+msgstr "Penting!"
+
+#: templates/participant/waiting-payment.php:22
+msgid ""
+"The transfer amount must be exactly same as above, including the coma if any"
+msgstr "Jumlah transfer harus sama persis, termasuk koma jika ada."
+
+#: templates/participant/waiting-payment.php:24
+msgid "Make a transfer to one of the following bank accounts"
+msgstr "Lakukan transfer ke salah satu bank berikut"
+
+#. %1: bank name &2: branch name
+#: templates/participant/waiting-payment.php:36
+#, php-format
+msgctxt "Dislaying bank information"
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#: templates/participant/waiting-payment.php:45
+msgid "Once you made a transfer, please click button below to confirm"
+msgstr ""
+"Saat kamu sudah mentransfer, mohon klik tombol di bawah untuk konfirmasi"
+
+#: templates/participant/waiting-payment.php:46
+msgid "I have made a payment"
+msgstr "Saya sudah membayar"
 
 #: includes/class/class-helper.php:251
 msgid "Select country"
 msgstr "Pilih negara"
 
-#: includes/class/class-helper.php:507
+#: includes/class/class-helper.php:509
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid description"
@@ -1143,7 +1193,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki "
 "deskripsi yang valid"
 
-#: includes/class/class-helper.php:510
+#: includes/class/class-helper.php:512
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid photo"
@@ -1151,7 +1201,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki foto "
 "yang valid"
 
-#: includes/class/class-helper.php:513
+#: includes/class/class-helper.php:515
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid postal code"
@@ -1159,7 +1209,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki kode "
 "pos yang valid"
 
-#: includes/class/class-helper.php:516
+#: includes/class/class-helper.php:518
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid address"
@@ -1167,7 +1217,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki alamat "
 "yang valid"
 
-#: includes/class/class-helper.php:519
+#: includes/class/class-helper.php:521
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid city"
@@ -1175,7 +1225,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki kota "
 "yang valid"
 
-#: includes/class/class-helper.php:522
+#: includes/class/class-helper.php:524
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid province"
@@ -1183,7 +1233,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki "
 "provinsi yang valid"
 
-#: includes/class/class-helper.php:525
+#: includes/class/class-helper.php:527
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid country"
@@ -1191,7 +1241,7 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki negara "
 "yang valid"
 
-#: includes/class/class-helper.php:528
+#: includes/class/class-helper.php:530
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid name"
@@ -1199,83 +1249,115 @@ msgstr ""
 "Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki nama "
 "yang valid"
 
-#: includes/class/class-helper.php:554
+#: includes/class/class-helper.php:556
 msgid "The pricing amount should be greater than 0"
 msgstr "Jumlah harga harus lebih besar dari 0"
 
-#: includes/class/class-helper.php:560
+#: includes/class/class-helper.php:562
 msgid "The pricing is invalid, the currency has not been assigned yet"
 msgstr "Harga tidak valid, mata uangnya belum diatur"
 
-#: includes/class/class-helper.php:563
+#: includes/class/class-helper.php:565
 msgid "The pricing is invalid, the price amount has not been assigned yet"
 msgstr "Harga tidak valid, jumlah harga belum diatur"
 
 #. 1: the post type name
-#: includes/class/class-helper.php:669
+#: includes/class/class-helper.php:671
 #, php-format
 msgid "%s not found"
 msgstr "%s tidak ditemukan"
 
-#: includes/class/class-options.php:120
+#: includes/class/class-options.php:146
 msgid "Wacara Options"
 msgstr "Opsi Wacara"
 
-#: includes/class/class-options.php:127
+#: includes/class/class-options.php:153
 msgid "Logo"
 msgstr "Logo"
 
-#: includes/class/class-options.php:128
+#: includes/class/class-options.php:154
 msgid "Only file with .png extension is allowed"
 msgstr "Hanya berkas dengan ekstensi .png yang diperbolehkan"
 
-#: includes/class/class-options.php:135 includes/class/class-metabox.php:674
+#: includes/class/class-options.php:161 includes/class/class-metabox.php:674
 msgid "Select Image"
 msgstr "Pilih Gambar"
 
-#: includes/class/class-options.php:148
+#: includes/class/class-options.php:176
 msgid "Stripe Options"
 msgstr "Opsi Stripe"
 
-#: includes/class/class-options.php:156
+#: includes/class/class-options.php:184
 msgid "Sandbox"
 msgstr "Sandbox"
 
-#: includes/class/class-options.php:157
+#: includes/class/class-options.php:185
 msgid "Enable sandbox for testing"
 msgstr "Aktifkan mode pengujian"
 
-#: includes/class/class-options.php:164
+#: includes/class/class-options.php:192
 msgid "Sandbox secret key"
 msgstr "Sandbox secret key"
 
-#: includes/class/class-options.php:167
+#: includes/class/class-options.php:195
 msgid "Normally it something like this sk_test_xxx"
 msgstr "Biasanya seperti sk_test_xxx"
 
-#: includes/class/class-options.php:172
+#: includes/class/class-options.php:200
 msgid "Sandbox publishable key"
 msgstr "Sandbox publishable key"
 
-#: includes/class/class-options.php:175
+#: includes/class/class-options.php:203
 msgid "Normally it something like this pk_test_xxx"
 msgstr "Biasanya seperti pk_test_xxx"
 
-#: includes/class/class-options.php:180
+#: includes/class/class-options.php:208
 msgid "Live secret key"
 msgstr "Live secret key"
 
-#: includes/class/class-options.php:183
+#: includes/class/class-options.php:211
 msgid "Normally it something like this sk_live_xxx"
 msgstr "Biasanya seperti sk_live_xxx"
 
-#: includes/class/class-options.php:188
+#: includes/class/class-options.php:216
 msgid "Live publishable key"
 msgstr "Live ublishable key"
 
-#: includes/class/class-options.php:191
+#: includes/class/class-options.php:219
 msgid "Normally it something like this pk_live_xxx"
 msgstr "Biasanya seperti pk_live_xxx"
+
+#: includes/class/class-options.php:227
+msgid "Bank Information"
+msgstr "Informasi Bank"
+
+#: includes/class/class-options.php:238
+msgid "Bank {#}"
+msgstr "Bank {#}"
+
+#: includes/class/class-options.php:239
+msgid "Add Bank"
+msgstr "Tambah Bank"
+
+#: includes/class/class-options.php:240
+msgid "Remove Bank"
+msgstr "Hapus Bank"
+
+#: includes/class/class-options.php:248
+msgid "Bank Name"
+msgstr "Nama bank"
+
+#: includes/class/class-options.php:256
+msgid "Number"
+msgstr "Nomor"
+
+#: includes/class/class-options.php:264
+msgid "Branch"
+msgstr "Cabang"
+
+#: includes/class/class-options.php:272
+msgid "Holder"
+msgstr "Atas nama"
 
 #. 1: event name
 #: includes/class/class-action.php:56
@@ -1302,8 +1384,8 @@ msgstr "Telepon"
 msgid "Id Number"
 msgstr "Nomor Identitas"
 
-#: includes/class/class-action.php:92 includes/class/class-ajax.php:305
-#: includes/class/class-ajax.php:333
+#: includes/class/class-action.php:92 includes/class/class-ajax.php:354
+#: includes/class/class-ajax.php:382
 msgid "Please try again later"
 msgstr "Silahkan coba lagi nanti"
 
@@ -1348,16 +1430,20 @@ msgid "Please provide a valid event id"
 msgstr "Mohon untuk sertakan id acara yang valid"
 
 #. 1: the event name
-#: includes/class/class-ajax.php:205
+#: includes/class/class-ajax.php:250
 #, php-format
 msgid "Payment for registering to %s"
 msgstr "Pembayaran untuk mendaftar ke %s"
 
-#: includes/class/class-ajax.php:266
+#: includes/class/class-ajax.php:282
+msgid "Failed to contact stripe, please try again later"
+msgstr "Gagal menghubungi stripe, coba lagi nanti"
+
+#: includes/class/class-ajax.php:315
 msgid "Please reload the page and try again"
 msgstr "Mohon untuk muat ulang halaman dan coba lagi"
 
-#: includes/class/class-ajax.php:328
+#: includes/class/class-ajax.php:377
 msgid "Thank you for checking in"
 msgstr "Terima kasih sudah check-in"
 
@@ -2391,6 +2477,18 @@ msgstr "Kekurangan"
 msgid "What user will not get, use coma to separate the values"
 msgstr "Apa yang peserta tidak akan dapatkan, gunaan koma untuk memisahkan"
 
+#: includes/class/class-metabox.php:1176
+msgid "Options"
+msgstr "Pengaturan"
+
+#: includes/class/class-metabox.php:1179
+msgid "Unique code"
+msgstr "Kode unik"
+
+#: includes/class/class-metabox.php:1182
+msgid "Add unique code for payment using manual bank transfer"
+msgstr "Tambahkan kode unik untuk pembayaran dengan transfer bank"
+
 #. %s: search term.
 #: includes/class/class-ui.php:98
 #, php-format
@@ -2400,6 +2498,10 @@ msgstr "Hasil Pencarian untuk \"%s\""
 #: includes/class/class-ui.php:100
 msgid "Not Found"
 msgstr "Tidak Ditemukan"
+
+#: includes/class/class-ui.php:103
+msgid "Payment"
+msgstr "Pembayaran"
 
 #. %s: event title name
 #: includes/class/class-ui.php:107

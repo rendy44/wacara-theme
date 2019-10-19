@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WAcara Event Organizer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-06 11:02+0000\n"
+"POT-Creation-Date: 2019-10-19 05:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1114,146 +1114,226 @@ msgid "Last Error:"
 msgstr ""
 
 #: templates/participant/register-form.php:46
-msgid "Credit card information"
+msgid "Payment Method"
+msgstr ""
+
+#: templates/participant/register-form.php:49
+msgid "Manual bank transfer"
+msgstr ""
+
+#: templates/participant/register-form.php:50
+msgid "Stripe"
 msgstr ""
 
 #: templates/participant/register-form.php:65
+msgid "Bank detail will be informed after making registration"
+msgstr ""
+
+#: templates/participant/register-form.php:69
+msgid "Credit card information"
+msgstr ""
+
+#: templates/participant/register-form.php:88
 msgid ""
 "By clicking register, you are automatically agree to our term of service"
 msgstr ""
 
-#: templates/participant/register-form.php:66
+#: templates/participant/register-form.php:89
 msgid "Register"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:17
+msgid "In order to save your seat, please make a payment as detailed below:"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:21
+msgid "Important!"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:22
+msgid ""
+"The transfer amount must be exactly same as above, including the coma if any"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:24
+msgid "Make a transfer to one of the following bank accounts"
+msgstr ""
+
+#. %1: bank name &2: branch name
+#: templates/participant/waiting-payment.php:36
+#, php-format
+msgctxt "Dislaying bank information"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:45
+msgid "Once you made a transfer, please click button below to confirm"
+msgstr ""
+
+#: templates/participant/waiting-payment.php:46
+msgid "I have made a payment"
 msgstr ""
 
 #: includes/class/class-helper.php:251
 msgid "Select country"
 msgstr ""
 
-#: includes/class/class-helper.php:507
+#: includes/class/class-helper.php:509
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid description"
 msgstr ""
 
-#: includes/class/class-helper.php:510
+#: includes/class/class-helper.php:512
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid photo"
 msgstr ""
 
-#: includes/class/class-helper.php:513
+#: includes/class/class-helper.php:515
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid postal code"
 msgstr ""
 
-#: includes/class/class-helper.php:516
+#: includes/class/class-helper.php:518
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid address"
 msgstr ""
 
-#: includes/class/class-helper.php:519
+#: includes/class/class-helper.php:521
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid city"
 msgstr ""
 
-#: includes/class/class-helper.php:522
+#: includes/class/class-helper.php:524
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid province"
 msgstr ""
 
-#: includes/class/class-helper.php:525
+#: includes/class/class-helper.php:527
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid country"
 msgstr ""
 
-#: includes/class/class-helper.php:528
+#: includes/class/class-helper.php:530
 msgid ""
 "This event is not completed yet, it uses invalid location which does not "
 "have valid name"
 msgstr ""
 
-#: includes/class/class-helper.php:554
+#: includes/class/class-helper.php:556
 msgid "The pricing amount should be greater than 0"
 msgstr ""
 
-#: includes/class/class-helper.php:560
+#: includes/class/class-helper.php:562
 msgid "The pricing is invalid, the currency has not been assigned yet"
 msgstr ""
 
-#: includes/class/class-helper.php:563
+#: includes/class/class-helper.php:565
 msgid "The pricing is invalid, the price amount has not been assigned yet"
 msgstr ""
 
 #. 1: the post type name
-#: includes/class/class-helper.php:669
+#: includes/class/class-helper.php:671
 #, php-format
 msgid "%s not found"
 msgstr ""
 
-#: includes/class/class-options.php:120
+#: includes/class/class-options.php:146
 msgid "Wacara Options"
 msgstr ""
 
-#: includes/class/class-options.php:127
+#: includes/class/class-options.php:153
 msgid "Logo"
 msgstr ""
 
-#: includes/class/class-options.php:128
+#: includes/class/class-options.php:154
 msgid "Only file with .png extension is allowed"
 msgstr ""
 
-#: includes/class/class-options.php:135 includes/class/class-metabox.php:674
+#: includes/class/class-options.php:161 includes/class/class-metabox.php:674
 msgid "Select Image"
 msgstr ""
 
-#: includes/class/class-options.php:148
+#: includes/class/class-options.php:176
 msgid "Stripe Options"
 msgstr ""
 
-#: includes/class/class-options.php:156
+#: includes/class/class-options.php:184
 msgid "Sandbox"
 msgstr ""
 
-#: includes/class/class-options.php:157
+#: includes/class/class-options.php:185
 msgid "Enable sandbox for testing"
 msgstr ""
 
-#: includes/class/class-options.php:164
+#: includes/class/class-options.php:192
 msgid "Sandbox secret key"
 msgstr ""
 
-#: includes/class/class-options.php:167
+#: includes/class/class-options.php:195
 msgid "Normally it something like this sk_test_xxx"
 msgstr ""
 
-#: includes/class/class-options.php:172
+#: includes/class/class-options.php:200
 msgid "Sandbox publishable key"
 msgstr ""
 
-#: includes/class/class-options.php:175
+#: includes/class/class-options.php:203
 msgid "Normally it something like this pk_test_xxx"
 msgstr ""
 
-#: includes/class/class-options.php:180
+#: includes/class/class-options.php:208
 msgid "Live secret key"
 msgstr ""
 
-#: includes/class/class-options.php:183
+#: includes/class/class-options.php:211
 msgid "Normally it something like this sk_live_xxx"
 msgstr ""
 
-#: includes/class/class-options.php:188
+#: includes/class/class-options.php:216
 msgid "Live publishable key"
 msgstr ""
 
-#: includes/class/class-options.php:191
+#: includes/class/class-options.php:219
 msgid "Normally it something like this pk_live_xxx"
+msgstr ""
+
+#: includes/class/class-options.php:227
+msgid "Bank Information"
+msgstr ""
+
+#: includes/class/class-options.php:238
+msgid "Bank {#}"
+msgstr ""
+
+#: includes/class/class-options.php:239
+msgid "Add Bank"
+msgstr ""
+
+#: includes/class/class-options.php:240
+msgid "Remove Bank"
+msgstr ""
+
+#: includes/class/class-options.php:248
+msgid "Bank Name"
+msgstr ""
+
+#: includes/class/class-options.php:256
+msgid "Number"
+msgstr ""
+
+#: includes/class/class-options.php:264
+msgid "Branch"
+msgstr ""
+
+#: includes/class/class-options.php:272
+msgid "Holder"
 msgstr ""
 
 #. 1: event name
@@ -1281,8 +1361,8 @@ msgstr ""
 msgid "Id Number"
 msgstr ""
 
-#: includes/class/class-action.php:92 includes/class/class-ajax.php:305
-#: includes/class/class-ajax.php:333
+#: includes/class/class-action.php:92 includes/class/class-ajax.php:354
+#: includes/class/class-ajax.php:382
 msgid "Please try again later"
 msgstr ""
 
@@ -1327,16 +1407,20 @@ msgid "Please provide a valid event id"
 msgstr ""
 
 #. 1: the event name
-#: includes/class/class-ajax.php:205
+#: includes/class/class-ajax.php:250
 #, php-format
 msgid "Payment for registering to %s"
 msgstr ""
 
-#: includes/class/class-ajax.php:266
+#: includes/class/class-ajax.php:282
+msgid "Failed to contact stripe, please try again later"
+msgstr ""
+
+#: includes/class/class-ajax.php:315
 msgid "Please reload the page and try again"
 msgstr ""
 
-#: includes/class/class-ajax.php:328
+#: includes/class/class-ajax.php:377
 msgid "Thank you for checking in"
 msgstr ""
 
@@ -2361,6 +2445,18 @@ msgstr ""
 msgid "What user will not get, use coma to separate the values"
 msgstr ""
 
+#: includes/class/class-metabox.php:1176
+msgid "Options"
+msgstr ""
+
+#: includes/class/class-metabox.php:1179
+msgid "Unique code"
+msgstr ""
+
+#: includes/class/class-metabox.php:1182
+msgid "Add unique code for payment using manual bank transfer"
+msgstr ""
+
 #. %s: search term.
 #: includes/class/class-ui.php:98
 #, php-format
@@ -2369,6 +2465,10 @@ msgstr ""
 
 #: includes/class/class-ui.php:100
 msgid "Not Found"
+msgstr ""
+
+#: includes/class/class-ui.php:103
+msgid "Payment"
 msgstr ""
 
 #. %s: event title name
