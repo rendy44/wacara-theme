@@ -28,7 +28,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 *
 		 * @var array
 		 */
-		private $participant_data = [];
+		public $participant_data = [];
 
 		/**
 		 * Participant constructor.
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						$this->save_qrcode_to_participant();
 
 						// Update participant meta after successfully being created.
-						$this->save_meta( $args );
+						parent::save_meta( $args );
 					}
 				} else {
 
@@ -144,8 +144,9 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 				if ( $this->success ) {
 
 					// Fetch participant detail.
-					$this->participant_data = $this->get_meta(
+					$this->participant_data = parent::get_meta(
 						[
+							'booking_code',
 							'email',
 							'name',
 							'company',
@@ -157,6 +158,29 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 							'pricing_id',
 						]
 					);
+
+					// Get readable status.
+					$readable_status = '';
+					$status          = parent::get_meta( 'reg_status' );
+					switch ( $status ) {
+						case 'wait_payment':
+							$readable_status = __( 'Waiting Payment', 'wacara' );
+							break;
+						case 'wait_verification':
+							$readable_status = __( 'Waiting Verification', 'wacara' );
+							break;
+						case 'fail':
+							$readable_status = __( 'Failed', 'wacara' );
+							break;
+						case 'done':
+							$readable_status = __( 'Success', 'wacara' );
+							break;
+					}
+
+					// Save status into object.
+					$this->participant_data['reg_status']          = $status;
+					$this->participant_data['readable_reg_status'] = $readable_status;
+
 				}
 			}
 		}
@@ -182,7 +206,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			$qrcode_uri  = TEMP_URI . '/assets/qrcode/' . $qrcode_name;
 
 			// Save qrcode into participant.
-			$this->save_meta(
+			parent::save_meta(
 				[
 					'qrcode_name' => $qrcode_name,
 					'qrcode_url'  => $qrcode_uri,
@@ -243,13 +267,13 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			$participant_id = $this->post_id;
 
 			// Get participant status.
-			$reg_status = $this->get_meta( 'reg_status' );
+			$reg_status = parent::get_meta( 'reg_status' );
 
 			// Validate participant status.
 			if ( 'done' === $reg_status ) {
 
 				// Save event id into variable.
-				$event_id = $this->get_meta( 'event_id' );
+				$event_id = parent::get_meta( 'event_id' );
 
 				// Instance event obj.
 				$event = new Event( $event_id, true );

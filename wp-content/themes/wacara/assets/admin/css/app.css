@@ -97,4 +97,31 @@
   background-color: #bbbb55;
 }
 
+.participants_list {
+  overflow-x: auto;
+}
+.participants_list table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  white-space: nowrap;
+}
+.participants_list table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.participants_list table tr.done {
+  background-color: #d8f6df;
+}
+.participants_list table tr.wait_verification {
+  background-color: #fff4d3;
+}
+.participants_list table tr th {
+  background-color: #f8f9fa;
+}
+.participants_list table tr th,
+.participants_list table tr td {
+  padding: 8px 10px;
+  text-align: left;
+}
+
 /*# sourceMappingURL=app.css.map */

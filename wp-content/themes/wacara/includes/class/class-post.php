@@ -34,6 +34,13 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		public $post_url = '';
 
 		/**
+		 * Post title.
+		 *
+		 * @var string
+		 */
+		public $post_title = '';
+
+		/**
 		 * Post constructor.
 		 *
 		 * @param string $post_id   post id.
@@ -44,8 +51,9 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 
 			// Validate the post.
 			if ( get_post_type( $post_id ) === $post_type ) {
-				$this->post_id  = $post_id;
-				$this->post_url = get_permalink( $post_id );
+				$this->post_id    = $post_id;
+				$this->post_url   = get_permalink( $post_id );
+				$this->post_title = get_the_title( $post_id );
 
 				// Update the result.
 				$this->success = true;

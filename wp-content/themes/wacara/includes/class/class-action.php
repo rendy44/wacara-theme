@@ -52,18 +52,19 @@ if ( ! class_exists( 'Skeleton\Action' ) ) {
 		public function download_csv_callback() {
 			$event_id = Helper::get( 'event_id' );
 			if ( $event_id ) {
-				/* translators: 1: event name */
-				$file_name = sprintf( __( '%s Participants', 'wacara' ), get_the_title( $event_id ) );
-				header( 'Content-type: application/csv' );
-				header( "Content-Disposition: attachment; filename={$file_name}.csv" );
-				$fp = fopen( 'php://output', 'w' );
 
 				// Instance the event.
 				$event = new Event( $event_id );
 
+				/* translators: 1: event name */
+				$file_name = sprintf( __( '%s Participants', 'wacara' ), $event->post_title );
+				header( 'Content-type: application/csv' );
+				header( "Content-Disposition: attachment; filename={$file_name}.csv" );
+				$fp = fopen( 'php://output', 'w' );
+
 				// Validate the event.
 				if ( $event->success ) {
-					$event->get_all_participants();
+					$event->get_all_done_participants();
 
 					// Validate the participants.
 					if ( $event->success ) {

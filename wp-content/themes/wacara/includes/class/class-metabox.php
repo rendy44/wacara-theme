@@ -145,6 +145,17 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				'event',
 				'side'
 			);
+
+			add_meta_box(
+				'event_participant_list_mb',
+				__( 'Participant List', 'wacara' ),
+				[
+					$this,
+					'event_participant_list_metabox_callback',
+				],
+				'event',
+				'advanced'
+			);
 		}
 
 		/**
@@ -171,6 +182,18 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
 				<?php
 			}
+		}
+
+		/**
+		 * Callback for rendering metabox for displaying list of participants in event.
+		 */
+		public function event_participant_list_metabox_callback() {
+			?>
+			<div style="text-align: center">
+				<p><?php esc_html_e( 'Click the button below to load all participants', 'wacara' ); ?></p>
+				<button type="button" class="button button-primary load_all_participants"><?php esc_html_e( 'Load Participants', 'wacara' ); ?></button>
+			</div>
+			<?php
 		}
 
 		/**

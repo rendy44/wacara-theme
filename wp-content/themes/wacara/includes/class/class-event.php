@@ -75,6 +75,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 
 			// Validate the event.
 			if ( $this->success ) {
+
 				// Parse more detail.
 				if ( $get_detail ) {
 					$is_single_day              = parent::get_meta( 'single_day' );
@@ -172,7 +173,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 		 */
 		public function is_registration_limited() {
 			$result = false;
-			$limit  = $this->get_meta( 'limit_register' );
+			$limit  = parent::get_meta( 'limit_register' );
 			if ( 'on' === $limit ) {
 				$result = true;
 			}
@@ -190,9 +191,9 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 			if ( $is_limited ) {
 
 				// Save limitation info into variables.
-				$maybe_limited_by_number                  = (int) $this->get_meta( 'max_participant' );
-				$current_number_of_registered_participant = (int) $this->get_meta( 'number_of_participant' );
-				$maybe_limited_by_date                    = $this->get_meta( 'max_date' );
+				$maybe_limited_by_number                  = (int) parent::get_meta( 'max_participant' );
+				$current_number_of_registered_participant = (int) parent::get_meta( 'number_of_participant' );
+				$maybe_limited_by_date                    = parent::get_meta( 'max_date' );
 				$current_timestamp                        = current_time( 'timestamp' );
 
 				// Check maybe limited by number of participant.
@@ -280,15 +281,15 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 		 * Maybe update the limitation.
 		 */
 		public function maybe_recount_limitation() {
-			$current_number_of_registered_participant = (int) $this->get_meta( 'number_of_participant' );
+			$current_number_of_registered_participant = (int) parent::get_meta( 'number_of_participant' );
 			$new_number_of_registered_participant     = $current_number_of_registered_participant + 1;
-			$this->save_meta( [ 'number_of_participant' => $new_number_of_registered_participant ] );
+			parent::save_meta( [ 'number_of_participant' => $new_number_of_registered_participant ] );
 		}
 
 		/**
 		 * Generate all participants.
 		 */
-		public function get_all_participants() {
+		public function get_all_done_participants() {
 			$key        = TEMP_PREFIX;
 			$query_args = [
 				'post_type'      => 'participant',
@@ -324,6 +325,58 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 						],
 						$post_id
 					);
+				}
+				$this->success = true;
+			} else {
+				$this->success = false;
+				$this->message = __( 'No participant found', 'wacara' );
+			}
+			wp_reset_postdata();
+		}
+
+		/**
+		 * Get all participants by registration status.
+		 */
+		public function get_all_participants_by_registration_status() {
+			$key = TEMP_PREFIX;
+			$this->get_all_participants(
+				[
+					'meta_key' => $key . 'reg_status', // phpcs:ignore
+					'orderby'  => 'meta_value',
+				]
+			);
+		}
+
+		/**
+		 * Generate all participants.
+		 *
+		 * @param array $custom_args override args.
+		 */
+		public function get_all_participants( $custom_args = [] ) {
+			$key          = TEMP_PREFIX;
+			$default_args = [
+				'post_type'      => 'participant',
+				'post_status'    => 'publish',
+				'posts_per_page' => - 1,
+				'orderby'        => 'date',
+				'order'          => 'desc',
+				'meta_query'     => [ // phpcs:ignore
+					[
+						'key'   => $key . 'event_id',
+						'value' => $this->post_id,
+					],
+				],
+			];
+
+			$args  = wp_parse_args( $custom_args, $default_args );
+			$query = new WP_Query( $args );
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+
+					// Instance the participant.
+					$participant   = new Participant( get_the_ID() );
+					$this->items[] = $participant;
 				}
 				$this->success = true;
 			} else {

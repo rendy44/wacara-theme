@@ -94,7 +94,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 * @since 4.1.0
 		 */
 		public function load_as_module( $tag, $handle, $src ) {
-			$modules = [ 'main', 'checkin' ];
+			$modules = [ 'main', 'checkin', 'app_be' ];
 			if ( in_array( $handle, $modules, true ) ) {
 				$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>'; // phpcs:ignore
 			}
@@ -227,8 +227,11 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.js',
 					'depth' => [ 'jquery', 'cmb2-scripts' ],
 				],
-				'app'               => [
-					'url' => TEMP_URI . '/assets/admin/js/app.js',
+				'app_be'            => [
+					'url'  => TEMP_URI . '/assets/admin/js/app.js',
+					'vars' => [
+						'ajax_url' => admin_url( 'admin-ajax.php' ),
+					],
 				],
 			];
 

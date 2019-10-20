@@ -62,6 +62,43 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			// Register ajax endpoint for processing checkin.
 			add_action( 'wp_ajax_nopriv_participant_checkin', [ $this, 'participant_checkin_callback' ] );
 			add_action( 'wp_ajax_participant_checkin', [ $this, 'participant_checkin_callback' ] );
+
+			// Register ajax endpoint for displaying all participants.
+			add_action( 'wp_ajax_nopriv_list_participants', [ $this, 'list_participants_callback' ] );
+			add_action( 'wp_ajax_list_participants', [ $this, 'list_participants_callback' ] );
+		}
+
+		/**
+		 * Callback for listing participants
+		 */
+		public function list_participants_callback() {
+			$result   = new Result();
+			$event_id = Helper::get( 'id' );
+			if ( $event_id ) {
+
+				// Override the result with event instance.
+				$result = new Event( $event_id );
+
+				// Run the method to fetch all participants.
+				$result->get_all_participants_by_registration_status();
+
+				// Get column name for csv.
+				$result->callback = [
+					__( 'Booking Code', 'wacara' ),
+					__( 'Name', 'wacara' ),
+					__( 'Email', 'wacara' ),
+					__( 'Company', 'wacara' ),
+					__( 'Position', 'wacara' ),
+					__( 'Phone', 'wacara' ),
+					__( 'Id Number', 'wacara' ),
+					__( 'Status', 'wacara' ),
+				];
+
+			} else {
+				$result->message = __( 'Please try again later', 'wacara' );
+			}
+
+			wp_send_json( $result );
 		}
 
 		/**
