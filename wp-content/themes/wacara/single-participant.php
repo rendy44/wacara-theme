@@ -31,7 +31,7 @@ while ( have_posts() ) {
 			$bank_accounts                  = Options::get_bank_accounts();
 			$amount_cent                    = Helper::get_post_meta( 'maybe_price_in_cent_with_unique' );
 			$amount_fixed                   = $amount_cent / 100;
-			$amount_formatted               = number_format( $amount_fixed, 2, ',', '.' );
+			$amount_formatted               = number_format_i18n( $amount_fixed, 2 );
 			$register_args['bank_accounts'] = $bank_accounts;
 			$register_args['currency_code'] = Helper::get_post_meta( 'currency' );
 			$register_args['amount']        = $amount_formatted;

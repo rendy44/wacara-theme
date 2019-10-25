@@ -110,10 +110,10 @@
   background-color: #f8f9fa;
 }
 .participants_list table tr.done {
-  background-color: #d8f6df;
+  background-color: #edfbf0;
 }
 .participants_list table tr.wait_verification {
-  background-color: #fff4d3;
+  background-color: #fffaed;
 }
 .participants_list table tr th {
   background-color: #f8f9fa;
@@ -122,6 +122,15 @@
 .participants_list table tr td {
   padding: 8px 10px;
   text-align: left;
+}
+
+.participant_detail .detail_row {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+.participant_detail .detail_row .detail_title {
+  width: 20%;
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=app.css.map */

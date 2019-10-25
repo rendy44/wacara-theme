@@ -36,6 +36,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * @param bool  $participant_id leave it empty to create a new participant,
 		 *                              and assign with participant id to fetch the participant's detail.
 		 * @param array $args           arguments to create a new participant.
+		 *                              Or list of field to displaying participant.
 		 */
 		public function __construct( $participant_id = false, $args = [] ) {
 
@@ -143,21 +144,25 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 				// Validate the participant id.
 				if ( $this->success ) {
 
+					// Maybe merge displayed fields with args from parameter.
+					$used_args = [
+						'booking_code',
+						'email',
+						'name',
+						'company',
+						'position',
+						'phone',
+						'id_number',
+						'booking_code',
+						'event_id',
+						'pricing_id',
+					];
+					if ( ! empty( $args ) ) {
+						$used_args = array_merge( $used_args, $args );
+					}
+
 					// Fetch participant detail.
-					$this->participant_data = parent::get_meta(
-						[
-							'booking_code',
-							'email',
-							'name',
-							'company',
-							'position',
-							'phone',
-							'id_number',
-							'booking_code',
-							'event_id',
-							'pricing_id',
-						]
-					);
+					$this->participant_data = parent::get_meta( $used_args );
 
 					// Get readable status.
 					$readable_status = '';
@@ -374,7 +379,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		public function set_registration_status( $status = 'done' ) {
 
 			// Save old status into variable.
-			$old_status = parent::get_meta( 'reg_status' );
+			$old_status = $this->get_registration_status();
 
 			// Save participant id into variable.
 			$participant_id = $this->post_id;
@@ -438,7 +443,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			// Prepare some variables.
 			$date_update           = current_time( 'timestamp' );
 			$bank_accounts         = Options::get_bank_accounts();
-			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts : false;
+			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts[ $bank_account_number ] : false;
 
 			// Validate the selected bank accounts.
 			if ( $selected_bank_account ) {
@@ -489,6 +494,47 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					'maybe_price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
 				]
 			);
+		}
+
+		/**
+		 * Get registration status.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_registration_status() {
+			return parent::get_meta( 'reg_status' );
+		}
+
+		/**
+		 * Get manual payment information.
+		 *
+		 * @return array
+		 */
+		public function get_manual_payment_info_status() {
+			$result         = [ 'reg_status' => $this->get_registration_status() ];
+			$payment_method = parent::get_meta( 'payment_method' );
+
+			// Parse the selected payment method.
+			if ( 'manual' === $payment_method ) {
+
+				// Prepare the variable.
+				$confirmation_timestamp = parent::get_meta( 'confirmation_timestamp' );
+
+				$more_fields = [
+					'selected_bank_account'           => parent::get_meta( 'selected_bank_account' ),
+					'currency'                        => parent::get_meta( 'currency' ),
+					'maybe_unique_number'             => parent::get_meta( 'maybe_unique_number' ),
+					'maybe_price_in_cent_with_unique' => parent::get_meta( 'maybe_price_in_cent_with_unique' ),
+					'confirmation_timestamp'          => $confirmation_timestamp,
+					'confirmation_date_time'          => Helper::convert_date( $confirmation_timestamp, true, true ),
+					'payment_method'                  => $payment_method,
+				];
+
+				// Merge the result.
+				$result = array_merge( $result, $more_fields );
+			}
+
+			return $result;
 		}
 
 		/**

@@ -250,7 +250,7 @@ new class {
                         .done(function (data) {
                             instance.normalize_error(data, submit_button, btn_original_text);
                         })
-                        .fail(function (x,y) {
+                        .fail(function (x, y) {
                             console.error(x);
                             console.error(y);
                             // TODO: Validate error ajax.

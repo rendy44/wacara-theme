@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="card h-100 mb-md-0 shadow" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( $delay ); ?>">
 							<div class="card-body">
 								<h5 class="card-title text-muted text-uppercase text-center"><?php echo esc_html( $list['name'] ); ?></h5>
-								<h6 class="card-price text-center"><?php echo esc_html( $list['symbol'] ) . esc_html( number_format( (int) $list['price'], 0, ',', '.' ) ); ?>
+								<h6 class="card-price text-center"><?php echo esc_html( $list['symbol'] ) . esc_html( number_format_i18n( (int) $list['price'] ) ); ?>
 									<span class="period"></span>
 								</h6>
 								<hr>

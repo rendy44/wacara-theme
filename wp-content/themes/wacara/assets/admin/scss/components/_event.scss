@@ -13,11 +13,11 @@
       }
 
       &.done {
-        background-color: lighten($success, 50%);
+        background-color: lighten($success, 55%);
       }
 
       &.wait_verification {
-        background-color: lighten($warning, 40%);
+        background-color: lighten($warning, 45%);
       }
 
       th {
@@ -29,6 +29,19 @@
         padding: 8px 10px;
         text-align: left;
       }
+    }
+  }
+}
+
+// Thickbox detail participant.
+.participant_detail {
+  .detail_row {
+    display: flex;
+    margin-bottom: .5rem;
+
+    .detail_title {
+      width: 20%;
+      font-weight: 500;
     }
   }
 }

@@ -188,6 +188,7 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 * Callback for rendering metabox for displaying list of participants in event.
 		 */
 		public function event_participant_list_metabox_callback() {
+			add_thickbox();
 			?>
 			<div style="text-align: center">
 				<p><?php esc_html_e( 'Click the button below to load all participants', 'wacara' ); ?></p>

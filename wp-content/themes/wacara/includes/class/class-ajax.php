@@ -66,6 +66,49 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			// Register ajax endpoint for displaying all participants.
 			add_action( 'wp_ajax_nopriv_list_participants', [ $this, 'list_participants_callback' ] );
 			add_action( 'wp_ajax_list_participants', [ $this, 'list_participants_callback' ] );
+
+			// Register ajax endpoint for displaying participant payment status.
+			add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
+		}
+
+		/**
+		 * Callback for checking payment status.
+		 */
+		public function check_payment_status_callback() {
+			$participant_id = Helper::get( 'id' );
+			$output         = __( 'Please try again later', 'wacara' );
+
+			// Validate the inputs.
+			if ( $participant_id ) {
+
+				// Instance participant object.
+				$participant = new Participant( $participant_id );
+
+				// Validate the participant object.
+				if ( $participant->success ) {
+
+					// Get registration status.
+					$reg_status = $participant->get_registration_status();
+
+					// Validate registration status.
+					if ( 'wait_verification' === $reg_status ) {
+
+						// Collect payment infor.
+						$payment_info = $participant->get_manual_payment_info_status();
+
+						// Update the output result.
+						$output = Template::render( 'admin/participant-detail', $payment_info );
+
+					} else {
+						$output = __( 'Invalid participant', 'wacara' );
+					}
+				} else {
+					$output = $participant->message;
+				}
+			}
+
+			echo $output; // phpcs:ignore
+			die( 200 );
 		}
 
 		/**
@@ -74,6 +117,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 		public function list_participants_callback() {
 			$result   = new Result();
 			$event_id = Helper::get( 'id' );
+
+			// Validate the inputs.
 			if ( $event_id ) {
 
 				// Override the result with event instance.

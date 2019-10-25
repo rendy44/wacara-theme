@@ -84,7 +84,7 @@ if ( ! class_exists( 'Skeleton\Action' ) ) {
 
 						// Start looping.
 						foreach ( $event->items as $item ) {
-							fputcsv( $fp, $item );
+							fputcsv( $fp, $item->participant_data );
 						}
 					}
 				}

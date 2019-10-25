@@ -290,41 +290,48 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 		 * Generate all participants.
 		 */
 		public function get_all_done_participants() {
-			$key        = TEMP_PREFIX;
-			$query_args = [
-				'post_type'      => 'participant',
-				'post_status'    => 'publish',
-				'posts_per_page' => - 1,
-				'orderby'        => 'date',
-				'order'          => 'desc',
-				'meta_query'     => [ // phpcs:ignore
-					[
-						'key'   => $key . 'reg_status',
-						'value' => 'done',
-					],
-					[
-						'key'   => $key . 'event_id',
-						'value' => $this->post_id,
-					],
-				],
-			];
+			// Prepare the transient key.
+			$transient_key = 'get_all_done_participants_' . $this->post_id;
 
-			$query = new WP_Query( $query_args );
-			if ( $query->have_posts() ) {
-				while ( $query->have_posts() ) {
-					$query->the_post();
-					$post_id       = get_the_ID();
-					$this->items[] = Helper::get_post_meta(
+			// Maybe parse from transient.
+			$query_all_done_participants = get_transient( $transient_key );
+
+			// Check transient status.
+			if ( false === $query_all_done_participants ) {
+
+				$key        = TEMP_PREFIX;
+				$query_args = [
+					'post_type'      => 'participant',
+					'post_status'    => 'publish',
+					'posts_per_page' => - 1,
+					'orderby'        => 'date',
+					'order'          => 'desc',
+					'meta_query'     => [ // phpcs:ignore
 						[
-							'name',
-							'email',
-							'company',
-							'position',
-							'phone',
-							'id_number',
+							'key'   => $key . 'reg_status',
+							'value' => 'done',
 						],
-						$post_id
-					);
+						[
+							'key'   => $key . 'event_id',
+							'value' => $this->post_id,
+						],
+					],
+				];
+
+				// Instance a new query.
+				$query_all_done_participants = new WP_Query( $query_args );
+
+				// Save the query to transient.
+				set_transient( $transient_key, $query_all_done_participants, HOUR_IN_SECONDS );
+			}
+
+			// Start processing the data.
+			if ( $query_all_done_participants->have_posts() ) {
+				while ( $query_all_done_participants->have_posts() ) {
+					$query_all_done_participants->the_post();
+
+					// Instance the participant.
+					$this->items[] = new Participant( get_the_ID() );
 				}
 				$this->success = true;
 			} else {
@@ -368,11 +375,28 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				],
 			];
 
-			$args  = wp_parse_args( $custom_args, $default_args );
-			$query = new WP_Query( $args );
-			if ( $query->have_posts() ) {
-				while ( $query->have_posts() ) {
-					$query->the_post();
+			$args = wp_parse_args( $custom_args, $default_args );
+
+			// Prepare the transient_key.
+			$serialized_args = maybe_serialize( $custom_args );
+			$transient_key   = 'get_all_participants_' . $this->post_id . '_' . sanitize_title( $serialized_args );
+
+			// Maybe parse from transient.
+			$query_all_participants = get_transient( $transient_key );
+
+			// Parse the transient.
+			if ( false === $query_all_participants ) {
+
+				// Instance a new query.
+				$query_all_participants = new WP_Query( $args );
+
+				// Save the query to transient.
+				set_transient( $transient_key, $query_all_participants, HOUR_IN_SECONDS );
+			}
+
+			if ( $query_all_participants->have_posts() ) {
+				while ( $query_all_participants->have_posts() ) {
+					$query_all_participants->the_post();
 
 					// Instance the participant.
 					$participant   = new Participant( get_the_ID() );

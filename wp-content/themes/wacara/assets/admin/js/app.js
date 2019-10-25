@@ -31,6 +31,7 @@ import Ajax from '../../js/class/ajax.js';
             this.inputsosaurus();
             this.inputmoney();
             this.load_participants_event();
+            this.detail_participants_event();
         }
 
         /**
@@ -51,6 +52,9 @@ import Ajax from '../../js/class/ajax.js';
             });
         }
 
+        /**
+         * Event when button for fetching all participants being clicked.
+         */
         load_participants_event() {
             const instance = this,
                 list_participants_mb = $('#event_participant_list_mb');
@@ -82,16 +86,17 @@ import Ajax from '../../js/class/ajax.js';
 
                             // Load the items.
                             $.each(data.items, function (x, item) {
-                                const reg_status = item.participant_data.reg_status;
+                                const participant = item.participant_data,
+                                    reg_status = participant.reg_status;
                                 html_output += '<tr class="' + reg_status + '">';
-                                html_output += '<td>' + item.participant_data.booking_code + '</td>';
-                                html_output += '<td>' + item.participant_data.name + '</td>';
-                                html_output += '<td>' + item.participant_data.email + '</td>';
-                                html_output += '<td>' + item.participant_data.company + '</td>';
-                                html_output += '<td>' + item.participant_data.position + '</td>';
-                                html_output += '<td>' + item.participant_data.phone + '</td>';
-                                html_output += '<td>' + item.participant_data.id_number + '</td>';
-                                html_output += '<td>' + item.participant_data.readable_reg_status + '</td>';
+                                html_output += '<td>' + participant.booking_code + '</td>';
+                                html_output += '<td>' + participant.name + '</td>';
+                                html_output += '<td>' + participant.email + '</td>';
+                                html_output += '<td>' + participant.company + '</td>';
+                                html_output += '<td>' + participant.position + '</td>';
+                                html_output += '<td>' + participant.phone + '</td>';
+                                html_output += '<td>' + participant.id_number + '</td>';
+                                html_output += '<td>' + participant.readable_reg_status + '</td>';
                                 html_output += '<td>' + ('wait_verification' === reg_status ? '<a href="#" class="participant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
                                 html_output += '</tr>';
                             });
@@ -107,11 +112,31 @@ import Ajax from '../../js/class/ajax.js';
             })
         }
 
+        /**
+         * Method to load participants.
+         *
+         * @param event_id
+         * @returns {Ajax}
+         */
         do_load_participants(event_id) {
             return new Ajax(false, {
                 action: 'list_participants',
                 id: event_id
             });
+        }
+
+        /**
+         * Event when button detail participant being clicked for verify payment
+         */
+        detail_participants_event() {
+            const instance = this;
+            $('body').on('click', '.participant_action', function (e) {
+                e.preventDefault();
+                const the_id = $(this).attr('data-id');
+
+                // Load the thickbox.
+                tb_show('', 'admin-ajax.php?action=check_payment_status&id=' + the_id + '&width=380&height=200')
+            })
         }
     }
 })(jQuery); // End of use strict
