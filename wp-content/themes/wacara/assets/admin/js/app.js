@@ -32,6 +32,7 @@ import Ajax from '../../js/class/ajax.js';
             this.inputmoney();
             this.load_participants_event();
             this.detail_participants_event();
+            this.verify_participant_event();
         }
 
         /**
@@ -129,7 +130,6 @@ import Ajax from '../../js/class/ajax.js';
          * Event when button detail participant being clicked for verify payment
          */
         detail_participants_event() {
-            const instance = this;
             $('body').on('click', '.participant_action', function (e) {
                 e.preventDefault();
                 const the_id = $(this).attr('data-id');
@@ -137,6 +137,46 @@ import Ajax from '../../js/class/ajax.js';
                 // Load the thickbox.
                 tb_show('', 'admin-ajax.php?action=check_payment_status&id=' + the_id + '&width=380&height=200')
             })
+        }
+
+        /**
+         * Event when either reject or verify button being clicked,
+         */
+        verify_participant_event() {
+            const instance = this;
+            $('body').on('click', '.btn-do-payment-action', function (e) {
+                e.preventDefault();
+                const the_id = $(this).attr('data-id'),
+                    new_status = $(this).hasClass('done') ? 'done' : 'fail',
+                    original_text = $(this).html(),
+                    grand_parent = $(this).closest('#TB_ajaxContent');
+                $(this).prop('disabled', true).html('Loading...');
+
+                instance.do_verify_participant(the_id, new_status)
+                    .done(function (data) {
+                        if (data.success) {
+                            grand_parent.html('<div style="text-align: center;display: flex;height: 100%;justify-content: center;align-items: center;">' + data.message + '</div>');
+                        } else {
+                            $(this).prop('disabled', false).html(original_text);
+                            alert(data.message);
+                        }
+                    })
+            })
+        }
+
+        /**
+         * Method for either verify or reject payment.
+         *
+         * @param participant_id
+         * @param new_status
+         * @returns {Ajax}
+         */
+        do_verify_participant(participant_id, new_status) {
+            return new Ajax(true, {
+                action: 'verify_payment',
+                id: participant_id,
+                status: new_status
+            });
         }
     }
 })(jQuery); // End of use strict

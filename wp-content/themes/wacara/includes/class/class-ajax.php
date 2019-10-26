@@ -69,6 +69,50 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 			// Register ajax endpoint for displaying participant payment status.
 			add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
+
+			// Register ajax endpoint for either verify or reject payment.
+			add_action( 'wp_ajax_verify_payment', [ $this, 'check_verify_payment_callback' ] );
+		}
+
+		/**
+		 * Callback for performing payment action.
+		 */
+		public function check_verify_payment_callback() {
+			$result         = new Result();
+			$participant_id = Helper::post( 'id' );
+			$new_status     = Helper::post( 'status' );
+
+			// Validate the inputs.
+			if ( $participant_id && $new_status ) {
+
+				// Instance participant object.
+				$participant = new Participant( $participant_id );
+
+				// Validate the participant object.
+				if ( $participant->success ) {
+
+					// Validate the new status output.
+					$message_output = __( 'Verification is successful', 'wacara' );
+					if ( 'done' !== $new_status ) {
+						$new_status     = 'fail';
+						$message_output = __( 'Rejection is successful', 'wacara' );
+					}
+
+					// Update the status.
+					$participant->set_registration_status( $new_status );
+
+					// Update the result.
+					$result->success = true;
+					$result->message = $message_output;
+
+				} else {
+					$result->message = $participant->message;
+				}
+			} else {
+				$result->message = __( 'Please try again later', 'wacara' );
+			}
+
+			wp_send_json( $result );
 		}
 
 		/**
@@ -94,7 +138,8 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 					if ( 'wait_verification' === $reg_status ) {
 
 						// Collect payment infor.
-						$payment_info = $participant->get_manual_payment_info_status();
+						$payment_info       = $participant->get_manual_payment_info_status();
+						$payment_info['id'] = $participant->post_id;
 
 						// Update the output result.
 						$output = Template::render( 'admin/participant-detail', $payment_info );
