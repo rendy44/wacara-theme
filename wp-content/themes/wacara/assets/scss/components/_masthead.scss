@@ -3,7 +3,6 @@
   height: 220px;
   position: relative;
   background-color: $white;
-  //background-color: rgba(lighten($primary_color, 40%), .9);
   z-index: 2;
 
   .container {
@@ -106,9 +105,11 @@
       }
     }
 
+    // Light and Center
     &.center {
       background-size: cover;
       background-position: center center;
+      background-attachment: fixed;
 
       &:before {
         width: 100%;
@@ -128,7 +129,7 @@
 
       &.dark {
         &:before {
-          @include linearGradient(rgba($black, .85), rgba($black, .85));
+          @include linearGradient(rgba($black, .6), rgba($black, .6));
         }
 
         p.lead {
@@ -137,7 +138,7 @@
 
         .countdown {
           .time {
-            border-color: rgba($white, .3);
+            border-color: rgba($white, .7);
 
             span:not(.value) {
               color: $white;

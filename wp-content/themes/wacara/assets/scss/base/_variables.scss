@@ -23,9 +23,10 @@ $variant_9: #bb5588 !default;
 $variant_10: #bb55bb !default;
 $variant_11: #bb8855 !default;
 $variant_12: #bbbb55 !default;
+$variant_13: #f37236 !default;
 
-$primary_color: $variant_3 !default;
-$primary_alt_color: lighten($primary_color, 10%) !default;
+$primary_color: $variant_13 !default;
+$primary_alt_color: lighten($primary_color, 15%) !default;
 
 $success: #28a745 !default;
 $info: #17a2b8 !default;
