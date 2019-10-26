@@ -1,3 +1,4 @@
 .text-primary {
-  @include gradient-color;
+  color: $primary_color !important;
+  //@include gradient-color;
 }

@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<div class="col-lg-6 bank-item py-3">
 									<input type="radio" name="selected_bank" id="bank_<?php echo esc_attr( $row_num ); ?>" value="<?php echo esc_attr( $row_num ); ?>">
 									<label for="bank_<?php echo esc_attr( $row_num ); ?>">
-										<i class="text-success fa fa-check-circle fa-2x"></i>
+										<i class="text-primary fa fa-check-circle fa-2x"></i>
 										<?php /* translators: %1: bank name &2: branch name */ ?>
 										<p class="name"><?php echo esc_html( sprintf( _x( '%1$s, %2$s', 'Dislaying bank information', 'wacara' ), $account['name'], $account['branch'] ) ); ?></p>
 										<p class="number"><?php echo esc_html( $account['number'] ); ?></p>
