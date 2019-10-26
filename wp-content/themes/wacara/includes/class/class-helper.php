@@ -388,7 +388,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 			$time_format = self::get_time_format();
 			$used_format = $date_format . ( $include_time_in_result ? ' ' . $time_format : '' );
 
-			return $localize ? date_i18n( $used_format, $timestamp ) : date( $used_format, $timestamp );
+			return $localize ? date_i18n( $used_format, $timestamp ) : date_i18n( $used_format, $timestamp );
 		}
 
 		/**
