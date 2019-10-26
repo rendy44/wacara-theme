@@ -73,18 +73,30 @@ if ( ! class_exists( 'Skeleton\Action' ) ) {
 						fputcsv(
 							$fp,
 							[
+								__( 'Booking Code', 'wacara' ),
 								__( 'Name', 'wacara' ),
 								__( 'Email', 'wacara' ),
 								__( 'Company', 'wacara' ),
 								__( 'Position', 'wacara' ),
 								__( 'Phone', 'wacara' ),
 								__( 'Id Number', 'wacara' ),
+								__( 'Status', 'wacara' ),
 							]
 						);
 
 						// Start looping.
 						foreach ( $event->items as $item ) {
-							fputcsv( $fp, $item->participant_data );
+							$used_item = [
+								$item->participant_data['booking_code'],
+								$item->participant_data['name'],
+								$item->participant_data['email'],
+								$item->participant_data['company'],
+								$item->participant_data['position'],
+								$item->participant_data['phone'],
+								$item->participant_data['id_number'],
+								$item->participant_data['readable_reg_status'],
+							];
+							fputcsv( $fp, $used_item );
 						}
 					}
 				}
