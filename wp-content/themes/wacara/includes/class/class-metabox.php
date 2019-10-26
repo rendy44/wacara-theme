@@ -189,11 +189,23 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 		 */
 		public function event_participant_list_metabox_callback() {
 			add_thickbox();
+			global $post;
+			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
+			if ( 'on' === $allow_register ) {
+				?>
+				<div style="text-align: center">
+					<p><?php esc_html_e( 'Click the button below to load all participants', 'wacara' ); ?></p>
+					<button type="button" class="button button-primary load_all_participants"><?php esc_html_e( 'Load Participants', 'wacara' ); ?></button>
+				</div>
+				<?php
+			} else {
+				?>
+				<div style="text-align: center">
+					<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+				</div>
+				<?php
+			}
 			?>
-			<div style="text-align: center">
-				<p><?php esc_html_e( 'Click the button below to load all participants', 'wacara' ); ?></p>
-				<button type="button" class="button button-primary load_all_participants"><?php esc_html_e( 'Load Participants', 'wacara' ); ?></button>
-			</div>
 			<?php
 		}
 
@@ -218,16 +230,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 						'id'     => 'event_general_info',
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name'    => __( 'Language', 'wacara' ),
-								'id'      => $this->meta_prefix . 'language',
-								'type'    => 'select',
-								'desc'    => __( 'Specify language for the event', 'wacara' ),
-								'options' => [
-									''      => __( 'English (United States)', 'wacara' ),
-									'id_ID' => __( 'Bahasa Indonesia', 'wacara' ),
-								],
-							],
 							[
 								'name'        => __( 'Date start', 'wacara' ),
 								'id'          => $this->meta_prefix . 'date_start',
