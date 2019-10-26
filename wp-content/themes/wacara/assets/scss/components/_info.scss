@@ -1,0 +1,55 @@
+//Styling for the about section
+.info {
+  .info-item {
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    @include breakpoint(768) {
+      text-align: left;
+      &:first-child {
+        margin-bottom: 2rem;
+        @include breakpoint(992) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    i.fa {
+      margin-bottom: 1rem;
+
+      &:after {
+        content: '';
+        width: 60px;
+        height: 60px;
+        @include border-radius(50%);
+        background-color: rgba(lighten($primary_color, 10%), .1);
+        position: absolute;
+        top: -25px;
+        left: calc(50% - 10px);
+        @include breakpoint(768) {
+          left: 10px;
+        }
+      }
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 300;
+      @include breakpoint(768) {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    p {
+      text-align: justify;
+      @include breakpoint(768) {
+        text-align: left;
+      }
+
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}

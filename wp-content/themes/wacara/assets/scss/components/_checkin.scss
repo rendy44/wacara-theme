@@ -1,0 +1,12 @@
+section.checkin {
+  height: calc(100vh - 72px);
+
+  .logo {
+    max-width: 220px;
+    max-height: 60px;
+    @include breakpoint(992) {
+      max-width: 280px;
+      max-height: 80px;
+    }
+  }
+}

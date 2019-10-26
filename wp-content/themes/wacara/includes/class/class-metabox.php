@@ -643,26 +643,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name'    => __( 'Color scheme', 'wacara' ),
-								'id'      => $this->meta_prefix . 'color_scheme',
-								'type'    => 'radio',
-								'options' => [
-									'55bb55' => __( 'Color', 'wacara' ),
-									'55bb88' => __( 'Color', 'wacara' ),
-									'55bbbb' => __( 'Color', 'wacara' ),
-									'88bb55' => __( 'Color', 'wacara' ),
-									'5555bb' => __( 'Color', 'wacara' ),
-									'5588bb' => __( 'Color', 'wacara' ),
-									'8855bb' => __( 'Color', 'wacara' ),
-									'bb55bb' => __( 'Color', 'wacara' ),
-									'bb5555' => __( 'Color', 'wacara' ),
-									'bb5588' => __( 'Color', 'wacara' ),
-									'bb8855' => __( 'Color', 'wacara' ),
-									'bbbb55' => __( 'Color', 'wacara' ),
-								],
-								'default' => '66ae66',
-							],
-							[
 								'name'    => __( 'Section order', 'wacara' ),
 								'id'      => $this->meta_prefix . 'section_order',
 								'type'    => 'pw_multiselect',

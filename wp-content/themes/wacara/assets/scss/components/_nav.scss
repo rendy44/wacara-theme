@@ -1,0 +1,112 @@
+//Styling for the top navbar
+nav.navbar {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  @include transition(all .2s);
+
+  a.navbar-brand {
+    img {
+      max-height: 40px;
+      max-width: 120px;
+      object-fit: cover;
+      @include transition(all .2s);
+
+      // Change logo size on large screen
+      @include breakpoint(992) {
+        max-height: 50px;
+        max-width: 160px;
+      }
+    }
+  }
+
+  .navbar-toggler {
+    color: $primary_color;
+  }
+
+  ul.navbar-nav {
+    li.nav-item {
+      a.nav-link {
+        @include transition(all .2s);
+        // Adjust nav item padding on large screen
+        @include breakpoint(992) {
+          padding: .7rem 1.15rem;
+        }
+      }
+
+      &.pricing {
+        a.nav-link {
+          @include breakpoint(992) {
+            border: 1px solid darken($primary_color, 5%);
+            color: $white;
+            background-color: $primary_color;
+            @include border-radius(5px);
+            @include transition(all .2s);
+            &:hover,
+            &:active,
+            &:focus {
+              background-color: lighten($primary_color, 5%);
+              border-color: lighten($primary_color, 5);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.scrolled,
+  &.opened {
+    background-color: $white;
+    @include box-shadow(0, 5px, 10px, rgba($black, .1));
+    //Adjust padding of opened nor scrolled nav on large screen
+    @include breakpoint(992) {
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+    }
+
+    a.navbar-brand {
+      img {
+        max-height: 40px;
+        max-width: 120px;
+        @include opacity(1);
+      }
+    }
+  }
+
+  &.scrolled {
+    &:not(.opened) {
+      padding-top: .75rem !important;
+      padding-bottom: .75rem !important;
+    }
+  }
+
+  &.dark {
+    &:not(.scrolled) {
+      .navbar-brand {
+        img {
+          @include whiteContrast;
+          @include opacity(.7);
+        }
+      }
+
+      .navbar-toggler {
+        border-color: rgba($white, .2);
+      }
+
+      @include breakpoint(992) {
+        ul.navbar-nav {
+          li.nav-item {
+            &:not(.pricing) {
+              a.nav-link {
+                color: rgba($white, .7);
+
+                &:hover {
+                  color: rgba($white, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

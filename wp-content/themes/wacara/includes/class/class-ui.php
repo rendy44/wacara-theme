@@ -500,43 +500,6 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 
 			return $result;
 		}
-
-		/**
-		 * Get event custom theme.
-		 *
-		 * @param bool|string $event_id the id of event.
-		 *
-		 * @return string
-		 */
-		public static function get_event_theme_scheme( $event_id = false ) {
-			$event_id  = $event_id ? $event_id : Helper::get_dirty_current_post_id();
-			$post_type = get_post_type( $event_id );
-			if ( 'event' !== $post_type ) {
-				$event_id = Helper::get_post_meta( 'event_id', $event_id );
-			}
-			$default_color_scheme = '55bb55';
-			$custom_color_scheme  = Helper::get_post_meta( 'color_scheme', $event_id );
-			$path_style           = $custom_color_scheme ? $custom_color_scheme : $default_color_scheme;
-
-			return TEMP_URI . "/assets/css/{$path_style}/app.min.css";
-		}
-
-		/**
-		 * Get event custom locale id.
-		 *
-		 * @param bool|string $event_id the id of event.
-		 *
-		 * @return bool|mixed
-		 */
-		public static function get_event_language_locale( $event_id ) {
-			$locale        = false;
-			$custom_locale = Helper::get_post_meta( 'language', $event_id );
-			if ( $custom_locale ) {
-				$locale = $custom_locale;
-			}
-
-			return $locale;
-		}
 	}
 }
 

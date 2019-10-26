@@ -1,5 +1,10 @@
+//Styling for the masthead
 .masthead {
   height: 220px;
+  position: relative;
+  background-color: $white;
+  //background-color: rgba(lighten($primary_color, 40%), .9);
+  z-index: 2;
 
   .container {
     .row {
@@ -7,7 +12,7 @@
     }
   }
 
-  @include breakpoint($breakpoint-md) {
+  @include breakpoint(768) {
     height: 300px;
     .container {
       .row {
@@ -16,8 +21,150 @@
     }
   }
 
-  h1,
-  h2 {
+  h1, h2 {
     font-weight: 200;
+  }
+
+  h1 {
+    color: $primary_color;
+    @include gradient-color;
+
+    span {
+      display: block;
+      font-weight: 600;
+    }
+
+    @include breakpoint(768) {
+      font-size: 3rem;
+    }
+
+    @include breakpoint(992) {
+      font-size: 3.5rem;
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .countdown {
+    .time {
+      width: 25%;
+
+      &:not(:last-child) {
+        border-right: 1px solid rgba($black, .07);
+      }
+
+      span {
+        line-height: 1.5;
+        font-weight: 200;
+
+        &.value {
+          color: $primary_color;
+          font-size: 2.5rem;
+          @include gradient-color;
+          mix-blend-mode: multiply;
+        }
+
+        &:not(.value) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &:not(.small) {
+    height: 100vh;
+    min-height: 500px;
+    background-repeat: no-repeat;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      @include linearGradient(rgba(lighten($primary_color, 32%), .9), rgba(lighten($primary_alt_color, 32%), .9));
+      // Adjust masthead's overlay width and opacity on large screen
+      @include breakpoint(992) {
+        width: 50%;
+        @include opacity(.6);
+      }
+    }
+
+    &.half {
+      background-size: auto 80%;
+      background-position: bottom right;
+
+      &.right {
+        background-position: bottom left;
+
+        &:before {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+
+    &.center {
+      background-size: cover;
+      background-position: center center;
+
+      &:before {
+        width: 100%;
+        opacity: 1;
+        @include linearGradient(rgba(lighten($primary_color, 32%), .95), rgba(lighten($primary_alt_color, 32%), .95));
+      }
+
+      .countdown {
+        .time {
+          border-color: rgba($white, .3);
+
+          .value {
+            @include gradient-color(darken($primary_color, 20%), darken($primary_alt_color, 20%));
+          }
+        }
+      }
+
+      &.dark {
+        &:before {
+          @include linearGradient(rgba($black, .85), rgba($black, .85));
+        }
+
+        p.lead {
+          color: $white;
+        }
+
+        .countdown {
+          .time {
+            border-color: rgba($white, .3);
+
+            span:not(.value) {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+
+    &.text-left {
+      .countdown {
+        .time {
+          &:not(:first-child) {
+            padding-left: 1.5rem;
+          }
+        }
+      }
+    }
+
+    &.text-right {
+      .countdown {
+        .time {
+          &:not(:last-child) {
+            padding-right: 1.5rem;
+          }
+        }
+      }
+    }
   }
 }

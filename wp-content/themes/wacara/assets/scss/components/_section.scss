@@ -1,0 +1,45 @@
+// Global styling for all sections
+section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  &:not(.small) {
+    @include breakpoint(768) {
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
+    }
+    @include breakpoint(992) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+    @include breakpoint(1200) {
+      padding-top: 7.5rem;
+      padding-bottom: 7.5rem;
+    }
+  }
+
+  h2.section-heading {
+    font-size: 1.8rem;
+    font-weight: 300;
+    @include gradient-color;
+
+    @include breakpoint(768) {
+      font-size: 2.1rem;
+    }
+
+    @include breakpoint(992) {
+      font-size: 2.4rem;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: rgba(lighten($primary_color, 10%), .1);
+      @include border-radius(50%);
+      top: -25px;
+      right: calc(50% - 30px);
+    }
+  }
+}

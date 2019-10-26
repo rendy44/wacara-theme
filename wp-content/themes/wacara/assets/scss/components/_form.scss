@@ -14,10 +14,10 @@ label.error {
 h1.amount {
   font-weight: 400;
   font-size: 1.5rem;
-  @include breakpoint($breakpoint-md) {
+  @include breakpoint(768) {
     font-size: 2rem;
   }
-  @include breakpoint($breakpoint-lg) {
+  @include breakpoint(768) {
     font-size: 2.5rem;
   }
 }

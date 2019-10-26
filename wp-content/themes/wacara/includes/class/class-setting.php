@@ -84,28 +84,6 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 
 			// Load translation files.
 			add_action( 'after_setup_theme', [ $this, 'wacara_language_domain_callback' ] );
-
-			// Set custom locale.
-			add_filter( 'locale', [ $this, 'set_locale_callback' ] );
-		}
-
-		/**
-		 * Callback for setting event locale.
-		 *
-		 * @param string $locale current local id.
-		 *
-		 * @return string
-		 */
-		public function set_locale_callback( $locale ) {
-			$event_id = Helper::get_dirty_current_post_id();
-			if ( $event_id ) {
-				$event_language = UI::get_event_language_locale( $event_id );
-				if ( $event_language ) {
-					$locale = $event_language;
-				}
-			}
-
-			return $locale;
 		}
 
 		/**

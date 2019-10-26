@@ -1,0 +1,18 @@
+#registration-form {
+  .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    @include breakpoint(768) {
+      background-color: $white;
+      margin-top: -70px;
+      position: relative;
+      z-index: 3;
+      @include box-shadow();
+      @include border-radius(5px);
+      padding: 3rem 2rem;
+      .row {
+
+      }
+    }
+  }
+}
