@@ -151,7 +151,7 @@
                                 </ol>
                                 <div class="callout-block callout-success">
                                     <div class="icon-holder">
-                                        <i class="fas fa-thumbs-up"></i>
+                                        <i class="fas fa-info-circle"></i>
                                     </div><!--//icon-holder-->
                                     <div class="content">
                                         <h4 class="callout-title">Important:</h4>
@@ -159,370 +159,167 @@
                                     </div><!--//content-->
                                 </div>
                             </div><!--//section-block-->
-                            <div id="html" class="section-block">
-                                <div class="code-block">
-                                    <h6>HTML Code Example</h6>
-                                    <pre><code class="language-markup">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-    ...
-    &lt;div class=&quot;jumbotron&quot;&gt;
-        &lt;h1&gt;Hello, world!&lt;/h1&gt;
-        &lt;p&gt;...&lt;/p&gt;
-        &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;jumbotron&quot;&gt;
-        &lt;h1&gt;Hello, world!&lt;/h1&gt;
-        &lt;p&gt;...&lt;/p&gt;
-        &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt;
-    &lt;/div&gt;
-    ...
-&lt;/html&gt;</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="css" class="section-block">
-                                <div class="code-block">
-                                    <h6>CSS Code Example</h6>
-                                    <pre><code class="language-css">/* ======= Base Styling ======= */
-body {
-    font-family: 'Open Sans', arial, sans-serif;
-    color: #333;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="sass" class="section-block">
-                                <div class="code-block">
-                                    <h6>SCSS Code Example</h6>
-                                    <pre><code class="language-css">@mixin transform($property) {
-  -webkit-transform: $property;
-      -ms-transform: $property;
-          transform: $property;
-}
+                            <!--                            <div id="php" class="section-block">-->
+                            <!--                                <div class="code-block">-->
+                            <!--                                    <h6>PHP Code Example</h6>-->
+                            <!--                                    <pre><code class="language-php">&lt;?php-->
+                            <!--$txt = &quot;Hello world!&quot;;-->
+                            <!--$x = 5;-->
+                            <!--$y = 10.5;-->
 
-.box { @include transform(rotate(30deg)); }</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="less" class="section-block">
-                                <div class="code-block">
-                                    <h6>LESS Code Example</h6>
-                                    <pre><code class="language-css">@base: #f04615;
-@width: 0.5;
-
-.class {
-  width: percentage(@width); // returns &#x60;50%&#x60;
-  color: saturate(@base, 5%);
-  background-color: spin(lighten(@base, 25%), 8);
-}</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="javascript" class="section-block">
-                                <div class="code-block">
-                                    <h6>JavaScript Code Example</h6>
-                                    <pre><code class="language-javascript">&lt;script&gt;
-    function myFunction(a, b) {
-        return a * b;
-    }
-
-    document.getElementById(&quot;demo&quot;).innerHTML = myFunction(4, 3);
-&lt;/script&gt;</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="python" class="section-block">
-                                <div class="code-block">
-                                    <h6>Python Code Example</h6>
-                                    <pre><code class="language-python">&gt;&gt;&gt; x = int(input(&quot;
-Please enter an integer: &quot;)) Please enter an integer: 42
-&gt;&gt;&gt; if x &lt; 0:
-... x = 0
-... print('Negative changed to zero')
-... elif x == 0:
-... print('Zero')
-... elif x == 1:
-... print('Single')
-... else:
-... print('More')
-... More</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="php" class="section-block">
-                                <div class="code-block">
-                                    <h6>PHP Code Example</h6>
-                                    <pre><code class="language-php">&lt;?php
-$txt = &quot;Hello world!&quot;;
-$x = 5;
-$y = 10.5;
-
-echo $txt;
-echo &quot;&lt;br&gt;&quot;;
-echo $x;
-echo &quot;&lt;br&gt;&quot;;
-echo $y;
-?&gt;</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
-                            <div id="handlebars" class="section-block">
-                                <div class="code-block">
-                                    <h6>Handlebars Code Example</h6>
-                                    <pre><code class="language-handlebars">Handlebars.registerHelper('list', function(items, options) {
-  var out = &quot;&lt;ul&gt;&quot;;
-
-  for(var i=0, l=items.length; i&lt;l; i++) {
-    out = out + &quot;&lt;li&gt;&quot; + options.fn(items[i]) + &quot;&lt;/li&gt;&quot;;
-  }
-
-  return out + &quot;&lt;/ul&gt;&quot;;
-});</code></pre>
-                                </div><!--//code-block-->
-                                <div class="code-block">
-                                    <h6>Git Code Example</h6>
-                                    <pre><code class="language-git">$ git add Documentation.txt</code></pre>
-                                </div><!--//code-block-->
-                            </div><!--//section-block-->
+                            <!--echo $txt;-->
+                            <!--echo &quot;&lt;br&gt;&quot;;-->
+                            <!--echo $x;-->
+                            <!--echo &quot;&lt;br&gt;&quot;;-->
+                            <!--echo $y;-->
+                            <!--?&gt;</code></pre>-->
+                            <!--                                </div>&lt;!&ndash;//code-block&ndash;&gt;-->
+                            <!--                            </div>-->
                         </section><!--//doc-section-->
-                        <section id="callouts-section" class="doc-section">
-                            <h2 class="section-title">Callouts</h2>
+                        <section id="event-section" class="doc-section">
+                            <h2 class="section-title">Event</h2>
                             <div class="section-block">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                                <p>
+                                    <i>Event</i> is the main feature of this theme, but this menu itself can not go live without these requirements. As being said, we have to complete these requirements first before creating the event.
+                                    Those requirements are <a class="scrollto" href="#header-section">Header</a>,
+                                    <a class="scrollto" href="#location-section">Locations</a>,
+                                    <a class="scrollto" href="#speaker-section">Speakers</a>, and
+                                    <a class="scrollto" href="#price-section">Prices</a>.</p>
+                                <p>Actually those requirements aim is really simple that you can not create
+                                    <i>event</i> before creating <i>headers</i>, <i>locations</i>, <i>speakers</i>, and
+                                    <i>prices</i>.
+                                    Go check them all and back to this section once you have done.
                                 </p>
+                                <p>First of all, congratulation for completing the creation of <i>headers</i>,
+                                    <i>locations</i>, <i>speakers</i>, and
+                                    <i>prices</i>. At this point you will create your first event for real.</p>
+                                <p>Basically,
+                                    <i>event</i> has three metaboxes for configuring the event as your desire, they are
+                                    <i>Details</i>, <i>Schedule</i>, and
+                                    <i>Designs</i>. And we will talk about each one of them.</p>
                             </div>
-
-                            <div class="section-block">
-                                <div class="callout-block callout-info">
-                                    <div class="icon-holder">
-                                        <i class="fas fa-info-circle"></i>
-                                    </div><!--//icon-holder-->
-                                    <div class="content">
-                                        <h4 class="callout-title">Aenean imperdiet</h4>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                            <code>&lt;code&gt;</code> , Nemo enim ipsam voluptatem quia voluptas
-                                            <a href="#">link example</a> sit aspernatur aut odit aut fugit.</p>
-                                    </div><!--//content-->
-                                </div><!--//callout-block-->
-
-                                <div class="callout-block callout-warning">
-                                    <div class="icon-holder">
-                                        <i class="fas fa-bug"></i>
-                                    </div><!--//icon-holder-->
-                                    <div class="content">
-                                        <h4 class="callout-title">Morbi posuere</h4>
-                                        <p>Nunc hendrerit odio quis dignissim efficitur. Proin ut finibus libero. Morbi posuere fringilla felis eget sagittis. Fusce sem orci, cursus in tortor
-                                            <a href="#">link example</a> tellus vel diam viverra elementum.</p>
-                                    </div><!--//content-->
-                                </div><!--//callout-block-->
-
-                                <div class="callout-block callout-success">
-                                    <div class="icon-holder">
-                                        <i class="fas fa-thumbs-up"></i>
-                                    </div><!--//icon-holder-->
-                                    <div class="content">
-                                        <h4 class="callout-title">Lorem ipsum dolor sit amet</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                            <a href="#">Link example</a> aenean commodo ligula eget dolor.</p>
-                                    </div><!--//content-->
-                                </div><!--//callout-block-->
-
-                                <div class="callout-block callout-danger">
-                                    <div class="icon-holder">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div><!--//icon-holder-->
-                                    <div class="content">
-                                        <h4 class="callout-title">Interdum et malesuada</h4>
-                                        <p>Morbi eget interdum sapien. Donec sed turpis sed nulla lacinia accumsan vitae ut tellus. Aenean vestibulum
-                                            <a href="#">Link example</a> maximus ipsum vel dignissim. Morbi ornare elit sit amet massa feugiat, viverra dictum ipsum pellentesque.
-                                        </p>
-                                    </div><!--//content-->
-                                </div><!--//callout-block-->
+                            <div id="detail-event" class="section-block">
+                                <h3 class="block-title">Details</h3>
+                                <p>In this metabox we will separate into three different tabs, <i>General</i>,
+                                    <i>Rules</i>, and <i>Fields</i>.</p>
+                                <h5>General</h5>
+                                <p>This tab contains few fields that will be explained below.</p>
+                                <ul>
+                                    <li>
+                                        <strong>Date start</strong>, is field to configure when the event will be started. This field also has responsibility to the countdown in header section.
+                                    </li>
+                                    <li>
+                                        <strong>Single day</strong>, as its name, whether we want to create an event that will be held in one day or multiple day. If
+                                        <strong>Single day</strong> is checked, it will reproduce another field which is called
+                                        <strong>Time end</strong>. The field is used to save information when the event will be ended.
+                                        In another hand, if
+                                        <strong>Single day</strong> is not checked, it will also reproduce a field called
+                                        <strong>Date end</strong>. it's opposite from
+                                        <strong>Date start</strong>, which is to save the date end time of when the event will be ended.
+                                    </li>
+                                </ul>
+                                <h5>Rules</h5>
+                                <p>This tab only contains one main field, that is
+                                    <strong>Allow register</strong>, if you check this option you will allow the user to register to your event. In another hand, if you uncheck this option you will not allow user to register to your event. This option will useful if you are organizing free public event which does not require any registration.
+                                    Moreover, if you activate the
+                                    <i>Allow register</i>, it will produce one more field that's called
+                                    <strong>Limit register</strong>.
+                                    Just like its name, the field will add more flexibility to the event whether you want to create an event with limited seats or limited registration time. Currently we can limit the registration by two fields,
+                                    <strong>By participant</strong>, and <strong>By date</strong>.
+                                </p>
+                                <h5>Fields</h5>
+                                <p>In this tab you can configure the fields of your event's registration form.</p>
+                                <p>Basically, every field has three options, whether include the field on the registration form or not, set the field as mandatory, and set the label of the field. But there are two fields that you can not exclude, they are
+                                    <strong>Email</strong> and <strong>Name</strong>.</p>
+                            </div>
+                            <div id="schedule-event" class="section-block">
+                                <h3 class="block-title">Schedule</h3>
+                                <p>You can display the information of the event's rundown from the start until the finish. You can add as many timeline as you desire, and each timeline has three fields, they are
+                                    <i>Period</i>, <i>Title</i>, and <i>Content</i>.</p>
+                                <p>Schedule uses repeater field, it means you can create schedule item as many as you want. And in order to add more items click
+                                    <i>Add Schedule</i></p>
+                            </div>
+                            <div id="design-event" class="section-block">
+                                <h3 class="block-title">Design</h3>
+                                <p>This metabox has eight different tabs, mostly they are representing the layout of the event's landing page. Those tabs are
+                                    <strong>General</strong>, <strong>About section</strong>,
+                                    <strong>Speakers section</strong>,
+                                    <strong>Venue section</strong>, <strong>Gallery section</strong>,
+                                    <strong>Sponsors section</strong>,
+                                    <strong>Schedule section</strong>, and <strong>Pricing section</strong>.</p>
+                                <h5>General</h5>
+                                <p>This tab contains four fields that will be explained below:</p>
+                                <ul>
+                                    <li>
+                                        <strong>Section order</strong>, this means you an adjust the order of sections in your event's landing page. You can even drop not desired section. But keep in mind, header will always remain in the top.
+                                    </li>
+                                    <li>
+                                        <strong>Main logo</strong>, you can adjust the logo for each event. and if you leave the field empty your event will use logo of your site which is you have already set it from options.
+                                    </li>
+                                    <li>
+                                        <strong>Header</strong>, you can design the header differently from one to another, you can learn more about header
+                                        <a href="#header-section" class="scrollto">here</a>.
+                                    </li>
+                                    <li>
+                                        <strong>Background</strong>, just in case you want use use the same
+                                        <i>header</i> template from previous created header but you want to modify the background image. But you can always leave it empty to exactly use the same as previous created
+                                        <i>header</i>.
+                                    </li>
+                                </ul>
+                                <p>Before we move further, next part we will walk through the available options for each sections. And all of them have three common fields, they are:</p>
+                                <ul>
+                                    <li><strong>Nav title</strong>, whether you want to make a
+                                        <i>shortcut to your section from your nav bar, just put the nav title and it will create a shortcut to the respective section. In another hand, if you leave it empty you won't see the shortcut in the nav bar.</i>
+                                    </li>
+                                    <li>
+                                        <strong>Title</strong>, maybe you want to name all your sections with your own word, just write the title in this field.
+                                    </li>
+                                    <li>
+                                        <strong>Subtitle</strong>, this is an additional field you can use to create little bit more explanation to the section.
+                                    </li>
+                                </ul>
+                                <h5>About Section</h5>
+                                <p>Beside the common fields we have mentioned above, this tab has one more field which is
+                                    <i>Description</i>. You can write a short description about the event and it will be displayed in about section alongside date information and location information.
+                                </p>
+                                <h5>Speakers Section</h5>
+                                <p>This tab also has one more field, which is
+                                    <i>Speakers</i>, where you can select lists of speakers that you have created before. For more detail about speakers, please refer to
+                                    <a href="#speaker-section" class="scrollto">this</a> section </p>
+                                <h5>Venue Section</h5>
+                                <p>Just like two tabs above, this tab also has one field which is
+                                    <i>Location</i>, where you can select one location you have created before. To learn more about
+                                    <i>location</i> please refer to
+                                    <a href="#location-section" class="scrollto">this</a> section</p>
+                                <h5>Gallery Section</h5>
+                                <p>This tab also has one field called
+                                    <i>Gallery</i>, where you can put bunch of images related to the event, you can select any images.
+                                </p>
+                                <h5>Sponsors Section</h5>
+                                <p>This tab exactly is identical with last tab above, only contain one field for image lists, the only different is the name of the field, which is called
+                                    <i>Sponsors</i>. This field is used to display list of sponsor logos of the event.
+                                </p>
+                                <h5>Schedule Section</h5>
+                                <p>This tab does not have any field except three common fields above. This tab has its own metabox instead, the metabox called
+                                    <a href="#schedule-event" class="scrollto"><i>Schedule</i></a>.</p>
+                                <h5>Pricing Section</h5>
+                                <p>Last but not least, this tab has major role related to the registration. This tab has one field called
+                                    <strong>Pricing</strong>, which is a list of package/tier of the registration. You can select lists of pricing that you have created before. To learn more about pricing, please refer to
+                                    <a href="#price-section" class="scrollto">this</a> section.</p>
                             </div>
                         </section><!--//doc-section-->
-                        <section id="tables-section" class="doc-section">
-                            <h2 class="section-title">Tables</h2>
-                            <div class="section-block">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.
-                                </p>
-                            </div>
-                            <div class="section-block">
-                                <h6>Basic Table</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div><!--//table-responsive-->
-                                <h6>Striped Table</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div><!--//table-responsive-->
-                                <h6>Bordered Table</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div><!--//table-responsive-->
-                            </div><!--//section-block-->
-                        </section><!--//doc-section-->
-                        <section id="buttons-section" class="doc-section">
-                            <h2 class="section-title">Buttons</h2>
-                            <div class="section-block">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec imperdiet turpis. Curabitur aliquet pulvinar ultrices. Etiam at posuere leo. Proin ultrices ex et dapibus feugiat
-                                    <a href="#">link example</a> aenean purus leo, faucibus at elit vel, aliquet scelerisque dui. Etiam quis elit euismod, imperdiet augue sit amet, imperdiet odio. Aenean sem erat, hendrerit eu gravida id, dignissim ut ante. Nam consequat porttitor libero euismod congue.
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <h6>Basic Buttons</h6>
-                                        <ul class="list list-unstyled">
-                                            <li><a href="#" class="btn btn-primary">Primary Button</a></li>
-                                            <li><a href="#" class="btn btn-green">Green Button</a></li>
-                                            <li><a href="#" class="btn btn-blue">Blue Button</a></li>
-                                            <li><a href="#" class="btn btn-orange">Orange Button</a></li>
-                                            <li><a href="#" class="btn btn-red">Red Button</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <h6>CTA Buttons</h6>
-                                        <ul class="list list-unstyled">
-                                            <li>
-                                                <a href="#" class="btn btn-primary btn-cta"><i class="fas fa-download"></i> Download Now</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="btn btn-green btn-cta"><i class="fas fa-code-branch"></i> Fork Now</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="btn btn-blue btn-cta"><i class="fas fa-play-circle"></i> Find Out Now</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="btn btn-orange btn-cta"><i class="fas fa-bug"></i> Report Bugs</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="btn btn-red btn-cta"><i class="fas fa-exclamation-circle"></i> Submit Issues</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!--//row-->
-                            </div><!--//section-block-->
-                        </section><!--//doc-section-->
-                        <section id="video-section" class="doc-section">
-                            <h2 class="section-title">Video</h2>
-                            <div class="section-block">
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <h6>Responsive Video 16:9</h6>
-                                        <!-- 16:9 aspect ratio -->
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ejBkOjEG6F0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <h6>Responsive Video 4:3</h6>
-                                        <!-- 4:3 aspect ratio -->
-                                        <div class="embed-responsive embed-responsive-4by3">
-                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ejBkOjEG6F0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div><!--//row-->
-                            </div><!--//section-block-->
-                            <section id="icons-section" class="doc-section">
-                                <h2 class="section-title">Icons</h2>
-                                <div class="section-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec imperdiet turpis. Curabitur aliquet pulvinar ultrices. Etiam at posuere leo. Proin ultrices ex et dapibus feugiat
-                                        <a href="#">link example</a> aenean purus leo, faucibus at elit vel, aliquet scelerisque dui. Etiam quis elit euismod, imperdiet augue sit amet, imperdiet odio. Aenean sem erat, hendrerit eu gravida id, dignissim ut ante. Nam consequat porttitor libero euismod congue.
-                                    </p>
-                                </div><!--//section-block-->
-                                <div class="section-block">
-                                    <h6>Elegant Icon Font</h6>
-                                    <a href="https://www.elegantthemes.com/blog/resources/elegant-icon-font" target="_blank"><img class="img-fluid" src="assets/images/demo/elegant-icon-font.jpg" alt="elegant icons"/></a>
-                                </div><!--//section-block-->
-                                <div class="section-block">
-                                    <h6>FontAwesome Icon Font</h6>
-                                    <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank"><img class="img-fluid" src="assets/images/demo/fontawesome-icons.png" alt="fontawesome"/></a>
-                                </div><!--//section-block-->
-
-                            </section><!--//doc-section-->
-
-                        </section><!--//doc-section-->
+                        <section id="header-section" class="doc-section">
+                            <h3 class="block-title">Header</h3>
+                        </section>
+                        <section id="location-section" class="doc-section">
+                            <h3 class="block-title">Location</h3>
+                        </section>
+                        <section id="speaker-section" class="doc-section">
+                            <h3 class="block-title">Speaker</h3>
+                        </section>
+                        <section id="price-section" class="doc-section">
+                            <h3 class="block-title">Price</h3>
+                        </section>
                     </div><!--//content-inner-->
                 </div><!--//doc-content-->
                 <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
@@ -540,11 +337,16 @@ echo $y;
                                 <a class="nav-link scrollto" href="#general-config">General</a>
                                 <a class="nav-link scrollto" href="#payment-config">Payment</a>
                             </nav><!--//nav-->
-                            <a class="nav-link scrollto" href="#callouts-section">Callouts</a>
-                            <a class="nav-link scrollto" href="#tables-section">Tables</a>
-                            <a class="nav-link scrollto" href="#buttons-section">Buttons</a>
-                            <a class="nav-link scrollto" href="#video-section">Video</a>
-                            <a class="nav-link scrollto" href="#icons-section">Icons</a>
+                            <a class="nav-link scrollto" href="#event-section">Event</a>
+                            <nav class="doc-sub-menu nav flex-column">
+                                <a class="nav-link scrollto" href="#detail-event">Detail</a>
+                                <a class="nav-link scrollto" href="#schedule-event">Schedule</a>
+                                <a class="nav-link scrollto" href="#design-event">Design</a>
+                            </nav><!--//nav-->
+                            <a class="nav-link scrollto" href="#header-section">Header</a>
+                            <a class="nav-link scrollto" href="#location-section">Location</a>
+                            <a class="nav-link scrollto" href="#speaker-section">Speaker</a>
+                            <a class="nav-link scrollto" href="#price-section">Price</a>
                         </nav><!--//doc-menu-->
 
                     </div>
