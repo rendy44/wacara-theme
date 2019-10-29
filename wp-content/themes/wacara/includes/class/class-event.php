@@ -333,6 +333,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				'posts_per_page' => - 1,
 				'orderby'        => 'date',
 				'order'          => 'desc',
+				'fields'         => 'ids',
 				'meta_query'     => [ // phpcs:ignore
 					[
 						'key'   => $key . 'event_id',
@@ -365,8 +366,7 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 					$query_all_participants->the_post();
 
 					// Instance the participant.
-					$participant   = new Participant( get_the_ID() );
-					$this->items[] = $participant;
+					$this->items[] = new Participant( get_the_ID() );
 				}
 				$this->success = true;
 			} else {
