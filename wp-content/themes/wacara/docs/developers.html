@@ -52,6 +52,128 @@
                             </div>
                         </section><!--//doc-section-->
 
+                        <section id="participant-section" class="doc-section">
+                            <h2 class="section-title">Participant</h2>
+                            <div class="pt-3">
+                                <p>List of useful actions and filter related to participants.</p>
+                            </div>
+                            <div class="section-block">
+                                <h3 class="block-title">Actions</h3>
+                                <div class="code-block">
+                                    <h6>Before creating participant in database</h6>
+                                    <p>Small description about the code.</p>
+                                    <pre class="language-php"><code>
+/**
+ * Perform action before creating participant
+ *
+ * @param array $args setting for creating new post.
+ */
+do_action( 'wacara_before_creating_participant', $args );
+                                        </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform action after creating participant
+ *
+ * @param array        $args            setting for creating new post.
+ * @param int|WP_Error $new_participant result of newly created participant.
+ */
+do_action( 'wacara_after_creating_participant', $args, $new_participant );
+                                        </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform actions after creating participant qrcode.
+ *
+ * @param string $participant_id participant id.
+ * @param string $qrcode_uri     the url of generated qrcode.
+ */
+do_action( 'wacara_after_creating_participant_qrcode', $participant_id, $qrcode_uri );
+                                    </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform action before participant checkin.
+ *
+ * @param string $participant_id id of participant that will be check-in.
+ */
+do_action( 'wacara_before_participant_checkin', $participant_id );
+                                    </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform action after participant checkin.
+ *
+ * @param string $participant_id id of participant that just checked-in.
+ */
+do_action( 'wacara_after_participant_checkin', $participant_id );
+                                    </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform action when participant status changed.
+ *
+ * @param string $participant_id the participant id.
+ * @param string $status         the new status of participant.
+ * @param string $old_status     the old status of participant.
+ */
+do_action( 'wacara_after_setting_participant_status', $participant_id, $status, $old_status );
+                                    </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform actions before confirming payment
+ *
+ * @param string $participant_id the participant id.
+ */
+do_action( 'wacara_before_confirming_payment', $participant_id );
+                                    </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform actions after confirming payment.
+ *
+ * @param string $participant_id the participant id.
+ */
+do_action( 'wacara_after_confirming_payment', $participant_id );
+                                    </code></pre>
+                                </div>
+                            </div>
+                            <div class="section-block">
+                                <h3 class="block-title">Filters</h3>
+                                <div class="code-block">
+                                    <h6>Before creating participant in database</h6>
+                                    <p>Small description about the code.</p>
+                                    <pre class="language-php"><code>
+/**
+ * Perform the filter to modify participant key.
+ *
+ * @param string $participant_key participant random key.
+ */
+apply_filters( 'wacara_filter_participant_key', $participant_key );
+                                        </code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre class="language-php"><code>
+/**
+ * Perform filter to modify participant publishable key.
+ *
+ * @param string $booking_code    the original publishable key.
+ * @param string $event_id        event id of the participant.
+ * @param int    $new_participant id number of newly created participant.
+ */
+$booking_code = apply_filters( 'wacara_filter_participant_booking_code', $booking_code, $event_id, $new_participant );
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </section>
                     </div><!--//content-inner-->
                 </div><!--//doc-content-->
                 <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
@@ -59,6 +181,7 @@
 
                         <nav id="doc-menu" class="nav doc-menu flex-column sticky">
                             <a class="nav-link scrollto" href="#event-section">Event</a>
+                            <a class="nav-link scrollto" href="#participant-section">Participant</a>
                             <a class="nav-link scrollto" href="#installation-section">Installation</a>
                             <nav class="doc-sub-menu nav flex-column">
                                 <a class="nav-link scrollto" href="#without-ftp">Without FTP</a>
