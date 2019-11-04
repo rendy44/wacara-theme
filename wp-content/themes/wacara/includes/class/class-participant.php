@@ -66,7 +66,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					 *
 					 * @param string $participant_key participant random key.
 					 */
-					apply_filters( 'wacara_filter_participant_key', $participant_key );
+					$participant_key = apply_filters( 'wacara_filter_participant_key', $participant_key );
 
 					/**
 					 * Perform action before creating participant
