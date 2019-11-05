@@ -37,6 +37,7 @@ if ( ! defined( 'Skeleton\Result' ) ) {
 		 * @var array
 		 */
 		public $items = [];
+
 		/**
 		 * Callback to display another response.
 		 *
@@ -45,9 +46,10 @@ if ( ! defined( 'Skeleton\Result' ) ) {
 		public $callback = '';
 
 		/**
-		 * Result constructor.
+		 * Max num pages of loop.
+		 *
+		 * @var int
 		 */
-		public function __construct() {
-		}
+		public $max_num_pages = 0;
 	}
 }

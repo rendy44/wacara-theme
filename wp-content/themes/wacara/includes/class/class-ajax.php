@@ -164,6 +164,12 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 		public function list_participants_callback() {
 			$result   = new Result();
 			$event_id = Helper::get( 'id' );
+			$page     = Helper::get( 'page' );
+
+			// Maybe validate the page.
+			if ( ! $page ) {
+				$page = 1;
+			}
 
 			// Validate the inputs.
 			if ( $event_id ) {
@@ -172,7 +178,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				$result = new Event( $event_id );
 
 				// Run the method to fetch all participants.
-				$result->get_all_participants_by_registration_status();
+				$result->get_all_participants_by_registration_status( $page );
 
 				// Get column name for csv.
 				$result->callback = [

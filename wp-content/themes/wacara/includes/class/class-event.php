@@ -310,13 +310,17 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 
 		/**
 		 * Get all participants by registration status.
+		 *
+		 * @param int $page the current page.
 		 */
-		public function get_all_participants_by_registration_status() {
+		public function get_all_participants_by_registration_status( $page = 1 ) {
 			$key = TEMP_PREFIX;
 			$this->get_all_participants(
 				[
-					'meta_key' => $key . 'reg_status', // phpcs:ignore
-					'orderby'  => 'meta_value',
+					'paged'          => $page,
+					'posts_per_page' => 50,
+					'meta_key'       => $key . 'reg_status', // phpcs:ignore
+					'orderby'        => 'meta_value',
 				]
 			);
 		}
@@ -361,6 +365,9 @@ if ( ! class_exists( 'Skeleton\Event' ) ) {
 				// Save the query to transient.
 				set_transient( $transient_key, $query_all_participants, HOUR_IN_SECONDS );
 			}
+
+			// Update the maximum num pages variable.
+			$this->max_num_pages = $query_all_participants->max_num_pages;
 
 			if ( $query_all_participants->have_posts() ) {
 				while ( $query_all_participants->have_posts() ) {

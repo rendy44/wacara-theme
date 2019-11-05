@@ -47,7 +47,6 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 		 * @param string $post_type post type.
 		 */
 		public function __construct( $post_id, $post_type = 'post' ) {
-			parent::__construct();
 
 			// Validate the post.
 			if ( get_post_type( $post_id ) === $post_type ) {
