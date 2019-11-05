@@ -18,12 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Payment' ) ) {
+
 	/**
 	 * Class Payment
 	 *
 	 * @package Skeleton
 	 */
 	class Payment {
+
 		/**
 		 * Options variable.
 		 *

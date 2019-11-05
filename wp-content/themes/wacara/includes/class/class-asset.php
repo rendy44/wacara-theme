@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\Skeleton\Asset' ) ) {
+
 	/**
 	 * Class Asset
 	 *
@@ -26,18 +27,21 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 * @var null
 		 */
 		private static $instance = null;
+
 		/**
 		 * Theme version variable.
 		 *
 		 * @var string
 		 */
 		private $version = '';
+
 		/**
 		 * Variable to mapping all css in front-end
 		 *
 		 * @var array
 		 */
 		private $front_css = [];
+
 		/**
 		 * Variable to mapping all js in front-end
 		 *
@@ -51,6 +55,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		 * @var array
 		 */
 		private $admin_css = [];
+
 		/**
 		 * Variable for mapping all js in admin
 		 *

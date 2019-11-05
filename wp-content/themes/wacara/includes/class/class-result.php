@@ -9,24 +9,28 @@
 namespace Skeleton;
 
 if ( ! defined( 'Skeleton\Result' ) ) {
+
 	/**
 	 * Class Result
 	 *
 	 * @package Skeleton
 	 */
 	class Result {
+
 		/**
 		 * Whether to request return success or false.
 		 *
 		 * @var bool
 		 */
 		public $success = false;
+
 		/**
 		 * Display error message.
 		 *
 		 * @var string
 		 */
 		public $message = '';
+
 		/**
 		 * Return array on success request.
 		 *

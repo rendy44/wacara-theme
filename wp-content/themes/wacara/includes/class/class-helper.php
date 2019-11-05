@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\Skeleton\Helper' ) ) {
+
 	/**
 	 * Class Helper
 	 *
@@ -63,6 +64,7 @@ if ( ! class_exists( '\Skeleton\Helper' ) ) {
 					$number_pages = 1;
 				}
 			}
+
 			/**
 			 * We construct the pagination arguments to enter into our paginate_links
 			 * function.

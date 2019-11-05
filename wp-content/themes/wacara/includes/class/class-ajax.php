@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Ajax' ) ) {
+
 	/**
 	 * Class Ajax
 	 *
 	 * @package Skeleton
 	 */
 	class Ajax {
+
 		/**
 		 * Instance variable
 		 *

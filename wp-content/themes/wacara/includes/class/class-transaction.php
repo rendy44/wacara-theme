@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Transaction' ) ) {
+
 	/**
 	 * Class Transaction
 	 *

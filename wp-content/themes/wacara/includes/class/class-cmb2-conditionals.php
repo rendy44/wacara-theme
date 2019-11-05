@@ -59,6 +59,7 @@ if ( ! class_exists( 'Skeleton\CMB2_Conditionals', false ) ) {
 		 * @var null
 		 */
 		private static $instance = null;
+
 		/**
 		 * Priority on which our actions are hooked in.
 		 *

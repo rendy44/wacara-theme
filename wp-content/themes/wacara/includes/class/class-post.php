@@ -58,7 +58,8 @@ if ( ! class_exists( 'Skeleton\Post' ) ) {
 				// Update the result.
 				$this->success = true;
 			} else {
-				$this->message = __( 'The given id is not a valid id', 'wacara' );
+				/* translators: 1: post tye */
+				$this->message = sprintf( __( 'The given id is not a valid %s', 'wacara' ), $post_type );
 			}
 		}
 

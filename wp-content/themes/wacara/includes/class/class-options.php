@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Options' ) ) {
+
 	/**
 	 * Class Options
 	 *
 	 * @package Skeleton
 	 */
 	class Options {
+
 		/**
 		 * Instance variable.
 		 *

@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Participant' ) ) {
+
 	/**
 	 * Class Participant
 	 *

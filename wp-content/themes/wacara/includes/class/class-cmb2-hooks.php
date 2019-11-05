@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\CMB2_Hooks' ) ) {
+
 	/**
 	 * Class CMB2_Hooks
 	 *
 	 * @package Skeleton
 	 */
 	class CMB2_Hooks {
+
 		/**
 		 * Instance variabe
 		 *

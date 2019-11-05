@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Mailer' ) ) {
+
 	/**
 	 * Class Mailer
 	 *
 	 * @package Skeleton
 	 */
 	class Mailer {
+
 		/**
 		 * Instance variable.
 		 *

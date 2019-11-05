@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\Skeleton\Setting' ) ) {
+
 	/**
 	 * Class Setting
 	 *

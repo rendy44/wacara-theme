@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Skeleton\Action' ) ) {
+
 	/**
 	 * Class Action
 	 *
 	 * @package Skeleton
 	 */
 	class Action {
+
 		/**
 		 * Instance variable
 		 *
