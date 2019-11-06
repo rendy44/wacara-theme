@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to handle all the payment related to stripe.
+ * Class to handle all the Stripe_Wrapper related to stripe.
  *
  * @author  Rendy
  * @package Wacara
@@ -17,14 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Payment' ) ) {
+if ( ! class_exists( 'Skeleton\Stripe_Wrapper' ) ) {
 
 	/**
-	 * Class Payment
+	 * Class Stripe_Wrapper
 	 *
 	 * @package Skeleton
 	 */
-	class Payment {
+	class Stripe_Wrapper {
 
 		/**
 		 * Options variable.
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return Payment|null
+		 * @return Stripe_Wrapper|null
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 		}
 
 		/**
-		 * Payment constructor.
+		 * Stripe_Wrapper constructor.
 		 */
 		private function __construct() {
 			self::get_stripe_options();
@@ -255,4 +255,4 @@ if ( ! class_exists( 'Skeleton\Payment' ) ) {
 	}
 }
 
-Payment::init();
+Stripe_Wrapper::init();

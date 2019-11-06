@@ -400,7 +400,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 							if ( $find_stripe_customer->success ) {
 
 								// Update customer source information, just in case they use different cc information.
-								$update_customer = Payment::update_customer_source( $find_stripe_customer->callback, $maybe_stripe_source_id );
+								$update_customer = Stripe_Wrapper::update_customer_source( $find_stripe_customer->callback, $maybe_stripe_source_id );
 
 								// Validate update customer status.
 								if ( $update_customer->success ) {
@@ -438,7 +438,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 								// Charge the customer.
 								/* translators: 1: the event name */
 								$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
-								$charge      = Payment::charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
+								$charge      = Stripe_Wrapper::charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
 
 								// Validate charge status.
 								if ( $charge->success ) {

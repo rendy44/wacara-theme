@@ -200,7 +200,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url'   => TEMP_URI . '/assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url'        => admin_url( 'admin-ajax.php' ),
-						'publishable_key' => Payment::get_publishable_key(),
+						'publishable_key' => Stripe_Wrapper::get_publishable_key(),
 					],
 					'depth' => [ 'jquery' ],
 				],
