@@ -41,7 +41,7 @@ while ( have_posts() ) {
 		$selected_payment     = Helper::get_post_meta( 'payment_method' );
 		$selected_payment_obj = Register_Payment::get_payment_method_class( $selected_payment );
 		if ( $selected_payment_obj ) {
-			echo $selected_payment_obj->maybe_page_after_payment( get_the_ID(), $reg_status, $register_args['pricing_id'], $register_args['event_id'] ); // phpcs:ignore
+			echo $selected_payment_obj->maybe_page_after_payment( $register_args['id'], $reg_status, $register_args['pricing_id'], $register_args['event_id'] ); // phpcs:ignore
 		}
 	}
 }
