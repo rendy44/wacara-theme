@@ -88,7 +88,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'class-mailer',
 				'class-asset',
 				'abstract/class-payment-method',
-				'payment/class-payment-offline',
+				'payment/class-offline-payment',
 			];
 		}
 

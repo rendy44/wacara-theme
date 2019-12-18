@@ -19,14 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Payment\Payment_Offline' ) ) {
+if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 
 	/**
-	 * Class Payment_Offline
+	 * Class Offline_Payment
 	 *
 	 * @package Skeleton\Payment
 	 */
-	class Payment_Offline extends Payment_Method {
+	class Offline_Payment extends Payment_Method {
 
 		/**
 		 * Instance variable.
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Skeleton\Payment\Payment_Offline' ) ) {
 		/**
 		 * Singleton.
 		 *
-		 * @return Payment_Offline|null
+		 * @return Offline_Payment|null
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Skeleton\Payment\Payment_Offline' ) ) {
 		}
 
 		/**
-		 * Payment_Offline constructor.
+		 * Offline_Payment constructor.
 		 */
 		private function __construct() {
 			$this->id          = 'offline-payment';
@@ -227,5 +227,5 @@ if ( ! class_exists( 'Skeleton\Payment\Payment_Offline' ) ) {
 	}
 
 	// Instance the class.
-	Payment_Offline::init();
+	Offline_Payment::init();
 }
