@@ -86,9 +86,10 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'class-participant',
 				'class-stripe-wrapper',
 				'class-mailer',
-				'class-asset',
 				'abstract/class-payment-method',
 				'payment/class-offline-payment',
+				'payment/class-stripe-payment',
+				'class-asset',
 			];
 		}
 

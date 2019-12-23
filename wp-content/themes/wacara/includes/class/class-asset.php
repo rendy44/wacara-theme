@@ -8,6 +8,8 @@
 
 namespace Skeleton;
 
+use Skeleton\Payment\Stripe_Payment;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -91,9 +93,9 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		/**
 		 * Filters the HTML script tag of an enqueued script.
 		 *
-		 * @param string $tag    The `<script>` tag for the enqueued script.
+		 * @param string $tag The `<script>` tag for the enqueued script.
 		 * @param string $handle The script's registered handle.
-		 * @param string $src    The script's source URL.
+		 * @param string $src The script's source URL.
 		 *
 		 * @return  string
 		 * @since 4.1.0
@@ -110,7 +112,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		/**
 		 * Load js file
 		 *
-		 * @param string $name   js name.
+		 * @param string $name js name.
 		 * @param array  $obj_js js object.
 		 */
 		private function load_js( $name, array $obj_js ) {
@@ -124,7 +126,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 		/**
 		 * Load css file
 		 *
-		 * @param string $name    css name.
+		 * @param string $name css name.
 		 * @param array  $obj_css css object.
 		 */
 		private function load_css( $name, array $obj_css ) {
@@ -200,7 +202,7 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 					'url'   => TEMP_URI . '/assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url'        => admin_url( 'admin-ajax.php' ),
-						'publishable_key' => Stripe_Wrapper::get_publishable_key(),
+						'publishable_key' => Stripe_Payment::get_publishable_key(),
 					],
 					'depth' => [ 'jquery' ],
 				],

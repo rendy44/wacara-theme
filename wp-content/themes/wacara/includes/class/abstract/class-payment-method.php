@@ -64,13 +64,14 @@ if ( ! class_exists( 'Skeleton\Payment_Method' ) ) {
 		/**
 		 * Function to calculate and process the payment.
 		 *
-		 * @param string $participant_id the id of registered participant.
-		 * @param string $pricing_id the id of selected pricing.
-		 * @param array  $fields used fields which is stored from front-end, mostly it contains unserialized object.
+		 * @param Participant $participant the participant object of registered participant.
+		 * @param array       $fields used fields which is stored from front-end, mostly it contains unserialized object.
+		 * @param int         $pricing_price amount of invoice in cent.
+		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		abstract public function process( $participant_id, $pricing_id, $fields );
+		abstract public function process( $participant, $fields, $pricing_price, $pricing_currency );
 
 		/**
 		 * Get cmb2 fields that will be translated into option page.
@@ -82,14 +83,15 @@ if ( ! class_exists( 'Skeleton\Payment_Method' ) ) {
 		/**
 		 * Get content that will be rendered after making manual payment.
 		 *
-		 * @param string $participant_id the id of currently processed participant.
-		 * @param string $reg_status current registration status of the participant.
-		 * @param string $pricing_id the id of selected pricing of current processed participant.
-		 * @param string $event_id the id of selected event of current processed participant.
+		 * @param Participant $participant the participant object of registered participant.
+		 * @param string      $reg_status current registration status of the participant.
+		 * @param string      $pricing_id the id of selected pricing.
+		 * @param int         $pricing_price amount of invoice in cent.
+		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return string
 		 */
-		abstract public function maybe_page_after_payment( $participant_id, $reg_status, $pricing_id, $event_id );
+		abstract public function maybe_page_after_payment( $participant, $reg_status, $pricing_id, $pricing_price, $pricing_currency);
 
 		/**
 		 * Get admin settings from db.

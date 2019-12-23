@@ -35,7 +35,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * Participant constructor.
 		 *
 		 * @param bool  $participant_id leave it empty to create a new participant,
-		 *                               and assign with participant id to fetch the participant's detail.
+		 *                                 and assign with participant id to fetch the participant's detail.
 		 * @param array $args arguments to create a new participant.
 		 *                              Or list of field to displaying participant.
 		 */
@@ -399,15 +399,6 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
-		 * Save stripe error message.
-		 *
-		 * @param string $error_message error message.
-		 */
-		public function save_stripe_error_message( $error_message = '' ) {
-			parent::save_meta( [ 'stripe_error_message' => $error_message ] );
-		}
-
-		/**
 		 * Save payment method information
 		 *
 		 * @param string $payment_method selected payment method.
@@ -429,6 +420,24 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					'currency'      => $currency,
 				]
 			);
+		}
+
+		/**
+		 * Get invoice information.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_invoicing_info() {
+			return $this->get_meta( [ 'pricing_id', 'price_in_cent', 'currency' ] );
+		}
+
+		/**
+		 * Get event id information.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_event_info() {
+			return $this->get_meta( 'event_id' );
 		}
 
 		/**

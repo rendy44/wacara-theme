@@ -8,7 +8,7 @@
 
 namespace Skeleton\Payment;
 
-use Skeleton\Options;
+use Skeleton\Participant;
 use Skeleton\Payment_Method;
 use Skeleton\Register_Payment;
 use Skeleton\Result;
@@ -71,21 +71,19 @@ if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
-		 * Processing payment method.
+		 * Function to calculate and process the payment.
 		 *
-		 * @param string $participant_id the registered participant id.
-		 * @param string $pricing_id the pricing id.
-		 * @param array  $fields data from front-end.
+		 * @param Participant $participant the participant object of registered participant.
+		 * @param array       $fields used fields which is stored from front-end, mostly it contains unserialized object.
+		 * @param int         $pricing_price amount of invoice in cent.
+		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		public function process( $participant_id, $pricing_id, $fields ) {
+		public function process( $participant, $fields, $pricing_price, $pricing_currency ) {
 			$result      = new Result();
 			$settings    = $this->get_admin_setting();
 			$unique_code = $settings['unique_code'];
-
-			// Fetch the details from db.
-			$pricing_price = Helper::get_post_meta( 'price', $pricing_id );
 
 			// Set default unique number.
 			$unique = 0;
@@ -97,23 +95,15 @@ if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 				$unique = wp_rand( 0, 100 );
 
 				// Determine the amount of unique number.
-				// If the pricing price is greater than 10000 it's probably weak currency such a Rupiah which does not use cent.
+				// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
 				// So we will multiple the unique number by 100.
-				if ( 10000 < $pricing_price ) {
+				if ( 1000000 < $pricing_price ) {
 					$unique *= 100;
 				}
 			}
 
 			// Save the unique number.
-			$old_price_in_cent                    = Helper::get_post_meta( 'price_in_cent', $participant_id );
-			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique;
-			Helper::save_post_meta(
-				$participant_id,
-				[
-					'maybe_unique_number'             => $unique,
-					'maybe_price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
-				]
-			);
+			$participant->maybe_save_unique_number( $unique );
 
 			// There is nothing to do here, just finish the process and wait for the payment :).
 			$result->success  = true;
@@ -170,7 +160,18 @@ if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 			];
 		}
 
-		public function maybe_page_after_payment( $participant_id, $reg_status, $pricing_id, $event_id ) {
+		/**
+		 * Get content that will be rendered after making manual payment.
+		 *
+		 * @param Participant $participant the participant object of registered participant.
+		 * @param string      $reg_status current registration status of the participant.
+		 * @param string      $pricing_id the id of selected pricing.
+		 * @param int         $pricing_price amount of invoice in cent.
+		 * @param string      $pricing_currency the currency code of invoice.
+		 *
+		 * @return string
+		 */
+		public function maybe_page_after_payment( $participant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
 
 			// Prepare default content after registration as success page.
 			$content = $this->get_success_page();
@@ -180,19 +181,20 @@ if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 
 				// Prepare the templating args.
 				$register_args = [
-					'id'         => $participant_id,
-					'title'      => get_the_title( $participant_id ),
+					'id'         => $participant->post_id,
+					'title'      => $participant->post_title,
 					'pricing_id' => $pricing_id,
-					'event_id'   => $event_id,
+					'event_id'   => $participant->get_event_info(),
 				];
+
+				// Switch the registration status.
 				switch ( $reg_status ) {
 					case 'wait_payment':
 						$bank_accounts                  = $this->get_bank_accounts();
-						$amount_cent                    = Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $participant_id );
-						$amount_fixed                   = $amount_cent / 100;
+						$amount_fixed                   = $pricing_price / 100;
 						$amount_formatted               = number_format_i18n( $amount_fixed, 2 );
 						$register_args['bank_accounts'] = $bank_accounts;
-						$register_args['currency_code'] = Helper::get_post_meta( 'currency', $participant_id );
+						$register_args['currency_code'] = $pricing_currency;
 						$register_args['amount']        = $amount_formatted;
 						$template                       = 'waiting-payment';
 						break;
@@ -201,11 +203,10 @@ if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
 						break;
 					case 'fail':
 					default:
-						$validate_pricing                      = Helper::is_pricing_valid( $register_args['pricing_id'], true );
-						$register_args['use_payment']          = $validate_pricing->success;
-						$register_args['stripe_error_message'] = Helper::get_post_meta( 'stripe_error_message', $participant_id );
-						$register_args['payment_methods']      = Register_Payment::get_registered();
-						$template                              = 'register-form';
+						$validate_pricing                 = Helper::is_pricing_valid( $register_args['pricing_id'], true );
+						$register_args['use_payment']     = $validate_pricing->success;
+						$register_args['payment_methods'] = Register_Payment::get_registered();
+						$template                         = 'register-form';
 						break;
 				}
 

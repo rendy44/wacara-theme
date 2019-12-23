@@ -6,8 +6,6 @@
  * @package Wacara
  */
 
-use Skeleton\Register_Payment;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
@@ -78,17 +76,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php
 							}
 						}
-						?>
-						<!--                        <div class="form-group individual_payment_method" id="manual_payment_method">-->
-						<!--                            <div class="alert alert-info">-->
-						<!--								--><?php // esc_html_e( 'Bank detail will be informed after making registration', 'wacara' ); ?>
-						<!--                            </div>-->
-						<!--                        </div>-->
-						<!--                        <div class="form-group individual_payment_method" id="stripe_payment_method">-->
-						<!--                            <label for="card">--><?php // esc_html_e( 'Credit card information', 'wacara' ); ?><!--</label>-->
-						<!--                            <div id="card" class="form-control form-control-lg"></div>-->
-						<!--                        </div>-->
-						<?php
 					}
 
 					/**

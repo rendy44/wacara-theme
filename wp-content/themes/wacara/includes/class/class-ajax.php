@@ -327,19 +327,16 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
 
 					// Define variables.
-					$maybe_payment_method   = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
-					$maybe_stripe_source_id = Helper::get_serialized_val( $unserialize_obj, 'stripe_source_id' );
-					$email                  = Helper::get_serialized_val( $unserialize_obj, 'email' );
-					$name                   = Helper::get_serialized_val( $unserialize_obj, 'name' );
-					$company                = Helper::get_serialized_val( $unserialize_obj, 'company' );
-					$position               = Helper::get_serialized_val( $unserialize_obj, 'position' );
-					$phone                  = Helper::get_serialized_val( $unserialize_obj, 'phone' );
-					$id_number              = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
-					$pricing_id             = Helper::get_post_meta( 'pricing_id', $participant_id );
-					$pricing_currency       = Helper::get_post_meta( 'currency', $pricing_id );
-					$pricing_price          = Helper::get_post_meta( 'price', $pricing_id );
-					// $event_id               = Helper::get_post_meta( 'event_id', $participant_id );
-					// $pricing_unique_code = Helper::get_post_meta( 'use_unique_code', $pricing_id );
+					$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
+					$email                = Helper::get_serialized_val( $unserialize_obj, 'email' );
+					$name                 = Helper::get_serialized_val( $unserialize_obj, 'name' );
+					$company              = Helper::get_serialized_val( $unserialize_obj, 'company' );
+					$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
+					$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
+					$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
+					$pricing_id           = Helper::get_post_meta( 'pricing_id', $participant_id );
+					$pricing_currency     = Helper::get_post_meta( 'currency', $pricing_id );
+					$pricing_price        = Helper::get_post_meta( 'price', $pricing_id );
 
 					// First, convert the price into cent.
 					$pricing_price = $pricing_price * 100;
@@ -370,8 +367,7 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 
 						// Check if payment method is exist.
 						if ( $selected_payment_method ) {
-							$do_payment = $selected_payment_method->process( $participant_id, $pricing_id, $unserialize_obj );
-
+							$do_payment = $selected_payment_method->process( $participant, $unserialize_obj, $pricing_price, $pricing_currency );
 							// Validate the process.
 							if ( $do_payment->success ) {
 
@@ -392,141 +388,6 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 						// Save registration status.
 						$reg_status = 'done';
 					}
-					// Switch which payment will be used.
-					// switch ( $maybe_payment_method ) {
-					//
-					// case 'manual':
-					// Set default unique number.
-					// $unique = 0;
-					//
-					// Check maybe requires unique code.
-					// if ( 'on' === $pricing_unique_code ) {
-					//
-					// Set default unique number range to maximal 100 cent.
-					// $unique = wp_rand( 0, 100 );
-					//
-					// Determine the amount of unique number.
-					// If the pricing price is greater than 10000 it's probably weak currency such a Rupiah which does not use cent.
-					// So we will multiple the unique number by 100.
-					// if ( 10000 < $pricing_price ) {
-					// $unique *= 100;
-					// }
-					// }
-					//
-					// Save the unique number.
-					// $participant->maybe_save_unique_number( $unique );
-					//
-					// There is nothing to do here, just finish the process and wait for the payment :).
-					// $result->success  = true;
-					// $result->callback = $participant->get_participant_url();
-					//
-					// Save registration status.
-					// $reg_status = 'wait_payment';
-					// break;
-					//
-					// case 'stripe':
-					// Prepare variable to store stripe error message.
-					// $stripe_error_message = '';
-					//
-					// Look for saved customer.
-					// $find_stripe_customer = Transaction::find_stripe_customer_id_by_email( $email );
-					//
-					// Prepare the variable that will be used to store stripe customer id.
-					// $used_stripe_customer_id = '';
-					//
-					// Validate find stripe customer status.
-					// if ( $find_stripe_customer->success ) {
-					//
-					// Update customer source information, just in case they use different cc information.
-					// $update_customer = Stripe_Wrapper::update_customer_source( $find_stripe_customer->callback, $maybe_stripe_source_id );
-					//
-					// Validate update customer status.
-					// if ( $update_customer->success ) {
-					//
-					// Use stripe customer id.
-					// $used_stripe_customer_id = $update_customer->callback;
-					// } else {
-					//
-					// Save stripe error message.
-					// $stripe_error_message = $update_customer->message;
-					//
-					// Update the result.
-					// $result->message = $update_customer->message;
-					// }
-					// } else {
-					//
-					// Save a new customer.
-					// $new_customer = Transaction::save_customer( $name, $email, $maybe_stripe_source_id );
-					//
-					// Validate save new customer status.
-					// if ( $new_customer->success ) {
-					//
-					// Use stripe customer id of new customer.
-					// $used_stripe_customer_id = $new_customer->callback;
-					// } else {
-					//
-					// Update the result.
-					// $result->message = $new_customer->message;
-					// }
-					// }
-					//
-					// Check whether stripe customer id that will be used has been defined or not yet.
-					// if ( $used_stripe_customer_id ) {
-					//
-					// Charge the customer.
-					// * translators: 1: the event name */
-					// $charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
-					// $charge      = Stripe_Wrapper::charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
-					//
-					// Validate charge status.
-					// if ( $charge->success ) {
-					//
-					// Update reg status.
-					// $reg_status = 'done';
-					//
-					// Update result.
-					// $result->success  = true;
-					// $result->callback = get_permalink( $participant_id );
-					//
-					// } else {
-					//
-					// Save stripe error message.
-					// $stripe_error_message = $charge->message;
-					// $reg_status           = 'fail';
-					//
-					// Update result.
-					// $result->message = $charge->message;
-					// }
-					//
-					// **
-					// * Perform actions after making payment by stripe.
-					// *
-					// * @param string $participant_id participant id.
-					// * @param int $pricing_price the price of pricing in cent.
-					// * @param string $pricing_currency the currency of pricing.
-					// * @param Result $charge the object of payment.
-					// */
-					// do_action( 'wacara_after_making_stripe_payment', $participant_id, $pricing_price, $pricing_currency, $charge );
-					//
-					// } else {
-					//
-					// Update result.
-					// $result->message = __( 'Failed to contact stripe, please try again later', 'wacara' );
-					// }
-					//
-					// Save stripe error message.
-					// $participant->save_stripe_error_message( $stripe_error_message );
-					// break;
-					//
-					// default:
-					// There is nothing to do here, just finish the process :).
-					// $result->success  = true;
-					// $result->callback = $participant->get_participant_url();
-					//
-					// Save registration status.
-					// $reg_status = 'done';
-					// break;
-					// }
 
 					/**
 					 * Perform actions after finishing registration.
