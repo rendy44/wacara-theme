@@ -43,13 +43,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		private static $theme_options = [];
 
 		/**
-		 * Stripe options variable.
-		 *
-		 * @var array
-		 */
-		private static $stripe_options = [];
-
-		/**
 		 * Variable to map options field.
 		 *
 		 * @var array
@@ -113,15 +106,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		}
 
 		/**
-		 * Get stripe options.
-		 *
-		 * @return array
-		 */
-		public static function get_stripe_options() {
-			return self::$stripe_options;
-		}
-
-		/**
 		 * Callback for registering options page.
 		 */
 		public function options_page_callback() {
@@ -135,143 +119,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 
 				$this->register_option_page( $options_field_id, $options_field_obj['title'], $options_field_obj['fields'], $parent_slug );
 			}
-			// **
-			// * Registers main options page menu item and form.
-			// */
-			// $theme_options = new_cmb2_box(
-			// [
-			// 'id'           => $this->meta_prefix . 'theme_options',
-			// 'title'        => esc_html__( 'Wacara Options', 'wacara' ),
-			// 'object_types' => [ 'options-page' ],
-			// 'option_key'   => $this->meta_prefix . 'theme_options',
-			// ]
-			// );
-			// $theme_options->add_field(
-			// [
-			// 'name'         => __( 'Logo', 'wacara' ),
-			// 'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
-			// 'id'           => 'logo',
-			// 'type'         => 'file',
-			// 'options'      => [
-			// 'url' => false,
-			// ],
-			// 'text'         => [
-			// 'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-			// ],
-			// 'query_args'   => [
-			// 'type' => [
-			// 'image/png',
-			// ],
-			// ],
-			// 'preview_size' => 'medium',
-			// ]
-			// );
-			//
-			// Add stripe options.
-			// $stripe_options = new_cmb2_box(
-			// [
-			// 'id'           => $this->meta_prefix . 'stripe_options',
-			// 'title'        => esc_html__( 'Stripe Options', 'wacara' ),
-			// 'object_types' => [ 'options-page' ],
-			// 'option_key'   => $this->meta_prefix . 'stripe_options',
-			// 'parent_slug'  => $this->meta_prefix . 'theme_options',
-			// ]
-			// );
-			// $stripe_options->add_field(
-			// [
-			// 'name' => __( 'Sandbox', 'wacara' ),
-			// 'desc' => __( 'Enable sandbox for testing', 'wacara' ),
-			// 'id'   => 'sandbox',
-			// 'type' => 'checkbox',
-			// ]
-			// );
-			// $stripe_options->add_field(
-			// [
-			// 'name' => __( 'Sandbox secret key', 'wacara' ),
-			// 'id'   => 'sandbox_secret_key',
-			// 'type' => 'text',
-			// 'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
-			// ]
-			// );
-			// $stripe_options->add_field(
-			// [
-			// 'name' => __( 'Sandbox publishable key', 'wacara' ),
-			// 'id'   => 'sandbox_publishable_key',
-			// 'type' => 'text',
-			// 'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
-			// ]
-			// );
-			// $stripe_options->add_field(
-			// [
-			// 'name' => __( 'Live secret key', 'wacara' ),
-			// 'id'   => 'live_secret_key',
-			// 'type' => 'text',
-			// 'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
-			// ]
-			// );
-			// $stripe_options->add_field(
-			// [
-			// 'name' => __( 'Live publishable key', 'wacara' ),
-			// 'id'   => 'live_publishable_key',
-			// 'type' => 'text',
-			// 'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
-			// ]
-			// );
-			//
-			// Add bank options.
-			// $bank_information = new_cmb2_box(
-			// [
-			// 'id'           => $this->meta_prefix . 'bank_information',
-			// 'title'        => esc_html__( 'Bank Information', 'wacara' ),
-			// 'object_types' => [ 'options-page' ],
-			// 'option_key'   => $this->meta_prefix . 'bank_information',
-			// 'parent_slug'  => $this->meta_prefix . 'theme_options',
-			// ]
-			// );
-			// $group_field_id = $bank_information->add_field(
-			// [
-			// 'id'      => 'bank_accounts',
-			// 'type'    => 'group',
-			// 'options' => [
-			// 'group_title'   => __( 'Bank {#}', 'wacara' ),
-			// 'add_button'    => __( 'Add Bank', 'wacara' ),
-			// 'remove_button' => __( 'Remove Bank', 'wacara' ),
-			// 'sortable'      => false,
-			// ],
-			// ]
-			// );
-			// $bank_information->add_group_field(
-			// $group_field_id,
-			// [
-			// 'name' => __( 'Bank Name', 'wacara' ),
-			// 'id'   => 'name',
-			// 'type' => 'text',
-			// ]
-			// );
-			// $bank_information->add_group_field(
-			// $group_field_id,
-			// [
-			// 'name' => __( 'Number', 'wacara' ),
-			// 'id'   => 'number',
-			// 'type' => 'text',
-			// ]
-			// );
-			// $bank_information->add_group_field(
-			// $group_field_id,
-			// [
-			// 'name' => __( 'Branch', 'wacara' ),
-			// 'id'   => 'branch',
-			// 'type' => 'text',
-			// ]
-			// );
-			// $bank_information->add_group_field(
-			// $group_field_id,
-			// [
-			// 'name' => __( 'Holder', 'wacara' ),
-			// 'id'   => 'holder',
-			// 'type' => 'text',
-			// ]
-			// );
 		}
 
 		/**
@@ -290,7 +137,7 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 					if ( $payment_methods ) {
 
 						// Do register the option page.
-						// translator: %s : name of payment method.
+						// translators: %s : name of payment method.
 						$option_name = sprintf( __( '%s Setting', 'wacara' ), $payment_method->name );
 						$this->register_option_page( $payment_method->id, $option_name, $payment_method_fields );
 					}
@@ -326,42 +173,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 						],
 					],
 				],
-				// 'stripe_options' => [
-				// 'title'  => esc_html__( 'Stripe Options', 'wacara' ),
-				// 'parent' => 'theme_options',
-				// 'fields' => [
-				// [
-				// 'name' => __( 'Sandbox', 'wacara' ),
-				// 'desc' => __( 'Enable sandbox for testing', 'wacara' ),
-				// 'id'   => 'sandbox',
-				// 'type' => 'checkbox',
-				// ],
-				// [
-				// 'name' => __( 'Sandbox secret key', 'wacara' ),
-				// 'id'   => 'sandbox_secret_key',
-				// 'type' => 'text',
-				// 'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
-				// ],
-				// [
-				// 'name' => __( 'Sandbox publishable key', 'wacara' ),
-				// 'id'   => 'sandbox_publishable_key',
-				// 'type' => 'text',
-				// 'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
-				// ],
-				// [
-				// 'name' => __( 'Live secret key', 'wacara' ),
-				// 'id'   => 'live_secret_key',
-				// 'type' => 'text',
-				// 'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
-				// ],
-				// [
-				// 'name' => __( 'Live publishable key', 'wacara' ),
-				// 'id'   => 'live_publishable_key',
-				// 'type' => 'text',
-				// 'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
-				// ],
-				// ],
-				// ],
 			];
 		}
 
