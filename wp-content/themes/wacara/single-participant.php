@@ -16,38 +16,40 @@ get_header();
 
 while ( have_posts() ) {
 	the_post();
-	$reg_status    = Helper::get_post_meta( 'reg_status' );
+
+	$participant_id = get_the_ID();
+
+	// Instance the participant.
+	$participant = new Participant( $participant_id );
+
+	// Fetch invoice detail.
+	$invoice_detail = $participant->get_invoicing_info();
+
 	$register_args = [
-		'id'         => get_the_ID(),
-		'title'      => get_the_title(),
-		'pricing_id' => Helper::get_post_meta( 'pricing_id' ),
-		'event_id'   => Helper::get_post_meta( 'event_id' ),
+		'id'         => $participant_id,
+		'title'      => $participant->post_title,
+		'pricing_id' => $invoice_detail['pricing_id'],
+		'event_id'   => $participant->get_event_info(),
 	];
-	switch ( $reg_status ) {
-		case 'done':
-			$template = 'register-success';
-			break;
-		case 'wait_payment':
-			$bank_accounts                  = Options::get_bank_accounts();
-			$amount_cent                    = Helper::get_post_meta( 'maybe_price_in_cent_with_unique' );
-			$amount_fixed                   = $amount_cent / 100;
-			$amount_formatted               = number_format_i18n( $amount_fixed, 2 );
-			$register_args['bank_accounts'] = $bank_accounts;
-			$register_args['currency_code'] = Helper::get_post_meta( 'currency' );
-			$register_args['amount']        = $amount_formatted;
-			$template                       = 'waiting-payment';
-			break;
-		case 'wait_verification':
-			$template = 'waiting-verification';
-			break;
-		case 'fail':
-		default:
-			$validate_pricing                      = Helper::is_pricing_valid( $register_args['pricing_id'], true );
-			$register_args['use_payment']          = $validate_pricing->success;
-			$register_args['stripe_error_message'] = Helper::get_post_meta( 'stripe_error_message' );
-			$template                              = 'register-form';
-			break;
+
+	// Render form if no payment attempt has been made.
+	if ( ! $participant->get_registration_status() && 'done' !== $participant->get_registration_status() ) {
+		$validate_pricing                 = Helper::is_pricing_valid( $register_args['pricing_id'], true );
+		$register_args['use_payment']     = $validate_pricing->success;
+		$register_args['payment_methods'] = Register_Payment::get_registered();
+		echo Template::render( 'participant/register-form', $register_args ); // phpcs:ignore
+	} elseif ( 'done' === $participant->get_registration_status() ) {
+
+		// Display content for success page.
+		echo Template::render( 'participant/register-success', $register_args ); // phpcs:ignore
+	} else {
+
+		// Display content based on payment.
+		$selected_payment     = Helper::get_post_meta( 'payment_method' );
+		$selected_payment_obj = Register_Payment::get_payment_method_class( $selected_payment );
+		if ( $selected_payment_obj ) {
+			echo $selected_payment_obj->maybe_page_after_payment( $participant, $participant->get_registration_status(), $invoice_detail['pricing_id'], $invoice_detail['price_in_cent'], $invoice_detail['currency'] ); // phpcs:ignore
+		}
 	}
-	echo Template::render( 'participant/' . $template, $register_args ); // phpcs:ignore
 }
 get_footer();

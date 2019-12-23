@@ -9,6 +9,9 @@ const $ = jQuery;
  * Instance the class.
  */
 new class {
+
+    selected_payment = '';
+
     /**
      * Class constructor.
      */
@@ -174,7 +177,7 @@ new class {
                 submit_button.html('Loading...').prop('disabled', true);
 
                 switch (instance.selected_payment) {
-                    case 'manual':
+                    case 'offline-payment':
                         // Perform payment with manual bank transfer.
                         instance.do_payment(inputs)
                             .done(function (data) {
@@ -184,7 +187,7 @@ new class {
                                 // TODO: Validate error ajax.
                             });
                         break;
-                    case 'stripe':
+                    case 'stripe-payment':
                         // Perform payment with stripe
                         instance.stripeObj.create_source(user_info).then(function (result) {
                             if (result.error) {

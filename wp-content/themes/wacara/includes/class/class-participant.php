@@ -35,8 +35,8 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * Participant constructor.
 		 *
 		 * @param bool  $participant_id leave it empty to create a new participant,
-		 *                              and assign with participant id to fetch the participant's detail.
-		 * @param array $args           arguments to create a new participant.
+		 *                                 and assign with participant id to fetch the participant's detail.
+		 * @param array $args arguments to create a new participant.
 		 *                              Or list of field to displaying participant.
 		 */
 		public function __construct( $participant_id = false, $args = [] ) {
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 					/**
 					 * Perform action after creating participant
 					 *
-					 * @param array        $args            setting for creating new post.
+					 * @param array $args setting for creating new post.
 					 * @param int|WP_Error $new_participant result of newly created participant.
 					 */
 					do_action( 'wacara_after_creating_participant', $args, $new_participant );
@@ -110,9 +110,9 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 						/**
 						 * Perform filter to modify participant publishable key.
 						 *
-						 * @param string $booking_code    the original publishable key.
-						 * @param string $event_id        event id of the participant.
-						 * @param int    $new_participant id number of newly created participant.
+						 * @param string $booking_code the original publishable key.
+						 * @param string $event_id event id of the participant.
+						 * @param int $new_participant id number of newly created participant.
 						 */
 						$booking_code = apply_filters( 'wacara_filter_participant_booking_code', $booking_code, $event_id, $new_participant );
 
@@ -226,7 +226,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			 * Perform actions after creating participant qrcode.
 			 *
 			 * @param string $participant_id participant id.
-			 * @param string $qrcode_uri     the url of generated qrcode.
+			 * @param string $qrcode_uri the url of generated qrcode.
 			 */
 			do_action( 'wacara_after_creating_participant_qrcode', $participant_id, $qrcode_uri );
 		}
@@ -245,11 +245,11 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		/**
 		 * Save more participant`s details
 		 *
-		 * @param string $name      participant name.
-		 * @param string $email     participant email.
-		 * @param string $company   participant company.
-		 * @param string $position  participant position.
-		 * @param string $phone     participant phone.
+		 * @param string $name participant name.
+		 * @param string $email participant email.
+		 * @param string $company participant company.
+		 * @param string $position participant position.
+		 * @param string $phone participant phone.
 		 * @param string $id_number participant id number.
 		 */
 		public function save_more_details( $name = '', $email = '', $company = '', $position = '', $phone = '', $id_number = '' ) {
@@ -392,19 +392,10 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 			 * Perform action when participant status changed.
 			 *
 			 * @param string $participant_id the participant id.
-			 * @param string $status         the new status of participant.
-			 * @param string $old_status     the old status of participant.
+			 * @param string $status the new status of participant.
+			 * @param string $old_status the old status of participant.
 			 */
 			do_action( 'wacara_after_setting_participant_status', $participant_id, $status, $old_status );
-		}
-
-		/**
-		 * Save stripe error message.
-		 *
-		 * @param string $error_message error message.
-		 */
-		public function save_stripe_error_message( $error_message = '' ) {
-			parent::save_meta( [ 'stripe_error_message' => $error_message ] );
 		}
 
 		/**
@@ -420,7 +411,7 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		 * Save invoice information
 		 *
 		 * @param int    $price_need_to_pay_in_cent the amount that should be paid in cent.
-		 * @param string $currency                  currency code of invoice.
+		 * @param string $currency currency code of invoice.
 		 */
 		public function save_invoicing_info( $price_need_to_pay_in_cent, $currency ) {
 			parent::save_meta(
@@ -432,18 +423,36 @@ if ( ! class_exists( 'Skeleton\Participant' ) ) {
 		}
 
 		/**
+		 * Get invoice information.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_invoicing_info() {
+			return $this->get_meta( [ 'pricing_id', 'price_in_cent', 'currency' ] );
+		}
+
+		/**
+		 * Get event id information.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_event_info() {
+			return $this->get_meta( 'event_id' );
+		}
+
+		/**
 		 * Update the registration status after confirming the transfer.
 		 *
-		 * @param int $bank_account_number the index number of bank account array.
+		 * @param int   $bank_account_number the index number of bank account array.
+		 * @param array $bank_accounts list of available bank accounts.
 		 */
-		public function update_confirmation( $bank_account_number ) {
+		public function update_confirmation( $bank_account_number, $bank_accounts ) {
 
 			// Save participant id into variable.
 			$participant_id = $this->post_id;
 
 			// Prepare some variables.
 			$date_update           = current_time( 'timestamp' );
-			$bank_accounts         = Options::get_bank_accounts();
 			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts[ $bank_account_number ] : false;
 
 			// Validate the selected bank accounts.

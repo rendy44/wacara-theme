@@ -66,26 +66,30 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		 */
 		private function map_classes() {
 			$this->classes = [
-				'result',
-				'helper',
-				'template',
-				'ui',
-				'setting',
-				'navwalker',
-				'options',
-				'metabox',
-				'cpt',
-				'cmb2-conditionals',
-				'cmb2-hooks',
-				'ajax',
-				'action',
-				'post',
-				'event',
-				'transaction',
-				'participant',
-				'payment',
-				'mailer',
-				'asset',
+				'class-result',
+				'class-helper',
+				'class-register-payment',
+				'class-template',
+				'class-ui',
+				'class-setting',
+				'class-navwalker',
+				'class-options',
+				'class-metabox',
+				'class-cpt',
+				'class-cmb2-conditionals',
+				'class-cmb2-hooks',
+				'class-ajax',
+				'class-action',
+				'class-post',
+				'class-event',
+				'class-transaction',
+				'class-participant',
+				'class-stripe-wrapper',
+				'class-mailer',
+				'abstract/class-payment-method',
+				'payment/class-offline-payment',
+				'payment/class-stripe-payment',
+				'class-asset',
 			];
 		}
 
@@ -109,7 +113,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 			$this->map_classes();
 
 			foreach ( $this->classes as $class ) {
-				require TEMP_PATH . "/includes/class/class-{$class}.php";
+				require TEMP_PATH . "/includes/class/{$class}.php";
 			}
 		}
 

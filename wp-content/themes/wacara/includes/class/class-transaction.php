@@ -45,7 +45,7 @@ if ( ! class_exists( 'Skeleton\Transaction' ) ) {
 			do_action( 'wacara_before_creating_stripe_customer', $name, $email, $stripe_source_id );
 
 			// Create strip customer.
-			$save_stripe_customer = Payment::create_customer( $name, $email, $stripe_source_id );
+			$save_stripe_customer = Stripe_Wrapper::create_customer( $name, $email, $stripe_source_id );
 
 			/**
 			 * Perform action after creating stripe customer.

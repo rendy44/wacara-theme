@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<?php
-				if ( $stripe_error_message && isset( $stripe_error_message ) ) {
+				if ( $maybe_auto_error_message && isset( $maybe_auto_error_message ) ) {
 					?>
 					<div class="alert alert-warning mb-5">
 						<strong><?php esc_html_e( 'Last Error:', 'wacara' ); ?></strong><br/>
-						<?php echo esc_html( $stripe_error_message ); ?>
+						<?php echo esc_html( $maybe_auto_error_message ); ?>
 					</div>
 					<?php
 				}
@@ -45,31 +45,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="form-group" id="payment_methods">
 							<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
 							<?php
-							$payment_methods = [
-								'manual' => __( 'Manual bank transfer', 'wacara' ),
-								'stripe' => __( 'Stripe', 'wacara' ),
-							];
-
-							foreach ( $payment_methods as $payment_key => $payment_label ) {
+							// Get available payment methods.
+							if ( $payment_methods ) {
+								foreach ( $payment_methods as $payment_method ) {
+									?>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>">
+										<label class="custom-control-label" for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
+									</div>
+									<?php
+								}
+							} else {
 								?>
-								<div class="custom-control custom-radio">
-									<input type="radio" class="custom-control-input" id="payment_<?php echo esc_attr( $payment_key ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_key ); ?>">
-									<label class="custom-control-label" for="payment_<?php echo esc_attr( $payment_key ); ?>"><?php echo esc_html( $payment_label ); ?></label>
+								<div class="alert alert-danger">
+									<?php esc_html_e( 'No payment methods available', 'wacara' ); ?>
 								</div>
 								<?php
 							}
 							?>
 						</div>
-						<div class="form-group individual_payment_method" id="manual_payment_method">
-							<div class="alert alert-info">
-								<?php esc_html_e( 'Bank detail will be informed after making registration', 'wacara' ); ?>
-							</div>
-						</div>
-						<div class="form-group individual_payment_method" id="stripe_payment_method">
-							<label for="card"><?php esc_html_e( 'Credit card information', 'wacara' ); ?></label>
-							<div id="card" class="form-control form-control-lg"></div>
-						</div>
+
 						<?php
+						// Render the front-end ui of payment methods.
+						if ( $payment_methods ) {
+							foreach ( $payment_methods as $payment_method ) {
+								?>
+								<div class="form-group individual_payment_method" id="<?php echo esc_attr( $payment_method->id ); ?>_payment_method">
+									<?php $payment_method->render(); ?>
+								</div>
+								<?php
+							}
+						}
 					}
 
 					/**
@@ -86,7 +92,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					wp_nonce_field( 'sk_nonce', 'sk_payment' );
 					?>
 					<p><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
-					<button class="btn btn-primary btn-lg btn-submit-reg" type="submit"><?php esc_html_e( 'Register', 'wacara' ); ?></button>
+					<button class="btn btn-primary btn-lg btn-submit-reg"
+							type="submit"><?php esc_html_e( 'Register', 'wacara' ); ?></button>
 				</form>
 			</div>
 		</div>

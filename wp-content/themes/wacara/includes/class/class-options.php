@@ -33,7 +33,7 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 *
 		 * @var string
 		 */
-		private $meta_prefix = TEMP_PREFIX;
+		private static $meta_prefix = TEMP_PREFIX;
 
 		/**
 		 * Theme options variable.
@@ -50,11 +50,11 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		private static $stripe_options = [];
 
 		/**
-		 * Bank information variable.
+		 * Variable to map options field.
 		 *
 		 * @var array
 		 */
-		private static $bank_information = [];
+		private $options_fields = [];
 
 		/**
 		 * Singleton function.
@@ -73,19 +73,23 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 * Options constructor.
 		 */
 		private function __construct() {
-			$this->get_options();
 
 			// Add options page.
 			add_action( 'cmb2_admin_init', [ $this, 'options_page_callback' ] );
+
+			// Maybe add options from payment methods.
+			add_action( 'cmb2_admin_init', [ $this, 'maybe_payment_methods_options_page_callback' ] );
 		}
 
 		/**
-		 * Load the options from database.
+		 * Get options from db.
+		 *
+		 * @param string $key the options key.
+		 *
+		 * @return mixed|void
 		 */
-		private function get_options() {
-			self::$stripe_options   = get_option( $this->meta_prefix . 'stripe_options' );
-			self::$theme_options    = get_option( $this->meta_prefix . 'theme_options' );
-			self::$bank_information = get_option( $this->meta_prefix . 'bank_information' );
+		public static function get_the_options( $key ) {
+			return get_option( self::$meta_prefix . $key );
 		}
 
 		/**
@@ -109,24 +113,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		}
 
 		/**
-		 * Get bank information.
-		 *
-		 * @return array
-		 */
-		private static function get_bank_information() {
-			return self::$bank_information;
-		}
-
-		/**
-		 * Get list of bank accounts
-		 *
-		 * @return bool|mixed
-		 */
-		public static function get_bank_accounts() {
-			return ! empty( self::get_bank_information()['bank_accounts'] ) ? self::get_bank_information()['bank_accounts'] : false;
-		}
-
-		/**
 		 * Get stripe options.
 		 *
 		 * @return array
@@ -139,143 +125,299 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 		 * Callback for registering options page.
 		 */
 		public function options_page_callback() {
-			/**
-			 * Registers main options page menu item and form.
-			 */
-			$theme_options = new_cmb2_box(
-				[
-					'id'           => $this->meta_prefix . 'theme_options',
-					'title'        => esc_html__( 'Wacara Options', 'wacara' ),
-					'object_types' => [ 'options-page' ],
-					'option_key'   => $this->meta_prefix . 'theme_options',
-				]
-			);
-			$theme_options->add_field(
-				[
-					'name'         => __( 'Logo', 'wacara' ),
-					'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
-					'id'           => 'logo',
-					'type'         => 'file',
-					'options'      => [
-						'url' => false,
-					],
-					'text'         => [
-						'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-					],
-					'query_args'   => [
-						'type' => [
-							'image/png',
+
+			// Map the fields.
+			$this->map_options_page();
+
+			foreach ( $this->options_fields as $options_field_id => $options_field_obj ) {
+				// Prepare the options slug.
+				$parent_slug = empty( $options_field_obj['parent'] ) ? '' : $options_field_obj['parent'];
+
+				$this->register_option_page( $options_field_id, $options_field_obj['title'], $options_field_obj['fields'], $parent_slug );
+			}
+			// **
+			// * Registers main options page menu item and form.
+			// */
+			// $theme_options = new_cmb2_box(
+			// [
+			// 'id'           => $this->meta_prefix . 'theme_options',
+			// 'title'        => esc_html__( 'Wacara Options', 'wacara' ),
+			// 'object_types' => [ 'options-page' ],
+			// 'option_key'   => $this->meta_prefix . 'theme_options',
+			// ]
+			// );
+			// $theme_options->add_field(
+			// [
+			// 'name'         => __( 'Logo', 'wacara' ),
+			// 'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
+			// 'id'           => 'logo',
+			// 'type'         => 'file',
+			// 'options'      => [
+			// 'url' => false,
+			// ],
+			// 'text'         => [
+			// 'add_upload_file_text' => __( 'Select Image', 'wacara' ),
+			// ],
+			// 'query_args'   => [
+			// 'type' => [
+			// 'image/png',
+			// ],
+			// ],
+			// 'preview_size' => 'medium',
+			// ]
+			// );
+			//
+			// Add stripe options.
+			// $stripe_options = new_cmb2_box(
+			// [
+			// 'id'           => $this->meta_prefix . 'stripe_options',
+			// 'title'        => esc_html__( 'Stripe Options', 'wacara' ),
+			// 'object_types' => [ 'options-page' ],
+			// 'option_key'   => $this->meta_prefix . 'stripe_options',
+			// 'parent_slug'  => $this->meta_prefix . 'theme_options',
+			// ]
+			// );
+			// $stripe_options->add_field(
+			// [
+			// 'name' => __( 'Sandbox', 'wacara' ),
+			// 'desc' => __( 'Enable sandbox for testing', 'wacara' ),
+			// 'id'   => 'sandbox',
+			// 'type' => 'checkbox',
+			// ]
+			// );
+			// $stripe_options->add_field(
+			// [
+			// 'name' => __( 'Sandbox secret key', 'wacara' ),
+			// 'id'   => 'sandbox_secret_key',
+			// 'type' => 'text',
+			// 'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
+			// ]
+			// );
+			// $stripe_options->add_field(
+			// [
+			// 'name' => __( 'Sandbox publishable key', 'wacara' ),
+			// 'id'   => 'sandbox_publishable_key',
+			// 'type' => 'text',
+			// 'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
+			// ]
+			// );
+			// $stripe_options->add_field(
+			// [
+			// 'name' => __( 'Live secret key', 'wacara' ),
+			// 'id'   => 'live_secret_key',
+			// 'type' => 'text',
+			// 'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
+			// ]
+			// );
+			// $stripe_options->add_field(
+			// [
+			// 'name' => __( 'Live publishable key', 'wacara' ),
+			// 'id'   => 'live_publishable_key',
+			// 'type' => 'text',
+			// 'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
+			// ]
+			// );
+			//
+			// Add bank options.
+			// $bank_information = new_cmb2_box(
+			// [
+			// 'id'           => $this->meta_prefix . 'bank_information',
+			// 'title'        => esc_html__( 'Bank Information', 'wacara' ),
+			// 'object_types' => [ 'options-page' ],
+			// 'option_key'   => $this->meta_prefix . 'bank_information',
+			// 'parent_slug'  => $this->meta_prefix . 'theme_options',
+			// ]
+			// );
+			// $group_field_id = $bank_information->add_field(
+			// [
+			// 'id'      => 'bank_accounts',
+			// 'type'    => 'group',
+			// 'options' => [
+			// 'group_title'   => __( 'Bank {#}', 'wacara' ),
+			// 'add_button'    => __( 'Add Bank', 'wacara' ),
+			// 'remove_button' => __( 'Remove Bank', 'wacara' ),
+			// 'sortable'      => false,
+			// ],
+			// ]
+			// );
+			// $bank_information->add_group_field(
+			// $group_field_id,
+			// [
+			// 'name' => __( 'Bank Name', 'wacara' ),
+			// 'id'   => 'name',
+			// 'type' => 'text',
+			// ]
+			// );
+			// $bank_information->add_group_field(
+			// $group_field_id,
+			// [
+			// 'name' => __( 'Number', 'wacara' ),
+			// 'id'   => 'number',
+			// 'type' => 'text',
+			// ]
+			// );
+			// $bank_information->add_group_field(
+			// $group_field_id,
+			// [
+			// 'name' => __( 'Branch', 'wacara' ),
+			// 'id'   => 'branch',
+			// 'type' => 'text',
+			// ]
+			// );
+			// $bank_information->add_group_field(
+			// $group_field_id,
+			// [
+			// 'name' => __( 'Holder', 'wacara' ),
+			// 'id'   => 'holder',
+			// 'type' => 'text',
+			// ]
+			// );
+		}
+
+		/**
+		 * Maybe generate options page for payment methods.
+		 */
+		public function maybe_payment_methods_options_page_callback() {
+
+			// Fetch all payment methods.
+			$payment_methods = Register_Payment::get_registered( false );
+
+			if ( $payment_methods ) {
+				foreach ( $payment_methods as $payment_method ) {
+					$payment_method_fields = $payment_method->admin_setting();
+
+					// Check whether the payment method has option page or not.
+					if ( $payment_methods ) {
+
+						// Do register the option page.
+						// translator: %s : name of payment method.
+						$option_name = sprintf( __( '%s Setting', 'wacara' ), $payment_method->name );
+						$this->register_option_page( $payment_method->id, $option_name, $payment_method_fields );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Map options page's fields.
+		 */
+		private function map_options_page() {
+			$this->options_fields = [
+				'theme_options' => [
+					'title'  => esc_html__( 'Wacara Options', 'wacara' ),
+					'fields' => [
+						[
+							'name'         => __( 'Logo', 'wacara' ),
+							'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
+							'id'           => 'logo',
+							'type'         => 'file',
+							'options'      => [
+								'url' => false,
+							],
+							'text'         => [
+								'add_upload_file_text' => __( 'Select Image', 'wacara' ),
+							],
+							'query_args'   => [
+								'type' => [
+									'image/png',
+								],
+							],
+							'preview_size' => 'medium',
 						],
 					],
-					'preview_size' => 'medium',
-				]
-			);
+				],
+				// 'stripe_options' => [
+				// 'title'  => esc_html__( 'Stripe Options', 'wacara' ),
+				// 'parent' => 'theme_options',
+				// 'fields' => [
+				// [
+				// 'name' => __( 'Sandbox', 'wacara' ),
+				// 'desc' => __( 'Enable sandbox for testing', 'wacara' ),
+				// 'id'   => 'sandbox',
+				// 'type' => 'checkbox',
+				// ],
+				// [
+				// 'name' => __( 'Sandbox secret key', 'wacara' ),
+				// 'id'   => 'sandbox_secret_key',
+				// 'type' => 'text',
+				// 'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
+				// ],
+				// [
+				// 'name' => __( 'Sandbox publishable key', 'wacara' ),
+				// 'id'   => 'sandbox_publishable_key',
+				// 'type' => 'text',
+				// 'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
+				// ],
+				// [
+				// 'name' => __( 'Live secret key', 'wacara' ),
+				// 'id'   => 'live_secret_key',
+				// 'type' => 'text',
+				// 'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
+				// ],
+				// [
+				// 'name' => __( 'Live publishable key', 'wacara' ),
+				// 'id'   => 'live_publishable_key',
+				// 'type' => 'text',
+				// 'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
+				// ],
+				// ],
+				// ],
+			];
+		}
 
-			// Add stripe options.
-			$stripe_options = new_cmb2_box(
-				[
-					'id'           => $this->meta_prefix . 'stripe_options',
-					'title'        => esc_html__( 'Stripe Options', 'wacara' ),
-					'object_types' => [ 'options-page' ],
-					'option_key'   => $this->meta_prefix . 'stripe_options',
-					'parent_slug'  => $this->meta_prefix . 'theme_options',
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox', 'wacara' ),
-					'desc' => __( 'Enable sandbox for testing', 'wacara' ),
-					'id'   => 'sandbox',
-					'type' => 'checkbox',
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox secret key', 'wacara' ),
-					'id'   => 'sandbox_secret_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this sk_test_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Sandbox publishable key', 'wacara' ),
-					'id'   => 'sandbox_publishable_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this pk_test_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Live secret key', 'wacara' ),
-					'id'   => 'live_secret_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this sk_live_xxx', 'wacara' ),
-				]
-			);
-			$stripe_options->add_field(
-				[
-					'name' => __( 'Live publishable key', 'wacara' ),
-					'id'   => 'live_publishable_key',
-					'type' => 'text',
-					'desc' => __( 'Normally it something like this pk_live_xxx', 'wacara' ),
-				]
-			);
+		/**
+		 * Create options page using cmb2 fields.
+		 *
+		 * @param string $option_id the page id.
+		 * @param string $option_name the page title.
+		 * @param array  $option_fields fields of page.
+		 * @param string $parent_slug parent slug.
+		 * @param string $prefix prefix key for option name.
+		 */
+		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = 'theme_options', $prefix = TEMP_PREFIX ) {
+			// Register custom option page.
+			$option_args = [
+				'id'           => $prefix . $option_id,
+				'title'        => $option_name,
+				'object_types' => [ 'options-page' ],
+				'option_key'   => $prefix . $option_id,
+			];
 
-			// Add bank options.
-			$bank_information = new_cmb2_box(
-				[
-					'id'           => $this->meta_prefix . 'bank_information',
-					'title'        => esc_html__( 'Bank Information', 'wacara' ),
-					'object_types' => [ 'options-page' ],
-					'option_key'   => $this->meta_prefix . 'bank_information',
-					'parent_slug'  => $this->meta_prefix . 'theme_options',
-				]
-			);
-			$group_field_id   = $bank_information->add_field(
-				[
-					'id'      => 'bank_accounts',
-					'type'    => 'group',
-					'options' => [
-						'group_title'   => __( 'Bank {#}', 'wacara' ),
-						'add_button'    => __( 'Add Bank', 'wacara' ),
-						'remove_button' => __( 'Remove Bank', 'wacara' ),
-						'sortable'      => false,
-					],
-				]
-			);
-			$bank_information->add_group_field(
-				$group_field_id,
-				[
-					'name' => __( 'Bank Name', 'wacara' ),
-					'id'   => 'name',
-					'type' => 'text',
-				]
-			);
-			$bank_information->add_group_field(
-				$group_field_id,
-				[
-					'name' => __( 'Number', 'wacara' ),
-					'id'   => 'number',
-					'type' => 'text',
-				]
-			);
-			$bank_information->add_group_field(
-				$group_field_id,
-				[
-					'name' => __( 'Branch', 'wacara' ),
-					'id'   => 'branch',
-					'type' => 'text',
-				]
-			);
-			$bank_information->add_group_field(
-				$group_field_id,
-				[
-					'name' => __( 'Holder', 'wacara' ),
-					'id'   => 'holder',
-					'type' => 'text',
-				]
-			);
+			// Check whether uses parent slug or not.
+			if ( $parent_slug ) {
+				$option_args['parent_slug'] = $prefix . $parent_slug;
+			}
+
+			// Instance the options.
+			$option_obj = new_cmb2_box( $option_args );
+
+			// Fetch the fields.
+			if ( $option_fields ) {
+				foreach ( $option_fields as $option_field ) {
+
+					// Special treatment for grouped field.
+					if ( 'group' === $option_field['type'] ) {
+
+						// Store the field information.
+						$group_fields = $option_field['fields'];
+
+						// Drop the fields from grouping.
+						unset( $option_field['fields'] );
+
+						// Create the group.
+						$group_field_id = $option_obj->add_field( $option_field );
+
+						// Fetch the group fields.
+						foreach ( $group_fields as $group_field ) {
+							$option_obj->add_group_field( $group_field_id, $group_field );
+						}
+					} else {
+
+						// Normal treatment :).
+						$option_obj->add_field( $option_field );
+					}
+				}
+			}
 		}
 	}
 }
