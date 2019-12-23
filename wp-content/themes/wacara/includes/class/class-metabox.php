@@ -1201,6 +1201,6 @@ if ( ! class_exists( 'Skeleton\Metabox' ) ) {
 			);
 		}
 	}
-}
 
-Metabox::init();
+	Metabox::init();
+}

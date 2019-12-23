@@ -389,6 +389,6 @@ if ( ! class_exists( 'Skeleton\CPT' ) ) {
 			register_post_type( 'customer', $args );
 		}
 	}
-}
 
-CPT::init();
+	CPT::init();
+}

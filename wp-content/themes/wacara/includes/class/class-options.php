@@ -231,6 +231,6 @@ if ( ! class_exists( 'Skeleton\Options' ) ) {
 			}
 		}
 	}
-}
 
-Options::init();
+	Options::init();
+}

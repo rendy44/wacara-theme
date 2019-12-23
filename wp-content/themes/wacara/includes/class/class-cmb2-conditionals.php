@@ -273,7 +273,7 @@ if ( ! class_exists( 'Skeleton\CMB2_Conditionals', false ) ) {
 
 			return $data_to_save;
 		}
-	} /* End of class. */
-} /* End of class-exists wrapper. */
+	}
 
-CMB2_Conditionals::init();
+	CMB2_Conditionals::init();
+}

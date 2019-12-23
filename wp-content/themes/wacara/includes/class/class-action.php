@@ -109,6 +109,6 @@ if ( ! class_exists( 'Skeleton\Action' ) ) {
 		}
 
 	}
-}
 
-Action::init();
+	Action::init();
+}

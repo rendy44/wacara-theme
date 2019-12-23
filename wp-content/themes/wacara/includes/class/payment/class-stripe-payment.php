@@ -114,7 +114,7 @@ if ( ! class_exists( 'Skeleton\Payment\Stripe_Payment' ) ) {
 			} else {
 
 				// Save a new customer.
-				$new_customer = Transaction::save_customer( $name, $email, $maybe_stripe_source_id );
+				$new_customer = Transaction::save_customer( $stripe_wrapper, $name, $email, $maybe_stripe_source_id );
 
 				// Validate save new customer status.
 				if ( $new_customer->success ) {

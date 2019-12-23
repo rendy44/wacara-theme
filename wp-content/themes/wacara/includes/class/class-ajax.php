@@ -489,6 +489,6 @@ if ( ! class_exists( 'Skeleton\Ajax' ) ) {
 			wp_send_json( $result );
 		}
 	}
-}
 
-Ajax::init();
+	Ajax::init();
+}

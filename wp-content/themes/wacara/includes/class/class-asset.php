@@ -289,6 +289,6 @@ if ( ! class_exists( '\Skeleton\Asset' ) ) {
 			}
 		}
 	}
-}
 
-Asset::init();
+	Asset::init();
+}

@@ -94,6 +94,6 @@ if ( ! class_exists( '\Skeleton\Setting' ) ) {
 			load_theme_textdomain( 'wacara', TEMP_DIR . '/i18n' );
 		}
 	}
-}
 
-Setting::init();
+	Setting::init();
+}

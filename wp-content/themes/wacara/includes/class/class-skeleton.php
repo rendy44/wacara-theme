@@ -72,7 +72,6 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 				'class-template',
 				'class-ui',
 				'class-setting',
-				'class-navwalker',
 				'class-options',
 				'class-metabox',
 				'class-cpt',
@@ -128,6 +127,6 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 			}
 		}
 	}
-}
 
-Skeleton::init();
+	Skeleton::init();
+}

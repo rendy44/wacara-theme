@@ -162,6 +162,6 @@ if ( ! class_exists( 'Skeleton\Mailer' ) ) {
 			$this->send_email( $participant_data['email'], $participant_data['name'], $email_subject, $email_content );
 		}
 	}
-}
 
-Mailer::init();
+	Mailer::init();
+}

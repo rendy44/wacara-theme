@@ -58,6 +58,6 @@ if ( ! class_exists( 'Skeleton\CMB2_Hooks' ) ) {
 			return TEMP_URI . '/includes/lib/cmb2-select2';
 		}
 	}
-}
 
-CMB2_Hooks::init();
+	CMB2_Hooks::init();
+}

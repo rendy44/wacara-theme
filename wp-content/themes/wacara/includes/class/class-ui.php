@@ -501,6 +501,6 @@ if ( ! class_exists( '\Skeleton\UI' ) ) {
 			return $result;
 		}
 	}
-}
 
-UI::init();
+	UI::init();
+}
