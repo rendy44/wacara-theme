@@ -6,18 +6,18 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Mailer' ) ) {
+if ( ! class_exists( 'Wacara\Mailer' ) ) {
 
 	/**
 	 * Class Mailer
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Mailer {
 

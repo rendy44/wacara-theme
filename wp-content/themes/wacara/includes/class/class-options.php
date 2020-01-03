@@ -6,18 +6,18 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Options' ) ) {
+if ( ! class_exists( 'Wacara\Options' ) ) {
 
 	/**
 	 * Class Options
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Options {
 

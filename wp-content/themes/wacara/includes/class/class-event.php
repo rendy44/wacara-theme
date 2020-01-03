@@ -6,7 +6,7 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 use WP_Query;
 
@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Event' ) ) {
+if ( ! class_exists( 'Wacara\Event' ) ) {
 
 	/**
 	 * Class Event
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Event extends Post {
 

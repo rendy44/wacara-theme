@@ -17,4 +17,4 @@ defined( 'TEMP_PATH' ) || define( 'TEMP_PATH', get_theme_file_path() );
 defined( 'TEMP_PREFIX' ) || define( 'TEMP_PREFIX', 'wcr_' );
 
 // Require our main class.
-require_once TEMP_PATH . '/includes/class/class-skeleton.php';
+require_once TEMP_PATH . '/includes/class/class-wacara.php';

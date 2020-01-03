@@ -6,20 +6,20 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
-use Skeleton\Payment\Stripe_Payment;
+use Wacara\Payment\Stripe_Payment;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Skeleton\Asset' ) ) {
+if ( ! class_exists( '\Wacara\Asset' ) ) {
 
 	/**
 	 * Class Asset
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Asset {
 

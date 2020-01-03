@@ -6,7 +6,7 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 use Stripe\Charge;
 use Stripe\Customer;
@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Stripe_Wrapper' ) ) {
+if ( ! class_exists( 'Wacara\Stripe_Wrapper' ) ) {
 
 	/**
 	 * Class Stripe_Wrapper
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Stripe_Wrapper {
 

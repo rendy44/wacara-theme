@@ -6,9 +6,9 @@
  * @package Wacara
  */
 
-use Skeleton\Event;
-use Skeleton\Helper;
-use Skeleton\Template;
+use Wacara\Event;
+use Wacara\Helper;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

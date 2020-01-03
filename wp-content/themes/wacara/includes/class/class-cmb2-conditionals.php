@@ -39,17 +39,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 use CMB2;
 use CMB2_Boxes;
 
-if ( ! class_exists( 'Skeleton\CMB2_Conditionals', false ) ) {
+if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 
 	/**
 	 * Class CMB2_Conditionals
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class CMB2_Conditionals {
 

@@ -6,18 +6,18 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Ajax' ) ) {
+if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 	/**
 	 * Class Ajax
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Ajax {
 

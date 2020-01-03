@@ -8,18 +8,18 @@
  * @see     https://github.com/CMB2/CMB2/wiki
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Metabox' ) ) {
+if ( ! class_exists( 'Wacara\Metabox' ) ) {
 
 	/**
 	 * Class Metabox
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Metabox {
 

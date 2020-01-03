@@ -6,7 +6,7 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 use WP_Error;
 
@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Transaction' ) ) {
+if ( ! class_exists( 'Wacara\Transaction' ) ) {
 
 	/**
 	 * Class Transaction
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Transaction {
 

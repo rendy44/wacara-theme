@@ -6,26 +6,26 @@
  * @package Wacara
  */
 
-namespace Skeleton\Payment;
+namespace Wacara\Payment;
 
-use Skeleton\Participant;
-use Skeleton\Payment_Method;
-use Skeleton\Register_Payment;
-use Skeleton\Result;
-use Skeleton\Helper;
-use Skeleton\Stripe_Wrapper;
-use Skeleton\Transaction;
+use Wacara\Participant;
+use Wacara\Payment_Method;
+use Wacara\Register_Payment;
+use Wacara\Result;
+use Wacara\Helper;
+use Wacara\Stripe_Wrapper;
+use Wacara\Transaction;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Payment\Stripe_Payment' ) ) {
+if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 
 	/**
 	 * Class Stripe_Payment
 	 *
-	 * @package Skeleton\Payment
+	 * @package Wacara\Payment
 	 */
 	class Stripe_Payment extends Payment_Method {
 
