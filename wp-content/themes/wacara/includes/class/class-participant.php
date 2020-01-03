@@ -6,7 +6,7 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 use QRcode;
 use WP_Error;
@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Participant' ) ) {
+if ( ! class_exists( 'Wacara\Participant' ) ) {
 
 	/**
 	 * Class Participant
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Participant extends Post {
 

@@ -6,20 +6,20 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
+if ( ! class_exists( '\Wacara\Wacara' ) ) {
 
 	/**
-	 * Class Skeleton
+	 * Class Wacara
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
-	class Skeleton {
+	class Wacara {
 
 		/**
 		 * Instance variable
@@ -43,7 +43,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		/**
 		 * Singleton
 		 *
-		 * @return null|Skeleton
+		 * @return null|Wacara
 		 */
 		public static function init() {
 			if ( null === self::$instance ) {
@@ -54,7 +54,7 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		}
 
 		/**
-		 * Skeleton constructor.
+		 * Wacara constructor.
 		 */
 		private function __construct() {
 			$this->load_libraries();
@@ -128,5 +128,5 @@ if ( ! class_exists( '\Skeleton\Skeleton' ) ) {
 		}
 	}
 
-	Skeleton::init();
+	Wacara::init();
 }

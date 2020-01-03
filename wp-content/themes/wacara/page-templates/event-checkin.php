@@ -7,8 +7,8 @@
  * @package Wacara
  */
 
-use Skeleton\Helper;
-use Skeleton\Template;
+use Wacara\Helper;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

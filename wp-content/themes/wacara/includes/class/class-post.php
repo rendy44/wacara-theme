@@ -6,17 +6,17 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Post' ) ) {
+if ( ! class_exists( 'Wacara\Post' ) ) {
 	/**
 	 * Class Post
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Post extends Result {
 		/**

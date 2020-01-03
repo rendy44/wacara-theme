@@ -6,14 +6,14 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
-if ( ! defined( 'Skeleton\Result' ) ) {
+if ( ! defined( 'Wacara\Result' ) ) {
 
 	/**
 	 * Class Result
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class Result {
 

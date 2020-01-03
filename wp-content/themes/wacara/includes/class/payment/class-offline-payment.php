@@ -6,25 +6,25 @@
  * @package Wacara
  */
 
-namespace Skeleton\Payment;
+namespace Wacara\Payment;
 
-use Skeleton\Participant;
-use Skeleton\Payment_Method;
-use Skeleton\Register_Payment;
-use Skeleton\Result;
-use Skeleton\Helper;
-use Skeleton\Template;
+use Wacara\Participant;
+use Wacara\Payment_Method;
+use Wacara\Register_Payment;
+use Wacara\Result;
+use Wacara\Helper;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\Payment\Offline_Payment' ) ) {
+if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 	/**
 	 * Class Offline_Payment
 	 *
-	 * @package Skeleton\Payment
+	 * @package Wacara\Payment
 	 */
 	class Offline_Payment extends Payment_Method {
 

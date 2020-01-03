@@ -6,18 +6,18 @@
  * @package Wacara
  */
 
-namespace Skeleton;
+namespace Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Skeleton\CMB2_Hooks' ) ) {
+if ( ! class_exists( 'Wacara\CMB2_Hooks' ) ) {
 
 	/**
 	 * Class CMB2_Hooks
 	 *
-	 * @package Skeleton
+	 * @package Wacara
 	 */
 	class CMB2_Hooks {
 
