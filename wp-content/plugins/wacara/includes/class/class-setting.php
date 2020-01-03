@@ -91,7 +91,7 @@ if ( ! class_exists( '\Wacara\Setting' ) ) {
 		 * Callback for loading languages domain.
 		 */
 		public function wacara_language_domain_callback() {
-			load_theme_textdomain( 'wacara', TEMP_DIR . '/i18n' );
+			load_theme_textdomain( 'wacara', TEMP_PATH . '/i18n' );
 		}
 	}
 

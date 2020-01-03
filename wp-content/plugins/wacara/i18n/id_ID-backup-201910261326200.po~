@@ -1,0 +1,2526 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WAcara Event Organizer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-19 05:15+0000\n"
+"PO-Revision-Date: 2019-10-19 05:21+0000\n"
+"Last-Translator: admin <rendy.de.p@gmail.com>\n"
+"Language-Team: Indonesian\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.4"
+
+#: searchform.php:15
+msgid "Search for..."
+msgstr "Pencarian untuk ..."
+
+#: searchform.php:16
+msgid "Search"
+msgstr "Cari"
+
+#. Name of the template
+msgid "Checkin Page"
+msgstr "Halaman  Check-in"
+
+#: page-templates/event-checkin.php:31
+msgid "Cooming Soon"
+msgstr "Segera Hadir"
+
+#: page-templates/event-checkin.php:32
+msgid "This feature will be available soon"
+msgstr "Fitur ini akan tersedia segera"
+
+#: i18n/country.php:14
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: i18n/country.php:15
+msgid "Åland Islands"
+msgstr "Kepulauan Åland"
+
+#: i18n/country.php:16
+msgid "Albania"
+msgstr "Albania"
+
+#: i18n/country.php:17
+msgid "Algeria"
+msgstr "Aljazair"
+
+#: i18n/country.php:18
+msgid "American Samoa"
+msgstr "Amerika Samoa"
+
+#: i18n/country.php:19
+msgid "Andorra"
+msgstr "Andorra"
+
+#: i18n/country.php:20
+msgid "Angola"
+msgstr "Angola"
+
+#: i18n/country.php:21
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: i18n/country.php:22
+msgid "Antarctica"
+msgstr "Antartika"
+
+#: i18n/country.php:23
+msgid "Antigua and Barbuda"
+msgstr "Antigua dan Barbuda"
+
+#: i18n/country.php:24
+msgid "Argentina"
+msgstr "Argentina"
+
+#: i18n/country.php:25
+msgid "Armenia"
+msgstr "Armenia"
+
+#: i18n/country.php:26
+msgid "Aruba"
+msgstr "Aruba"
+
+#: i18n/country.php:27
+msgid "Australia"
+msgstr "Australia"
+
+#: i18n/country.php:28
+msgid "Austria"
+msgstr "Austria"
+
+#: i18n/country.php:29
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: i18n/country.php:30
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: i18n/country.php:31
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: i18n/country.php:32
+msgid "Bangladesh"
+msgstr "Banglades"
+
+#: i18n/country.php:33
+msgid "Barbados"
+msgstr "Barbados"
+
+#: i18n/country.php:34
+msgid "Belarus"
+msgstr "Belarus"
+
+#: i18n/country.php:35
+msgid "Belgium"
+msgstr "Belgia"
+
+#: i18n/country.php:36
+msgid "Belize"
+msgstr "Belize"
+
+#: i18n/country.php:37
+msgid "Benin"
+msgstr "Benin"
+
+#: i18n/country.php:38
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: i18n/country.php:39
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: i18n/country.php:40
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: i18n/country.php:41
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia dan Herzegovina"
+
+#: i18n/country.php:42
+msgid "Botswana"
+msgstr "Botswana"
+
+#: i18n/country.php:43
+msgid "Bouvet Island"
+msgstr "Pulau Bouvet"
+
+#: i18n/country.php:44
+msgid "Brazil"
+msgstr "Brasil"
+
+#: i18n/country.php:45
+msgid "British Indian Ocean Territory"
+msgstr "Wilayah Samudra Hindia Britania"
+
+#: i18n/country.php:46
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: i18n/country.php:47
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: i18n/country.php:48
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: i18n/country.php:49
+msgid "Burundi"
+msgstr "Burundi"
+
+#: i18n/country.php:50
+msgid "Cambodia"
+msgstr "Kamboja"
+
+#: i18n/country.php:51
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: i18n/country.php:52
+msgid "Canada"
+msgstr "Kanada"
+
+#: i18n/country.php:53
+msgid "Cape Verde"
+msgstr "Tanjung Verde"
+
+#: i18n/country.php:54
+msgid "Cayman Islands"
+msgstr "Kepulauan Cayman"
+
+#: i18n/country.php:55
+msgid "Central African Republic"
+msgstr "Republik Afrika Tengah"
+
+#: i18n/country.php:56
+msgid "Chad"
+msgstr "Chad"
+
+#: i18n/country.php:57
+msgid "Chile"
+msgstr "Chili"
+
+#: i18n/country.php:58
+msgid "China"
+msgstr "Cina"
+
+#: i18n/country.php:59
+msgid "Christmas Island"
+msgstr "Pulau Paskah"
+
+#: i18n/country.php:60
+msgid "Cocos (Keeling] Islands"
+msgstr "Kepulauan Cocos (Keeling)"
+
+#: i18n/country.php:61
+msgid "Colombia"
+msgstr "Kolombia"
+
+#: i18n/country.php:62
+msgid "Comoros"
+msgstr "Komoro"
+
+#: i18n/country.php:63
+msgid "Congo"
+msgstr "Kongo"
+
+#: i18n/country.php:64
+msgid "The Democratic Republic of The Congo"
+msgstr "Republik Demokratik Kongo"
+
+#: i18n/country.php:65
+msgid "Cook Islands"
+msgstr "Kepulauan Cook"
+
+#: i18n/country.php:66
+msgid "Costa Rica"
+msgstr "Kosta Rika"
+
+#: i18n/country.php:67
+msgid "Cote D`ivoire"
+msgstr "Pantai Gading"
+
+#: i18n/country.php:68
+msgid "Croatia"
+msgstr "Kroasia"
+
+#: i18n/country.php:69
+msgid "Cuba"
+msgstr "Kuba"
+
+#: i18n/country.php:70
+msgid "Cyprus"
+msgstr "Siprus"
+
+#: i18n/country.php:71
+msgid "Czech Republic"
+msgstr "Republik Ceko"
+
+#: i18n/country.php:72
+msgid "Denmark"
+msgstr "Denmark"
+
+#: i18n/country.php:73
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: i18n/country.php:74
+msgid "Dominica"
+msgstr "Dominika"
+
+#: i18n/country.php:75
+msgid "Dominican Republic"
+msgstr "Republik Dominika"
+
+#: i18n/country.php:76
+msgid "Ecuador"
+msgstr "Ekuador"
+
+#: i18n/country.php:77
+msgid "Egypt"
+msgstr "Mesir"
+
+#: i18n/country.php:78
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: i18n/country.php:79
+msgid "Equatorial Guinea"
+msgstr "Guinea Khatulistiwa"
+
+#: i18n/country.php:80
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: i18n/country.php:81
+msgid "Estonia"
+msgstr "Estonia"
+
+#: i18n/country.php:82
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: i18n/country.php:83
+msgid "Falkland Islands (Malvinas]"
+msgstr "Kepulaian Falkland (Malvinas)"
+
+#: i18n/country.php:84
+msgid "Faroe Islands"
+msgstr "Kepulauan Faroe"
+
+#: i18n/country.php:85
+msgid "Fiji"
+msgstr "Fiji"
+
+#: i18n/country.php:86
+msgid "Finland"
+msgstr "Finlandia"
+
+#: i18n/country.php:87
+msgid "France"
+msgstr "Prancis"
+
+#: i18n/country.php:88
+msgid "French Guiana"
+msgstr "Guyana Prancis"
+
+#: i18n/country.php:89
+msgid "French Polynesia"
+msgstr "Polinesia Prancis"
+
+#: i18n/country.php:90
+msgid "French Southern Territories"
+msgstr "Daratan Selatan dan Antartika Prancis"
+
+#: i18n/country.php:91
+msgid "Gabon"
+msgstr "Gabon"
+
+#: i18n/country.php:92
+msgid "Gambia"
+msgstr "Gambia"
+
+#: i18n/country.php:93
+msgid "Georgia"
+msgstr "Georgia"
+
+#: i18n/country.php:94
+msgid "Germany"
+msgstr "Jerman"
+
+#: i18n/country.php:95
+msgid "Ghana"
+msgstr "Ghana"
+
+#: i18n/country.php:96
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: i18n/country.php:97
+msgid "Greece"
+msgstr "Yunani"
+
+#: i18n/country.php:98
+msgid "Greenland"
+msgstr "Greenland"
+
+#: i18n/country.php:99
+msgid "Grenada"
+msgstr "Grenada"
+
+#: i18n/country.php:100
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: i18n/country.php:101
+msgid "Guam"
+msgstr "Guam"
+
+#: i18n/country.php:102
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: i18n/country.php:103
+msgid "Guernsey"
+msgstr "Guernsey"
+
+#: i18n/country.php:104
+msgid "Guinea"
+msgstr "Guinea"
+
+#: i18n/country.php:105
+msgid "Guinea-bissau"
+msgstr "Guinea-bissau"
+
+#: i18n/country.php:106
+msgid "Guyana"
+msgstr "Guyana"
+
+#: i18n/country.php:107
+msgid "Haiti"
+msgstr "Haiti"
+
+#: i18n/country.php:108
+msgid "Heard Island and Mcdonald Islands"
+msgstr "Pulau Heard dan Kepulauan Mcdonald"
+
+#: i18n/country.php:109
+msgid "Holy See (Vatican City State]"
+msgstr "Holy See (Daerah Kota Vatikan)"
+
+#: i18n/country.php:110
+msgid "Honduras"
+msgstr "Honduras"
+
+#: i18n/country.php:111
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: i18n/country.php:112
+msgid "Hungary"
+msgstr "Hungaria"
+
+#: i18n/country.php:113
+msgid "Iceland"
+msgstr "Islandia"
+
+#: i18n/country.php:114
+msgid "India"
+msgstr "India"
+
+#: i18n/country.php:115
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: i18n/country.php:116
+msgid "Iran"
+msgstr "Iran"
+
+#: i18n/country.php:117
+msgid "Iraq"
+msgstr "Iraq"
+
+#: i18n/country.php:118
+msgid "Ireland"
+msgstr "Irlandia"
+
+#: i18n/country.php:119
+msgid "Isle of Man"
+msgstr "Pulau Man"
+
+#: i18n/country.php:120
+msgid "Israel"
+msgstr "Israel"
+
+#: i18n/country.php:121
+msgid "Italy"
+msgstr "Italia"
+
+#: i18n/country.php:122
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: i18n/country.php:123
+msgid "Japan"
+msgstr "Jepang"
+
+#: i18n/country.php:124
+msgid "Jersey"
+msgstr "Jersey"
+
+#: i18n/country.php:125
+msgid "Jordan"
+msgstr "Yordania"
+
+#: i18n/country.php:126
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: i18n/country.php:127
+msgid "Kenya"
+msgstr "Kenya"
+
+#: i18n/country.php:128
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: i18n/country.php:129
+msgid "Democratic People`s Republic of Korea"
+msgstr "Republik Rakyat Demokratik Korea"
+
+#: i18n/country.php:130
+msgid "Republic of Korea"
+msgstr "Republik Korea"
+
+#: i18n/country.php:131
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: i18n/country.php:132
+msgid "Kyrgyzstan"
+msgstr "Kirgizstan"
+
+#: i18n/country.php:133
+msgid "Lao People`s Democratic Republic"
+msgstr "Republik Demokratik Rakyat Laos"
+
+#: i18n/country.php:134
+msgid "Latvia"
+msgstr "Latvia"
+
+#: i18n/country.php:135
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: i18n/country.php:136
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: i18n/country.php:137
+msgid "Liberia"
+msgstr "Liberia"
+
+#: i18n/country.php:138
+msgid "Libya"
+msgstr "Libya"
+
+#: i18n/country.php:139
+msgid "Liechtenstein"
+msgstr "Lao People`s Democratic Republic"
+
+#: i18n/country.php:140
+msgid "Lithuania"
+msgstr "Lithuania"
+
+#: i18n/country.php:141
+msgid "Luxembourg"
+msgstr "Luksemburg"
+
+#: i18n/country.php:142
+msgid "Macao"
+msgstr "Makau"
+
+#: i18n/country.php:143
+msgid "Macedonia"
+msgstr "Makedonia"
+
+#: i18n/country.php:144
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: i18n/country.php:145
+msgid "Malawi"
+msgstr "Melawi"
+
+#: i18n/country.php:146
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: i18n/country.php:147
+msgid "Maldives"
+msgstr "Maladewa"
+
+#: i18n/country.php:148
+msgid "Mali"
+msgstr "Mali"
+
+#: i18n/country.php:149
+msgid "Malta"
+msgstr "Malta"
+
+#: i18n/country.php:150
+msgid "Marshall Islands"
+msgstr "Kepulauan Marshall"
+
+#: i18n/country.php:151
+msgid "Martinique"
+msgstr "Maritinik"
+
+#: i18n/country.php:152
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: i18n/country.php:153
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: i18n/country.php:154
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: i18n/country.php:155
+msgid "Mexico"
+msgstr "Meksiko"
+
+#: i18n/country.php:156
+msgid "Micronesia"
+msgstr "Micronesia"
+
+#: i18n/country.php:157
+msgid "Moldova"
+msgstr "Moldova"
+
+#: i18n/country.php:158
+msgid "Monaco"
+msgstr "Monako"
+
+#: i18n/country.php:159
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: i18n/country.php:160
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: i18n/country.php:161
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: i18n/country.php:162
+msgid "Morocco"
+msgstr "Maroko"
+
+#: i18n/country.php:163
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: i18n/country.php:164
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: i18n/country.php:165
+msgid "Namibia"
+msgstr "Namibia"
+
+#: i18n/country.php:166
+msgid "Nauru"
+msgstr "Nauru"
+
+#: i18n/country.php:167
+msgid "Nepal"
+msgstr "Nepal"
+
+#: i18n/country.php:168
+msgid "Netherlands"
+msgstr "Belanda"
+
+#: i18n/country.php:169
+msgid "Netherlands Antilles"
+msgstr "Antillen Belanda"
+
+#: i18n/country.php:170
+msgid "New Caledonia"
+msgstr "Kaledonia baru"
+
+#: i18n/country.php:171
+msgid "New Zealand"
+msgstr "Selandia Baru"
+
+#: i18n/country.php:172
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: i18n/country.php:173
+msgid "Niger"
+msgstr "Niger"
+
+#: i18n/country.php:174
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: i18n/country.php:175
+msgid "Niue"
+msgstr "Niue"
+
+#: i18n/country.php:176
+msgid "Norfolk Island"
+msgstr "Pulau Norfolk"
+
+#: i18n/country.php:177
+msgid "Northern Mariana Islands"
+msgstr "kepulauan Mariana Utara"
+
+#: i18n/country.php:178
+msgid "Norway"
+msgstr "Norwegia"
+
+#: i18n/country.php:179
+msgid "Oman"
+msgstr "Oman"
+
+#: i18n/country.php:180
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: i18n/country.php:181
+msgid "Palau"
+msgstr "Palau"
+
+#: i18n/country.php:182
+msgid "Palestinia"
+msgstr "Palestina"
+
+#: i18n/country.php:183
+msgid "Panama"
+msgstr "Panama"
+
+#: i18n/country.php:184
+msgid "Papua New Guinea"
+msgstr "Papua Nugini"
+
+#: i18n/country.php:185
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: i18n/country.php:186
+msgid "Peru"
+msgstr "Peru"
+
+#: i18n/country.php:187
+msgid "Philippines"
+msgstr "Filipina"
+
+#: i18n/country.php:188
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: i18n/country.php:189
+msgid "Poland"
+msgstr "Polandia"
+
+#: i18n/country.php:190
+msgid "Portugal"
+msgstr "Portugal"
+
+#: i18n/country.php:191
+msgid "Puerto Rico"
+msgstr "Puerto Riko"
+
+#: i18n/country.php:192
+msgid "Qatar"
+msgstr "Qatar"
+
+#: i18n/country.php:193
+msgid "Reunion"
+msgstr "Reunion"
+
+#: i18n/country.php:194
+msgid "Romania"
+msgstr "Romania"
+
+#: i18n/country.php:195
+msgid "Russian Federation"
+msgstr "Federasi Rusia"
+
+#: i18n/country.php:196
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: i18n/country.php:197
+msgid "Saint Helena"
+msgstr "Saint Helena"
+
+#: i18n/country.php:198
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts dan Nevis"
+
+#: i18n/country.php:199
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: i18n/country.php:200
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint Pierre dan Miquelon"
+
+#: i18n/country.php:201
+msgid "Saint Vincent and The Grenadines"
+msgstr "Saint Vincent dan Grenadine"
+
+#: i18n/country.php:202
+msgid "Samoa"
+msgstr "Samoa"
+
+#: i18n/country.php:203
+msgid "San Marino"
+msgstr "San Marino"
+
+#: i18n/country.php:204
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome dan Principe"
+
+#: i18n/country.php:205
+msgid "Saudi Arabia"
+msgstr "Arab Saudi"
+
+#: i18n/country.php:206
+msgid "Senegal"
+msgstr "Senegal"
+
+#: i18n/country.php:207
+msgid "Serbia"
+msgstr "Serbia"
+
+#: i18n/country.php:208
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: i18n/country.php:209
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: i18n/country.php:210
+msgid "Singapore"
+msgstr "Singapura"
+
+#: i18n/country.php:211
+msgid "Slovakia"
+msgstr "Slovakia"
+
+#: i18n/country.php:212
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: i18n/country.php:213
+msgid "Solomon Islands"
+msgstr "Kepulauan Solomon"
+
+#: i18n/country.php:214
+msgid "Somalia"
+msgstr "Somalia"
+
+#: i18n/country.php:215
+msgid "South Africa"
+msgstr "Afrika Selatan"
+
+#: i18n/country.php:216
+msgid "South Georgia and The South Sandwich Islands"
+msgstr "Georgia Selatan dan Kepulauan Sandwich Selatan"
+
+#: i18n/country.php:217
+msgid "Spain"
+msgstr "Spanyol"
+
+#: i18n/country.php:218
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: i18n/country.php:219
+msgid "Sudan"
+msgstr "Sudan"
+
+#: i18n/country.php:220
+msgid "Suriname"
+msgstr "Suriname"
+
+#: i18n/country.php:221
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbard dan Jan Mayen"
+
+#: i18n/country.php:222
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: i18n/country.php:223
+msgid "Sweden"
+msgstr "Swedia"
+
+#: i18n/country.php:224
+msgid "Switzerland"
+msgstr "Swiss"
+
+#: i18n/country.php:225
+msgid "Syrian Arab Republic"
+msgstr "Republik Arab Suriah"
+
+#: i18n/country.php:226
+msgid "Taiwan, Province of China"
+msgstr "Taiwan, Provinsi Cina"
+
+#: i18n/country.php:227
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: i18n/country.php:228
+msgid "Tanzania, United Republic of"
+msgstr "Tanzania"
+
+#: i18n/country.php:229
+msgid "Thailand"
+msgstr "Thailand"
+
+#: i18n/country.php:230
+msgid "Timor-leste"
+msgstr "Timor-leste"
+
+#: i18n/country.php:231
+msgid "Togo"
+msgstr "Togo"
+
+#: i18n/country.php:232
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: i18n/country.php:233
+msgid "Tonga"
+msgstr "Tonga"
+
+#: i18n/country.php:234
+msgid "Trinidad and Tobago"
+msgstr "Trinidad dan Tobago"
+
+#: i18n/country.php:235
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: i18n/country.php:236
+msgid "Turkey"
+msgstr "Turki"
+
+#: i18n/country.php:237
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: i18n/country.php:238
+msgid "Turks and Caicos Islands"
+msgstr "Kepulauan Turks dan Caicos"
+
+#: i18n/country.php:239
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: i18n/country.php:240
+msgid "Uganda"
+msgstr "Uganda"
+
+#: i18n/country.php:241
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: i18n/country.php:242
+msgid "United Arab Emirates"
+msgstr "Uni Emirat Arab"
+
+#: i18n/country.php:243
+msgid "United Kingdom"
+msgstr "Britania Raya"
+
+#: i18n/country.php:244
+msgid "United States"
+msgstr "Amerika Serikat"
+
+#: i18n/country.php:245
+msgid "United States Minor Outlying Islands"
+msgstr "Kepulauan Virgin Amerika Serikat"
+
+#: i18n/country.php:246
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: i18n/country.php:247
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: i18n/country.php:248
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: i18n/country.php:249
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: i18n/country.php:250
+msgid "Viet Nam"
+msgstr "Viet Nam"
+
+#: i18n/country.php:251
+msgid "Virgin Islands, British"
+msgstr "Kepulauan Virgin Britania Raya"
+
+#: i18n/country.php:252
+msgid "Virgin Islands, U.S."
+msgstr "Kepulauan Virgin Amerika Serikat"
+
+#: i18n/country.php:253
+msgid "Wallis and Futuna"
+msgstr "Wallis dan Futuna"
+
+#: i18n/country.php:254
+msgid "Western Sahara"
+msgstr "Sahara Barat"
+
+#: i18n/country.php:255
+msgid "Yemen"
+msgstr "Yaman"
+
+#: i18n/country.php:256
+msgid "Zambia"
+msgstr "Zambia"
+
+#: i18n/country.php:257
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: templates/global/404.php:13
+msgid "There is no post"
+msgstr "Tidak ada post"
+
+#: templates/global/modal.php:24
+msgid "Booking code"
+msgstr "Kode pemesanan"
+
+#: templates/global/modal.php:28 includes/class/class-action.php:75
+#: includes/class/class-metabox.php:314 includes/class/class-metabox.php:936
+msgid "Name"
+msgstr "Nama"
+
+#: templates/global/modal.php:32 includes/class/class-action.php:76
+#: includes/class/class-metabox.php:284
+msgid "Email"
+msgstr "Email"
+
+#: templates/global/modal.php:38
+msgid "Check-in"
+msgstr "Check-in"
+
+#: templates/global/modal.php:39
+msgid "Cancel"
+msgstr "Batal"
+
+#: templates/global/search-section.php:22
+msgid "Enter your booking code"
+msgstr "Masukkan kode pemesanan Anda"
+
+#: templates/global/search-section.php:30
+msgid "Scan QR Code"
+msgstr "Pindai Kode QR"
+
+#: templates/global/search-section.php:30
+msgid "Need Help?"
+msgstr "Butuh Bantuan?"
+
+#: templates/global/modal-template.php:32
+msgid "Close"
+msgstr "Tutup"
+
+#: templates/event/directly.php:20
+msgid ""
+"This event does not require any registration, you can attend the event "
+"immediately"
+msgstr ""
+"Acara ini tidak memerlukan pendaftaran, Anda bisa menghadirinya secara "
+"langsung"
+
+#: templates/event/expired.php:17
+msgid "Expired"
+msgstr "Berakhir"
+
+#: templates/event/expired.php:18
+msgid "Sorry this event already past"
+msgstr "Maaf acara ini sudah lewat"
+
+#: templates/event/about.php:30
+msgid "What is all about?"
+msgstr "Apakah ini?"
+
+#: templates/event/about.php:35
+msgid "Venue"
+msgstr "Tempat"
+
+#: templates/event/about.php:40
+msgid "When"
+msgstr "Kapan"
+
+#: templates/event/pricing.php:60
+msgid "Book Now"
+msgstr "Pesan Sekarang"
+
+#: templates/event/masthead.php:25
+msgid "Days"
+msgstr "Hari"
+
+#: templates/event/masthead.php:29
+msgid "Hours"
+msgstr "Jam"
+
+#: templates/event/masthead.php:33
+msgid "Minutes"
+msgstr "Menit"
+
+#: templates/event/masthead.php:37
+msgid "Seconds"
+msgstr "Detik"
+
+#: templates/participant/register-success.php:18
+msgid "Congratulation"
+msgstr "Selamat"
+
+#: templates/participant/register-success.php:19
+msgid ""
+"We have recorded your registration, please check your email for the further "
+"detail"
+msgstr ""
+"Kami sudah menyimpan pendaftaran Anda, silahkan buka email Anda untuk "
+"informasi lebih lanjut"
+
+#: templates/participant/register-form.php:21
+msgid "Last Error:"
+msgstr "Galat Terakhir"
+
+#: templates/participant/register-form.php:46
+msgid "Payment Method"
+msgstr "Metode pembayaran"
+
+#: templates/participant/register-form.php:49
+msgid "Manual bank transfer"
+msgstr "Bank transfer"
+
+#: templates/participant/register-form.php:50
+msgid "Stripe"
+msgstr "Stripe"
+
+#: templates/participant/register-form.php:65
+msgid "Bank detail will be informed after making registration"
+msgstr "Detail bank akan diinformasikan setelah melakukan registrasi"
+
+#: templates/participant/register-form.php:69
+msgid "Credit card information"
+msgstr "Informasi kartu kredit"
+
+#: templates/participant/register-form.php:88
+msgid ""
+"By clicking register, you are automatically agree to our term of service"
+msgstr ""
+"Dengan mengklik daftar, Anda secara otomatis setuju dengan ketentuan layanan "
+"kami"
+
+#: templates/participant/register-form.php:89
+msgid "Register"
+msgstr "Daftar"
+
+#: templates/participant/waiting-payment.php:17
+msgid "In order to save your seat, please make a payment as detailed below:"
+msgstr ""
+"Untuk mengamankan kursi Anda, mohon lakukan pembayaran sesuai di bawah ini:"
+
+#: templates/participant/waiting-payment.php:21
+msgid "Important!"
+msgstr "Penting!"
+
+#: templates/participant/waiting-payment.php:22
+msgid ""
+"The transfer amount must be exactly same as above, including the coma if any"
+msgstr "Jumlah transfer harus sama persis, termasuk koma jika ada."
+
+#: templates/participant/waiting-payment.php:24
+msgid "Make a transfer to one of the following bank accounts"
+msgstr "Lakukan transfer ke salah satu bank berikut"
+
+#. %1: bank name &2: branch name
+#: templates/participant/waiting-payment.php:36
+#, php-format
+msgctxt "Dislaying bank information"
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#: templates/participant/waiting-payment.php:45
+msgid "Once you made a transfer, please click button below to confirm"
+msgstr ""
+"Saat kamu sudah mentransfer, mohon klik tombol di bawah untuk konfirmasi"
+
+#: templates/participant/waiting-payment.php:46
+msgid "I have made a payment"
+msgstr "Saya sudah membayar"
+
+#: includes/class/class-helper.php:251
+msgid "Select country"
+msgstr "Pilih negara"
+
+#: includes/class/class-helper.php:509
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid description"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki "
+"deskripsi yang valid"
+
+#: includes/class/class-helper.php:512
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid photo"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki foto "
+"yang valid"
+
+#: includes/class/class-helper.php:515
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid postal code"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki kode "
+"pos yang valid"
+
+#: includes/class/class-helper.php:518
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid address"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki alamat "
+"yang valid"
+
+#: includes/class/class-helper.php:521
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid city"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki kota "
+"yang valid"
+
+#: includes/class/class-helper.php:524
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid province"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki "
+"provinsi yang valid"
+
+#: includes/class/class-helper.php:527
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid country"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki negara "
+"yang valid"
+
+#: includes/class/class-helper.php:530
+msgid ""
+"This event is not completed yet, it uses invalid location which does not "
+"have valid name"
+msgstr ""
+"Acara ini tidak valid, karena menggunakan lokasi yang tidak memiliki nama "
+"yang valid"
+
+#: includes/class/class-helper.php:556
+msgid "The pricing amount should be greater than 0"
+msgstr "Jumlah harga harus lebih besar dari 0"
+
+#: includes/class/class-helper.php:562
+msgid "The pricing is invalid, the currency has not been assigned yet"
+msgstr "Harga tidak valid, mata uangnya belum diatur"
+
+#: includes/class/class-helper.php:565
+msgid "The pricing is invalid, the price amount has not been assigned yet"
+msgstr "Harga tidak valid, jumlah harga belum diatur"
+
+#. 1: the post type name
+#: includes/class/class-helper.php:671
+#, php-format
+msgid "%s not found"
+msgstr "%s tidak ditemukan"
+
+#: includes/class/class-options.php:146
+msgid "Wacara Options"
+msgstr "Opsi Wacara"
+
+#: includes/class/class-options.php:153
+msgid "Logo"
+msgstr "Logo"
+
+#: includes/class/class-options.php:154
+msgid "Only file with .png extension is allowed"
+msgstr "Hanya berkas dengan ekstensi .png yang diperbolehkan"
+
+#: includes/class/class-options.php:161 includes/class/class-metabox.php:674
+msgid "Select Image"
+msgstr "Pilih Gambar"
+
+#: includes/class/class-options.php:176
+msgid "Stripe Options"
+msgstr "Opsi Stripe"
+
+#: includes/class/class-options.php:184
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: includes/class/class-options.php:185
+msgid "Enable sandbox for testing"
+msgstr "Aktifkan mode pengujian"
+
+#: includes/class/class-options.php:192
+msgid "Sandbox secret key"
+msgstr "Sandbox secret key"
+
+#: includes/class/class-options.php:195
+msgid "Normally it something like this sk_test_xxx"
+msgstr "Biasanya seperti sk_test_xxx"
+
+#: includes/class/class-options.php:200
+msgid "Sandbox publishable key"
+msgstr "Sandbox publishable key"
+
+#: includes/class/class-options.php:203
+msgid "Normally it something like this pk_test_xxx"
+msgstr "Biasanya seperti pk_test_xxx"
+
+#: includes/class/class-options.php:208
+msgid "Live secret key"
+msgstr "Live secret key"
+
+#: includes/class/class-options.php:211
+msgid "Normally it something like this sk_live_xxx"
+msgstr "Biasanya seperti sk_live_xxx"
+
+#: includes/class/class-options.php:216
+msgid "Live publishable key"
+msgstr "Live ublishable key"
+
+#: includes/class/class-options.php:219
+msgid "Normally it something like this pk_live_xxx"
+msgstr "Biasanya seperti pk_live_xxx"
+
+#: includes/class/class-options.php:227
+msgid "Bank Information"
+msgstr "Informasi Bank"
+
+#: includes/class/class-options.php:238
+msgid "Bank {#}"
+msgstr "Bank {#}"
+
+#: includes/class/class-options.php:239
+msgid "Add Bank"
+msgstr "Tambah Bank"
+
+#: includes/class/class-options.php:240
+msgid "Remove Bank"
+msgstr "Hapus Bank"
+
+#: includes/class/class-options.php:248
+msgid "Bank Name"
+msgstr "Nama bank"
+
+#: includes/class/class-options.php:256
+msgid "Number"
+msgstr "Nomor"
+
+#: includes/class/class-options.php:264
+msgid "Branch"
+msgstr "Cabang"
+
+#: includes/class/class-options.php:272
+msgid "Holder"
+msgstr "Atas nama"
+
+#. 1: event name
+#: includes/class/class-action.php:56
+#, php-format
+msgid "%s Participants"
+msgstr "%s peserta"
+
+#: includes/class/class-action.php:77 includes/class/class-metabox.php:344
+#: includes/class/class-metabox.php:364
+msgid "Company"
+msgstr "Perusahaan"
+
+#: includes/class/class-action.php:78 includes/class/class-metabox.php:372
+#: includes/class/class-metabox.php:392 includes/class/class-metabox.php:1030
+msgid "Position"
+msgstr "Posisi"
+
+#: includes/class/class-action.php:79 includes/class/class-metabox.php:428
+#: includes/class/class-metabox.php:448
+msgid "Phone"
+msgstr "Telepon"
+
+#: includes/class/class-action.php:80
+msgid "Id Number"
+msgstr "Nomor Identitas"
+
+#: includes/class/class-action.php:92 includes/class/class-ajax.php:354
+#: includes/class/class-ajax.php:382
+msgid "Please try again later"
+msgstr "Silahkan coba lagi nanti"
+
+#: includes/class/class-event.php:204
+msgid "This event already exceeded the maximum number of participant"
+msgstr "Acara ini sudah melewati maksimal jumlah peserta"
+
+#: includes/class/class-event.php:214
+msgid "This event already past the date of allowed registration"
+msgstr "Acara ini sudah melewati tanggal pendaftaran"
+
+#: includes/class/class-event.php:259
+msgid ""
+"This event is not completed yet, the event location has not been assigned yet"
+msgstr "Acara ini tidak valid, karena lokasinya belum diatur"
+
+#: includes/class/class-event.php:263
+msgid ""
+"This event is not completed yet, the event end period has not been assigned "
+"yet"
+msgstr "Acara ini tidak valid, karena periode berakhirnya belum diatur"
+
+#: includes/class/class-event.php:267
+msgid ""
+"This event is not completed yet, the starting date has not been assigned yet"
+msgstr "Acara ini tidak valid, karena tanggal mulainya belum diatur"
+
+#: includes/class/class-event.php:271
+msgid "This event does not allow registration"
+msgstr "Acara ini tidak mengizinkan pendaftaran"
+
+#: includes/class/class-event.php:275
+msgid "Event already past or the starting date has not been defined yet"
+msgstr "Acara sudah lampau atau tanggal mulai belum diatur"
+
+#: includes/class/class-event.php:331
+msgid "No participant found"
+msgstr "Tidak ada peserta ditemukan"
+
+#: includes/class/class-ajax.php:110
+msgid "Please provide a valid event id"
+msgstr "Mohon untuk sertakan id acara yang valid"
+
+#. 1: the event name
+#: includes/class/class-ajax.php:250
+#, php-format
+msgid "Payment for registering to %s"
+msgstr "Pembayaran untuk mendaftar ke %s"
+
+#: includes/class/class-ajax.php:282
+msgid "Failed to contact stripe, please try again later"
+msgstr "Gagal menghubungi stripe, coba lagi nanti"
+
+#: includes/class/class-ajax.php:315
+msgid "Please reload the page and try again"
+msgstr "Mohon untuk muat ulang halaman dan coba lagi"
+
+#: includes/class/class-ajax.php:377
+msgid "Thank you for checking in"
+msgstr "Terima kasih sudah check-in"
+
+#: includes/class/class-cpt.php:67
+msgctxt "post type general name"
+msgid "Events"
+msgstr "Acara"
+
+#: includes/class/class-cpt.php:68
+msgctxt "post type singular name"
+msgid "Event"
+msgstr "Acara"
+
+#: includes/class/class-cpt.php:69
+msgctxt "admin menu"
+msgid "Events"
+msgstr "Acara"
+
+#: includes/class/class-cpt.php:70
+msgctxt "add new on admin bar"
+msgid "Event"
+msgstr "Acara"
+
+#: includes/class/class-cpt.php:71
+msgctxt "event"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:72
+msgid "Add New Event"
+msgstr "Tambah Acara Baru"
+
+#: includes/class/class-cpt.php:73
+msgid "New Event"
+msgstr "Acara Baru"
+
+#: includes/class/class-cpt.php:74
+msgid "Edit Event"
+msgstr "Sunting Acara"
+
+#: includes/class/class-cpt.php:75
+msgid "View Event"
+msgstr "Lihat Acara"
+
+#: includes/class/class-cpt.php:76
+msgid "All Events"
+msgstr "Semua Acara"
+
+#: includes/class/class-cpt.php:77
+msgid "Search Events"
+msgstr "Cari Acara"
+
+#: includes/class/class-cpt.php:78
+msgid "Parent Events:"
+msgstr "Induk Acara:"
+
+#: includes/class/class-cpt.php:79
+msgid "No events found."
+msgstr "Tidak ada acara ditemukan."
+
+#: includes/class/class-cpt.php:80
+msgid "No events found in Trash."
+msgstr "Tidak ada acara ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:113
+msgctxt "post type general name"
+msgid "Headers"
+msgstr "Kop"
+
+#: includes/class/class-cpt.php:114
+msgctxt "post type singular name"
+msgid "Header"
+msgstr "Kop"
+
+#: includes/class/class-cpt.php:115
+msgctxt "admin menu"
+msgid "Headers"
+msgstr "Kop"
+
+#: includes/class/class-cpt.php:116
+msgctxt "add new on admin bar"
+msgid "Header"
+msgstr "Kop"
+
+#: includes/class/class-cpt.php:117
+msgctxt "header"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:118
+msgid "Add New Header"
+msgstr "Tambah Kop Baru"
+
+#: includes/class/class-cpt.php:119
+msgid "New Header"
+msgstr "Kop Baru"
+
+#: includes/class/class-cpt.php:120
+msgid "Edit Header"
+msgstr "Sunting Kop"
+
+#: includes/class/class-cpt.php:121
+msgid "View Header"
+msgstr "Lihat Kop"
+
+#: includes/class/class-cpt.php:122
+msgid "All Headers"
+msgstr "Semua Kop"
+
+#: includes/class/class-cpt.php:123
+msgid "Search Headers"
+msgstr "Cari Kop"
+
+#: includes/class/class-cpt.php:124
+msgid "Parent Headers:"
+msgstr "Induk Kop:"
+
+#: includes/class/class-cpt.php:125
+msgid "No headers found."
+msgstr "Tidak ada kop ditemukan."
+
+#: includes/class/class-cpt.php:126
+msgid "No headers found in Trash."
+msgstr "Tidak ada kop ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:159
+msgctxt "post type general name"
+msgid "Locations"
+msgstr "Lokasi"
+
+#: includes/class/class-cpt.php:160
+msgctxt "post type singular name"
+msgid "Location"
+msgstr "Lokasi"
+
+#: includes/class/class-cpt.php:161
+msgctxt "admin menu"
+msgid "Locations"
+msgstr "Lokasi"
+
+#: includes/class/class-cpt.php:162
+msgctxt "add new on admin bar"
+msgid "Location"
+msgstr "Lokasi"
+
+#: includes/class/class-cpt.php:163
+msgctxt "location"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:164
+msgid "Add New Location"
+msgstr "Tambah Lokasi Baru"
+
+#: includes/class/class-cpt.php:165
+msgid "New Location"
+msgstr "Lokasi Baru"
+
+#: includes/class/class-cpt.php:166
+msgid "Edit Location"
+msgstr "Sunting Lokasi"
+
+#: includes/class/class-cpt.php:167
+msgid "View Location"
+msgstr "Lihat Lokasi"
+
+#: includes/class/class-cpt.php:168
+msgid "All Locations"
+msgstr "Semua Lokasi"
+
+#: includes/class/class-cpt.php:169
+msgid "Search Locations"
+msgstr "Cari Lokasi"
+
+#: includes/class/class-cpt.php:170
+msgid "Parent Locations:"
+msgstr "Induk Lokasi:"
+
+#: includes/class/class-cpt.php:171
+msgid "No locations found."
+msgstr "Tidak ada lokasi ditemukan."
+
+#: includes/class/class-cpt.php:172
+msgid "No locations found in Trash."
+msgstr "Tidak ada lokasi ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:205
+msgctxt "post type general name"
+msgid "Speakers"
+msgstr "Pembicara"
+
+#: includes/class/class-cpt.php:206
+msgctxt "post type singular name"
+msgid "Speaker"
+msgstr "Pembicara"
+
+#: includes/class/class-cpt.php:207
+msgctxt "admin menu"
+msgid "Speakers"
+msgstr "Pembicara"
+
+#: includes/class/class-cpt.php:208
+msgctxt "add new on admin bar"
+msgid "Speaker"
+msgstr "Pembicara"
+
+#: includes/class/class-cpt.php:209
+msgctxt "speaker"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:210
+msgid "Add New Speaker"
+msgstr "Tambah Pembicara Baru"
+
+#: includes/class/class-cpt.php:211
+msgid "New Speaker"
+msgstr "Pembicara Baru"
+
+#: includes/class/class-cpt.php:212
+msgid "Edit Speaker"
+msgstr "Sunting Pembicara"
+
+#: includes/class/class-cpt.php:213
+msgid "View Speaker"
+msgstr "Lihat Pembicara"
+
+#: includes/class/class-cpt.php:214
+msgid "All Speakers"
+msgstr "Semua Pembicara"
+
+#: includes/class/class-cpt.php:215
+msgid "Search Speakers"
+msgstr "Cari Pembicara"
+
+#: includes/class/class-cpt.php:216
+msgid "Parent Speakers:"
+msgstr "Induk Pembicara:"
+
+#: includes/class/class-cpt.php:217
+msgid "No speakers found."
+msgstr "Tidak ada pembicara ditemukan."
+
+#: includes/class/class-cpt.php:218
+msgid "No speakers found in Trash."
+msgstr "Tidak ada pembicara ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:251
+msgctxt "post type general name"
+msgid "Prices"
+msgstr "Harga"
+
+#: includes/class/class-cpt.php:252
+msgctxt "post type singular name"
+msgid "Price"
+msgstr "Harga"
+
+#: includes/class/class-cpt.php:253
+msgctxt "admin menu"
+msgid "Prices"
+msgstr "Harga"
+
+#: includes/class/class-cpt.php:254
+msgctxt "add new on admin bar"
+msgid "Price"
+msgstr "Harga"
+
+#: includes/class/class-cpt.php:255
+msgctxt "price"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:256
+msgid "Add New Price"
+msgstr "Tambah Harga Baru"
+
+#: includes/class/class-cpt.php:257
+msgid "New Price"
+msgstr "Harga Baru"
+
+#: includes/class/class-cpt.php:258
+msgid "Edit Price"
+msgstr "Sunting Harga"
+
+#: includes/class/class-cpt.php:259
+msgid "View Price"
+msgstr "Lihat Harga"
+
+#: includes/class/class-cpt.php:260
+msgid "All Prices"
+msgstr "Semua Harga"
+
+#: includes/class/class-cpt.php:261
+msgid "Search Prices"
+msgstr "Cari Harga"
+
+#: includes/class/class-cpt.php:262
+msgid "Parent Prices:"
+msgstr "Induk Harga:"
+
+#: includes/class/class-cpt.php:263
+msgid "No prices found."
+msgstr "Tidak ada harga ditemukan."
+
+#: includes/class/class-cpt.php:264
+msgid "No prices found in Trash."
+msgstr "Tidak ada harga ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:297
+msgctxt "post type general name"
+msgid "Participants"
+msgstr "Peserta"
+
+#: includes/class/class-cpt.php:298
+msgctxt "post type singular name"
+msgid "Participant"
+msgstr "Peserta"
+
+#: includes/class/class-cpt.php:299
+msgctxt "admin menu"
+msgid "Participants"
+msgstr "Peserta"
+
+#: includes/class/class-cpt.php:300
+msgctxt "add new on admin bar"
+msgid "Participant"
+msgstr "Peserta"
+
+#: includes/class/class-cpt.php:301
+msgctxt "participant"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:302
+msgid "Add New Participant"
+msgstr "Tambah Peserta Baru"
+
+#: includes/class/class-cpt.php:303
+msgid "New Participant"
+msgstr "Pelanggan Baru"
+
+#: includes/class/class-cpt.php:304
+msgid "Edit Participant"
+msgstr "Sunting Peserta"
+
+#: includes/class/class-cpt.php:305
+msgid "View Participant"
+msgstr "Lihat Peserta"
+
+#: includes/class/class-cpt.php:306
+msgid "All Participants"
+msgstr "Semua Peserta"
+
+#: includes/class/class-cpt.php:307
+msgid "Search Participants"
+msgstr "Cari Peserta"
+
+#: includes/class/class-cpt.php:308
+msgid "Parent Participants:"
+msgstr "Induk Peserta:"
+
+#: includes/class/class-cpt.php:309
+msgid "No participants found."
+msgstr "Tidak ada peserta ditemukan."
+
+#: includes/class/class-cpt.php:310
+msgid "No participants found in Trash."
+msgstr "Tidak ada peserta ditemukan di Tong sampah."
+
+#: includes/class/class-cpt.php:346
+msgctxt "post type general name"
+msgid "Customers"
+msgstr "Pelanggan"
+
+#: includes/class/class-cpt.php:347
+msgctxt "post type singular name"
+msgid "Customer"
+msgstr "Pelanggan"
+
+#: includes/class/class-cpt.php:348
+msgctxt "admin menu"
+msgid "Customers"
+msgstr "Pelanggan"
+
+#: includes/class/class-cpt.php:349
+msgctxt "add new on admin bar"
+msgid "Customer"
+msgstr "Pelanggan"
+
+#: includes/class/class-cpt.php:350
+msgctxt "customer"
+msgid "Add New"
+msgstr "Tambah Baru"
+
+#: includes/class/class-cpt.php:351
+msgid "Add New Customer"
+msgstr "Tambah Pelanggan Baru"
+
+#: includes/class/class-cpt.php:352
+msgid "New Customer"
+msgstr "Pelanggan Baru"
+
+#: includes/class/class-cpt.php:353
+msgid "Edit Customer"
+msgstr "Sunting Pelanggan"
+
+#: includes/class/class-cpt.php:354
+msgid "View Customer"
+msgstr "Lihat Pelanggan"
+
+#: includes/class/class-cpt.php:355
+msgid "All Customers"
+msgstr "Semua Pelanggan"
+
+#: includes/class/class-cpt.php:356
+msgid "Search Customers"
+msgstr "Cari Pelanggan"
+
+#: includes/class/class-cpt.php:357
+msgid "Parent Customers:"
+msgstr "Induk Pelanggan:"
+
+#: includes/class/class-cpt.php:358
+msgid "No customers found."
+msgstr "Tidak ada pelanggan ditemukan."
+
+#: includes/class/class-cpt.php:359
+msgid "No customers found in Trash."
+msgstr "Tidak ada pelanggan ditemukan di Tong sampah."
+
+#: includes/class/class-participant.php:136
+msgid "Please use valid input"
+msgstr "Mohon gunakan masukan yang valid"
+
+#: includes/class/class-participant.php:287
+msgid "You have already checked in for today"
+msgstr "Anda sudah check-in hari ini"
+
+#: includes/class/class-participant.php:291
+msgid "You are not allowed to checkin, since the event is completely past"
+msgstr "Anda tidak diperbolehkan untuk check-in karena acaranya sudah lewat"
+
+#: includes/class/class-participant.php:295
+msgid "You are not allowed to checkin"
+msgstr "Anda tidak diperbolehkan untuk check-in"
+
+#. 1: the site name
+#: includes/class/class-mailer.php:96
+#, php-format
+msgid "Welcome To %s"
+msgstr "Selamat Datang di %s"
+
+#. 1: participant name, 2: event name, 3: booking code
+#: includes/class/class-mailer.php:98
+#, php-format
+msgid ""
+"Hello %1$s, thank you for registering to %2$s. This is your booking code: "
+"%3$s"
+msgstr ""
+"Halo %1$s, terima kasih sudah mendaftar ke %2$s. Ini adalah kode pemesanan "
+"Anda: %3$s"
+
+#. 1: the event name
+#: includes/class/class-mailer.php:125
+#, php-format
+msgid "Thank you for checking in to %s"
+msgstr "Terima kasih sudah checkin ke %s"
+
+#. 1: participant name, 2: event name
+#: includes/class/class-mailer.php:127
+#, php-format
+msgid "Hello %1$s, thank you for checking in to %2$s"
+msgstr "Halo %1$s, terima kasih sudah check-in ke %2$s"
+
+#: includes/class/class-post.php:53
+msgid "The given id is not a valid id"
+msgstr "Id yang diberikan bukan id yang valid"
+
+#: includes/class/class-metabox.php:87
+msgid "Schedule"
+msgstr "Jadwal"
+
+#: includes/class/class-metabox.php:100
+msgid "Schedule {#}"
+msgstr "Jadwal {#}"
+
+#: includes/class/class-metabox.php:101
+msgid "Add schedule"
+msgstr "Tambah jadwal"
+
+#: includes/class/class-metabox.php:102
+msgid "Remove schedule"
+msgstr "Hapus jadwal"
+
+#: includes/class/class-metabox.php:110
+msgid "Period"
+msgstr "Periode"
+
+#: includes/class/class-metabox.php:113
+msgid "You can write year, date, clock, nor anything else"
+msgstr "Anda bisa menuliskan tahun, tangga, jam dan sebagainya"
+
+#: includes/class/class-metabox.php:119
+msgctxt "Title of schedule event"
+msgid "Title"
+msgstr "Judul"
+
+#: includes/class/class-metabox.php:127
+msgctxt "Content of schedule event"
+msgid "Content"
+msgstr "Isi acara"
+
+#: includes/class/class-metabox.php:140
+msgid "Participant"
+msgstr "Peserta"
+
+#: includes/class/class-metabox.php:166
+msgid "Click link below to download all participants"
+msgstr "Klik tautan di bawah untuk mengunduh semua peserta"
+
+#: includes/class/class-metabox.php:167 includes/class/class-metabox.php:985
+msgid "Download"
+msgstr "Unduh"
+
+#: includes/class/class-metabox.php:171
+msgid ""
+"This event does not require registration, so you can not collect any "
+"participant data"
+msgstr ""
+"Acara ini tidak memerlukan pendaftaran, sehingga Anda tidak bisa "
+"mengumpulkan data peserta"
+
+#: includes/class/class-metabox.php:182 includes/class/class-metabox.php:507
+#: includes/class/class-metabox.php:920 includes/class/class-metabox.php:933
+#: includes/class/class-metabox.php:1014 includes/class/class-metabox.php:1027
+#: includes/class/class-metabox.php:1114 includes/class/class-metabox.php:1127
+msgid "Detail"
+msgstr "Rincian"
+
+#: includes/class/class-metabox.php:195 includes/class/class-metabox.php:619
+msgctxt "Tab metabox title"
+msgid "General"
+msgstr "Umum"
+
+#: includes/class/class-metabox.php:198
+msgid "Language"
+msgstr "Bahasa"
+
+#: includes/class/class-metabox.php:201
+msgid "Specify language for the event"
+msgstr "Atur bahasa untuk acara"
+
+#: includes/class/class-metabox.php:203
+msgid "English (United States)"
+msgstr "English (United States)"
+
+#: includes/class/class-metabox.php:204
+msgid "Bahasa Indonesia"
+msgstr "Bahasa Indonesia"
+
+#: includes/class/class-metabox.php:208
+msgid "Date start"
+msgstr "Tanggal mulai"
+
+#: includes/class/class-metabox.php:214
+msgid "Single day"
+msgstr "Sehari"
+
+#: includes/class/class-metabox.php:217
+msgid "Uncheck this if the event will take a place in multiple days"
+msgstr "Jangan centang jika acara akan berlangsung dalam beberapa hari"
+
+#: includes/class/class-metabox.php:220
+msgid "Time end"
+msgstr "Jam berakhir"
+
+#: includes/class/class-metabox.php:229
+msgid "Date end"
+msgstr "Tanggal selesai"
+
+#: includes/class/class-metabox.php:242
+msgctxt "Tab metabox title"
+msgid "Rules"
+msgstr "Aturan"
+
+#: includes/class/class-metabox.php:245
+msgid "Allow register"
+msgstr "Izinkan mendaftar"
+
+#: includes/class/class-metabox.php:248
+msgid "Allow participant register this event"
+msgstr "Izinkan peserta mendaftar ke acara ini"
+
+#: includes/class/class-metabox.php:251
+msgid "Limit register"
+msgstr "Batasi pendaftar"
+
+#: includes/class/class-metabox.php:254
+msgid "Limit the registration by number of participant or by date"
+msgstr "Batasi pendaftaran dengan jumlah ataupun tanggal"
+
+#: includes/class/class-metabox.php:260
+msgid "By participant"
+msgstr "Dengan jumlah"
+
+#: includes/class/class-metabox.php:268
+msgid "By date"
+msgstr "Dengan tanggal"
+
+#: includes/class/class-metabox.php:280
+msgctxt "Tab metabox title"
+msgid "Fields"
+msgstr "Kolom"
+
+#: includes/class/class-metabox.php:287
+msgid "Use email field"
+msgstr "Gunakan bilah email"
+
+#: includes/class/class-metabox.php:295 includes/class/class-metabox.php:325
+#: includes/class/class-metabox.php:351 includes/class/class-metabox.php:379
+#: includes/class/class-metabox.php:407 includes/class/class-metabox.php:435
+msgid "Required"
+msgstr "Wajib diisi"
+
+#: includes/class/class-metabox.php:298 includes/class/class-metabox.php:328
+#: includes/class/class-metabox.php:354 includes/class/class-metabox.php:382
+#: includes/class/class-metabox.php:410 includes/class/class-metabox.php:438
+msgid "Set as required field"
+msgstr "Atur sebagai bidang yang wajib"
+
+#: includes/class/class-metabox.php:306 includes/class/class-metabox.php:336
+#: includes/class/class-metabox.php:361 includes/class/class-metabox.php:389
+#: includes/class/class-metabox.php:417 includes/class/class-metabox.php:445
+msgid "Field name"
+msgstr "Nama kolom"
+
+#: includes/class/class-metabox.php:309
+msgid "Email address"
+msgstr "Alamat email"
+
+#: includes/class/class-metabox.php:317
+msgid "Use name field"
+msgstr "Gunakan bilah nama"
+
+#: includes/class/class-metabox.php:339
+msgid "Full name"
+msgstr "Nama lengkap"
+
+#: includes/class/class-metabox.php:347
+msgid "Use company field"
+msgstr "Gunakan bilah perusahaan"
+
+#: includes/class/class-metabox.php:375
+msgid "Use position field"
+msgstr "Gunakan bilah posisi"
+
+#: includes/class/class-metabox.php:400 includes/class/class-metabox.php:420
+msgid "ID number"
+msgstr "Nomor identitas"
+
+#: includes/class/class-metabox.php:403
+msgid "Use id_number field"
+msgstr "Gunakan bilah nomor identitas"
+
+#: includes/class/class-metabox.php:431
+msgid "Use phone field"
+msgstr "Gunakan bilah telepon"
+
+#: includes/class/class-metabox.php:520
+msgid "Layout"
+msgstr "Tata letak"
+
+#: includes/class/class-metabox.php:523
+msgid "Width"
+msgstr "Lebar"
+
+#: includes/class/class-metabox.php:526
+msgid ""
+"If you select half-width, please use transparent background image for the "
+"best result"
+msgstr ""
+"Jika Anda memilih setengah lebara, mohon gunakan gambar latar belakang yang "
+"transparan untuk hasil terbaik"
+
+#: includes/class/class-metabox.php:528
+msgid "Full-width content"
+msgstr "Konten lebar penuh"
+
+#: includes/class/class-metabox.php:529
+msgid "Half-width content"
+msgstr "Konten setengah lebar"
+
+#: includes/class/class-metabox.php:533
+msgid "Scheme"
+msgstr "Skema"
+
+#: includes/class/class-metabox.php:537
+msgid "Light color"
+msgstr "Warna cerah"
+
+#: includes/class/class-metabox.php:538
+msgid "Dark color"
+msgstr "Warna gelap"
+
+#: includes/class/class-metabox.php:546
+msgid "Alignment"
+msgstr "Paragraf"
+
+#: includes/class/class-metabox.php:550
+msgid "Left"
+msgstr "Kiri"
+
+#: includes/class/class-metabox.php:551
+msgid "Center"
+msgstr "Tengah"
+
+#: includes/class/class-metabox.php:552
+msgid "Right"
+msgstr "Kanan"
+
+#: includes/class/class-metabox.php:559
+msgid "Content"
+msgstr "Konten"
+
+#: includes/class/class-metabox.php:562
+msgid "Default image"
+msgstr "Gambar bawaan"
+
+#: includes/class/class-metabox.php:563
+msgid "This image will be used as default background"
+msgstr "Gambar ini akan digunakan sebagai latar belakang bawaan"
+
+#: includes/class/class-metabox.php:570 includes/class/class-metabox.php:698
+msgid "Select image"
+msgstr "Pilih gambar"
+
+#: includes/class/class-metabox.php:582
+msgid "Countdown"
+msgstr "Hitung mundur"
+
+#: includes/class/class-metabox.php:585
+msgid "Display countdown content"
+msgstr "Tampilkan konten perhitungan mundur"
+
+#: includes/class/class-metabox.php:606
+msgid "Design"
+msgstr "Desain"
+
+#: includes/class/class-metabox.php:622
+msgid "Color scheme"
+msgstr "Skema warna"
+
+#: includes/class/class-metabox.php:626 includes/class/class-metabox.php:627
+#: includes/class/class-metabox.php:628 includes/class/class-metabox.php:629
+#: includes/class/class-metabox.php:630 includes/class/class-metabox.php:631
+#: includes/class/class-metabox.php:632 includes/class/class-metabox.php:633
+#: includes/class/class-metabox.php:634 includes/class/class-metabox.php:635
+#: includes/class/class-metabox.php:636 includes/class/class-metabox.php:637
+msgid "Color"
+msgstr "Warna"
+
+#: includes/class/class-metabox.php:642
+msgid "Section order"
+msgstr "Urutan bagian"
+
+#: includes/class/class-metabox.php:646
+msgid "About section"
+msgstr "Bagian Tentang"
+
+#: includes/class/class-metabox.php:647
+msgid "Speakers section"
+msgstr "Bagian pembicara"
+
+#: includes/class/class-metabox.php:648
+msgid "Venue section"
+msgstr "Bagian tempat"
+
+#: includes/class/class-metabox.php:649
+msgid "Gallery section"
+msgstr "Bagian galeri"
+
+#: includes/class/class-metabox.php:650
+msgid "Sponsors section"
+msgstr "Bagian sponsor"
+
+#: includes/class/class-metabox.php:651
+msgid "Schedule section"
+msgstr "Bagian jadwal"
+
+#: includes/class/class-metabox.php:652
+msgid "Pricing section"
+msgstr "Bagian harga"
+
+#: includes/class/class-metabox.php:654
+msgid "Drag item to reorder the section"
+msgstr "Seret item untuk menyusun ulang bagian."
+
+#: includes/class/class-metabox.php:666
+msgid "Main logo"
+msgstr "Logo utama"
+
+#: includes/class/class-metabox.php:669
+msgid "Only image with .png extension is allowed"
+msgstr "Hanya gambar dengan ekstensi .png yang diperbolehkan"
+
+#: includes/class/class-metabox.php:684
+msgid "Header"
+msgstr "Kop"
+
+#: includes/class/class-metabox.php:690
+msgid "Background"
+msgstr "Latar belakang"
+
+#: includes/class/class-metabox.php:691
+msgid ""
+"If you leave this empty, default background will be applied from header "
+"setting"
+msgstr ""
+"Jika Anda biarkan kosong, maka latar belakang bawaan dari kop akan digunakan"
+
+#: includes/class/class-metabox.php:713
+msgctxt "Tab metabox title"
+msgid "About section"
+msgstr "Bagian Tentang"
+
+#: includes/class/class-metabox.php:716 includes/class/class-metabox.php:744
+#: includes/class/class-metabox.php:772 includes/class/class-metabox.php:800
+#: includes/class/class-metabox.php:829 includes/class/class-metabox.php:858
+#: includes/class/class-metabox.php:880
+msgid "Nav title"
+msgstr "Judul navigasi"
+
+#: includes/class/class-metabox.php:719 includes/class/class-metabox.php:747
+#: includes/class/class-metabox.php:775 includes/class/class-metabox.php:803
+#: includes/class/class-metabox.php:832 includes/class/class-metabox.php:861
+#: includes/class/class-metabox.php:883
+msgid "Label to display in nav bar, leave it empty to hide from the nav bar"
+msgstr ""
+"Label untuk ditampilkan di nav bar, biarkan kosong jika ingin disembunyikan "
+"dari nav bar"
+
+#: includes/class/class-metabox.php:722 includes/class/class-metabox.php:750
+#: includes/class/class-metabox.php:778 includes/class/class-metabox.php:806
+#: includes/class/class-metabox.php:835 includes/class/class-metabox.php:864
+#: includes/class/class-metabox.php:886
+msgid "Title"
+msgstr "Judul"
+
+#: includes/class/class-metabox.php:727 includes/class/class-metabox.php:755
+#: includes/class/class-metabox.php:783 includes/class/class-metabox.php:811
+#: includes/class/class-metabox.php:840 includes/class/class-metabox.php:869
+#: includes/class/class-metabox.php:891
+msgid "Subtitle"
+msgstr "Anak judul"
+
+#: includes/class/class-metabox.php:732 includes/class/class-metabox.php:990
+msgid "Description"
+msgstr "Deskripsi"
+
+#: includes/class/class-metabox.php:735
+msgid "Describe the event in short sentence."
+msgstr "Deskripsikan acara dengan kalimat pendek."
+
+#: includes/class/class-metabox.php:741
+msgctxt "Tab metabox title"
+msgid "Speakers section"
+msgstr "Bagian pembicara"
+
+#: includes/class/class-metabox.php:760
+msgid "Speakers"
+msgstr "Pembicara"
+
+#: includes/class/class-metabox.php:769
+msgctxt "Tab metabox title"
+msgid "Venue section"
+msgstr "Bagian tempat"
+
+#: includes/class/class-metabox.php:788
+msgid "Location"
+msgstr "Lokasi"
+
+#: includes/class/class-metabox.php:797
+msgctxt "Tab metabox title"
+msgid "Gallery section"
+msgstr "Bagian galeri"
+
+#: includes/class/class-metabox.php:816
+msgid "Gallery"
+msgstr "Galeri"
+
+#: includes/class/class-metabox.php:826
+msgctxt "Tab metabox title"
+msgid "Sponsors section"
+msgstr "Bagian sponsor"
+
+#: includes/class/class-metabox.php:845
+msgid "Sponsors"
+msgstr "Sponsor"
+
+#: includes/class/class-metabox.php:855
+msgctxt "Tab metabox title"
+msgid "Schedule section"
+msgstr "Bagian jadwal"
+
+#: includes/class/class-metabox.php:877
+msgctxt "Tab metabox title"
+msgid "Pricing section"
+msgstr "Bagian harga"
+
+#: includes/class/class-metabox.php:896
+msgid "Pricing"
+msgstr "Harga"
+
+#: includes/class/class-metabox.php:939
+msgid "Use the real name of the location"
+msgstr "Gunakan nama asli pada lokasi"
+
+#: includes/class/class-metabox.php:942
+msgid "Country"
+msgstr "Negara"
+
+#: includes/class/class-metabox.php:948
+msgid "Province/State"
+msgstr "Provinsi/Daerah"
+
+#: includes/class/class-metabox.php:953
+msgid "City"
+msgstr "Kota"
+
+#: includes/class/class-metabox.php:958
+msgid "Address"
+msgstr "Alamat"
+
+#: includes/class/class-metabox.php:961
+msgid "Only short address, without city nor province/state name"
+msgstr "Hanya alamat singkat, tanpa kota dan atau provinsi/nama wilayah"
+
+#: includes/class/class-metabox.php:964
+msgid "Postal code"
+msgstr "Kode pos"
+
+#: includes/class/class-metabox.php:972
+msgid "Photo & Description"
+msgstr "Foto & Deskripsi"
+
+#: includes/class/class-metabox.php:975
+msgid "Photo"
+msgstr "Foto"
+
+#: includes/class/class-metabox.php:976
+msgid "Add any pictures related to the location"
+msgstr "Tambah foto yang berkaitan dengan lokasi"
+
+#: includes/class/class-metabox.php:982
+msgid "Add Images"
+msgstr "Tambah Gambar"
+
+#: includes/class/class-metabox.php:983
+msgid "Remove Images"
+msgstr "Hapus Gambar"
+
+#: includes/class/class-metabox.php:984
+msgid "Image:"
+msgstr "Gambar:"
+
+#: includes/class/class-metabox.php:986
+msgid "Remove"
+msgstr "Hapus"
+
+#: includes/class/class-metabox.php:993
+msgid "Write it short and representative"
+msgstr "Tulis secara singkat dan jelas"
+
+#: includes/class/class-metabox.php:1033
+msgid "Ex: CEO at random company"
+msgstr "Misal: CEO di perusahaan X"
+
+#: includes/class/class-metabox.php:1039
+msgid "Social Networks"
+msgstr "Media Sosial"
+
+#: includes/class/class-metabox.php:1042
+msgid "Website URL"
+msgstr "URL Website"
+
+#: includes/class/class-metabox.php:1051
+msgid "Facebook URL"
+msgstr "URL Facebook"
+
+#: includes/class/class-metabox.php:1060
+msgid "Instagram URL"
+msgstr "URL Instagram"
+
+#: includes/class/class-metabox.php:1069
+msgid "Youtube URL"
+msgstr "URL Youtube"
+
+#: includes/class/class-metabox.php:1078
+msgid "Twitter URL"
+msgstr "URL Twitter"
+
+#: includes/class/class-metabox.php:1087
+msgid "Linkedin URL"
+msgstr "URL Linkedin"
+
+#: includes/class/class-metabox.php:1130
+msgid "Currency"
+msgstr "Mata uang"
+
+#: includes/class/class-metabox.php:1149
+msgid "Only absolute number is allowed"
+msgstr "Hanya angka pas yang diperbolehkan"
+
+#: includes/class/class-metabox.php:1156
+msgid "Features"
+msgstr "Fitur-fitur"
+
+#: includes/class/class-metabox.php:1159
+msgid "Pros"
+msgstr "Kelebihan"
+
+#: includes/class/class-metabox.php:1163
+msgid "What user will get, use coma to separate the values"
+msgstr "Apa yang peserta akan dapatkan, gunaan koma untuk memisahkan"
+
+#: includes/class/class-metabox.php:1166
+msgid "Cons"
+msgstr "Kekurangan"
+
+#: includes/class/class-metabox.php:1170
+msgid "What user will not get, use coma to separate the values"
+msgstr "Apa yang peserta tidak akan dapatkan, gunaan koma untuk memisahkan"
+
+#: includes/class/class-metabox.php:1176
+msgid "Options"
+msgstr "Pengaturan"
+
+#: includes/class/class-metabox.php:1179
+msgid "Unique code"
+msgstr "Kode unik"
+
+#: includes/class/class-metabox.php:1182
+msgid "Add unique code for payment using manual bank transfer"
+msgstr "Tambahkan kode unik untuk pembayaran dengan transfer bank"
+
+#. %s: search term.
+#: includes/class/class-ui.php:98
+#, php-format
+msgid "Search Results for \"%s\""
+msgstr "Hasil Pencarian untuk \"%s\""
+
+#: includes/class/class-ui.php:100
+msgid "Not Found"
+msgstr "Tidak Ditemukan"
+
+#: includes/class/class-ui.php:103
+msgid "Payment"
+msgstr "Pembayaran"
+
+#. %s: event title name
+#: includes/class/class-ui.php:107
+#, php-format
+msgid "You are about to register to %s"
+msgstr "Anda akan mendaftar ke %s"
+
+#. Name of the theme
+msgid "WAcara Event Organizer"
+msgstr "WAcara Pengelola Acara"
+
+#. Description of the theme
+msgid "WordPress theme for event organizer"
+msgstr "Tema WordPress untuk pengelola acara"
+
+#. Author of the theme
+msgid "Rendy"
+msgstr "Rendy"
+
+#. Author URI of the theme
+msgid "http://fb.com/rendy.444444"
+msgstr "http://fb.com/rendy.444444"
