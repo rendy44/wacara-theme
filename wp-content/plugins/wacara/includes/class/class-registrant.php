@@ -1,6 +1,6 @@
 <?php
 /**
- * Use this class to manage participants.
+ * Use this class to manage registrants.
  *
  * @author  Rendy
  * @package Wacara
@@ -15,34 +15,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Wacara\Participant' ) ) {
+if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 	/**
-	 * Class Participant
+	 * Class Registrant
 	 *
 	 * @package Wacara
 	 */
-	class Participant extends Post {
+	class Registrant extends Post {
 
 		/**
-		 * Participant data.
+		 * Registrant data.
 		 *
 		 * @var array
 		 */
-		public $participant_data = [];
+		public $registrant_data = [];
 
 		/**
-		 * Participant constructor.
+		 * Registrant constructor.
 		 *
-		 * @param bool  $participant_id leave it empty to create a new participant,
-		 *                                 and assign with participant id to fetch the participant's detail.
-		 * @param array $args arguments to create a new participant.
-		 *                              Or list of field to displaying participant.
+		 * @param bool  $registrant_id leave it empty to create a new registrant,
+		 *                                 and assign with registrant id to fetch the registrant's detail.
+		 * @param array $args arguments to create a new registrant.
+		 *                              Or list of field to displaying registrant.
 		 */
-		public function __construct( $participant_id = false, $args = [] ) {
+		public function __construct( $registrant_id = false, $args = [] ) {
 
-			// Create a new participant.
-			if ( ! $participant_id ) {
+			// Create a new registrant.
+			if ( ! $registrant_id ) {
 
 				// Prepare default args.
 				$default_args = [
@@ -60,75 +60,75 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 					$event_id = $args['event_id'];
 
 					// Generate unique key.
-					$participant_key = wp_generate_password( 12, false );
+					$registrant_key = wp_generate_password( 12, false );
 
 					/**
-					 * Perform the filter to modify participant key.
+					 * Perform the filter to modify registrant key.
 					 *
-					 * @param string $participant_key participant random key.
+					 * @param string $registrant_key registrant random key.
 					 */
-					$participant_key = apply_filters( 'wacara_filter_participant_key', $participant_key );
+					$registrant_key = apply_filters( 'wacara_filter_registrant_key', $registrant_key );
 
 					/**
-					 * Perform action before creating participant
+					 * Perform action before creating registrant
 					 *
 					 * @param array $args setting for creating new post.
 					 */
-					do_action( 'wacara_before_creating_participant', $args );
+					do_action( 'wacara_before_creating_registrant', $args );
 
-					// Proceed creating participant.
-					$new_participant = wp_insert_post(
+					// Proceed creating registrant.
+					$new_registrant = wp_insert_post(
 						[
-							'post_type'   => 'participant',
-							'post_title'  => strtoupper( $participant_key ),
-							'post_name'   => sanitize_title( $participant_key ),
+							'post_type'   => 'registrant',
+							'post_title'  => strtoupper( $registrant_key ),
+							'post_name'   => sanitize_title( $registrant_key ),
 							'post_status' => 'publish',
 						]
 					);
 
 					/**
-					 * Perform action after creating participant
+					 * Perform action after creating registrant
 					 *
 					 * @param array $args setting for creating new post.
-					 * @param int|WP_Error $new_participant result of newly created participant.
+					 * @param int|WP_Error $new_registrant result of newly created registrant.
 					 */
-					do_action( 'wacara_after_creating_participant', $args, $new_participant );
+					do_action( 'wacara_after_creating_registrant', $args, $new_registrant );
 
-					// Validate after creating participant.
-					if ( is_wp_error( $new_participant ) ) {
+					// Validate after creating registrant.
+					if ( is_wp_error( $new_registrant ) ) {
 
 						// Update result.
 						$this->success = false;
-						$this->message = $new_participant->get_error_messages();
+						$this->message = $new_registrant->get_error_messages();
 					} else {
 
-						// Create participant booking code.
-						$event_and_id_length = strlen( $event_id . $new_participant );
+						// Create registrant booking code.
+						$event_and_id_length = strlen( $event_id . $new_registrant );
 						$unique_length       = 8 - $event_and_id_length;
-						$booking_code        = strtoupper( $event_id . wp_generate_password( $unique_length, false ) . $new_participant );
+						$booking_code        = strtoupper( $event_id . wp_generate_password( $unique_length, false ) . $new_registrant );
 
 						/**
-						 * Perform filter to modify participant publishable key.
+						 * Perform filter to modify registrant publishable key.
 						 *
 						 * @param string $booking_code the original publishable key.
-						 * @param string $event_id event id of the participant.
-						 * @param int $new_participant id number of newly created participant.
+						 * @param string $event_id event id of the registrant.
+						 * @param int $new_registrant id number of newly created registrant.
 						 */
-						$booking_code = apply_filters( 'wacara_filter_participant_booking_code', $booking_code, $event_id, $new_participant );
+						$booking_code = apply_filters( 'wacara_filter_registrant_booking_code', $booking_code, $event_id, $new_registrant );
 
-						// Add booking code to participant meta.
+						// Add booking code to registrant meta.
 						$args['booking_code'] = $booking_code;
 
 						// Update class object.
 						$this->success          = true;
-						$this->post_id          = $new_participant;
-						$this->post_url         = get_permalink( $new_participant );
-						$this->participant_data = $args;
+						$this->post_id          = $new_registrant;
+						$this->post_url         = get_permalink( $new_registrant );
+						$this->registrant_data = $args;
 
-						// Create qrcode for participant.
-						$this->save_qrcode_to_participant();
+						// Create qrcode for registrant.
+						$this->save_qrcode_to_registrant();
 
-						// Update participant meta after successfully being created.
+						// Update registrant meta after successfully being created.
 						parent::save_meta( $args );
 					}
 				} else {
@@ -140,9 +140,9 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 			} else {
 
 				// Fetch the detail.
-				parent::__construct( $participant_id, 'participant' );
+				parent::__construct( $registrant_id, 'registrant' );
 
-				// Validate the participant id.
+				// Validate the registrant id.
 				if ( $this->success ) {
 
 					// Maybe merge displayed fields with args from parameter.
@@ -162,8 +162,8 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 						$used_args = array_merge( $used_args, $args );
 					}
 
-					// Fetch participant detail.
-					$this->participant_data = parent::get_meta( $used_args );
+					// Fetch registrant detail.
+					$this->registrant_data = parent::get_meta( $used_args );
 
 					// Get readable status.
 					$readable_status = '';
@@ -184,8 +184,8 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 					}
 
 					// Save status into object.
-					$this->participant_data['reg_status']          = $status;
-					$this->participant_data['readable_reg_status'] = $readable_status;
+					$this->registrant_data['reg_status']          = $status;
+					$this->registrant_data['readable_reg_status'] = $readable_status;
 
 				}
 			}
@@ -196,22 +196,22 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		 */
 		private function generate_qrcode_locally() {
 			$qrcode_name = $this->post_id;
-			$file_name   = TEMP_PATH . "/assets/qrcode/{$qrcode_name}.png";
+			$file_name   = WACARA_PATH . "/assets/qrcode/{$qrcode_name}.png";
 			QRcode::png( $qrcode_name, $file_name, QR_ECLEVEL_H, 5 );
 		}
 
 		/**
-		 * Save qrcode information into participant.
+		 * Save qrcode information into registrant.
 		 */
-		private function save_qrcode_to_participant() {
+		private function save_qrcode_to_registrant() {
 			// Generate qrcode locally.
 			$this->generate_qrcode_locally();
 
 			// Save qrcode data.
 			$qrcode_name = $this->post_id . '.png';
-			$qrcode_uri  = TEMP_URI . '/assets/qrcode/' . $qrcode_name;
+			$qrcode_uri  = WACARA_URI . '/assets/qrcode/' . $qrcode_name;
 
-			// Save qrcode into participant.
+			// Save qrcode into registrant.
 			parent::save_meta(
 				[
 					'qrcode_name' => $qrcode_name,
@@ -219,16 +219,16 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 				]
 			);
 
-			// Save participant id into variable.
-			$participant_id = $this->post_id;
+			// Save registrant id into variable.
+			$registrant_id = $this->post_id;
 
 			/**
-			 * Perform actions after creating participant qrcode.
+			 * Perform actions after creating registrant qrcode.
 			 *
-			 * @param string $participant_id participant id.
+			 * @param string $registrant_id registrant id.
 			 * @param string $qrcode_uri the url of generated qrcode.
 			 */
-			do_action( 'wacara_after_creating_participant_qrcode', $participant_id, $qrcode_uri );
+			do_action( 'wacara_after_creating_registrant_qrcode', $registrant_id, $qrcode_uri );
 		}
 
 		/**
@@ -243,14 +243,14 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		}
 
 		/**
-		 * Save more participant`s details
+		 * Save more registrant`s details
 		 *
-		 * @param string $name participant name.
-		 * @param string $email participant email.
-		 * @param string $company participant company.
-		 * @param string $position participant position.
-		 * @param string $phone participant phone.
-		 * @param string $id_number participant id number.
+		 * @param string $name registrant name.
+		 * @param string $email registrant email.
+		 * @param string $company registrant company.
+		 * @param string $position registrant position.
+		 * @param string $phone registrant phone.
+		 * @param string $id_number registrant id number.
 		 */
 		public function save_more_details( $name = '', $email = '', $company = '', $position = '', $phone = '', $id_number = '' ) {
 			parent::save_meta(
@@ -269,13 +269,13 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		 * Maybe perform checkin.
 		 */
 		public function maybe_do_checkin() {
-			// Save participant id into variable.
-			$participant_id = $this->post_id;
+			// Save registrant id into variable.
+			$registrant_id = $this->post_id;
 
-			// Get participant status.
+			// Get registrant status.
 			$reg_status = parent::get_meta( 'reg_status' );
 
-			// Validate participant status.
+			// Validate registrant status.
 			if ( 'done' === $reg_status ) {
 
 				// Save event id into variable.
@@ -288,16 +288,16 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 				$is_in_checkin_period = $event->is_in_checkin_period();
 				if ( $is_in_checkin_period ) {
 
-					// Check whether participant already checkin today.
+					// Check whether registrant already checkin today.
 					$is_checkin_today = $this->is_today_checkin();
 
 					if ( ! $is_checkin_today ) {
 						/**
-						 * Perform action before participant checkin.
+						 * Perform action before registrant checkin.
 						 *
-						 * @param string $participant_id id of participant that will be check-in.
+						 * @param string $registrant_id id of registrant that will be check-in.
 						 */
-						do_action( 'wacara_before_participant_checkin', $participant_id );
+						do_action( 'wacara_before_registrant_checkin', $registrant_id );
 
 						// Finally, do the checkin.
 						$this->do_checkin();
@@ -306,11 +306,11 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 						$this->success = true;
 
 						/**
-						 * Perform action after participant checkin.
+						 * Perform action after registrant checkin.
 						 *
-						 * @param string $participant_id id of participant that just checked-in.
+						 * @param string $registrant_id id of registrant that just checked-in.
 						 */
-						do_action( 'wacara_after_participant_checkin', $participant_id );
+						do_action( 'wacara_after_registrant_checkin', $registrant_id );
 
 					} else {
 						$this->success = false;
@@ -339,7 +339,7 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		}
 
 		/**
-		 * Check whether the participant already checkin for today ot not.
+		 * Check whether the registrant already checkin for today ot not.
 		 *
 		 * @return bool
 		 */
@@ -355,25 +355,25 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		}
 
 		/**
-		 * Get participant data.
+		 * Get registrant data.
 		 *
 		 * @return array|bool|mixed
 		 */
 		public function get_data() {
-			return $this->participant_data;
+			return $this->registrant_data;
 		}
 
 		/**
-		 * Get participant url.
+		 * Get registrant url.
 		 *
 		 * @return false|string
 		 */
-		public function get_participant_url() {
+		public function get_registrant_url() {
 			return $this->post_url;
 		}
 
 		/**
-		 * Set participant registration status.
+		 * Set registrant registration status.
 		 *
 		 * @param string $status status of registration.
 		 */
@@ -382,20 +382,20 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 			// Save old status into variable.
 			$old_status = $this->get_registration_status();
 
-			// Save participant id into variable.
-			$participant_id = $this->post_id;
+			// Save registrant id into variable.
+			$registrant_id = $this->post_id;
 
 			// Change the status.
 			parent::save_meta( [ 'reg_status' => $status ] );
 
 			/**
-			 * Perform action when participant status changed.
+			 * Perform action when registrant status changed.
 			 *
-			 * @param string $participant_id the participant id.
-			 * @param string $status the new status of participant.
-			 * @param string $old_status the old status of participant.
+			 * @param string $registrant_id the registrant id.
+			 * @param string $status the new status of registrant.
+			 * @param string $old_status the old status of registrant.
 			 */
-			do_action( 'wacara_after_setting_participant_status', $participant_id, $status, $old_status );
+			do_action( 'wacara_after_setting_registrant_status', $registrant_id, $status, $old_status );
 		}
 
 		/**
@@ -448,8 +448,8 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		 */
 		public function update_confirmation( $bank_account_number, $bank_accounts ) {
 
-			// Save participant id into variable.
-			$participant_id = $this->post_id;
+			// Save registrant id into variable.
+			$registrant_id = $this->post_id;
 
 			// Prepare some variables.
 			$date_update           = current_time( 'timestamp' );
@@ -461,9 +461,9 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 				/**
 				 * Perform actions before confirming payment
 				 *
-				 * @param string $participant_id the participant id.
+				 * @param string $registrant_id the registrant id.
 				 */
-				do_action( 'wacara_before_confirming_payment', $participant_id );
+				do_action( 'wacara_before_confirming_payment', $registrant_id );
 
 				// Update the status.
 				$this->success = true;
@@ -480,9 +480,9 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 				/**
 				 * Perform actions after confirming payment.
 				 *
-				 * @param string $participant_id the participant id.
+				 * @param string $registrant_id the registrant id.
 				 */
-				do_action( 'wacara_after_confirming_payment', $participant_id );
+				do_action( 'wacara_after_confirming_payment', $registrant_id );
 
 			} else {
 				$this->success = false;
@@ -548,14 +548,14 @@ if ( ! class_exists( 'Wacara\Participant' ) ) {
 		}
 
 		/**
-		 * Find participant by their booking code.
+		 * Find registrant by their booking code.
 		 *
 		 * @param string $booking_code booking code.
 		 *
 		 * @return Result
 		 */
-		public static function find_participant_by_booking_code( $booking_code ) {
-			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'participant' );
+		public static function find_registrant_by_booking_code( $booking_code ) {
+			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'registrant' );
 		}
 	}
 }

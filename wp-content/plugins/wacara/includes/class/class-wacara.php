@@ -82,7 +82,7 @@ if ( ! class_exists( '\Wacara\Wacara' ) ) {
 				'class-post',
 				'class-event',
 				'class-transaction',
-				'class-participant',
+				'class-registrant',
 				'class-stripe-wrapper',
 				'class-mailer',
 				'abstract/class-payment-method',
@@ -112,7 +112,7 @@ if ( ! class_exists( '\Wacara\Wacara' ) ) {
 			$this->map_classes();
 
 			foreach ( $this->classes as $class ) {
-				require TEMP_PATH . "/includes/class/{$class}.php";
+				require WACARA_PATH . "/includes/class/{$class}.php";
 			}
 		}
 
@@ -123,7 +123,7 @@ if ( ! class_exists( '\Wacara\Wacara' ) ) {
 			$this->map_libraries();
 
 			foreach ( $this->libraries as $library ) {
-				require TEMP_PATH . "/includes/lib/{$library}.php";
+				require WACARA_PATH . "/includes/lib/{$library}.php";
 			}
 		}
 	}

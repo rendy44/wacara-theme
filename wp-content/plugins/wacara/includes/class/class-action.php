@@ -59,16 +59,16 @@ if ( ! class_exists( 'Wacara\Action' ) ) {
 				$event = new Event( $event_id );
 
 				/* translators: 1: event name */
-				$file_name = sprintf( __( '%s Participants', 'wacara' ), $event->post_title );
+				$file_name = sprintf( __( '%s Registrants', 'wacara' ), $event->post_title );
 				header( 'Content-type: application/csv' );
 				header( "Content-Disposition: attachment; filename={$file_name}.csv" );
 				$fp = fopen( 'php://output', 'w' );
 
 				// Validate the event.
 				if ( $event->success ) {
-					$event->get_all_done_participants();
+					$event->get_all_done_registrants();
 
-					// Validate the participants.
+					// Validate the registrants.
 					if ( $event->success ) {
 
 						// Write the header.
@@ -89,14 +89,14 @@ if ( ! class_exists( 'Wacara\Action' ) ) {
 						// Start looping.
 						foreach ( $event->items as $item ) {
 							$used_item = [
-								$item->participant_data['booking_code'],
-								$item->participant_data['name'],
-								$item->participant_data['email'],
-								$item->participant_data['company'],
-								$item->participant_data['position'],
-								$item->participant_data['phone'],
-								$item->participant_data['id_number'],
-								$item->participant_data['readable_reg_status'],
+								$item->registrant_data['booking_code'],
+								$item->registrant_data['name'],
+								$item->registrant_data['email'],
+								$item->registrant_data['company'],
+								$item->registrant_data['position'],
+								$item->registrant_data['phone'],
+								$item->registrant_data['id_number'],
+								$item->registrant_data['readable_reg_status'],
 							];
 							fputcsv( $fp, $used_item );
 						}

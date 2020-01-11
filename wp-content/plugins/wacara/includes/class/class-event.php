@@ -138,7 +138,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
-		 * Check whether participant is allowed to register to this event or not.
+		 * Check whether registrant is allowed to register to this event or not.
 		 *
 		 * @return bool
 		 */
@@ -192,18 +192,18 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			if ( $is_limited ) {
 
 				// Save limitation info into variables.
-				$maybe_limited_by_number                  = (int) parent::get_meta( 'max_participant' );
-				$current_number_of_registered_participant = (int) parent::get_meta( 'number_of_participant' );
+				$maybe_limited_by_number                  = (int) parent::get_meta( 'max_registrant' );
+				$current_number_of_registered_registrant = (int) parent::get_meta( 'number_of_registrant' );
 				$maybe_limited_by_date                    = parent::get_meta( 'max_date' );
 				$current_timestamp                        = current_time( 'timestamp' );
 
-				// Check maybe limited by number of participant.
+				// Check maybe limited by number of registrant.
 				if ( $maybe_limited_by_number ) {
-					if ( $current_number_of_registered_participant >= $maybe_limited_by_number ) {
+					if ( $current_number_of_registered_registrant >= $maybe_limited_by_number ) {
 
 						// Update the result.
 						$this->success = false;
-						$this->message = __( 'This event already exceeded the maximum number of participant', 'wacara' );
+						$this->message = __( 'This event already exceeded the maximum number of registrant', 'wacara' );
 					}
 				}
 
@@ -282,17 +282,17 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * Maybe update the limitation.
 		 */
 		public function maybe_recount_limitation() {
-			$current_number_of_registered_participant = (int) parent::get_meta( 'number_of_participant' );
-			$new_number_of_registered_participant     = $current_number_of_registered_participant + 1;
-			parent::save_meta( [ 'number_of_participant' => $new_number_of_registered_participant ] );
+			$current_number_of_registered_registrant = (int) parent::get_meta( 'number_of_registrant' );
+			$new_number_of_registered_registrant     = $current_number_of_registered_registrant + 1;
+			parent::save_meta( [ 'number_of_registrant' => $new_number_of_registered_registrant ] );
 		}
 
 		/**
-		 * Generate all participants.
+		 * Generate all registrants.
 		 */
-		public function get_all_done_participants() {
+		public function get_all_done_registrants() {
 			$key = TEMP_PREFIX;
-			$this->get_all_participants(
+			$this->get_all_registrants(
 				[
 					'meta_query' => [ // phpcs:ignore
 						[
@@ -309,13 +309,13 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
-		 * Get all participants by registration status.
+		 * Get all registrants by registration status.
 		 *
 		 * @param int $page the current page.
 		 */
-		public function get_all_participants_by_registration_status( $page = 1 ) {
+		public function get_all_registrants_by_registration_status( $page = 1 ) {
 			$key = TEMP_PREFIX;
-			$this->get_all_participants(
+			$this->get_all_registrants(
 				[
 					'paged'          => $page,
 					'posts_per_page' => 50,
@@ -326,14 +326,14 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
-		 * Generate all participants.
+		 * Generate all registrants.
 		 *
 		 * @param array $custom_args override args.
 		 */
-		public function get_all_participants( $custom_args = [] ) {
+		public function get_all_registrants( $custom_args = [] ) {
 			$key          = TEMP_PREFIX;
 			$default_args = [
-				'post_type'      => 'participant',
+				'post_type'      => 'registrant',
 				'post_status'    => 'publish',
 				'posts_per_page' => - 1,
 				'orderby'        => 'date',
@@ -351,35 +351,35 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 
 			// Prepare the transient_key.
 			$serialized_args = maybe_serialize( $custom_args );
-			$transient_key   = 'get_all_participants_' . $this->post_id . '_' . sanitize_title( $serialized_args );
+			$transient_key   = 'get_all_registrants_' . $this->post_id . '_' . sanitize_title( $serialized_args );
 
 			// Maybe parse from transient.
-			$query_all_participants = get_transient( $transient_key );
+			$query_all_registrants = get_transient( $transient_key );
 
 			// Parse the transient.
-			if ( false === $query_all_participants ) {
+			if ( false === $query_all_registrants ) {
 
 				// Instance a new query.
-				$query_all_participants = new WP_Query( $args );
+				$query_all_registrants = new WP_Query( $args );
 
 				// Save the query to transient.
-				set_transient( $transient_key, $query_all_participants, HOUR_IN_SECONDS );
+				set_transient( $transient_key, $query_all_registrants, HOUR_IN_SECONDS );
 			}
 
 			// Update the maximum num pages variable.
-			$this->max_num_pages = $query_all_participants->max_num_pages;
+			$this->max_num_pages = $query_all_registrants->max_num_pages;
 
-			if ( $query_all_participants->have_posts() ) {
-				while ( $query_all_participants->have_posts() ) {
-					$query_all_participants->the_post();
+			if ( $query_all_registrants->have_posts() ) {
+				while ( $query_all_registrants->have_posts() ) {
+					$query_all_registrants->the_post();
 
-					// Instance the participant.
-					$this->items[] = new Participant( get_the_ID() );
+					// Instance the registrant.
+					$this->items[] = new Registrant( get_the_ID() );
 				}
 				$this->success = true;
 			} else {
 				$this->success = false;
-				$this->message = __( 'No participant found', 'wacara' );
+				$this->message = __( 'No registrant found', 'wacara' );
 			}
 			wp_reset_postdata();
 		}

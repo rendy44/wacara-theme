@@ -21,5 +21,5 @@ if ( is_admin() ) {
 	new inc\CMB2_Tabs();
 
 	define( 'CMB2_TABS_DIR', trailingslashit( dirname( __FILE__ ) ) );
-	define( 'CMB2_TABS_URI', TEMP_URI .'/includes/lib/cmb2-tabs');
+	define( 'CMB2_TABS_URI', WACARA_URI .'/includes/lib/cmb2-tabs');
 }

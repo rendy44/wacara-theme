@@ -1100,113 +1100,113 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: templates/admin/participant-detail.php:14
+#: templates/admin/registrant-detail.php:14
 msgid "Invoice"
 msgstr ""
 
-#: templates/admin/participant-detail.php:19
+#: templates/admin/registrant-detail.php:19
 msgid "Confirmation date"
 msgstr ""
 
-#: templates/admin/participant-detail.php:23
+#: templates/admin/registrant-detail.php:23
 msgid "Transferred to"
 msgstr ""
 
-#: templates/admin/participant-detail.php:32
+#: templates/admin/registrant-detail.php:32
 msgid "Verify"
 msgstr ""
 
-#: templates/admin/participant-detail.php:33
+#: templates/admin/registrant-detail.php:33
 msgid "Reject"
 msgstr ""
 
-#: templates/admin/participant-detail.php:34
+#: templates/admin/registrant-detail.php:34
 msgid "This is one time action, once you click the action, you can not undo"
 msgstr ""
 
-#: templates/participant/register-success.php:18
+#: templates/registrant/register-success.php:18
 #: includes/class/class-mailer.php:115
 msgid "Congratulation"
 msgstr ""
 
-#: templates/participant/register-success.php:19
+#: templates/registrant/register-success.php:19
 msgid ""
 "We have recorded your registration, please check your email for the further "
 "detail"
 msgstr ""
 
-#: templates/participant/waiting-verification.php:18
+#: templates/registrant/waiting-verification.php:18
 msgid "Thank You"
 msgstr ""
 
-#: templates/participant/waiting-verification.php:19
+#: templates/registrant/waiting-verification.php:19
 msgid ""
 "Thank you for confirming your payment, we will get back to you once we have "
 "verified your payment"
 msgstr ""
 
-#: templates/participant/register-form.php:21
+#: templates/registrant/register-form.php:21
 msgid "Last Error:"
 msgstr ""
 
-#: templates/participant/register-form.php:46
+#: templates/registrant/register-form.php:46
 msgid "Payment Method"
 msgstr ""
 
-#: templates/participant/register-form.php:49
+#: templates/registrant/register-form.php:49
 msgid "Manual bank transfer"
 msgstr ""
 
-#: templates/participant/register-form.php:50
+#: templates/registrant/register-form.php:50
 msgid "Stripe"
 msgstr ""
 
-#: templates/participant/register-form.php:65
+#: templates/registrant/register-form.php:65
 msgid "Bank detail will be informed after making registration"
 msgstr ""
 
-#: templates/participant/register-form.php:69
+#: templates/registrant/register-form.php:69
 msgid "Credit card information"
 msgstr ""
 
-#: templates/participant/register-form.php:88
+#: templates/registrant/register-form.php:88
 msgid ""
 "By clicking register, you are automatically agree to our term of service"
 msgstr ""
 
-#: templates/participant/register-form.php:89
+#: templates/registrant/register-form.php:89
 msgid "Register"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:17
+#: templates/registrant/waiting-payment.php:17
 msgid "In order to save your seat, please make a payment as detailed below:"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:21
+#: templates/registrant/waiting-payment.php:21
 msgid "Important!"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:22
+#: templates/registrant/waiting-payment.php:22
 msgid ""
 "The transfer amount must be exactly same as above, including the coma if any"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:24
+#: templates/registrant/waiting-payment.php:24
 msgid "Select one of the following bank accounts you want to transfer to"
 msgstr ""
 
 #. %1: bank name &2: branch name
-#: templates/participant/waiting-payment.php:37
+#: templates/registrant/waiting-payment.php:37
 #, php-format
 msgctxt "Dislaying bank information"
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:54
+#: templates/registrant/waiting-payment.php:54
 msgid "Once you made a transfer, please click button below to confirm"
 msgstr ""
 
-#: templates/participant/waiting-payment.php:55
+#: templates/registrant/waiting-payment.php:55
 msgid "I have made a payment"
 msgstr ""
 
@@ -1375,7 +1375,7 @@ msgstr ""
 #. 1: event name
 #: includes/class/class-action.php:60
 #, php-format
-msgid "%s Participants"
+msgid "%s Registrants"
 msgstr ""
 
 #: includes/class/class-action.php:76 includes/class/class-ajax.php:177
@@ -1414,7 +1414,7 @@ msgid "Please try again later"
 msgstr ""
 
 #: includes/class/class-event.php:205
-msgid "This event already exceeded the maximum number of participant"
+msgid "This event already exceeded the maximum number of registrant"
 msgstr ""
 
 #: includes/class/class-event.php:215
@@ -1446,7 +1446,7 @@ msgid "Event already past or the starting date has not been defined yet"
 msgstr ""
 
 #: includes/class/class-event.php:374
-msgid "No participant found"
+msgid "No registrant found"
 msgstr ""
 
 #: includes/class/class-ajax.php:95
@@ -1458,7 +1458,7 @@ msgid "Rejection is successful"
 msgstr ""
 
 #: includes/class/class-ajax.php:148
-msgid "Invalid participant"
+msgid "Invalid registrant"
 msgstr ""
 
 #: includes/class/class-ajax.php:245
@@ -1794,63 +1794,63 @@ msgstr ""
 
 #: includes/class/class-cpt.php:297
 msgctxt "post type general name"
-msgid "Participants"
+msgid "Registrants"
 msgstr ""
 
 #: includes/class/class-cpt.php:298
 msgctxt "post type singular name"
-msgid "Participant"
+msgid "Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:299
 msgctxt "admin menu"
-msgid "Participants"
+msgid "Registrants"
 msgstr ""
 
 #: includes/class/class-cpt.php:300
 msgctxt "add new on admin bar"
-msgid "Participant"
+msgid "Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:301
-msgctxt "participant"
+msgctxt "registrant"
 msgid "Add New"
 msgstr ""
 
 #: includes/class/class-cpt.php:302
-msgid "Add New Participant"
+msgid "Add New Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:303
-msgid "New Participant"
+msgid "New Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:304
-msgid "Edit Participant"
+msgid "Edit Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:305
-msgid "View Participant"
+msgid "View Registrant"
 msgstr ""
 
 #: includes/class/class-cpt.php:306
-msgid "All Participants"
+msgid "All Registrants"
 msgstr ""
 
 #: includes/class/class-cpt.php:307
-msgid "Search Participants"
+msgid "Search Registrants"
 msgstr ""
 
 #: includes/class/class-cpt.php:308
-msgid "Parent Participants:"
+msgid "Parent Registrants:"
 msgstr ""
 
 #: includes/class/class-cpt.php:309
-msgid "No participants found."
+msgid "No registrants found."
 msgstr ""
 
 #: includes/class/class-cpt.php:310
-msgid "No participants found in Trash."
+msgid "No registrants found in Trash."
 msgstr ""
 
 #: includes/class/class-cpt.php:346
@@ -1914,39 +1914,39 @@ msgstr ""
 msgid "No customers found in Trash."
 msgstr ""
 
-#: includes/class/class-participant.php:137
+#: includes/class/class-registrant.php:137
 msgid "Please use valid input"
 msgstr ""
 
-#: includes/class/class-participant.php:172
+#: includes/class/class-registrant.php:172
 msgid "Waiting Payment"
 msgstr ""
 
-#: includes/class/class-participant.php:175
+#: includes/class/class-registrant.php:175
 msgid "Waiting Verification"
 msgstr ""
 
-#: includes/class/class-participant.php:178
+#: includes/class/class-registrant.php:178
 msgid "Failed"
 msgstr ""
 
-#: includes/class/class-participant.php:181
+#: includes/class/class-registrant.php:181
 msgid "Success"
 msgstr ""
 
-#: includes/class/class-participant.php:316
+#: includes/class/class-registrant.php:316
 msgid "You have already checked in for today"
 msgstr ""
 
-#: includes/class/class-participant.php:320
+#: includes/class/class-registrant.php:320
 msgid "You are not allowed to checkin, since the event is completely past"
 msgstr ""
 
-#: includes/class/class-participant.php:324
+#: includes/class/class-registrant.php:324
 msgid "You are not allowed to checkin"
 msgstr ""
 
-#: includes/class/class-participant.php:479
+#: includes/class/class-registrant.php:479
 msgid "Invalid bank account selected"
 msgstr ""
 
@@ -1956,7 +1956,7 @@ msgstr ""
 msgid "Welcome To %s"
 msgstr ""
 
-#. 1: participant name, 2: event name, 3: booking code
+#. 1: registrant name, 2: event name, 3: booking code
 #: includes/class/class-mailer.php:100
 #, php-format
 msgid ""
@@ -1964,7 +1964,7 @@ msgid ""
 "%3$s"
 msgstr ""
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:105
 #, php-format
 msgid ""
@@ -1976,7 +1976,7 @@ msgstr ""
 msgid "Thank You For Confirmation"
 msgstr ""
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:110
 #, php-format
 msgid ""
@@ -1984,7 +1984,7 @@ msgid ""
 "And we will get back to you once we have an update"
 msgstr ""
 
-#. 1: participant name, 2: event name, 3: booking code
+#. 1: registrant name, 2: event name, 3: booking code
 #: includes/class/class-mailer.php:117
 #, php-format
 msgid ""
@@ -1998,7 +1998,7 @@ msgstr ""
 msgid "Thank you for checking in to %s"
 msgstr ""
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:149
 #, php-format
 msgid "Hello %1$s, thank you for checking in to %2$s"
@@ -2043,15 +2043,15 @@ msgid "Content"
 msgstr ""
 
 #: includes/class/class-metabox.php:140
-msgid "Participant"
+msgid "Registrant"
 msgstr ""
 
 #: includes/class/class-metabox.php:151
-msgid "Participant List"
+msgid "Registrant List"
 msgstr ""
 
 #: includes/class/class-metabox.php:177
-msgid "Click link below to download all participants"
+msgid "Click link below to download all registrants"
 msgstr ""
 
 #: includes/class/class-metabox.php:178 includes/class/class-metabox.php:989
@@ -2061,15 +2061,15 @@ msgstr ""
 #: includes/class/class-metabox.php:182
 msgid ""
 "This event does not require registration, so you can not collect any "
-"participant data"
+"registrant data"
 msgstr ""
 
 #: includes/class/class-metabox.php:194
-msgid "Click the button below to load all participants"
+msgid "Click the button below to load all registrants"
 msgstr ""
 
 #: includes/class/class-metabox.php:195
-msgid "Load Participants"
+msgid "Load Registrants"
 msgstr ""
 
 #: includes/class/class-metabox.php:206 includes/class/class-metabox.php:531
@@ -2130,7 +2130,7 @@ msgid "Allow register"
 msgstr ""
 
 #: includes/class/class-metabox.php:272
-msgid "Allow participant register this event"
+msgid "Allow registrant register this event"
 msgstr ""
 
 #: includes/class/class-metabox.php:275
@@ -2138,11 +2138,11 @@ msgid "Limit register"
 msgstr ""
 
 #: includes/class/class-metabox.php:278
-msgid "Limit the registration by number of participant or by date"
+msgid "Limit the registration by number of registrant or by date"
 msgstr ""
 
 #: includes/class/class-metabox.php:284
-msgid "By participant"
+msgid "By registrant"
 msgstr ""
 
 #: includes/class/class-metabox.php:292

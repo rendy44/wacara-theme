@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the constanta.
-defined( 'TEMP_URI' ) || define( 'TEMP_URI', plugin_dir_url( __FILE__ ) );
-defined( 'TEMP_PATH' ) || define( 'TEMP_PATH', plugin_dir_path( __FILE__ ) );
+defined( 'WACARA_URI' ) || define( 'WACARA_URI', plugin_dir_url( __FILE__ ) );
+defined( 'WACARA_PATH' ) || define( 'WACARA_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'TEMP_PREFIX' ) || define( 'TEMP_PREFIX', 'wcr_' );
 
 // Require our main class.
-require_once TEMP_PATH . '/includes/class/class-wacara.php';
+require_once WACARA_PATH . '/includes/class/class-wacara.php';

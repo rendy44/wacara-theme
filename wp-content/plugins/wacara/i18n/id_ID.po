@@ -1101,38 +1101,38 @@ msgstr "Menit"
 msgid "Seconds"
 msgstr "Detik"
 
-#: templates/admin/participant-detail.php:14
+#: templates/admin/registrant-detail.php:14
 msgid "Invoice"
 msgstr "Tagihan"
 
-#: templates/admin/participant-detail.php:19
+#: templates/admin/registrant-detail.php:19
 msgid "Confirmation date"
 msgstr "Waktu konfirmasi"
 
-#: templates/admin/participant-detail.php:23
+#: templates/admin/registrant-detail.php:23
 msgid "Transferred to"
 msgstr "Ditransfer ke"
 
-#: templates/admin/participant-detail.php:32
+#: templates/admin/registrant-detail.php:32
 msgid "Verify"
 msgstr "Verifikasi"
 
-#: templates/admin/participant-detail.php:33
+#: templates/admin/registrant-detail.php:33
 msgid "Reject"
 msgstr "Tolak"
 
-#: templates/admin/participant-detail.php:34
+#: templates/admin/registrant-detail.php:34
 msgid "This is one time action, once you click the action, you can not undo"
 msgstr ""
 "Ini adalah aksi yang hanya sekali, saat Anda sudah memilih maka tidak dapat "
 "dibatalkan"
 
-#: templates/participant/register-success.php:18
+#: templates/registrant/register-success.php:18
 #: includes/class/class-mailer.php:115
 msgid "Congratulation"
 msgstr "Selamat"
 
-#: templates/participant/register-success.php:19
+#: templates/registrant/register-success.php:19
 msgid ""
 "We have recorded your registration, please check your email for the further "
 "detail"
@@ -1140,11 +1140,11 @@ msgstr ""
 "Kami sudah menyimpan pendaftaran Anda, silahkan buka email Anda untuk "
 "informasi lebih lanjut"
 
-#: templates/participant/waiting-verification.php:18
+#: templates/registrant/waiting-verification.php:18
 msgid "Thank You"
 msgstr "Terima Kasih"
 
-#: templates/participant/waiting-verification.php:19
+#: templates/registrant/waiting-verification.php:19
 msgid ""
 "Thank you for confirming your payment, we will get back to you once we have "
 "verified your payment"
@@ -1152,72 +1152,72 @@ msgstr ""
 "Terima kasih atas pembayarannya, kami akan menghubungi Anda saat kami sudah "
 "memverifikasi pembayarannya."
 
-#: templates/participant/register-form.php:21
+#: templates/registrant/register-form.php:21
 msgid "Last Error:"
 msgstr "Galat Terakhir"
 
-#: templates/participant/register-form.php:46
+#: templates/registrant/register-form.php:46
 msgid "Payment Method"
 msgstr "Metode pembayaran"
 
-#: templates/participant/register-form.php:49
+#: templates/registrant/register-form.php:49
 msgid "Manual bank transfer"
 msgstr "Bank transfer"
 
-#: templates/participant/register-form.php:50
+#: templates/registrant/register-form.php:50
 msgid "Stripe"
 msgstr "Stripe"
 
-#: templates/participant/register-form.php:65
+#: templates/registrant/register-form.php:65
 msgid "Bank detail will be informed after making registration"
 msgstr "Detail bank akan diinformasikan setelah melakukan registrasi"
 
-#: templates/participant/register-form.php:69
+#: templates/registrant/register-form.php:69
 msgid "Credit card information"
 msgstr "Informasi kartu kredit"
 
-#: templates/participant/register-form.php:88
+#: templates/registrant/register-form.php:88
 msgid ""
 "By clicking register, you are automatically agree to our term of service"
 msgstr ""
 "Dengan mengklik daftar, Anda secara otomatis setuju dengan ketentuan layanan "
 "kami"
 
-#: templates/participant/register-form.php:89
+#: templates/registrant/register-form.php:89
 msgid "Register"
 msgstr "Daftar"
 
-#: templates/participant/waiting-payment.php:17
+#: templates/registrant/waiting-payment.php:17
 msgid "In order to save your seat, please make a payment as detailed below:"
 msgstr ""
 "Untuk mengamankan kursi Anda, mohon lakukan pembayaran sesuai di bawah ini:"
 
-#: templates/participant/waiting-payment.php:21
+#: templates/registrant/waiting-payment.php:21
 msgid "Important!"
 msgstr "Penting!"
 
-#: templates/participant/waiting-payment.php:22
+#: templates/registrant/waiting-payment.php:22
 msgid ""
 "The transfer amount must be exactly same as above, including the coma if any"
 msgstr "Jumlah transfer harus sama persis, termasuk koma jika ada."
 
-#: templates/participant/waiting-payment.php:24
+#: templates/registrant/waiting-payment.php:24
 msgid "Select one of the following bank accounts you want to transfer to"
 msgstr "Pilih salah satu akun bank berikut untuk melakukan transfer"
 
 #. %1: bank name &2: branch name
-#: templates/participant/waiting-payment.php:37
+#: templates/registrant/waiting-payment.php:37
 #, php-format
 msgctxt "Dislaying bank information"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
-#: templates/participant/waiting-payment.php:54
+#: templates/registrant/waiting-payment.php:54
 msgid "Once you made a transfer, please click button below to confirm"
 msgstr ""
 "Saat kamu sudah mentransfer, mohon klik tombol di bawah untuk konfirmasi"
 
-#: templates/participant/waiting-payment.php:55
+#: templates/registrant/waiting-payment.php:55
 msgid "I have made a payment"
 msgstr "Saya sudah membayar"
 
@@ -1402,7 +1402,7 @@ msgstr "Atas nama"
 #. 1: event name
 #: includes/class/class-action.php:60
 #, php-format
-msgid "%s Participants"
+msgid "%s Registrants"
 msgstr "%s peserta"
 
 #: includes/class/class-action.php:76 includes/class/class-ajax.php:177
@@ -1441,7 +1441,7 @@ msgid "Please try again later"
 msgstr "Silahkan coba lagi nanti"
 
 #: includes/class/class-event.php:205
-msgid "This event already exceeded the maximum number of participant"
+msgid "This event already exceeded the maximum number of registrant"
 msgstr "Acara ini sudah melewati maksimal jumlah peserta"
 
 #: includes/class/class-event.php:215
@@ -1473,7 +1473,7 @@ msgid "Event already past or the starting date has not been defined yet"
 msgstr "Acara sudah lampau atau tanggal mulai belum diatur"
 
 #: includes/class/class-event.php:374
-msgid "No participant found"
+msgid "No registrant found"
 msgstr "Tidak ada peserta ditemukan"
 
 #: includes/class/class-ajax.php:95
@@ -1485,7 +1485,7 @@ msgid "Rejection is successful"
 msgstr "Penolakan berhasil"
 
 #: includes/class/class-ajax.php:148
-msgid "Invalid participant"
+msgid "Invalid registrant"
 msgstr "Peserta tidak valid"
 
 #: includes/class/class-ajax.php:245
@@ -1821,63 +1821,63 @@ msgstr "Tidak ada harga ditemukan di Tong sampah."
 
 #: includes/class/class-cpt.php:297
 msgctxt "post type general name"
-msgid "Participants"
+msgid "Registrants"
 msgstr "Peserta"
 
 #: includes/class/class-cpt.php:298
 msgctxt "post type singular name"
-msgid "Participant"
+msgid "Registrant"
 msgstr "Peserta"
 
 #: includes/class/class-cpt.php:299
 msgctxt "admin menu"
-msgid "Participants"
+msgid "Registrants"
 msgstr "Peserta"
 
 #: includes/class/class-cpt.php:300
 msgctxt "add new on admin bar"
-msgid "Participant"
+msgid "Registrant"
 msgstr "Peserta"
 
 #: includes/class/class-cpt.php:301
-msgctxt "participant"
+msgctxt "registrant"
 msgid "Add New"
 msgstr "Tambah Baru"
 
 #: includes/class/class-cpt.php:302
-msgid "Add New Participant"
+msgid "Add New Registrant"
 msgstr "Tambah Peserta Baru"
 
 #: includes/class/class-cpt.php:303
-msgid "New Participant"
+msgid "New Registrant"
 msgstr "Pelanggan Baru"
 
 #: includes/class/class-cpt.php:304
-msgid "Edit Participant"
+msgid "Edit Registrant"
 msgstr "Sunting Peserta"
 
 #: includes/class/class-cpt.php:305
-msgid "View Participant"
+msgid "View Registrant"
 msgstr "Lihat Peserta"
 
 #: includes/class/class-cpt.php:306
-msgid "All Participants"
+msgid "All Registrants"
 msgstr "Semua Peserta"
 
 #: includes/class/class-cpt.php:307
-msgid "Search Participants"
+msgid "Search Registrants"
 msgstr "Cari Peserta"
 
 #: includes/class/class-cpt.php:308
-msgid "Parent Participants:"
+msgid "Parent Registrants:"
 msgstr "Induk Peserta:"
 
 #: includes/class/class-cpt.php:309
-msgid "No participants found."
+msgid "No registrants found."
 msgstr "Tidak ada peserta ditemukan."
 
 #: includes/class/class-cpt.php:310
-msgid "No participants found in Trash."
+msgid "No registrants found in Trash."
 msgstr "Tidak ada peserta ditemukan di Tong sampah."
 
 #: includes/class/class-cpt.php:346
@@ -1941,39 +1941,39 @@ msgstr "Tidak ada pelanggan ditemukan."
 msgid "No customers found in Trash."
 msgstr "Tidak ada pelanggan ditemukan di Tong sampah."
 
-#: includes/class/class-participant.php:137
+#: includes/class/class-registrant.php:137
 msgid "Please use valid input"
 msgstr "Mohon gunakan masukan yang valid"
 
-#: includes/class/class-participant.php:172
+#: includes/class/class-registrant.php:172
 msgid "Waiting Payment"
 msgstr "Menunggu Pembayaran"
 
-#: includes/class/class-participant.php:175
+#: includes/class/class-registrant.php:175
 msgid "Waiting Verification"
 msgstr "Menunggu Verifikasi"
 
-#: includes/class/class-participant.php:178
+#: includes/class/class-registrant.php:178
 msgid "Failed"
 msgstr "Gagal"
 
-#: includes/class/class-participant.php:181
+#: includes/class/class-registrant.php:181
 msgid "Success"
 msgstr "Sukses"
 
-#: includes/class/class-participant.php:316
+#: includes/class/class-registrant.php:316
 msgid "You have already checked in for today"
 msgstr "Anda sudah check-in hari ini"
 
-#: includes/class/class-participant.php:320
+#: includes/class/class-registrant.php:320
 msgid "You are not allowed to checkin, since the event is completely past"
 msgstr "Anda tidak diperbolehkan untuk check-in karena acaranya sudah lewat"
 
-#: includes/class/class-participant.php:324
+#: includes/class/class-registrant.php:324
 msgid "You are not allowed to checkin"
 msgstr "Anda tidak diperbolehkan untuk check-in"
 
-#: includes/class/class-participant.php:479
+#: includes/class/class-registrant.php:479
 msgid "Invalid bank account selected"
 msgstr "Akun bank yang dipilih tidak valid"
 
@@ -1983,7 +1983,7 @@ msgstr "Akun bank yang dipilih tidak valid"
 msgid "Welcome To %s"
 msgstr "Selamat Datang di %s"
 
-#. 1: participant name, 2: event name, 3: booking code
+#. 1: registrant name, 2: event name, 3: booking code
 #: includes/class/class-mailer.php:100
 #, php-format
 msgid ""
@@ -1993,7 +1993,7 @@ msgstr ""
 "Halo %1$s, terima kasih sudah mendaftar ke %2$s. Ini adalah kode pemesanan "
 "Anda: %3$s"
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:105
 #, php-format
 msgid ""
@@ -2007,7 +2007,7 @@ msgstr ""
 msgid "Thank You For Confirmation"
 msgstr "Terima Kasih Atas Konfirmasinya"
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:110
 #, php-format
 msgid ""
@@ -2017,7 +2017,7 @@ msgstr ""
 "Halo %1$s, terima kasih atas konfirmasinya. Kami sedang memverifikasi "
 "pembayaran Anda. Dan kami akan menghubungi anda setelah kami ada pembaruan "
 
-#. 1: participant name, 2: event name, 3: booking code
+#. 1: registrant name, 2: event name, 3: booking code
 #: includes/class/class-mailer.php:117
 #, php-format
 msgid ""
@@ -2033,7 +2033,7 @@ msgstr ""
 msgid "Thank you for checking in to %s"
 msgstr "Terima kasih sudah checkin ke %s"
 
-#. 1: participant name, 2: event name
+#. 1: registrant name, 2: event name
 #: includes/class/class-mailer.php:149
 #, php-format
 msgid "Hello %1$s, thank you for checking in to %2$s"
@@ -2078,15 +2078,15 @@ msgid "Content"
 msgstr "Isi acara"
 
 #: includes/class/class-metabox.php:140
-msgid "Participant"
+msgid "Registrant"
 msgstr "Peserta"
 
 #: includes/class/class-metabox.php:151
-msgid "Participant List"
+msgid "Registrant List"
 msgstr "Daftar Peserta"
 
 #: includes/class/class-metabox.php:177
-msgid "Click link below to download all participants"
+msgid "Click link below to download all registrants"
 msgstr "Klik tautan di bawah untuk mengunduh semua peserta"
 
 #: includes/class/class-metabox.php:178 includes/class/class-metabox.php:989
@@ -2096,17 +2096,17 @@ msgstr "Unduh"
 #: includes/class/class-metabox.php:182
 msgid ""
 "This event does not require registration, so you can not collect any "
-"participant data"
+"registrant data"
 msgstr ""
 "Acara ini tidak memerlukan pendaftaran, sehingga Anda tidak bisa "
 "mengumpulkan data peserta"
 
 #: includes/class/class-metabox.php:194
-msgid "Click the button below to load all participants"
+msgid "Click the button below to load all registrants"
 msgstr "Klik tombol di bawah untuk menampilkan semua peserta"
 
 #: includes/class/class-metabox.php:195
-msgid "Load Participants"
+msgid "Load Registrants"
 msgstr "Tampilkan Peserta"
 
 #: includes/class/class-metabox.php:206 includes/class/class-metabox.php:531
@@ -2167,7 +2167,7 @@ msgid "Allow register"
 msgstr "Izinkan mendaftar"
 
 #: includes/class/class-metabox.php:272
-msgid "Allow participant register this event"
+msgid "Allow registrant register this event"
 msgstr "Izinkan peserta mendaftar ke acara ini"
 
 #: includes/class/class-metabox.php:275
@@ -2175,11 +2175,11 @@ msgid "Limit register"
 msgstr "Batasi pendaftar"
 
 #: includes/class/class-metabox.php:278
-msgid "Limit the registration by number of participant or by date"
+msgid "Limit the registration by number of registrant or by date"
 msgstr "Batasi pendaftaran dengan jumlah ataupun tanggal"
 
 #: includes/class/class-metabox.php:284
-msgid "By participant"
+msgid "By registrant"
 msgstr "Dengan jumlah"
 
 #: includes/class/class-metabox.php:292

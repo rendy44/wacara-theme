@@ -8,7 +8,7 @@
 
 namespace Wacara\Payment;
 
-use Wacara\Participant;
+use Wacara\Registrant;
 use Wacara\Payment_Method;
 use Wacara\Register_Payment;
 use Wacara\Result;
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		/**
 		 * Function to calculate and process the payment.
 		 *
-		 * @param Participant $participant the participant object of registered participant.
+		 * @param Registrant $registrant the registrant object of registered registrant.
 		 * @param array       $fields used fields which is stored from front-end, mostly it contains unserialized object.
 		 * @param int         $pricing_price amount of invoice in cent.
 		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		public function process( $participant, $fields, $pricing_price, $pricing_currency ) {
+		public function process( $registrant, $fields, $pricing_price, $pricing_currency ) {
 			$result      = new Result();
 			$settings    = $this->get_admin_setting();
 			$unique_code = $settings['unique_code'];
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			// Save the unique number.
-			$participant->maybe_save_unique_number( $unique );
+			$registrant->maybe_save_unique_number( $unique );
 
 			// There is nothing to do here, just finish the process and wait for the payment :).
 			$result->success  = true;
@@ -163,15 +163,15 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		/**
 		 * Get content that will be rendered after making manual payment.
 		 *
-		 * @param Participant $participant the participant object of registered participant.
-		 * @param string      $reg_status current registration status of the participant.
+		 * @param Registrant $registrant the registrant object of registered registrant.
+		 * @param string      $reg_status current registration status of the registrant.
 		 * @param string      $pricing_id the id of selected pricing.
 		 * @param int         $pricing_price amount of invoice in cent.
 		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return string
 		 */
-		public function maybe_page_after_payment( $participant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
+		public function maybe_page_after_payment( $registrant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
 
 			// Prepare default content after registration as success page.
 			$content = $this->get_success_page();
@@ -181,10 +181,10 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 				// Prepare the templating args.
 				$register_args = [
-					'id'         => $participant->post_id,
-					'title'      => $participant->post_title,
+					'id'         => $registrant->post_id,
+					'title'      => $registrant->post_title,
 					'pricing_id' => $pricing_id,
-					'event_id'   => $participant->get_event_info(),
+					'event_id'   => $registrant->get_event_info(),
 				];
 
 				// Switch the registration status.
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				}
 
 				// Update the content.
-				$content = Template::render( 'participant/' . $template, $register_args ); // phpcs:ignore
+				$content = Template::render( 'registrant/' . $template, $register_args ); // phpcs:ignore
 			}
 
 			return $content;

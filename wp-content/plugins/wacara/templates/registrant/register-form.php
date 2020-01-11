@@ -85,8 +85,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					 */
 					do_action( 'wacara_after_rendering_register_form', $event_id );
 
-					// Render current participant id.
-					echo apply_filters( 'sk_input_field', 'participant_id', 'hidden', '', $id ); // phpcs:ignore
+					// Render current registrant id.
+					echo apply_filters( 'sk_input_field', 'registrant_id', 'hidden', '', $id ); // phpcs:ignore
 
 					// Add nonce.
 					wp_nonce_field( 'sk_nonce', 'sk_payment' );

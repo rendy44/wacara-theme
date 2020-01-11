@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template for displaying modal for detail participant in wp-admin
+ * Custom template for displaying modal for detail registrant in wp-admin
  *
  * @author  Rendy
  * @package Wacara
@@ -9,7 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="participant_detail">
+<div class="registrant_detail">
 	<div class="detail_row">
 		<div class="detail_title"><?php esc_html_e( 'Invoice', 'wacara' ); ?></div>
 		<?php $total_cent = $maybe_price_in_cent_with_unique / 100; ?>

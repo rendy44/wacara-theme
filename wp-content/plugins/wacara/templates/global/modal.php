@@ -22,15 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="modal-body">
 				<div class="form-group">
 					<label><?php esc_html_e( 'Booking code', 'wacara' ); ?>:</label>
-					<span class="participant_booking_code">...</span>
+					<span class="registrant_booking_code">...</span>
 				</div>
 				<div class="form-group">
 					<label><?php esc_html_e( 'Name', 'wacara' ); ?>:</label>
-					<span class="participant_name">...</span>
+					<span class="registrant_name">...</span>
 				</div>
 				<div class="form-group">
 					<label><?php esc_html_e( 'Email', 'wacara' ); ?>:</label>
-					<span class="participant_email">...</span>
+					<span class="registrant_email">...</span>
 				</div>
 			</div>
 			<!-- Modal footer -->

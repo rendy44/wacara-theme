@@ -65,7 +65,7 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		/**
 		 * Get event meta data.
 		 *
-		 * @param string|array $key participant meta key.
+		 * @param string|array $key registrant meta key.
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		/**
 		 * Update post meta data.
 		 *
-		 * @param array $meta_data participant meta data.
+		 * @param array $meta_data registrant meta data.
 		 */
 		protected function save_meta( array $meta_data ) {
 			Helper::save_post_meta( $this->post_id, $meta_data );

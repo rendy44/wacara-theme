@@ -13,11 +13,11 @@ new class {
      */
     constructor() {
         this.modal_result = $('#modalBeforeCheckin');
-        this.find_participant_before_checkin_event();
-        this.participant_checkin_event();
+        this.find_registrant_before_checkin_event();
+        this.registrant_checkin_event();
     }
 
-    participant_checkin_event() {
+    registrant_checkin_event() {
         const instance = this;
         const btn_checkin = $('#btn_go_checkin'),
             btn_checkin_original_text = btn_checkin.html();
@@ -26,9 +26,9 @@ new class {
             e.preventDefault();
 
             btn_checkin.prop('disabled', true).html('Loading...');
-            const participant_id = instance.modal_result.attr('data-id');
+            const registrant_id = instance.modal_result.attr('data-id');
 
-            instance.do_checkin(participant_id)
+            instance.do_checkin(registrant_id)
                 .done(function (data) {
                     btn_checkin.prop('disabled', false).html(btn_checkin_original_text);
                     let alert_type = 'error';
@@ -48,10 +48,10 @@ new class {
         })
     };
 
-    find_participant_before_checkin_event() {
+    find_registrant_before_checkin_event() {
         const instance = this;
-        const btn_find = $('#btn_find_participant'),
-            input_find = $('#input_find_participant'),
+        const btn_find = $('#btn_find_registrant'),
+            input_find = $('#input_find_registrant'),
             btn_find_original_text = btn_find.html();
 
         btn_find.click(function (e) {
@@ -62,16 +62,16 @@ new class {
                 btn_find.prop('disabled', true).html('Loading...');
                 input_find.prop('readonly', true);
 
-                instance.find_participant(input_find_value)
+                instance.find_registrant(input_find_value)
                     .done(function (data) {
                         btn_find.prop('disabled', false).html(btn_find_original_text);
                         input_find.prop('readonly', false);
                         if (data.success) {
                             // Save content into modal.
                             instance.modal_result.attr('data-id', data.callback);
-                            instance.modal_result.find('.participant_booking_code').html(data.items.booking_code);
-                            instance.modal_result.find('.participant_name').html(data.items.name);
-                            instance.modal_result.find('.participant_email').html(data.items.email);
+                            instance.modal_result.find('.registrant_booking_code').html(data.items.booking_code);
+                            instance.modal_result.find('.registrant_name').html(data.items.name);
+                            instance.modal_result.find('.registrant_email').html(data.items.email);
                             instance.modal_result.modal({
                                 backdrop: 'static',
                                 keyboard: false
@@ -90,17 +90,17 @@ new class {
         })
     }
 
-    find_participant(booking_code) {
+    find_registrant(booking_code) {
         return new Ajax(true, {
             action: 'find_by_booking_code',
             booking_code: booking_code,
         });
     }
 
-    do_checkin(participant_id) {
+    do_checkin(registrant_id) {
         return new Ajax(true, {
-            action: 'participant_checkin',
-            participant_id: participant_id,
+            action: 'registrant_checkin',
+            registrant_id: registrant_id,
         });
     }
 };

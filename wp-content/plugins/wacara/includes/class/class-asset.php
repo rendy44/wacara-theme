@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\Asset' ) ) {
+if ( ! class_exists( 'Wacara\Asset' ) ) {
 
 	/**
 	 * Class Asset
@@ -144,62 +144,62 @@ if ( ! class_exists( '\Wacara\Asset' ) ) {
 					'url' => 'https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700&amp;display=swap',
 				],
 				'bootstrap'   => [
-					'url' => TEMP_URI . '/assets/vendor/bootstrap/css/bootstrap.min.css',
+					'url' => WACARA_URI . 'assets/vendor/bootstrap/css/bootstrap.min.css',
 				],
 				'fontawesome' => [
-					'url' => TEMP_URI . '/assets/vendor/fontawesome-free/css/all.min.css',
+					'url' => WACARA_URI . 'assets/vendor/fontawesome-free/css/all.min.css',
 				],
 				'aos'         => [
-					'url' => TEMP_URI . '/assets/vendor/aos/aos.css',
+					'url' => WACARA_URI . 'assets/vendor/aos/aos.css',
 				],
 				'baguettebox' => [
-					'url' => TEMP_URI . '/assets/vendor/baguettebox/baguetteBox.min.css',
+					'url' => WACARA_URI . 'assets/vendor/baguettebox/baguetteBox.min.css',
 				],
 				'sweetalert2' => [
-					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.css',
+					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',
 				],
 				'slick'       => [
-					'url' => TEMP_URI . '/assets/vendor/slick/slick.css',
+					'url' => WACARA_URI . 'assets/vendor/slick/slick.css',
 				],
 				'slick-theme' => [
-					'url' => TEMP_URI . '/assets/vendor/slick/slick-theme.css',
+					'url' => WACARA_URI . 'assets/vendor/slick/slick-theme.css',
 				],
 				'app'         => [
-					'url' => TEMP_URI . '/assets/css/app.css',
+					'url' => WACARA_URI . 'assets/css/app.css',
 				],
 			];
 
 			// JS files.
 			$this->front_js = [
 				'bootstrap'         => [
-					'url' => TEMP_URI . '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
+					'url' => WACARA_URI . 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
 				],
 				'aos'               => [
-					'url' => TEMP_URI . '/assets/vendor/aos/aos.js',
+					'url' => WACARA_URI . 'assets/vendor/aos/aos.js',
 				],
 				'baguettebox'       => [
-					'url' => TEMP_URI . '/assets/vendor/baguettebox/baguetteBox.min.js',
+					'url' => WACARA_URI . 'assets/vendor/baguettebox/baguetteBox.min.js',
 				],
 				'sweetalert2'       => [
-					'url' => TEMP_URI . '/assets/vendor/sweetalert2/dist/sweetalert2.min.js',
+					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
 				],
 				'slick'             => [
-					'url' => TEMP_URI . '/assets/vendor/slick/slick.min.js',
+					'url' => WACARA_URI . 'assets/vendor/slick/slick.min.js',
 				],
 				'jquery-validation' => [
-					'url' => TEMP_URI . '/assets/vendor/jquery-validation/dist/jquery.validate.min.js',
+					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
 				],
 				'stripe'            => [
 					'url' => 'https://js.stripe.com/v3/',
 				],
 				'checkin'           => [
-					'url' => TEMP_URI . '/assets/js/checkin.js',
+					'url' => WACARA_URI . 'assets/js/checkin.js',
 				],
 				'main'              => [
-					'url' => TEMP_URI . '/assets/js/main.js',
+					'url' => WACARA_URI . 'assets/js/main.js',
 				],
 				'app'               => [
-					'url'   => TEMP_URI . '/assets/js/app.min.js',
+					'url'   => WACARA_URI . 'assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url'        => admin_url( 'admin-ajax.php' ),
 						'publishable_key' => Stripe_Payment::get_publishable_key(),
@@ -224,15 +224,15 @@ if ( ! class_exists( '\Wacara\Asset' ) ) {
 		private function map_admin_asset() {
 			$this->admin_js = [
 				'cmb2_conditionals' => [
-					'url'   => TEMP_URI . '/assets/admin/js/cmb2-conditionals.js',
+					'url'   => WACARA_URI . 'assets/admin/js/cmb2-conditionals.js',
 					'depth' => [ 'jquery', 'cmb2-scripts' ],
 				],
 				'inputosaurus'      => [
-					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.js',
+					'url'   => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.js',
 					'depth' => [ 'jquery', 'cmb2-scripts' ],
 				],
 				'app_be'            => [
-					'url'  => TEMP_URI . '/assets/admin/js/app.js',
+					'url'  => WACARA_URI . 'assets/admin/js/app.js',
 					'vars' => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 					],
@@ -241,11 +241,11 @@ if ( ! class_exists( '\Wacara\Asset' ) ) {
 
 			$this->admin_css = [
 				'inputosaurus' => [
-					'url'   => TEMP_URI . '/assets/vendor/inputosaurus/inputosaurus.css',
+					'url'   => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.css',
 					'depth' => [ 'cmb2-styles' ],
 				],
 				'app'          => [
-					'url' => TEMP_URI . '/assets/admin/css/app.css',
+					'url' => WACARA_URI . 'assets/admin/css/app.css',
 				],
 			];
 		}

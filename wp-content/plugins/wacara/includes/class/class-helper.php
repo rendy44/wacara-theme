@@ -41,7 +41,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Custom pagination
 		 *
 		 * @param int $number_pages max number page.
-		 * @param int $paged        current page.
+		 * @param int $paged current page.
 		 *
 		 * @return string
 		 */
@@ -99,7 +99,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Save multiple post meta
 		 *
-		 * @param int   $post_id post id.
+		 * @param int $post_id post id.
 		 * @param array $options meta_key => meta_value formatted array.
 		 */
 		public static function save_post_meta( $post_id, $options = [] ) {
@@ -114,7 +114,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Save multiple user meta
 		 *
 		 * @param string $user_id user id.
-		 * @param array  $options meta_key => meta_value formatterd array.
+		 * @param array $options meta_key => meta_value formatterd array.
 		 */
 		public static function save_user_meta( $user_id, $options = [] ) {
 			if ( ! empty( $options ) ) {
@@ -128,7 +128,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Delete user meta
 		 *
 		 * @param string $user_id user id.
-		 * @param string $key     user meta key.
+		 * @param string $key user meta key.
 		 */
 		public static function delete_user_meta( $user_id, $key ) {
 			delete_user_meta( $user_id, self::$meta_prefix . $key );
@@ -138,7 +138,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Delete user meta
 		 *
 		 * @param string $post_id post id.
-		 * @param string $key     user meta key.
+		 * @param string $key user meta key.
 		 */
 		public static function delete_post_meta( $post_id, $key ) {
 			delete_post_meta( $post_id, self::$meta_prefix . $key );
@@ -147,9 +147,9 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get user meta
 		 *
-		 * @param string $key          user meta key.
-		 * @param string $user_id      user id.
-		 * @param bool   $single_value whether the meta is single or array.
+		 * @param string $key user meta key.
+		 * @param string $user_id user id.
+		 * @param bool $single_value whether the meta is single or array.
 		 *
 		 * @return mixed
 		 */
@@ -160,10 +160,10 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get post meta
 		 *
-		 * @param string|array $key          post meta key.
-		 * @param bool|string  $post_id      post id.
-		 * @param bool         $single_value whether the meta is single or array.
-		 * @param bool         $with_prefix  whether format field with auto prefix or not.
+		 * @param string|array $key post meta key.
+		 * @param bool|string $post_id post id.
+		 * @param bool $single_value whether the meta is single or array.
+		 * @param bool $with_prefix whether format field with auto prefix or not.
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -185,8 +185,8 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get serialized value
 		 *
-		 * @param array  $unserialized_data unserialized data to be parsed.
-		 * @param string $key               key name of data.
+		 * @param array $unserialized_data unserialized data to be parsed.
+		 * @param string $key key name of data.
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -231,8 +231,8 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get array value by its key.
 		 *
-		 * @param array  $array array object.
-		 * @param string $key   array key.
+		 * @param array $array array object.
+		 * @param string $key array key.
 		 *
 		 * @return bool|mixed will be returned false once aray does not have key.
 		 */
@@ -248,7 +248,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_list_of_countries( $use_blank = false ) {
-			$countries = include TEMP_PATH . '/i18n/country.php';
+			$countries = include WACARA_PATH . '/i18n/country.php';
 			if ( $use_blank ) {
 				$countries = array_merge( [ '' => __( 'Select country', 'wacara' ) ], $countries );
 			}
@@ -379,9 +379,9 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Format timestamp into readable date;
 		 *
-		 * @param int  $timestamp              unformulated timestamp.
+		 * @param int $timestamp unformulated timestamp.
 		 * @param bool $include_time_in_result whether include time in result or not.
-		 * @param bool $localize               whether convert date into localize result or not.
+		 * @param bool $localize whether convert date into localize result or not.
 		 *
 		 * @return false|string
 		 */
@@ -420,8 +420,8 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get full location info
 		 *
-		 * @param string $location_id  location id.
-		 * @param bool   $include_name whether include location name or not.
+		 * @param string $location_id location id.
+		 * @param bool $include_name whether include location name or not.
 		 *
 		 * @return string
 		 */
@@ -538,8 +538,8 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Check whether the pricing is valid or not.
 		 *
-		 * @param string $pricing_id         pricing id.
-		 * @param bool   $validate_the_price whether validate the price or not.
+		 * @param string $pricing_id pricing id.
+		 * @param bool $validate_the_price whether validate the price or not.
 		 *
 		 * @return Result
 		 */
@@ -620,7 +620,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return false|string
 		 */
 		public static function get_site_logo_url() {
-			$static_logo = TEMP_URI . '/assets/img/sample-logo.png';
+			$static_logo = WACARA_URI . '/assets/img/sample-logo.png';
 			$site_logo   = Options::get_theme_option( 'logo_id' );
 			if ( $site_logo ) {
 				$static_logo = wp_get_attachment_image_url( $site_logo, 'medium' );
@@ -632,9 +632,9 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get post id by meta key.
 		 *
-		 * @param string $meta_key   meta key.
+		 * @param string $meta_key meta key.
 		 * @param string $meta_value meta value.
-		 * @param string $post_type  post type.
+		 * @param string $post_type post type.
 		 *
 		 * @return Result
 		 */
@@ -685,11 +685,11 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 			$result = false;
 
 			$request_uri = $_SERVER['REQUEST_URI']; // phpcs:ignore
-			$event_obj   = get_page_by_path( $request_uri, OBJECT, [ 'event', 'participant' ] ); // phpcs:ignore
+			$event_obj   = get_page_by_path( $request_uri, OBJECT, [ 'event', 'registrant' ] ); // phpcs:ignore
 
 			// Maybe remove trailing slash.
 			if ( ! $event_obj ) {
-				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, [ 'event', 'participant' ] );
+				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, [ 'event', 'registrant' ] );
 			}
 
 			// Maybe remove the first slash.
@@ -699,7 +699,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 					OBJECT,
 					[
 						'event',
-						'participant',
+						'registrant',
 					]
 				);
 			}
@@ -711,7 +711,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 				for ( $i = 0; $i < $path_arr_num; $i ++ ) {
 					unset( $path_arr[ $i ] );
 					$new_path  = implode( '/', $path_arr );
-					$event_obj = get_page_by_path( $new_path, OBJECT, [ 'event', 'participant' ] );
+					$event_obj = get_page_by_path( $new_path, OBJECT, [ 'event', 'registrant' ] );
 					if ( $event_obj ) {
 						$result = $event_obj->ID;
 						break;
@@ -720,6 +720,33 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Load template
+		 *
+		 * @param string $template_name template name without extension.
+		 * @param bool $unique whether include theme once or not.
+		 */
+		public static function load_template( $template_name, $unique = false ) {
+			$find_in_theme = self::locate_template( $template_name );
+			$template      = $find_in_theme ? $find_in_theme : WACARA_PATH . "templates/{$template_name}.php";
+			if ( $unique ) {
+				include_once $template;
+			} else {
+				include $template;
+			}
+		}
+
+		/**
+		 * Locate the template in theme.
+		 *
+		 * @param string $template_name template name that's going to be located in theme.
+		 *
+		 * @return string
+		 */
+		public static function locate_template( $template_name ) {
+			return locate_template( "wacara/{$template_name}.php" );
 		}
 	}
 }

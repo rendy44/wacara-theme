@@ -32,7 +32,7 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		 * Set template folder
 		 */
 		private static function set_folder() {
-			$folder = TEMP_PATH . '/templates';
+			$folder = WACARA_PATH . '/templates';
 			if ( $folder ) {
 				// normalize the internal folder value by removing any final slashes.
 				self::$folder = rtrim( $folder, '/' );
@@ -60,8 +60,8 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		/**
 		 * Render the template
 		 *
-		 * @param string $template  template file path.
-		 * @param array  $variables variables that will be injected into template file.
+		 * @param string $template template file path.
+		 * @param array $variables variables that will be injected into template file.
 		 *
 		 * @return string
 		 */
@@ -79,18 +79,23 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		 * Render the template
 		 *
 		 * @param string $file_name template file name.
-		 * @param array  $variables variables that will be injected into template file.
+		 * @param array $variables variables that will be injected into template file.
+		 * @param bool $echo whether display as variable or display in browser.
 		 *
-		 * @return string
+		 * @return void|string
 		 */
-		public static function render( $file_name, $variables = [] ) {
+		public static function render( $file_name, $variables = [], $echo = false ) {
 			$template = self::find_template( $file_name );
 			$output   = '';
 			if ( $template ) {
 				$output = self::render_template( $template, $variables );
 			}
 
-			return $output;
+			if ( $echo ) {
+				echo $output; // phpcs:ignore
+			} else {
+				return $output;
+			}
 		}
 	}
 }

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\UI' ) ) {
+if ( ! class_exists( 'Wacara\UI' ) ) {
 
 	/**
 	 * Class UI
@@ -45,15 +45,18 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		 * UI constructor.
 		 */
 		private function __construct() {
-			add_action( 'sk_header_content', [ $this, 'header_open_tag_callback' ], 10 );
-			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
-			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
-			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
+//			add_action( 'sk_header_content', [ $this, 'header_open_tag_callback' ], 10 );
+//			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
+//			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
+//			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
 			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 
 			// Render the masthead section.
-			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_section_callback' ], 10, 2 );
+			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
+			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_content_callback' ], 20, 2 );
+			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_countdown_callback' ], 30, 2 );
+			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_closing_callback' ], 40, 2 );
 
 			// Render the about section.
 			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 4 );
@@ -99,7 +102,7 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 				} elseif ( is_404() ) {
 					$header_title = __( 'Not Found', 'wacara' );
 				} elseif ( is_singular() ) {
-					if ( is_singular( 'participant' ) ) {
+					if ( is_singular( 'registrant' ) ) {
 						$header_title = __( 'Payment', 'wacara' );
 						$event_id     = Helper::get_post_meta( 'event_id', get_the_ID() );
 						$event_title  = get_the_title( $event_id );
@@ -144,7 +147,7 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 			if ( ! is_page_template( 'page-templates/event-checkin.php' ) ) {
 				$use_full_nav = true;
 				$post_id      = get_the_ID();
-				if ( is_singular( 'participant' ) ) {
+				if ( is_singular( 'registrant' ) ) {
 					$use_full_nav = false;
 					$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
 				}
@@ -189,15 +192,15 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering single input field.
 		 *
-		 * @param string $field_id       will be used to print field id and fied name.
-		 * @param string $field_type     input type for simple text field, default = 'text'.
+		 * @param string $field_id will be used to print field id and fied name.
+		 * @param string $field_type input type for simple text field, default = 'text'.
 		 * @param string $field_required whether set field as required or not.
-		 * @param string $value          default value of the input.
+		 * @param string $value default value of the input.
 		 *
 		 * @return string
 		 */
 		public function input_field_callback( $field_id, $field_type = 'text', $field_required = 'required', $value = '' ) {
-			$result = Template::render(
+			return Template::render(
 				'global/form-input-text',
 				[
 					'field_id'       => $field_id,
@@ -206,15 +209,13 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 					'field_value'    => $value,
 				]
 			);
-
-			return $result;
 		}
 
 		/**
 		 * Callback for rendering event field.
 		 *
 		 * @param string $event_id event id.
-		 * @param string $key      field key.
+		 * @param string $key field key.
 		 *
 		 * @return string
 		 */
@@ -235,40 +236,85 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering masthead section.
+		 * Callback for rendering masthead opening tag.
 		 *
-		 * @param Event  $event           the object of current event.
-		 * @param string $header_template id of selected header template.
+		 * @param Event $event the object of the current event.
+		 * @param string $header_template the id of selected header template of the current event.
 		 */
-		public function render_masthead_section_callback( $event, $header_template ) {
+		public function render_masthead_opening_callback( $event, $header_template ) {
 			$header_width           = Helper::get_post_meta( 'content_width', $header_template );
 			$header_scheme          = Helper::get_post_meta( 'color_scheme', $header_template );
 			$header_alignment       = Helper::get_post_meta( 'content_alignment', $header_template );
-			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
-			$header_countdown       = Helper::get_post_meta( 'countdown_content', $header_template );
-			$date_start             = Helper::get_post_meta( 'date_start', $event->post_id );
-			$location               = Helper::get_post_meta( 'location', $event->post_id );
-			$location_country_code  = Helper::get_post_meta( 'country', $location );
-			$location_province      = Helper::get_post_meta( 'province', $location );
+			$header_extra_class     = self::get_header_extra_class( $header_width, $header_scheme, $header_alignment );
 			$event_background_image = Helper::get_post_meta( 'background_image_id', $event->post_id );
-			$event_title            = get_the_title( $event->post_id );
-			$masthead_args          = [
-				'header_extra_class' => self::get_header_extra_class( $header_width, $header_scheme, $header_alignment ),
-				'title'              => Helper::split_title( $event_title ),
-				'date_start'         => Helper::convert_date( $date_start, true ),
-				'excerpt'            => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
-				'background_image'   => self::generate_header_background_image( $event_background_image, $header_default_image ),
-				'show_countdown'     => 'on' === $header_countdown ? true : false,
+			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
+			$background_image       = self::generate_header_background_image( $event_background_image, $header_default_image );
+			?>
+            <header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
+            style="<?php echo esc_attr( $background_image ); ?>">
+            <div class="container h-100">
+            <div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
+            <div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
+			<?php
+		}
+
+		/**
+		 * Callback for rendering masthead section.
+		 *
+		 * @param Event $event the object of the current event.
+		 * @param string $header_template the id of selected header template of the current event.
+		 */
+		public function render_masthead_content_callback( $event, $header_template ) {
+			$date_start            = Helper::get_post_meta( 'date_start', $event->post_id );
+			$location              = Helper::get_post_meta( 'location', $event->post_id );
+			$location_country_code = Helper::get_post_meta( 'country', $location );
+			$location_province     = Helper::get_post_meta( 'province', $location );
+			$event_title           = get_the_title( $event->post_id );
+			$masthead_args         = [
+				'title'   => Helper::split_title( $event_title ),
+				'excerpt' => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
 			];
-			echo Template::render( 'event/masthead', $masthead_args ); // phpcs:ignore
+			Template::render( 'event/masthead', $masthead_args, true );
+		}
+
+		/**
+		 * Callback for rendering masthead countdown.
+		 *
+		 * @param Event $event the object of the current event.
+		 * @param string $header_template the id of selected header template of the current event.
+		 */
+		public function render_masthead_countdown_callback( $event, $header_template ) {
+			$enable_countdown = Helper::get_post_meta( 'countdown_content', $header_template );
+			if ( 'on' === $enable_countdown ) {
+				$date_start    = Helper::get_post_meta( 'date_start', $event->post_id );
+				$masthead_args = [
+					'date_start' => $date_start,
+				];
+				Template::render( 'event/masthead-countdown', $masthead_args, true );
+			}
+		}
+
+		/**
+		 * Callback for rendering masthead closing tag.
+		 *
+		 * @param Event $event the object of the current event.
+		 * @param string $header_template the id of selected header template of the current event.
+		 */
+		public function render_masthead_closing_callback( $event, $header_template ) {
+			?>
+            </div>
+            </div>
+            </div>
+            </header>
+			<?php
 		}
 
 		/**
 		 * Callback for rendering about section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_about_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -287,9 +333,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering speakers section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_speakers_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -298,7 +344,7 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 			if ( ! empty( $speakers ) ) {
 				foreach ( $speakers as $speaker ) {
 					$speakers_arr[] = [
-						'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : TEMP_URI . '/assets/img/user-placeholder.jpg',
+						'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : WACARA_URI . '/assets/img/user-placeholder.jpg',
 						'name'      => get_the_title( $speaker ),
 						'position'  => Helper::get_post_meta( 'position', $speaker ),
 						'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
@@ -323,9 +369,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering venue section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_venue_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -344,9 +390,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering gallery section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_gallery_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -365,9 +411,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering sponsors section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_sponsors_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -386,9 +432,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering schedule section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_schedule_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -407,9 +453,9 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering pricing section.
 		 *
-		 * @param Event  $event            the object of current event.
-		 * @param string $section_class    the css class of section.
-		 * @param string $section_title    the title of section.
+		 * @param Event $event the object of current event.
+		 * @param string $section_class the css class of section.
+		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
 		 */
 		public function render_pricing_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
@@ -459,8 +505,8 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Get header extra classes.
 		 *
-		 * @param string $width     half|center header width.
-		 * @param string $scheme    light|dark header color scheme.
+		 * @param string $width half|center header width.
+		 * @param string $scheme light|dark header color scheme.
 		 * @param string $alignment left|center|right header alignment.
 		 *
 		 * @return array
@@ -485,7 +531,7 @@ if ( ! class_exists( '\Wacara\UI' ) ) {
 		/**
 		 * Generate header background image style for event.
 		 *
-		 * @param string $event_background_image  event background image.
+		 * @param string $event_background_image event background image.
 		 * @param string $header_background_image header background image.
 		 *
 		 * @return string

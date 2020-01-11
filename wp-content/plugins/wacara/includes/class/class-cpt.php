@@ -55,8 +55,8 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 			add_action( 'init', [ $this, 'register_speaker_post_type_callback' ] );
 			// Register price post type.
 			add_action( 'init', [ $this, 'register_price_post_type_callback' ] );
-			// Register participant post type.
-			add_action( 'init', [ $this, 'register_participant_post_type_callback' ] );
+			// Register registrant post type.
+			add_action( 'init', [ $this, 'register_registrant_post_type_callback' ] );
 			// Register customer post type.
 			add_action( 'init', [ $this, 'register_customer_post_type_callback' ] );
 		}
@@ -292,32 +292,32 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		}
 
 		/**
-		 * Callback for registering participant post type.
+		 * Callback for registering registrant post type.
 		 */
-		public function register_participant_post_type_callback() {
+		public function register_registrant_post_type_callback() {
 			$labels = [
-				'name'               => _x( 'Participants', 'post type general name', 'wacara' ),
-				'singular_name'      => _x( 'Participant', 'post type singular name', 'wacara' ),
-				'menu_name'          => _x( 'Participants', 'admin menu', 'wacara' ),
-				'name_admin_bar'     => _x( 'Participant', 'add new on admin bar', 'wacara' ),
-				'add_new'            => _x( 'Add New', 'participant', 'wacara' ),
-				'add_new_item'       => __( 'Add New Participant', 'wacara' ),
-				'new_item'           => __( 'New Participant', 'wacara' ),
-				'edit_item'          => __( 'Edit Participant', 'wacara' ),
-				'view_item'          => __( 'View Participant', 'wacara' ),
-				'all_items'          => __( 'All Participants', 'wacara' ),
-				'search_items'       => __( 'Search Participants', 'wacara' ),
-				'parent_item_colon'  => __( 'Parent Participants:', 'wacara' ),
-				'not_found'          => __( 'No participants found.', 'wacara' ),
-				'not_found_in_trash' => __( 'No participants found in Trash.', 'wacara' ),
+				'name'               => _x( 'Registrants', 'post type general name', 'wacara' ),
+				'singular_name'      => _x( 'Registrant', 'post type singular name', 'wacara' ),
+				'menu_name'          => _x( 'Registrants', 'admin menu', 'wacara' ),
+				'name_admin_bar'     => _x( 'Registrant', 'add new on admin bar', 'wacara' ),
+				'add_new'            => _x( 'Add New', 'registrant', 'wacara' ),
+				'add_new_item'       => __( 'Add New Registrant', 'wacara' ),
+				'new_item'           => __( 'New Registrant', 'wacara' ),
+				'edit_item'          => __( 'Edit Registrant', 'wacara' ),
+				'view_item'          => __( 'View Registrant', 'wacara' ),
+				'all_items'          => __( 'All Registrants', 'wacara' ),
+				'search_items'       => __( 'Search Registrants', 'wacara' ),
+				'parent_item_colon'  => __( 'Parent Registrants:', 'wacara' ),
+				'not_found'          => __( 'No registrants found.', 'wacara' ),
+				'not_found_in_trash' => __( 'No registrants found in Trash.', 'wacara' ),
 			];
 
 			/**
-			 * Perform filter to modify participant post type's labels.
+			 * Perform filter to modify registrant post type's labels.
 			 *
 			 * @param array $labels settings array.
 			 */
-			$labels = apply_filters( 'wacara_filter_participant_labels', $labels );
+			$labels = apply_filters( 'wacara_filter_registrant_labels', $labels );
 
 			$args = [
 				'labels'             => $labels,
@@ -337,7 +337,7 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 				'menu_icon'          => 'dashicons-businessperson',
 			];
 
-			register_post_type( 'participant', $args );
+			register_post_type( 'registrant', $args );
 		}
 
 		/**

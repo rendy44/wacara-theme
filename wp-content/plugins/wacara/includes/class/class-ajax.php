@@ -45,7 +45,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Ajax constructor.
 		 */
 		private function __construct() {
-			// Register ajax endpoint for registering participant.
+			// Register ajax endpoint for registering registrant.
 			add_action( 'wp_ajax_nopriv_register', [ $this, 'register_callback' ] );
 			add_action( 'wp_ajax_register', [ $this, 'register_callback' ] );
 
@@ -57,19 +57,19 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			add_action( 'wp_ajax_nopriv_confirmation', [ $this, 'confirmation_callback' ] );
 			add_action( 'wp_ajax_confirmation', [ $this, 'confirmation_callback' ] );
 
-			// Register ajax endpoint for finding participant by booking code before checking in..
+			// Register ajax endpoint for finding registrant by booking code before checking in..
 			add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
 			add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
 
 			// Register ajax endpoint for processing checkin.
-			add_action( 'wp_ajax_nopriv_participant_checkin', [ $this, 'participant_checkin_callback' ] );
-			add_action( 'wp_ajax_participant_checkin', [ $this, 'participant_checkin_callback' ] );
+			add_action( 'wp_ajax_nopriv_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
+			add_action( 'wp_ajax_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
 
-			// Register ajax endpoint for displaying all participants.
-			add_action( 'wp_ajax_nopriv_list_participants', [ $this, 'list_participants_callback' ] );
-			add_action( 'wp_ajax_list_participants', [ $this, 'list_participants_callback' ] );
+			// Register ajax endpoint for displaying all registrants.
+			add_action( 'wp_ajax_nopriv_list_registrants', [ $this, 'list_registrants_callback' ] );
+			add_action( 'wp_ajax_list_registrants', [ $this, 'list_registrants_callback' ] );
 
-			// Register ajax endpoint for displaying participant payment status.
+			// Register ajax endpoint for displaying registrant payment status.
 			add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
 
 			// Register ajax endpoint for either verify or reject payment.
@@ -81,17 +81,17 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function check_verify_payment_callback() {
 			$result         = new Result();
-			$participant_id = Helper::post( 'id' );
+			$registrant_id = Helper::post( 'id' );
 			$new_status     = Helper::post( 'status' );
 
 			// Validate the inputs.
-			if ( $participant_id && $new_status ) {
+			if ( $registrant_id && $new_status ) {
 
-				// Instance participant object.
-				$participant = new Participant( $participant_id );
+				// Instance registrant object.
+				$registrant = new Registrant( $registrant_id );
 
-				// Validate the participant object.
-				if ( $participant->success ) {
+				// Validate the registrant object.
+				if ( $registrant->success ) {
 
 					// Validate the new status output.
 					$message_output = __( 'Verification is successful', 'wacara' );
@@ -101,14 +101,14 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					}
 
 					// Update the status.
-					$participant->set_registration_status( $new_status );
+					$registrant->set_registration_status( $new_status );
 
 					// Update the result.
 					$result->success = true;
 					$result->message = $message_output;
 
 				} else {
-					$result->message = $participant->message;
+					$result->message = $registrant->message;
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );
@@ -121,36 +121,36 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Callback for checking payment status.
 		 */
 		public function check_payment_status_callback() {
-			$participant_id = Helper::get( 'id' );
+			$registrant_id = Helper::get( 'id' );
 			$output         = __( 'Please try again later', 'wacara' );
 
 			// Validate the inputs.
-			if ( $participant_id ) {
+			if ( $registrant_id ) {
 
-				// Instance participant object.
-				$participant = new Participant( $participant_id );
+				// Instance registrant object.
+				$registrant = new Registrant( $registrant_id );
 
-				// Validate the participant object.
-				if ( $participant->success ) {
+				// Validate the registrant object.
+				if ( $registrant->success ) {
 
 					// Get registration status.
-					$reg_status = $participant->get_registration_status();
+					$reg_status = $registrant->get_registration_status();
 
 					// Validate registration status.
 					if ( 'wait_verification' === $reg_status ) {
 
 						// Collect payment infor.
-						$payment_info       = $participant->get_manual_payment_info_status();
-						$payment_info['id'] = $participant->post_id;
+						$payment_info       = $registrant->get_manual_payment_info_status();
+						$payment_info['id'] = $registrant->post_id;
 
 						// Update the output result.
-						$output = Template::render( 'admin/participant-detail', $payment_info );
+						$output = Template::render( 'admin/registrant-detail', $payment_info );
 
 					} else {
-						$output = __( 'Invalid participant', 'wacara' );
+						$output = __( 'Invalid registrant', 'wacara' );
 					}
 				} else {
-					$output = $participant->message;
+					$output = $registrant->message;
 				}
 			}
 
@@ -159,9 +159,9 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		}
 
 		/**
-		 * Callback for listing participants
+		 * Callback for listing registrants
 		 */
-		public function list_participants_callback() {
+		public function list_registrants_callback() {
 			$result   = new Result();
 			$event_id = Helper::get( 'id' );
 			$page     = Helper::get( 'page' );
@@ -177,8 +177,8 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				// Override the result with event instance.
 				$result = new Event( $event_id );
 
-				// Run the method to fetch all participants.
-				$result->get_all_participants_by_registration_status( $page );
+				// Run the method to fetch all registrants.
+				$result->get_all_registrants_by_registration_status( $page );
 
 				// Get column name for csv.
 				$result->callback = [
@@ -200,7 +200,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		}
 
 		/**
-		 * Callback for registering participant.
+		 * Callback for registering registrant.
 		 */
 		public function register_callback() {
 			$result     = new Result();
@@ -219,8 +219,8 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				// Validate the event.
 				if ( $event->success ) {
 
-					// create participant.
-					$new_participant = new Participant(
+					// create registrant.
+					$new_registrant = new Registrant(
 						false,
 						[
 							'event_id'   => $event_id,
@@ -229,18 +229,18 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					);
 
 					// Validate the newly created event.
-					if ( $new_participant->success ) {
+					if ( $new_registrant->success ) {
 
 						// Recount the event.
 						$event->maybe_recount_limitation();
 
 						// Update the result.
 						$result->success  = true;
-						$result->callback = $new_participant->get_participant_url();
+						$result->callback = $new_registrant->get_registrant_url();
 					} else {
 
 						// Update the result.
-						$result->message = $new_participant->message;
+						$result->message = $new_registrant->message;
 					}
 				} else {
 
@@ -263,12 +263,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$result          = new Result();
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
-			$participant_id  = Helper::get_serialized_val( $unserialize_obj, 'participant_id' );
+			$registrant_id  = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
 			// Validate the inputs.
-			if ( $participant_id && isset( $bank_account ) ) {
+			if ( $registrant_id && isset( $bank_account ) ) {
 
 				// Validate the nonce.
 				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
@@ -277,24 +277,24 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					$bank_accounts = [];
 
 					// Get payment method options.
-					$payment_method     = Helper::get_post_meta( 'payment_method', $participant_id );
+					$payment_method     = Helper::get_post_meta( 'payment_method', $registrant_id );
 					$payment_method_obj = Register_Payment::get_payment_method_class( $payment_method );
 					if ( $payment_method_obj ) {
 						$bank_accounts = $payment_method_obj->get_admin_setting( 'bank_accounts' );
 					}
 
-					// Instance the participant.
-					$participant = new Participant( $participant_id );
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
 
 					// Update the registration.
-					$participant->update_confirmation( $bank_account, $bank_accounts );
+					$registrant->update_confirmation( $bank_account, $bank_accounts );
 
 					// Check the success status.
-					if ( $participant->success ) {
+					if ( $registrant->success ) {
 						$result->success  = true;
-						$result->callback = $participant->get_participant_url();
+						$result->callback = $registrant->get_registrant_url();
 					} else {
-						$result->message = $participant->message;
+						$result->message = $registrant->message;
 					}
 				} else {
 
@@ -317,11 +317,11 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$result          = new Result();
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
-			$participant_id  = Helper::get_serialized_val( $unserialize_obj, 'participant_id' );
+			$registrant_id  = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
 			// Validate the inputs.
-			if ( $participant_id ) {
+			if ( $registrant_id ) {
 
 				// Validate the nonce.
 				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
@@ -334,21 +334,21 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
 					$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
 					$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
-					$pricing_id           = Helper::get_post_meta( 'pricing_id', $participant_id );
+					$pricing_id           = Helper::get_post_meta( 'pricing_id', $registrant_id );
 					$pricing_currency     = Helper::get_post_meta( 'currency', $pricing_id );
 					$pricing_price        = Helper::get_post_meta( 'price', $pricing_id );
 
 					// First, convert the price into cent.
 					$pricing_price = $pricing_price * 100;
 
-					// Instance the participant.
-					$participant = new Participant( $participant_id );
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
 
 					// Save the details.
-					$participant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+					$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
 
 					// Save invoice info.
-					$participant->save_invoicing_info( $pricing_price, $pricing_currency );
+					$registrant->save_invoicing_info( $pricing_price, $pricing_currency );
 
 					// Define some variables related to registration.
 					$reg_status = '';
@@ -356,10 +356,10 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					/**
 					 * Perform actions before finishing registration.
 					 *
-					 * @param string $participant_id the id of participant.
+					 * @param string $registrant_id the id of registrant.
 					 * @param string $maybe_payment_method maybe selected payment method.
 					 */
-					do_action( 'wacara_before_finishing_registration', $participant_id, $maybe_payment_method );
+					do_action( 'wacara_before_finishing_registration', $registrant_id, $maybe_payment_method );
 
 					// Check if using payment method.
 					if ( $maybe_payment_method ) {
@@ -367,7 +367,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 						// Check if payment method is exist.
 						if ( $selected_payment_method ) {
-							$do_payment = $selected_payment_method->process( $participant, $unserialize_obj, $pricing_price, $pricing_currency );
+							$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
 							// Validate the process.
 							if ( $do_payment->success ) {
 
@@ -392,19 +392,19 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					/**
 					 * Perform actions after finishing registration.
 					 *
-					 * @param string $participant_id participant id.
+					 * @param string $registrant_id registrant id.
 					 * @param string $reg_status the status of registration.
 					 */
-					do_action( 'wacara_after_finishing_registration', $participant_id, $reg_status );
+					do_action( 'wacara_after_finishing_registration', $registrant_id, $reg_status );
 
 					// Update the callback.
-					$result->callback = $participant->get_participant_url();
+					$result->callback = $registrant->get_registrant_url();
 
 					// Update registration status.
-					$participant->set_registration_status( $reg_status );
+					$registrant->set_registration_status( $reg_status );
 
 					// Save payment method information.
-					$participant->save_payment_method_info( $maybe_payment_method );
+					$registrant->save_payment_method_info( $maybe_payment_method );
 
 				} else {
 
@@ -421,7 +421,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		}
 
 		/**
-		 * Callback for finding participant by booking code.
+		 * Callback for finding registrant by booking code.
 		 */
 		public function find_by_booking_code_callback() {
 			$result       = new Result();
@@ -430,27 +430,27 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			// Validate the input.
 			if ( $booking_code ) {
 
-				// Find the participant by booking code.
-				$find_participant = Participant::find_participant_by_booking_code( $booking_code );
+				// Find the registrant by booking code.
+				$find_registrant = Registrant::find_registrant_by_booking_code( $booking_code );
 
-				// Validate the find participant.
-				if ( $find_participant->success ) {
+				// Validate the find registrant.
+				if ( $find_registrant->success ) {
 
-					// Save participant id into variable.
-					$participant_id = $find_participant->callback;
+					// Save registrant id into variable.
+					$registrant_id = $find_registrant->callback;
 
-					// Instance the participant.
-					$participant = new Participant( $participant_id );
-					if ( $participant->success ) {
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
+					if ( $registrant->success ) {
 						$result->success  = true;
-						$result->items    = $participant->get_data();
-						$result->callback = $participant_id;
+						$result->items    = $registrant->get_data();
+						$result->callback = $registrant_id;
 					} else {
-						$result->message = $participant->message;
+						$result->message = $registrant->message;
 					}
 				} else {
-					$result->message  = $find_participant->message;
-					$result->callback = $find_participant->callback;
+					$result->message  = $find_registrant->message;
+					$result->callback = $find_registrant->callback;
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );
@@ -462,25 +462,25 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		/**
 		 * Callback for processing checkin.
 		 */
-		public function participant_checkin_callback() {
+		public function registrant_checkin_callback() {
 			$result         = new Result();
-			$participant_id = Helper::post( 'participant_id' );
+			$registrant_id = Helper::post( 'registrant_id' );
 
 			// Validate the input.
-			if ( $participant_id ) {
+			if ( $registrant_id ) {
 
-				// Instance participant.
-				$participant = new Participant( $participant_id );
+				// Instance registrant.
+				$registrant = new Registrant( $registrant_id );
 
 				// Perform checkin.
-				$participant->maybe_do_checkin();
+				$registrant->maybe_do_checkin();
 
 				// Validate checkin status.
-				if ( $participant->success ) {
+				if ( $registrant->success ) {
 					$result->success = true;
 					$result->message = __( 'Thank you for checking in', 'wacara' );
 				} else {
-					$result->message = $participant->message;
+					$result->message = $registrant->message;
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );

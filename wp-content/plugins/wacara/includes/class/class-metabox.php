@@ -63,7 +63,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 			// Add event design metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'design_event_metabox_callback' ] );
 
-			// Add event participants metabox.
+			// Add event registrants metabox.
 			add_action( 'add_meta_boxes', [ $this, 'custom_event_metabox_callback' ] );
 
 			// Add header detail metabox.
@@ -137,22 +137,22 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		 */
 		public function custom_event_metabox_callback() {
 			add_meta_box(
-				'event_participant_mb',
-				__( 'Participant', 'wacara' ),
+				'event_registrant_mb',
+				__( 'Registrant', 'wacara' ),
 				[
 					$this,
-					'event_participant_metabox_callback',
+					'event_registrant_metabox_callback',
 				],
 				'event',
 				'side'
 			);
 
 			add_meta_box(
-				'event_participant_list_mb',
-				__( 'Participant List', 'wacara' ),
+				'event_registrant_list_mb',
+				__( 'Registrant List', 'wacara' ),
 				[
 					$this,
-					'event_participant_list_metabox_callback',
+					'event_registrant_list_metabox_callback',
 				],
 				'event',
 				'advanced'
@@ -160,9 +160,9 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Callback for rendering event participant metabox.
+		 * Callback for rendering event registrant metabox.
 		 */
-		public function event_participant_metabox_callback() {
+		public function event_registrant_metabox_callback() {
 			global $post;
 			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
 			if ( 'on' === $allow_register ) {
@@ -175,34 +175,34 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					$base_url
 				);
 				?>
-				<p><?php esc_html_e( 'Click link below to download all participants', 'wacara' ); ?></p>
+				<p><?php esc_html_e( 'Click link below to download all registrants', 'wacara' ); ?></p>
 				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
 				?>
-				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
 				<?php
 			}
 		}
 
 		/**
-		 * Callback for rendering metabox for displaying list of participants in event.
+		 * Callback for rendering metabox for displaying list of registrants in event.
 		 */
-		public function event_participant_list_metabox_callback() {
+		public function event_registrant_list_metabox_callback() {
 			add_thickbox();
 			global $post;
 			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
 			if ( 'on' === $allow_register ) {
 				?>
 				<div style="text-align: center">
-					<p><?php esc_html_e( 'Click the button below to load all participants', 'wacara' ); ?></p>
-					<button type="button" class="button button-primary load_all_participants"><?php esc_html_e( 'Load Participants', 'wacara' ); ?></button>
+					<p><?php esc_html_e( 'Click the button below to load all registrants', 'wacara' ); ?></p>
+					<button type="button" class="button button-primary load_all_registrants"><?php esc_html_e( 'Load Registrants', 'wacara' ); ?></button>
 				</div>
 				<?php
 			} else {
 				?>
 				<div style="text-align: center">
-					<p><?php esc_html_e( 'This event does not require registration, so you can not collect any participant data', 'wacara' ); ?></p>
+					<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
 				</div>
 				<?php
 			}
@@ -272,20 +272,20 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Allow register', 'wacara' ),
 								'id'   => $this->meta_prefix . 'allow_register',
 								'type' => 'checkbox',
-								'desc' => __( 'Allow participant register this event', 'wacara' ),
+								'desc' => __( 'Allow registrant register this event', 'wacara' ),
 							],
 							[
 								'name'       => __( 'Limit register', 'wacara' ),
 								'id'         => $this->meta_prefix . 'limit_register',
 								'type'       => 'checkbox',
-								'desc'       => __( 'Limit the registration by number of participant or by date', 'wacara' ),
+								'desc'       => __( 'Limit the registration by number of registrant or by date', 'wacara' ),
 								'attributes' => [
 									'data-conditional-id' => $this->meta_prefix . 'allow_register',
 								],
 							],
 							[
-								'name'       => __( 'By participant', 'wacara' ),
-								'id'         => $this->meta_prefix . 'max_participant',
+								'name'       => __( 'By registrant', 'wacara' ),
+								'id'         => $this->meta_prefix . 'max_registrant',
 								'type'       => 'text',
 								'attributes' => [
 									'data-conditional-id' => $this->meta_prefix . 'limit_register',

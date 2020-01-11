@@ -55,7 +55,7 @@ if ( ! class_exists( 'Wacara\CMB2_Hooks' ) ) {
 		 * @return string
 		 */
 		public function override_cmb2_select2_assets_uri_callback() {
-			return TEMP_URI . '/includes/lib/cmb2-select2';
+			return WACARA_URI . '/includes/lib/cmb2-select2';
 		}
 	}
 

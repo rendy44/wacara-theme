@@ -45,16 +45,13 @@ if ( ! class_exists( '\Wacara\Setting' ) ) {
 		 * Setting constructor.
 		 */
 		private function __construct() {
-			$this->override_wp_default_settings();
 			$this->add_theme_support();
-		}
 
-		/**
-		 * Override wp default setting.
-		 */
-		private function override_wp_default_settings() {
 			// Hide admin bar in front-end.
 			add_filter( 'show_admin_bar', '__return_false' );
+
+			// Override single post template.
+			add_filter( 'single_template', [ $this, 'override_single_post_callback' ], 10, 3 );
 		}
 
 		/**
@@ -91,7 +88,29 @@ if ( ! class_exists( '\Wacara\Setting' ) ) {
 		 * Callback for loading languages domain.
 		 */
 		public function wacara_language_domain_callback() {
-			load_theme_textdomain( 'wacara', TEMP_PATH . '/i18n' );
+			load_theme_textdomain( 'wacara', WACARA_PATH . '/i18n' );
+		}
+
+		/**
+		 * Override custom template
+		 *
+		 * @param string $template Path to the template. See locate_template().
+		 * @param string $type Sanitized filename without extension.
+		 * @param array $templates A list of template candidates, in descending order of priority.
+		 *
+		 * @return string
+		 */
+		public function override_single_post_callback( $template, $type, $templates ) {
+			global $post;
+
+			$used_post_types   = [ 'event', 'participant' ];
+			$current_post_type = $post->post_type;
+			if ( in_array( $current_post_type, $used_post_types, true ) ) {
+				$template_found = Helper::locate_template( "single-{$current_post_type}" );
+				$template       = $template_found ? $template_found : WACARA_PATH . "templates/single-{$current_post_type}.php";
+			}
+
+			return $template;
 		}
 	}
 

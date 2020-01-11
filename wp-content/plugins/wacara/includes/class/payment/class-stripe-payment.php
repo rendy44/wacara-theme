@@ -8,7 +8,7 @@
 
 namespace Wacara\Payment;
 
-use Wacara\Participant;
+use Wacara\Registrant;
 use Wacara\Payment_Method;
 use Wacara\Register_Payment;
 use Wacara\Result;
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		/**
 		 * Function to calculate and process the payment.
 		 *
-		 * @param Participant $participant the participant object of registered participant.
+		 * @param Registrant $registrant the registrant object of registered registrant.
 		 * @param array       $fields used fields which is stored from front-end, mostly it contains unserialized object.
 		 * @param int         $pricing_price amount of invoice in cent.
 		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		public function process( $participant, $fields, $pricing_price, $pricing_currency ) {
+		public function process( $registrant, $fields, $pricing_price, $pricing_currency ) {
 			$result                 = new Result();
 			$maybe_stripe_source_id = Helper::get_serialized_val( $fields, 'stripe_source_id' );
 			$email                  = Helper::get_serialized_val( $fields, 'email' );
@@ -133,7 +133,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 
 				// Charge the customer.
 				/* translators: 1: the event name */
-				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $participant->get_event_info() ) );
+				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $registrant->get_event_info() ) );
 				$charge      = $stripe_wrapper->charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
 
 				// Validate charge status.
@@ -153,12 +153,12 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 				/**
 				 * Perform actions after making payment by stripe.
 				 *
-				 * @param string $participant_id participant id.
+				 * @param string $registrant_id registrant id.
 				 * @param int $pricing_price the price of pricing in cent.
 				 * @param string $pricing_currency the currency of pricing.
 				 * @param Result $charge the object of payment.
 				 */
-				do_action( 'wacara_after_making_stripe_payment', $participant->post_id, $pricing_price, $pricing_currency, $charge );
+				do_action( 'wacara_after_making_stripe_payment', $registrant->post_id, $pricing_price, $pricing_currency, $charge );
 			}
 
 			return $result;
@@ -207,15 +207,15 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		/**
 		 * Get content that will be rendered after making manual payment.
 		 *
-		 * @param Participant $participant the participant object of registered participant.
-		 * @param string      $reg_status current registration status of the participant.
+		 * @param Registrant $registrant the registrant object of registered registrant.
+		 * @param string      $reg_status current registration status of the registrant.
 		 * @param string      $pricing_id the id of selected pricing.
 		 * @param int         $pricing_price amount of invoice in cent.
 		 * @param string      $pricing_currency the currency code of invoice.
 		 *
 		 * @return string
 		 */
-		public function maybe_page_after_payment( $participant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
+		public function maybe_page_after_payment( $registrant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
 			return ''; // Well, we don't need to display anything since this payment method is automatic.
 		}
 
