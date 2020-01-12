@@ -68,6 +68,15 @@ if ( ! $is_event_past ) {
 		$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
 
 		/**
+		 * Wacara section class filter.
+		 *
+		 * @param string $section_class current class of the section.
+		 * @param string $section the name of the current section.
+		 * @param string $section_num ordering number of the current section.
+		 */
+		$section_class = apply_filters( "wacara_{$section}_class", $section_class, $section, $section_num );
+
+		/**
 		 * Perform action to render selected section.
 		 *
 		 * @param Event $event the object of current event.
@@ -79,8 +88,28 @@ if ( ! $is_event_past ) {
 	}
 } else {
 
-	// Tell the visitor that this event is no longer accessible.
-	echo Template::render( 'event/expired' ); // phpcs:ignore
+	/**
+	 * Wacara before displaying expired event content hook.
+	 *
+	 * @param Event $event the object of the current event.
+	 *
+	 * @hooked render_expired_opening_callback - 10
+	 */
+	do_action( 'wacara_before_displaying_event_expired', $event );
+
+	/**
+	 * Wacara render event expired hook.
+	 *
+	 * @param Event $event the object of the current event.
+	 */
+	do_action( 'wacara_render_event_expired', $event );
+
+	/**
+	 * Wacara after displaying expired event content hook.
+	 *
+	 * @param Event $event the object of the current event.
+	 */
+	do_action( 'wacara_after_displaying_event_expired', $event );
 }
 
 /**

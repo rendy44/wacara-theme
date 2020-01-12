@@ -52,6 +52,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 
+			// Render the expired content.
+			add_action( 'wacara_before_displaying_event_expired', [ $this, 'render_expired_opening_callback' ], 10, 1 );
+			add_action( 'wacara_before_displaying_event_expired', [ $this, 'render_expired_content_callback' ], 20, 1 );
+			add_action( 'wacara_after_displaying_event_expired', [ $this, 'render_expired_closing_callback' ], 50, 1 );
+
 			// Render the masthead section.
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_content_callback' ], 20, 2 );
@@ -233,6 +238,68 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Callback for rendering expired event opening tag.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_expired_opening_callback( $event ) {
+			?>
+            <section class="bg-light expired">
+            <div class="container h-100">
+            <div class="row h-100 align-items-center">
+            <div class="col-lg-8 mx-auto text-center mb-3">
+			<?php
+		}
+
+		/**
+		 * Callback for rendering expired event content.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_expired_content_callback( $event ) {
+			$expired_title   = __( 'Expired', 'wacara' );
+			$expired_content = __( 'This event is already past', 'wacara' );
+
+			/**
+			 * Wacara expired title filter.
+			 *
+			 * @param string $expired_title the current used title.
+			 * @param Event $event the object of the current event.
+			 */
+			$expired_title = apply_filters( 'wacara_filter_expired_title', $expired_title, $event );
+
+			/**
+			 * Wacara expired content filter.
+			 *
+			 * @param string $expired_content the current used content.
+			 * @param Event $expired_content the object of the current event.
+			 */
+			$expired_content = apply_filters( 'wacara_filter_expired_content', $expired_content, $event );
+
+			$expired_args = [
+				'expired_title'   => $expired_title,
+				'expired_content' => $expired_content,
+			];
+
+			Template::render( 'event/expired', $expired_args, true );
+		}
+
+		/**
+		 * Callback for rendering expired event closing tag.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_expired_closing_callback( $event ) {
+			?>
+            </div>
+            </div>
+            </div>
+            </section>
+			<?php
+
 		}
 
 		/**
