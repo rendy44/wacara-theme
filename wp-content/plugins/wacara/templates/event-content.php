@@ -90,11 +90,8 @@ if ( ! $is_event_past ) {
 		 * Wacara render single section hook.
 		 *
 		 * @param Event $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
 		 */
-		do_action( "wacara_render_{$section}_section", $event, $section_class, $section_title, $section_subtitle );
+		do_action( "wacara_render_{$section}_section", $event );
 
 
 		/**

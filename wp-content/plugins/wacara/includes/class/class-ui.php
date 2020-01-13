@@ -68,25 +68,25 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_rendering_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
 
 			// Render the about section.
-			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
 
 			// Render the speakers section.
-			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
 
 			// Render the venue section.
-			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
-			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
-			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
-			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
 
 			// Render the pricing section.
-			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 4 );
+			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
 		}
 
 		/**
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function render_expired_opening_callback( $event ) {
 			?>
-			<section class="bg-light expired">
+			<section class="bg-light expired" id="<?php echo esc_attr( 'event-' . $event->post_id ); ?>">
 			<div class="container h-100">
 			<div class="row h-100 align-items-center">
 			<div class="col-lg-8 mx-auto text-center mb-3">
@@ -442,33 +442,25 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering about section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_about_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_about_section_callback( $event ) {
 			$location   = Helper::get_post_meta( 'location', $event->post_id );
 			$about_args = [
-				'class'       => $section_class,
-				'title'       => $section_title,
-				'subtitle'    => $section_subtitle,
 				'description' => Helper::get_post_meta( 'description', $event->post_id ),
 				'location'    => Helper::get_location_paragraph( $location ),
 				'time'        => $event->get_event_date_time_paragraph(),
 			];
-			echo Template::render( 'event/about', $about_args ); // phpcs:ignore
+
+			Template::render( 'event/about', $about_args, true );
 		}
 
 		/**
 		 * Callback for rendering speakers section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_speakers_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_speakers_section_callback( $event ) {
 			$speakers_arr = [];
 			$speakers     = Helper::get_post_meta( 'speakers', $event->post_id );
 			if ( ! empty( $speakers ) ) {
@@ -487,108 +479,83 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				}
 
 				$speakers_args = [
-					'class'    => $section_class,
-					'title'    => $section_title,
-					'subtitle' => $section_subtitle,
 					'speakers' => $speakers_arr,
 				];
-				echo Template::render( 'event/speakers', $speakers_args ); // phpcs:ignore
+
+				Template::render( 'event/speakers', $speakers_args, true );
 			}
 		}
 
 		/**
 		 * Callback for rendering venue section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_venue_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_venue_section_callback( $event ) {
 			$location   = Helper::get_post_meta( 'location', $event->post_id );
 			$venue_args = [
-				'class'                => $section_class,
-				'title'                => $section_title,
-				'subtitle'             => $section_subtitle,
 				'sliders'              => Helper::get_post_meta( 'photo', $location ),
 				'location_name'        => Helper::get_post_meta( 'name', $location ),
 				'location_description' => Helper::get_post_meta( 'description', $location ),
 			];
-			echo Template::render( 'event/venue', $venue_args ); // phpcs:ignore
+
+			Template::render( 'event/venue', $venue_args, true );
 		}
 
 		/**
 		 * Callback for rendering gallery section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_gallery_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_gallery_section_callback( $event ) {
 			$gallery = Helper::get_post_meta( 'gallery', $event->post_id );
 			if ( ! empty( $gallery ) ) {
 				$gallery_args = [
-					'class'    => $section_class,
-					'title'    => $section_title,
-					'subtitle' => $section_subtitle,
-					'gallery'  => $gallery,
+					'gallery' => $gallery,
 				];
-				echo Template::render( 'event/gallery', $gallery_args ); // phpcs:ignore
+
+				Template::render( 'event/gallery', $gallery_args );
 			}
 		}
 
 		/**
 		 * Callback for rendering sponsors section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_sponsors_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_sponsors_section_callback( $event ) {
 			$sponsors = Helper::get_post_meta( 'sponsors', $event->post_id );
 			if ( ! empty( $sponsors ) ) {
 				$sponsors_args = [
-					'class'    => $section_class,
-					'title'    => $section_title,
-					'subtitle' => $section_subtitle,
 					'sponsors' => $sponsors,
 				];
-				echo Template::render( 'event/sponsors', $sponsors_args ); // phpcs:ignore
+
+				Template::render( 'event/sponsors', $sponsors_args, true );
 			}
 		}
 
 		/**
 		 * Callback for rendering schedule section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_schedule_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_schedule_section_callback( $event ) {
 			$schedules = Helper::get_post_meta( 'schedules', $event->post_id );
 			if ( ! empty( $schedules ) ) {
 				$schedule_args = [
-					'class'     => $section_class,
-					'title'     => $section_title,
-					'subtitle'  => $section_subtitle,
 					'schedules' => $schedules,
 				];
-				echo Template::render( 'event/schedule', $schedule_args ); // phpcs:ignore
+
+				Template::render( 'event/schedule', $schedule_args, true );
 			}
 		}
 
 		/**
 		 * Callback for rendering pricing section.
 		 *
-		 * @param Event  $event the object of current event.
-		 * @param string $section_class the css class of section.
-		 * @param string $section_title the title of section.
-		 * @param string $section_subtitle the subtitle of section.
+		 * @param Event $event the object of current event.
 		 */
-		public function render_pricing_section_callback( $event, $section_class, $section_title, $section_subtitle ) {
+		public function render_pricing_section_callback( $event ) {
 			$allow_registration = Helper::get_post_meta( 'allow_register', $event->post_id );
 
 			// Set default template name.
@@ -596,9 +563,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Prepare the args.
 			$pricing_args = [
-				'class'    => $section_class,
-				'title'    => $section_title,
-				'subtitle' => $section_subtitle,
 				'event_id' => $event->post_id,
 			];
 
@@ -628,8 +592,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$default_template = 'event/pricing';
 			}
 
-			// Render the pricing section.
-			echo Template::render( $default_template, $pricing_args ); // phpcs:ignore
+			Template::render( $default_template, $pricing_args, true );
 		}
 
 		/**
