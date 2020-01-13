@@ -9,7 +9,6 @@
 
 use Wacara\Event;
 use Wacara\Helper;
-use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
