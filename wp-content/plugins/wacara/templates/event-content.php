@@ -20,11 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 do_action( 'wacara_before_displaying_event_main_content' );
 
-// Save current event id into variable.
-$event_id = get_the_ID();
-
 // Fetch event object.
-$event = new Event( $event_id, true );
+$event = new Event( get_the_ID(), true );
 
 // Define event's variables based on its properties.
 $is_event_past   = $event->is_event_past();
