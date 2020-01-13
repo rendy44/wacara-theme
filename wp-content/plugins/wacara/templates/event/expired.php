@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template for rendering expired event..
+ * Custom template for displaying expired event..
  *
  * @author  Rendy
  * @package Wacara

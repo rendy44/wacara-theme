@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering waiting payment page in single registration.
+ * Template for displaying waiting payment page in single registration.
  *
  * @author  Rendy
  * @package Wacara

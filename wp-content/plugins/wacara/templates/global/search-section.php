@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering search section.
+ * Template for displaying search section.
  *
  * @author  Rendy
  * @package Wacara

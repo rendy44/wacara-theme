@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template for rendering pricing section in event landing.
+ * Custom template for displaying pricing section in event landing.
  *
  * @author  Rendy
  * @package Wacara

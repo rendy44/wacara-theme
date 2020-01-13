@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template to rendering sponsors section.
+ * Custom template to displaying sponsors section.
  *
  * @author  Rendy
  * @package Wacara

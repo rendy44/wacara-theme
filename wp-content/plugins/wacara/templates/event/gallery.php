@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template to rendering gallery section.
+ * Custom template to displaying gallery section.
  *
  * @author  Rendy
  * @package Wacara

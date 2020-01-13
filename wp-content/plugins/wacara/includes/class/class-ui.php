@@ -185,7 +185,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering single input field.
+		 * Callback for displaying single input field.
 		 *
 		 * @param string $field_id will be used to print field id and fied name.
 		 * @param string $field_type input type for simple text field, default = 'text'.
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering event field.
+		 * Callback for displaying event field.
 		 *
 		 * @param string $event_id event id.
 		 * @param string $key field key.
@@ -231,7 +231,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering expired event opening tag.
+		 * Callback for displaying expired event opening tag.
 		 *
 		 * @param Event $event the object of the current event.
 		 */
@@ -245,7 +245,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering expired event content.
+		 * Callback for displaying expired event content.
 		 *
 		 * @param Event $event the object of the current event.
 		 */
@@ -278,7 +278,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering expired event closing tag.
+		 * Callback for displaying expired event closing tag.
 		 *
 		 * @param Event $event the object of the current event.
 		 */
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering masthead opening tag.
+		 * Callback for displaying masthead opening tag.
 		 *
 		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
@@ -316,7 +316,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering masthead section.
+		 * Callback for displaying masthead section.
 		 *
 		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering masthead countdown.
+		 * Callback for displaying masthead countdown.
 		 *
 		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
@@ -352,7 +352,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering masthead closing tag.
+		 * Callback for displaying masthead closing tag.
 		 *
 		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
@@ -382,7 +382,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering section opening tag.
+		 * Callback for displaying section opening tag.
 		 *
 		 * @param string $section the name of the selected section.
 		 * @param Event  $event the object of the current event.
@@ -399,7 +399,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering section title.
+		 * Callback for displaying section title.
 		 *
 		 * @param string $section the name of the selected section.
 		 * @param Event  $event the object of the current event.
@@ -427,7 +427,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering section closing tag.
+		 * Callback for displaying section closing tag.
 		 *
 		 * @param string $section the name of the selected section.
 		 * @param Event  $event the object of the current event.
@@ -440,7 +440,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering about section.
+		 * Callback for displaying about section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -456,7 +456,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering speakers section.
+		 * Callback for displaying speakers section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -487,7 +487,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering venue section.
+		 * Callback for displaying venue section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -503,7 +503,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering gallery section.
+		 * Callback for displaying gallery section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -519,7 +519,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering sponsors section.
+		 * Callback for displaying sponsors section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -535,7 +535,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering schedule section.
+		 * Callback for displaying schedule section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
@@ -551,7 +551,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering pricing section.
+		 * Callback for displaying pricing section.
 		 *
 		 * @param Event $event the object of current event.
 		 */

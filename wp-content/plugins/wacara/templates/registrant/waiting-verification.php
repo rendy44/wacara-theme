@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering waiting verification page in single registration.
+ * Template for displaying waiting verification page in single registration.
  *
  * @author  Rendy
  * @package Wacara

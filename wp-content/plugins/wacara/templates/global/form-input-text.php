@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering input text.
+ * Template for displaying input text.
  *
  * @author  Rendy
  * @package Wacara

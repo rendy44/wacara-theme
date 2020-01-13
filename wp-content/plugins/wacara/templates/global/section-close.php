@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering section closing tag.
+ * Template for displaying section closing tag.
  *
  * @author Rendy
  * @package Wacara

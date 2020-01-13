@@ -160,7 +160,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Callback for rendering event registrant metabox.
+		 * Callback for displaying event registrant metabox.
 		 */
 		public function event_registrant_metabox_callback() {
 			global $post;
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Callback for rendering metabox for displaying list of registrants in event.
+		 * Callback for displaying metabox for displaying list of registrants in event.
 		 */
 		public function event_registrant_list_metabox_callback() {
 			add_thickbox();

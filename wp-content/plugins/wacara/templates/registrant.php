@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering single registrant.
+ * Template for displaying single registrant.
  *
  * @author  Rendy
  * @package Wacara

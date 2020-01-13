@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering section opening tag.
+ * Template for displaying section opening tag.
  *
  * @author Rendy
  * @package Wacara

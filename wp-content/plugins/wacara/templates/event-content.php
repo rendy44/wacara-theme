@@ -73,7 +73,7 @@ if ( ! $is_event_past ) {
 		$section_class = apply_filters( 'wacara_section_class', $section_class, $section, $section_num );
 
 		/**
-		 * Wacara before rendering section hook.
+		 * Wacara before displaying section hook.
 		 *
 		 * @param string $section the name of the selected section.
 		 * @param Event $event the object of the current event.
@@ -95,7 +95,7 @@ if ( ! $is_event_past ) {
 
 
 		/**
-		 * Wacara after rendering section hook.
+		 * Wacara after displaying section hook.
 		 *
 		 * @param string $section the name of the selected section.
 		 * @param Event $event the object of the current event.

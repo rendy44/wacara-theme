@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering success message after registration.
+ * Template for displaying success message after registration.
  *
  * @author  Rendy
  * @package Wacara

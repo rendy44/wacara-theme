@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering section title and subtitle.
+ * Template for displaying section title and subtitle.
  *
  * @author Rendy
  * @package Wacara

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for rendering registration form in single registration.
+ * Template for displaying registration form in single registration.
  *
  * @author  Rendy
  * @package Wacara
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 
 					/**
-					 * Perform action before rendering payment field..
+					 * Perform action before displaying payment field..
 					 *
 					 * @param string $event_id event id.
 					 */
@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 
 					/**
-					 * Perform action after rendering register form.
+					 * Perform action after displaying register form.
 					 *
 					 * @param string $event_id event id.
 					 */

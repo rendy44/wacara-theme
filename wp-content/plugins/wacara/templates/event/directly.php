@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template for rendering direct registration section.
+ * Custom template for displaying direct registration section.
  *
  * @author  Rendy
  * @package Wacara
