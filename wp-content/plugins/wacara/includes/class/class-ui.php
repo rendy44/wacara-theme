@@ -4,6 +4,7 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
@@ -45,10 +46,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * UI constructor.
 		 */
 		private function __construct() {
-//			add_action( 'sk_header_content', [ $this, 'header_open_tag_callback' ], 10 );
-//			add_action( 'sk_header_content', [ $this, 'maybe_small_header_callback' ], 15 );
-//			add_action( 'sk_header_content', [ $this, 'header_navbar_callback' ], 20 );
-//			add_action( 'sk_footer_content', [ $this, 'footer_close_tag_callback' ], 50 );
+			// Render form field.
 			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
 			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 
@@ -83,13 +81,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render the pricing section.
 			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 4 );
-		}
-
-		/**
-		 * Render header open tag
-		 */
-		public function header_open_tag_callback() {
-			echo Template::render( 'global/header' ); // phpcs:ignore
 		}
 
 		/**
@@ -185,13 +176,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					]
 				);
 			}
-		}
-
-		/**
-		 * Render footer close tag
-		 */
-		public function footer_close_tag_callback() {
-			echo Template::render( 'global/footer', [ 'content' => '&copy; ' . date( 'Y' ) . ' ' . get_bloginfo( 'name' ) ] ); // phpcs:ignore
 		}
 
 		/**
