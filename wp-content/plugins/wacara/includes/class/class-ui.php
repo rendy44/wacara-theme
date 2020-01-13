@@ -54,7 +54,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render the expired content.
 			add_action( 'wacara_before_displaying_event_expired', [ $this, 'render_expired_opening_callback' ], 10, 1 );
-			add_action( 'wacara_before_displaying_event_expired', [ $this, 'render_expired_content_callback' ], 20, 1 );
+			add_action( 'wacara_render_event_expired', [ $this, 'render_expired_content_callback' ], 10, 1 );
 			add_action( 'wacara_after_displaying_event_expired', [ $this, 'render_expired_closing_callback' ], 50, 1 );
 
 			// Render the masthead section.

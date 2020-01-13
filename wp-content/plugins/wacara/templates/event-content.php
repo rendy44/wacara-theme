@@ -97,6 +97,8 @@ if ( ! $is_event_past ) {
 	 * Wacara render event expired hook.
 	 *
 	 * @param Event $event the object of the current event.
+	 *
+	 * @hooked render_expired_content_callback - 10
 	 */
 	do_action( 'wacara_render_event_expired', $event );
 
@@ -104,6 +106,8 @@ if ( ! $is_event_past ) {
 	 * Wacara after displaying expired event content hook.
 	 *
 	 * @param Event $event the object of the current event.
+	 *
+	 * @hooked render_expired_closing_callback - 50
 	 */
 	do_action( 'wacara_after_displaying_event_expired', $event );
 }
