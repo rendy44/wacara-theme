@@ -93,7 +93,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			// Fetch registrant detail.
 			$registrant      = new Registrant( $registrant_id );
 			$registrant_data = $registrant->get_data();
-			$event_name       = get_the_title( $registrant_data['event_id'] );
+			$event_name      = get_the_title( $registrant_data['event_id'] );
 
 			$site_name = get_bloginfo( 'name' );
 			/* translators: 1: the site name */
@@ -143,7 +143,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			// Fetch registrant detail.
 			$registrant      = new Registrant( $registrant_id );
 			$registrant_data = $registrant->get_data();
-			$event_name       = get_the_title( $registrant_data['event_id'] );
+			$event_name      = get_the_title( $registrant_data['event_id'] );
 
 			/* translators: 1: the event name */
 			$email_subject = sprintf( __( 'Thank you for checking in to %s', 'wacara' ), $event_name );

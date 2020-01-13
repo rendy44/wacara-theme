@@ -192,10 +192,10 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			if ( $is_limited ) {
 
 				// Save limitation info into variables.
-				$maybe_limited_by_number                  = (int) parent::get_meta( 'max_registrant' );
+				$maybe_limited_by_number                 = (int) parent::get_meta( 'max_registrant' );
 				$current_number_of_registered_registrant = (int) parent::get_meta( 'number_of_registrant' );
-				$maybe_limited_by_date                    = parent::get_meta( 'max_date' );
-				$current_timestamp                        = current_time( 'timestamp' );
+				$maybe_limited_by_date                   = parent::get_meta( 'max_date' );
+				$current_timestamp                       = current_time( 'timestamp' );
 
 				// Check maybe limited by number of registrant.
 				if ( $maybe_limited_by_number ) {

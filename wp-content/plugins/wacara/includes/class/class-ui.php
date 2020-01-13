@@ -61,6 +61,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_countdown_callback' ], 30, 2 );
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_closing_callback' ], 40, 2 );
 
+			// Render the sections.
+			add_filter( 'wacara_section_class', [ $this, 'section_class_callback' ], 10, 3 );
+			add_action( 'wacara_before_rendering_section', [ $this, 'render_section_opening_callback' ], 10, 5 );
+			add_action( 'wacara_before_rendering_section', [ $this, 'maybe_render_section_title_callback' ], 20, 5 );
+			add_action( 'wacara_after_rendering_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
+
 			// Render the about section.
 			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 4 );
 
@@ -231,10 +237,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function render_expired_opening_callback( $event ) {
 			?>
-            <section class="bg-light expired">
-            <div class="container h-100">
-            <div class="row h-100 align-items-center">
-            <div class="col-lg-8 mx-auto text-center mb-3">
+			<section class="bg-light expired">
+			<div class="container h-100">
+			<div class="row h-100 align-items-center">
+			<div class="col-lg-8 mx-auto text-center mb-3">
 			<?php
 		}
 
@@ -278,10 +284,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function render_expired_closing_callback( $event ) {
 			?>
-            </div>
-            </div>
-            </div>
-            </section>
+			</div>
+			</div>
+			</div>
+			</section>
 			<?php
 
 		}
@@ -289,7 +295,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering masthead opening tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_opening_callback( $event, $header_template ) {
@@ -301,18 +307,18 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
 			$background_image       = self::generate_header_background_image( $event_background_image, $header_default_image );
 			?>
-            <header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
-            style="<?php echo esc_attr( $background_image ); ?>">
-            <div class="container h-100">
-            <div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
-            <div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
+			<header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
+			style="<?php echo esc_attr( $background_image ); ?>">
+			<div class="container h-100">
+			<div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
+			<div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
 			<?php
 		}
 
 		/**
 		 * Callback for rendering masthead section.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_content_callback( $event, $header_template ) {
@@ -331,7 +337,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering masthead countdown.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_countdown_callback( $event, $header_template ) {
@@ -348,22 +354,95 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering masthead closing tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_closing_callback( $event, $header_template ) {
 			?>
-            </div>
-            </div>
-            </div>
-            </header>
+			</div>
+			</div>
+			</div>
+			</header>
 			<?php
+		}
+
+		/**
+		 * Callback for filtering section classes.
+		 *
+		 * @param string $section_class current class of the section.
+		 * @param string $section the name of the current section.
+		 * @param int    $section_num ordering number of the current section.
+		 *
+		 * @return string
+		 */
+		public function section_class_callback( $section_class, $section, $section_num ) {
+			$section_class .= " {$section} section-{$section_num}";
+
+			return $section_class;
+		}
+
+		/**
+		 * Callback for rendering section opening tag.
+		 *
+		 * @param string $section the name of the selected section.
+		 * @param Event  $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
+		 */
+		public function render_section_opening_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+			$section_args = [
+				'section_class' => $section_class,
+				'section'       => $section,
+			];
+			Template::render( 'global/section-open', $section_args, true );
+		}
+
+		/**
+		 * Callback for rendering section title.
+		 *
+		 * @param string $section the name of the selected section.
+		 * @param Event  $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
+		 */
+		public function maybe_render_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+			if ( $section_title || $section_subtitle ) {
+				?>
+				<div class="row">
+					<div class="col-lg-8 mx-auto text-center mb-3">
+						<?php
+						$section_args = [
+							'section_title'    => $section_title,
+							'section_subtitle' => $section_subtitle,
+						];
+
+						Template::render( 'global/section-title', $section_args, true );
+						?>
+					</div>
+				</div>
+				<?php
+			}
+		}
+
+		/**
+		 * Callback for rendering section closing tag.
+		 *
+		 * @param string $section the name of the selected section.
+		 * @param Event  $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
+		 */
+		public function render_section_closing_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+			Template::render( 'global/section-close', [], true );
 		}
 
 		/**
 		 * Callback for rendering about section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -384,7 +463,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering speakers section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -420,7 +499,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering venue section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -441,7 +520,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering gallery section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -462,7 +541,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering sponsors section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -483,7 +562,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering schedule section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.
@@ -504,7 +583,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering pricing section.
 		 *
-		 * @param Event $event the object of current event.
+		 * @param Event  $event the object of current event.
 		 * @param string $section_class the css class of section.
 		 * @param string $section_title the title of section.
 		 * @param string $section_subtitle the subtitle of section.

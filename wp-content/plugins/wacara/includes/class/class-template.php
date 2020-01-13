@@ -61,7 +61,7 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		 * Render the template
 		 *
 		 * @param string $template template file path.
-		 * @param array $variables variables that will be injected into template file.
+		 * @param array  $variables variables that will be injected into template file.
 		 *
 		 * @return string
 		 */
@@ -79,8 +79,8 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		 * Render the template
 		 *
 		 * @param string $file_name template file name.
-		 * @param array $variables variables that will be injected into template file.
-		 * @param bool $echo whether display as variable or display in browser.
+		 * @param array  $variables variables that will be injected into template file.
+		 * @param bool   $echo whether display as variable or display in browser.
 		 *
 		 * @return void|string
 		 */

@@ -80,9 +80,9 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Callback for performing payment action.
 		 */
 		public function check_verify_payment_callback() {
-			$result         = new Result();
+			$result        = new Result();
 			$registrant_id = Helper::post( 'id' );
-			$new_status     = Helper::post( 'status' );
+			$new_status    = Helper::post( 'status' );
 
 			// Validate the inputs.
 			if ( $registrant_id && $new_status ) {
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function check_payment_status_callback() {
 			$registrant_id = Helper::get( 'id' );
-			$output         = __( 'Please try again later', 'wacara' );
+			$output        = __( 'Please try again later', 'wacara' );
 
 			// Validate the inputs.
 			if ( $registrant_id ) {
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$result          = new Result();
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
-			$registrant_id  = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
+			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
@@ -317,7 +317,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$result          = new Result();
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
-			$registrant_id  = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
+			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
 
 			// Validate the inputs.
@@ -463,7 +463,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Callback for processing checkin.
 		 */
 		public function registrant_checkin_callback() {
-			$result         = new Result();
+			$result        = new Result();
 			$registrant_id = Helper::post( 'registrant_id' );
 
 			// Validate the input.

@@ -99,7 +99,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Save multiple post meta
 		 *
-		 * @param int $post_id post id.
+		 * @param int   $post_id post id.
 		 * @param array $options meta_key => meta_value formatted array.
 		 */
 		public static function save_post_meta( $post_id, $options = [] ) {
@@ -114,7 +114,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Save multiple user meta
 		 *
 		 * @param string $user_id user id.
-		 * @param array $options meta_key => meta_value formatterd array.
+		 * @param array  $options meta_key => meta_value formatterd array.
 		 */
 		public static function save_user_meta( $user_id, $options = [] ) {
 			if ( ! empty( $options ) ) {
@@ -149,7 +149,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 *
 		 * @param string $key user meta key.
 		 * @param string $user_id user id.
-		 * @param bool $single_value whether the meta is single or array.
+		 * @param bool   $single_value whether the meta is single or array.
 		 *
 		 * @return mixed
 		 */
@@ -161,9 +161,9 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Get post meta
 		 *
 		 * @param string|array $key post meta key.
-		 * @param bool|string $post_id post id.
-		 * @param bool $single_value whether the meta is single or array.
-		 * @param bool $with_prefix whether format field with auto prefix or not.
+		 * @param bool|string  $post_id post id.
+		 * @param bool         $single_value whether the meta is single or array.
+		 * @param bool         $with_prefix whether format field with auto prefix or not.
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -185,7 +185,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get serialized value
 		 *
-		 * @param array $unserialized_data unserialized data to be parsed.
+		 * @param array  $unserialized_data unserialized data to be parsed.
 		 * @param string $key key name of data.
 		 *
 		 * @return array|bool|mixed
@@ -231,7 +231,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get array value by its key.
 		 *
-		 * @param array $array array object.
+		 * @param array  $array array object.
 		 * @param string $key array key.
 		 *
 		 * @return bool|mixed will be returned false once aray does not have key.
@@ -379,7 +379,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Format timestamp into readable date;
 		 *
-		 * @param int $timestamp unformulated timestamp.
+		 * @param int  $timestamp unformulated timestamp.
 		 * @param bool $include_time_in_result whether include time in result or not.
 		 * @param bool $localize whether convert date into localize result or not.
 		 *
@@ -421,7 +421,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Get full location info
 		 *
 		 * @param string $location_id location id.
-		 * @param bool $include_name whether include location name or not.
+		 * @param bool   $include_name whether include location name or not.
 		 *
 		 * @return string
 		 */
@@ -539,7 +539,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Check whether the pricing is valid or not.
 		 *
 		 * @param string $pricing_id pricing id.
-		 * @param bool $validate_the_price whether validate the price or not.
+		 * @param bool   $validate_the_price whether validate the price or not.
 		 *
 		 * @return Result
 		 */
@@ -726,7 +726,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * Load template
 		 *
 		 * @param string $template_name template name without extension.
-		 * @param bool $unique whether include theme once or not.
+		 * @param bool   $unique whether include theme once or not.
 		 */
 		public static function load_template( $template_name, $unique = false ) {
 			$find_in_theme = self::locate_template( $template_name );

@@ -96,7 +96,7 @@ if ( ! class_exists( '\Wacara\Setting' ) ) {
 		 *
 		 * @param string $template Path to the template. See locate_template().
 		 * @param string $type Sanitized filename without extension.
-		 * @param array $templates A list of template candidates, in descending order of priority.
+		 * @param array  $templates A list of template candidates, in descending order of priority.
 		 *
 		 * @return string
 		 */

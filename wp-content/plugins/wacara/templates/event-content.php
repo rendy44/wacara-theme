@@ -68,17 +68,47 @@ if ( ! $is_event_past ) {
 		 *
 		 * @param string $section_class current class of the section.
 		 * @param string $section the name of the current section.
-		 * @param string $section_num ordering number of the current section.
+		 * @param int $section_num ordering number of the current section.
 		 */
-		$section_class = apply_filters( "wacara_{$section}_class", $section_class, $section, $section_num );
+		$section_class = apply_filters( 'wacara_section_class', $section_class, $section, $section_num );
 
 		/**
-		 * Perform action to render selected section.
+		 * Wacara before rendering section hook.
 		 *
-		 * @param Event $event the object of current event.
-		 * @param string $section_class the css class of selected section.
+		 * @param string $section the name of the selected section.
+		 * @param Event $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
+		 *
+		 * @hooked render_section_opening_callback - 10
+		 * @hooked maybe_render_section_title_callback - 20
+		 */
+		do_action( 'wacara_before_rendering_section', $section, $event, $section_class, $section_title, $section_subtitle );
+
+		/**
+		 * Wacara render single section hook.
+		 *
+		 * @param Event $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
 		 */
 		do_action( "wacara_render_{$section}_section", $event, $section_class, $section_title, $section_subtitle );
+
+
+		/**
+		 * Wacara after rendering section hook.
+		 *
+		 * @param string $section the name of the selected section.
+		 * @param Event $event the object of the current event.
+		 * @param string $section_class the css class of the selected section.
+		 * @param string $section_title the title of the selected section.
+		 * @param string $section_subtitle the subtitle of the selected section.
+		 *
+		 * @hooked render_section_closing_callback - 50;
+		 */
+		do_action( 'wacara_after_rendering_section', $section, $event, $section_class, $section_title, $section_subtitle );
 
 		$section_num ++;
 	}

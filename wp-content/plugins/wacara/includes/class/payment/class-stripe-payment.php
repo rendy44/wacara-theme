@@ -74,9 +74,9 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 * Function to calculate and process the payment.
 		 *
 		 * @param Registrant $registrant the registrant object of registered registrant.
-		 * @param array       $fields used fields which is stored from front-end, mostly it contains unserialized object.
-		 * @param int         $pricing_price amount of invoice in cent.
-		 * @param string      $pricing_currency the currency code of invoice.
+		 * @param array      $fields used fields which is stored from front-end, mostly it contains unserialized object.
+		 * @param int        $pricing_price amount of invoice in cent.
+		 * @param string     $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
@@ -208,10 +208,10 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 * Get content that will be rendered after making manual payment.
 		 *
 		 * @param Registrant $registrant the registrant object of registered registrant.
-		 * @param string      $reg_status current registration status of the registrant.
-		 * @param string      $pricing_id the id of selected pricing.
-		 * @param int         $pricing_price amount of invoice in cent.
-		 * @param string      $pricing_currency the currency code of invoice.
+		 * @param string     $reg_status current registration status of the registrant.
+		 * @param string     $pricing_id the id of selected pricing.
+		 * @param int        $pricing_price amount of invoice in cent.
+		 * @param string     $pricing_currency the currency code of invoice.
 		 *
 		 * @return string
 		 */

@@ -120,9 +120,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						$args['booking_code'] = $booking_code;
 
 						// Update class object.
-						$this->success          = true;
-						$this->post_id          = $new_registrant;
-						$this->post_url         = get_permalink( $new_registrant );
+						$this->success         = true;
+						$this->post_id         = $new_registrant;
+						$this->post_url        = get_permalink( $new_registrant );
 						$this->registrant_data = $args;
 
 						// Create qrcode for registrant.
