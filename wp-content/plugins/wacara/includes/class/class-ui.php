@@ -56,9 +56,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_displaying_event_expired', [ $this, 'render_expired_closing_callback' ], 50, 1 );
 
 			// Render call to action section.
-			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_opening_callback' ], 10, 2 );
-			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_content_callback' ], 20, 2 );
-			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_closing_callback' ], 50, 2 );
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_opening_callback' ], 10, 1 );
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_content_callback' ], 20, 1 );
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_closing_callback' ], 50, 1 );
 
 			// Render the masthead section.
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 //			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
-//			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
 //			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
@@ -548,7 +548,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'gallery' => $gallery,
 				];
 
-				Template::render( 'event/gallery', $gallery_args );
+				Template::render( 'event/gallery', $gallery_args, true );
 			}
 		}
 
