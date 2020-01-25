@@ -1,0 +1,43 @@
+.wcr-event-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  @include breakpoint($size_laptop) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .wcr-section-heading-wrapper {
+    margin-bottom: 1.5rem;
+    @include breakpoint($size_laptop) {
+      margin-bottom: 3rem;
+    }
+
+    .wcr-section-title-wrapper {
+      margin-bottom: .5rem;
+
+      h2.wcr-section-title {
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+      }
+    }
+
+    .wcr-section-subtitle-wrapper {
+      h3.wcr-section-subtitle {
+        font-size: 26px;
+        font-weight: 600;
+      }
+    }
+
+    .wcr-section-desc-wrapper {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+
+      p.wcr-section-desc {
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+  }
+}

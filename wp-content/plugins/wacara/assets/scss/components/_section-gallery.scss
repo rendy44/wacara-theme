@@ -1,0 +1,26 @@
+.wcr-section-gallery {
+  .wcr-section-content-wrapper {
+    .wcr-gallery-items-wrapper {
+      columns: 2;
+      column-gap: 7.5px;
+
+      .wcr-gallery-item {
+        .wcr-gallery-image-wrapper {
+          img.wcr-gallery-image {
+            width: 100%;
+          }
+        }
+      }
+
+      @include breakpoint($size_tablet) {
+        column-count: 3;
+      }
+      @include breakpoint($size_laptop) {
+        column-count: 4;
+      }
+      @include breakpoint($size-desktop) {
+        column-count: 5;
+      }
+    }
+  }
+}

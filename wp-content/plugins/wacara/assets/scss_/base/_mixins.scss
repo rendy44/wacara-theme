@@ -1,6 +1,6 @@
 // Useful sass mixins
 
-// Create linear gradient
+// Create liniear gradient
 @mixin linearGradient($top, $bottom) {
   background: $top;
   background: -moz-linear-gradient(45deg, $top 0%, $top 0%, $bottom 100%);
@@ -10,11 +10,37 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6b75ff", endColorstr="#59b7ff", GradientType=1);
 }
 
-@mixin custom_gradient($color1, $color2, $color3) {
-  background: -moz-linear-gradient(45deg, $color1 15%, $color2 95%, $color3 100%);
-  background: -webkit-gradient(left bottom, right top, color-stop(15%, $color1), color-stop(95%, $color2), color-stop(100%, $color3));
-  background: -webkit-linear-gradient(45deg, $color1 15%, $color2 95%, $color3 100%);
-  background: linear-gradient(45deg, $color1 15%, $color2 95%, $color3 100%);
+@mixin gradient-bg($color_1: false, $color_2: false) {
+  @if $color_1 {
+    $color_1: $color_1;
+  } @else {
+    $color_1: $primary_color;
+  }
+
+  @if $color_2 {
+    $color_2: $color_2;
+  } @else {
+    $color_2: $primary_alt_color;
+  }
+  @include linearGradient($color_1, $color_2);
+}
+
+@mixin gradient-color($color_1: false, $color_2: false) {
+  @if $color_1 {
+    $color_1: $color_1;
+  } @else {
+    $color_1: $primary_color;
+  }
+
+  @if $color_2 {
+    $color_2: $color_2;
+  } @else {
+    $color_2: $primary_alt_color;
+  }
+
+  @include gradient-bg($color_1, $color_2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 // Retina image
@@ -33,7 +59,7 @@
 
 // Breakpoint media query
 @mixin breakpoint($size) {
-  @media (min-width: $size) {
+  @media (min-width: $size + px) {
     @content;
   }
 }
@@ -63,6 +89,10 @@
   -moz-border-radius-bottomright: $size;
 }
 
+@mixin worksans-font() {
+  font-family: "Work Sans", Arial, sans-serif;
+}
+
 @mixin transition($args...) {
   -webkit-transition: $args;
   -moz-transition: $args;
@@ -71,7 +101,7 @@
   transition: $args;
 }
 
-@mixin box-shadow($top : 0, $left : .2rem, $blur : .4rem, $color: rgba($black,.15), $inset: false) {
+@mixin box-shadow($top : 0, $left : 0.5rem, $blur : 1rem, $color: rgba($black,.15), $inset: false) {
   @if $inset {
     -webkit-box-shadow: inset $top $left $blur $color !important;
     -moz-box-shadow: inset $top $left $blur $color !important;
@@ -111,36 +141,4 @@
   -moz-transform: scale($size);
   -o-transform: scale($size);
   -webkit-transform: scale($size);
-}
-
-@mixin rotate($val) {
-  transform: rotate($val);
-  -moz-transform: rotate($val);
-  -ms-transform: rotate($val);
-  -o-transform: rotate($val);
-  -webkit-transform: rotate($val);
-}
-
-@mixin skew($val) {
-  transform: skew($val);
-  -moz-transform: skew($val);
-  -ms-transform: skew($val);
-  -o-transform: skew($val);
-  -webkit-transform: skew($val);
-}
-
-@mixin transform($args) {
-  transform: $args;
-  -moz-transform: $args;
-  -ms-transform: $args;
-  -o-transform: $args;
-  -webkit-transform: $args;
-}
-
-@mixin ellipse_text($rows) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: $rows; /* number of lines to show */
-  -webkit-box-orient: vertical;
 }

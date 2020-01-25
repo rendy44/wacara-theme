@@ -1,0 +1,156 @@
+$line_width_desktop: 7px !default;
+$bullet_width: 24px !default;
+$bubble_bg_color: darken($white, 7.5%) !default;
+$bubble_arrow_size: 30px !default;
+
+.wcr-section-schedule {
+  .wcr-section-content-wrapper {
+    .wcr-schedule-items-wrapper {
+      box-sizing: border-box;
+      position: relative;
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: $line_width_desktop;
+        background-color: $white;
+        border: 1px solid darken($white, 20%);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        @include border-radius(4px);
+        @include breakpoint($size_tablet) {
+          left: 50%;
+          margin-left: -3px;
+        }
+      }
+
+      .wcr-schedule-item-wrapper {
+        padding: 10px 40px;
+        background-color: inherit;
+        position: relative;
+        @include border-radius(8px);
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: $bullet_width;
+          height: $bullet_width;
+          left: (($bullet_width/2) - ($line_width_desktop/2)) * -1;
+          background-color: $white;
+          border: 2px solid $base_color;
+          top: $bullet_width;
+          border-radius: 50%;
+          z-index: 1;
+          @include box-shadow();
+        }
+
+        &:before {
+          background-color: $bubble_bg_color;
+          position: absolute;
+          content: "\00a0";
+          display: block;
+          height: $bubble_arrow_size;
+          width: $bubble_arrow_size;
+          left: $bubble_arrow_size+2px;
+          top: 40px;
+          @include skew(30deg);
+          z-index: 1;
+        }
+
+        @include breakpoint($size_tablet) {
+          width: 50%;
+
+          &.wcr-schedule-item-even {
+            left: 50%;
+
+            &:after {
+              left: ($bullet_width/2) * -1;
+            }
+          }
+
+          &.wcr-schedule-item-odd {
+            text-align: right;
+
+            &:after {
+              left: unset;
+              right: ($bullet_width/2) * -1;
+            }
+
+            &:before {
+              left: unset;
+              right: $bubble_arrow_size+2px;
+              @include skew(-30deg);
+            }
+          }
+        }
+
+        .wcr-schedule-item-inner-wrapper {
+          position: relative;
+          z-index: 2;
+          background-color: $bubble_bg_color;
+          padding: 1rem;
+          @include border-radius(6px);
+
+          .wcr-schedule-item-title-wrapper {
+            margin-bottom: 1rem;
+          }
+
+          .wcr-schedule-item-content-wrapper {
+            p {
+              margin: 0;
+              font-weight: 300;
+              @include ellipse_text(4);
+              @include transition(all .2s ease);
+
+              &:hover,
+              &:active,
+              &:focus {
+                -webkit-line-clamp: unset;
+              }
+            }
+          }
+        }
+
+        //
+        //  &.wcr-schedule-item-odd {
+        //    left: 0;
+        //
+        //    &:before {
+        //      content: " ";
+        //      height: 0;
+        //      position: absolute;
+        //      top: 22px;
+        //      width: 0;
+        //      z-index: 1;
+        //      right: 30px;
+        //      border: medium solid white;
+        //      border-width: 10px 0 10px 10px;
+        //      border-color: transparent transparent transparent white;
+        //    }
+        //  }
+        //
+        //  &.wcr-schedule-item-even {
+        //    right: 50%;
+        //
+        //    &:before {
+        //      content: " ";
+        //      height: 0;
+        //      position: absolute;
+        //      top: 22px;
+        //      width: 0;
+        //      z-index: 1;
+        //      left: 30px;
+        //      border: medium solid white;
+        //      border-width: 10px 10px 10px 0;
+        //      border-color: transparent white transparent transparent;
+        //    }
+        //
+        //    &:after {
+        //      left: -16px;
+        //    }
+        //  }
+      }
+    }
+  }
+}
