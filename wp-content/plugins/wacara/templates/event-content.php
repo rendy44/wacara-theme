@@ -60,7 +60,7 @@ if ( ! $is_event_past ) {
 	foreach ( $sections as $section ) {
 
 		// Define section class based on odd or even position.
-		$section_class    = 0 === $section_num % 2 ? 'bg-white' : 'bg-light';
+		$section_class    = 'wcr-event-section';
 		$section_title    = Helper::get_post_meta( $section . '_title' );
 		$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
 

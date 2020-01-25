@@ -11,6 +11,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<section class="<?php echo esc_attr( $section_class ); ?>" id="<?php echo esc_attr( "section-{$section}" ); ?>"
-         data-aos="zoom-in">
-    <div class="container">
+<section class="<?php echo esc_attr( $section_class ); ?>" id="<?php echo esc_attr( "wcr-section-{$section}" ); ?>">
+    <div class="frow-container">

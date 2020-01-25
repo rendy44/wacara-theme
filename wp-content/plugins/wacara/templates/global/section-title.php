@@ -11,5 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<h2 class="section-heading" data-aos="fade-left" data-aos-delay="200"><?php echo esc_html( $section_title ); ?></h2>
-<p class="lead" data-aos="fade-right" data-aos-delay="400"><?php echo esc_html( $section_subtitle ); ?></p>
+<div class="wcr-section-heading-wrapper">
+    <div class="frow">
+        <div class="col-md-2-3 wcr-text-center">
+            <div class="wcr-section-title-wrapper">
+                <h2 class="wcr-section-title"><?php echo esc_html( $section_title ); ?></h2>
+            </div>
+            <div class="wcr-section-subtitle-wrapper">
+                <h3 class="wcr-section-subtitle"><?php echo esc_html( $section_subtitle ); ?></h3>
+            </div>
+        </div>
+    </div>
+</div>

@@ -73,30 +73,30 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_rendering_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
 
 			// Render the about section.
-			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
 
 			// Render the speakers section.
-			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
 
 			// Render the venue section.
-			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
-			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
-			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
-			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
 
 			// Render the pricing section.
-			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
+//			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
 
 			// Render registrant.
-			add_action( 'wacara_before_displaying_registrant_content', [
-				$this,
-				'render_registrant_header_callback', ], 10, 1 );
+//			add_action( 'wacara_before_displaying_registrant_content', [
+//				$this,
+//				'render_registrant_header_callback', ], 10, 1 );
 		}
 
 		/**
@@ -418,7 +418,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @return string
 		 */
 		public function section_class_callback( $section_class, $section, $section_num ) {
-			$section_class .= " {$section} section-{$section_num}";
+			$section_class .= " wcr-section-{$section} section-{$section_num}";
 
 			return $section_class;
 		}
@@ -451,20 +451,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function maybe_render_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
 			if ( $section_title || $section_subtitle ) {
-				?>
-                <div class="row">
-                    <div class="col-lg-8 mx-auto text-center mb-3">
-						<?php
-						$section_args = [
-							'section_title'    => $section_title,
-							'section_subtitle' => $section_subtitle,
-						];
+				$section_args = [
+					'section_title'    => $section_title,
+					'section_subtitle' => $section_subtitle,
+				];
 
-						Template::render( 'global/section-title', $section_args, true );
-						?>
-                    </div>
-                </div>
-				<?php
+				Template::render( 'global/section-title', $section_args, true );
 			}
 		}
 
