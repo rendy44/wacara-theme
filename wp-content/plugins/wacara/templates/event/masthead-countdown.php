@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wcr-event-counter-wrapper" data-target="Jul 14, 2020 00:00:00">
+<div class="wcr-event-counter-wrapper" data-target="<?php echo esc_attr( $date_start ); ?>">
     <div class="wcr-event-counter-item wcr-event-counter-day">
         <span class="wcr-event-count-value">99</span>
         <span class="wcr-event-count-label">Days</span>

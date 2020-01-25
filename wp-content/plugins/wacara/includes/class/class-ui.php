@@ -387,7 +387,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			if ( 'on' === $enable_countdown ) {
 				$date_start    = Helper::get_post_meta( 'date_start', $event->post_id );
 				$masthead_args = [
-					'date_start' => date( 'M n, Y H:i:s', $date_start ),
+					'date_start' => date( 'M j, Y H:i:s', $date_start ),
 				];
 				Template::render( 'event/masthead-countdown', $masthead_args, true );
 			}
