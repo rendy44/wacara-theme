@@ -140,51 +140,21 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function map_front_asset() {
 			// CSS files.
 			$this->front_css = [
-				'google_font' => [
+				'google_font'       => [
 					'url' => 'https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700&amp;display=swap',
 				],
-				'bootstrap'   => [
-					'url' => WACARA_URI . 'assets/vendor/bootstrap/css/bootstrap.min.css',
-				],
-				'fontawesome' => [
-					'url' => WACARA_URI . 'assets/vendor/fontawesome-free/css/all.min.css',
-				],
-				'aos'         => [
-					'url' => WACARA_URI . 'assets/vendor/aos/aos.css',
-				],
-				'baguettebox' => [
-					'url' => WACARA_URI . 'assets/vendor/baguettebox/baguetteBox.min.css',
-				],
-				'sweetalert2' => [
+				'sweetalert2'       => [
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',
 				],
-				'slick'       => [
-					'url' => WACARA_URI . 'assets/vendor/slick/slick.css',
-				],
-				'slick-theme' => [
-					'url' => WACARA_URI . 'assets/vendor/slick/slick-theme.css',
-				],
-				'app'         => [
-					'url' => WACARA_URI . 'assets/css/app.css',
+				'wacara_main_style' => [
+					'url' => WACARA_URI . 'assets/css/wacara.css',
 				],
 			];
 
 			// JS files.
 			$this->front_js = [
-				'bootstrap'         => [
-					'url' => WACARA_URI . 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
-				],
-				'aos'               => [
-					'url' => WACARA_URI . 'assets/vendor/aos/aos.js',
-				],
-				'baguettebox'       => [
-					'url' => WACARA_URI . 'assets/vendor/baguettebox/baguetteBox.min.js',
-				],
 				'sweetalert2'       => [
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
-				],
-				'slick'             => [
-					'url' => WACARA_URI . 'assets/vendor/slick/slick.min.js',
 				],
 				'jquery-validation' => [
 					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
@@ -198,7 +168,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				'main'              => [
 					'url' => WACARA_URI . 'assets/js/main.js',
 				],
-				'app'               => [
+				'wacara_main_js'    => [
 					'url'   => WACARA_URI . 'assets/js/app.min.js',
 					'vars'  => [
 						'ajax_url'        => admin_url( 'admin-ajax.php' ),

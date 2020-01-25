@@ -14,11 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Wacara before event main content hook.
- */
-do_action( 'wacara_before_displaying_event_main_content' );
-
 // Fetch event object.
 $event = new Event( get_the_ID(), true );
 
@@ -30,8 +25,14 @@ if ( ! $is_event_past ) {
 
 	/**
 	 * Wacara before event masthead hook.
+	 *
+	 * @param Event $event the object of the current event.
+	 *
+	 * @hooked render_cta_opening_callback - 10
+	 * @hooked render_cta_content_callback - 20
+	 * @hooked render_cta_closing_callback - 50
 	 */
-	do_action( 'wacara_before_displaying_event_masthead' );
+	do_action( 'wacara_before_displaying_event_masthead', $event );
 
 	/**
 	 * Perform actions to render masthead.
@@ -93,7 +94,6 @@ if ( ! $is_event_past ) {
 		 */
 		do_action( "wacara_render_{$section}_section", $event );
 
-
 		/**
 		 * Wacara after displaying section hook.
 		 *
@@ -138,8 +138,3 @@ if ( ! $is_event_past ) {
 	 */
 	do_action( 'wacara_after_displaying_event_expired', $event );
 }
-
-/**
- * Wacara after event main content hook.
- */
-do_action( 'wacara_after_displaying_event_main_content' );

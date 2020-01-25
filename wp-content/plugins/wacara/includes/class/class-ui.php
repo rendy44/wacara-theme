@@ -55,6 +55,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_render_event_expired', [ $this, 'render_expired_content_callback' ], 10, 1 );
 			add_action( 'wacara_after_displaying_event_expired', [ $this, 'render_expired_closing_callback' ], 50, 1 );
 
+			// Render call to action section.
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_opening_callback' ], 10, 2 );
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_content_callback' ], 20, 2 );
+			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_closing_callback' ], 50, 2 );
+
 			// Render the masthead section.
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
 			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_content_callback' ], 20, 2 );
@@ -87,6 +92,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render the pricing section.
 			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
+
+			// Render registrant.
+			add_action( 'wacara_before_displaying_registrant_content', [
+				$this,
+				'render_registrant_header_callback', ], 10, 1 );
 		}
 
 		/**
@@ -237,10 +247,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function render_expired_opening_callback( $event ) {
 			?>
-			<section class="bg-light expired" id="<?php echo esc_attr( 'event-' . $event->post_id ); ?>">
-			<div class="container h-100">
-			<div class="row h-100 align-items-center">
-			<div class="col-lg-8 mx-auto text-center mb-3">
+            <section class="bg-light expired" id="<?php echo esc_attr( 'event-' . $event->post_id ); ?>">
+            <div class="container h-100">
+            <div class="row h-100 align-items-center">
+            <div class="col-lg-8 mx-auto text-center mb-3">
 			<?php
 		}
 
@@ -284,18 +294,59 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function render_expired_closing_callback( $event ) {
 			?>
-			</div>
-			</div>
-			</div>
-			</section>
+            </div>
+            </div>
+            </div>
+            </section>
 			<?php
 
 		}
 
 		/**
+		 * Callback for displaying call to action opening tag.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_cta_opening_callback( $event ) {
+			?>
+            <div class="wcr-event-alert wcr-alert-with-cta">
+            <div class="frow-container">
+            <div class="wcr-event-alert-content-wrapper">
+			<?php
+		}
+
+		/**
+		 * Callback for displaying call to action.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_cta_content_callback( $event ) {
+			$cta_args = [
+				'alert_title'   => __( 'Come Join Us', 'wacara' ),
+				'alert_content' => __( 'Save your seat at the lowest price', 'wacara' ),
+				'alert_button'  => __( 'Join Now', 'wacara' ),
+			];
+
+			Template::render( 'event/call-to-action', $cta_args, true );
+		}
+
+		/**
+		 * Callback for displaying call to action closing tag.
+		 *
+		 * @param Event $event the object of the current event.
+		 */
+		public function render_cta_closing_callback( $event ) {
+			?>
+            </div>
+            </div>
+            </div>
+			<?php
+		}
+
+		/**
 		 * Callback for displaying masthead opening tag.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_opening_callback( $event, $header_template ) {
@@ -307,18 +358,18 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
 			$background_image       = self::generate_header_background_image( $event_background_image, $header_default_image );
 			?>
-			<header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
-			style="<?php echo esc_attr( $background_image ); ?>">
-			<div class="container h-100">
-			<div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
-			<div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
+            <header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
+            style="<?php echo esc_attr( $background_image ); ?>">
+            <div class="container h-100">
+            <div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
+            <div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
 			<?php
 		}
 
 		/**
 		 * Callback for displaying masthead section.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_content_callback( $event, $header_template ) {
@@ -337,7 +388,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead countdown.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_countdown_callback( $event, $header_template ) {
@@ -354,15 +405,15 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead closing tag.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_closing_callback( $event, $header_template ) {
 			?>
-			</div>
-			</div>
-			</div>
-			</header>
+            </div>
+            </div>
+            </div>
+            </header>
 			<?php
 		}
 
@@ -371,7 +422,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param string $section_class current class of the section.
 		 * @param string $section the name of the current section.
-		 * @param int    $section_num ordering number of the current section.
+		 * @param int $section_num ordering number of the current section.
 		 *
 		 * @return string
 		 */
@@ -385,7 +436,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section opening tag.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -402,7 +453,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section title.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -410,8 +461,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		public function maybe_render_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
 			if ( $section_title || $section_subtitle ) {
 				?>
-				<div class="row">
-					<div class="col-lg-8 mx-auto text-center mb-3">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center mb-3">
 						<?php
 						$section_args = [
 							'section_title'    => $section_title,
@@ -420,8 +471,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 						Template::render( 'global/section-title', $section_args, true );
 						?>
-					</div>
-				</div>
+                    </div>
+                </div>
 				<?php
 			}
 		}
@@ -430,7 +481,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section closing tag.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -593,6 +644,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			Template::render( $default_template, $pricing_args, true );
+		}
+
+		public function render_registrant_header_callback() {
+
 		}
 
 		/**
