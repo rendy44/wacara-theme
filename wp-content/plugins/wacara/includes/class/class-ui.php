@@ -73,7 +73,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_rendering_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
 
 			// Render the about section.
-//			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
 
 			// Render the speakers section.
 //			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );

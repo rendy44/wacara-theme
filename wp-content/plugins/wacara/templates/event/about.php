@@ -10,20 +10,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="row justify-content-center">
-    <div class="col-md-12 col-lg-5 info-item" data-aos="fade-left" data-aos-delay="200">
-        <i class="fa fa-volume-up fa-3x text-primary"></i>
-        <h3><?php esc_html_e( 'What is all about?', 'wacara' ); ?></h3>
-        <p><?php echo esc_html( $description ); ?></p>
-    </div>
-    <div class="col-md-6 col-lg-4 info-item" data-aos="fade-left" data-aos-delay="400">
-        <i class="fa fa-map-marker-alt fa-3x text-primary"></i>
-        <h3><?php esc_html_e( 'Venue', 'wacara' ); ?></h3>
-        <p><?php echo esc_html( $location ); ?></p>
-    </div>
-    <div class="col-md-6 col-lg-3 info-item" data-aos="fade-left" data-aos-delay="600">
-        <i class="fa fa-calendar-alt fa-3x text-primary"></i>
-        <h3><?php esc_html_e( 'When', 'wacara' ); ?></h3>
-        <p><?php echo esc_html( $time ); ?></p>
+<div class="wcr-section-content-wrapper">
+    <div class="frow">
+        <div class="col-sm-4-10">
+            <div class="wcr-about-item-wrapper">
+                <div class="wcr-about-item-title-wrapper">
+                    <h4 class="wcr-about-item-title"><?php esc_html_e( 'What is it?', 'wacara' ); ?></h4>
+                </div>
+                <div class="wcr-about-item-content-wrapper">
+                    <p><?php echo esc_html( $description ); ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3-10">
+            <div class="wcr-about-item-wrapper">
+                <div class="wcr-about-item-title-wrapper">
+                    <h4 class="wcr-about-item-title"><?php esc_html_e( 'Where?', 'wacara' ); ?></h4>
+                </div>
+                <div class="wcr-about-item-content-wrapper">
+                    <p><?php echo esc_html( $location ); ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3-10">
+            <div class="wcr-about-item-wrapper">
+                <div class="wcr-about-item-title-wrapper">
+                    <h4 class="wcr-about-item-title"><?php esc_html_e( 'When?', 'wacara' ) ?></h4>
+                </div>
+                <div class="wcr-about-item-content-wrapper">
+                    <p><?php echo esc_html( $time ); ?></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
