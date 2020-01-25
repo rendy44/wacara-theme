@@ -11,5 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<h1 class="mb-4" data-aos="fade-right" data-aos-delay="300"><?php echo $title; // phpcs:ignore ?></h1>
-<p class="lead mb-4" data-aos="fade-left" data-aos-delay="500"><?php echo esc_html( $excerpt ); ?></p>
+<div class="wcr-event-title-wrapper">
+    <h1 class="wcr-event-title"><?php echo esc_html($title); ?></h1>
+</div>
+<div class="wcr-event-subtitle-wrapper">
+    <h2 class="wcr-event-subtitle">Pellentesque bibendum blandit ex</h2>
+</div>
+<div class="wcr-event-highlight-wrapper">
+    <p class="wcr-event-highlight"><?php echo esc_html($excerpt); ?></p>
+</div>

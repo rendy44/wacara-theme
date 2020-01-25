@@ -350,19 +350,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function render_masthead_opening_callback( $event, $header_template ) {
-			$header_width           = Helper::get_post_meta( 'content_width', $header_template );
-			$header_scheme          = Helper::get_post_meta( 'color_scheme', $header_template );
-			$header_alignment       = Helper::get_post_meta( 'content_alignment', $header_template );
-			$header_extra_class     = self::get_header_extra_class( $header_width, $header_scheme, $header_alignment );
-			$event_background_image = Helper::get_post_meta( 'background_image_id', $event->post_id );
-			$header_default_image   = Helper::get_post_meta( 'default_image_id', $header_template );
-			$background_image       = self::generate_header_background_image( $event_background_image, $header_default_image );
 			?>
-            <header class="masthead <?php echo esc_attr( $header_extra_class[0] ); ?>" id="masthead" data-aos="zoom-in"
-            style="<?php echo esc_attr( $background_image ); ?>">
-            <div class="container h-100">
-            <div class="row h-100 align-items-center <?php echo esc_attr( $header_extra_class[2] ); ?>">
-            <div class="<?php echo esc_attr( $header_extra_class[1] ); ?>">
+            <header class="wcr-event-header wcr-height-100-vh">
+            <div class="frow-container wcr-height-100-p">
+            <div class="frow wcr-height-100-p wcr-align-items-center">
+            <div class="col-md-2-3 wcr-text-center">
 			<?php
 		}
 
@@ -377,9 +369,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$location              = Helper::get_post_meta( 'location', $event->post_id );
 			$location_country_code = Helper::get_post_meta( 'country', $location );
 			$location_province     = Helper::get_post_meta( 'province', $location );
-			$event_title           = get_the_title( $event->post_id );
 			$masthead_args         = [
-				'title'   => Helper::split_title( $event_title ),
+				'title'   => $event->post_title,
 				'excerpt' => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
 			];
 			Template::render( 'event/masthead', $masthead_args, true );
@@ -396,7 +387,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			if ( 'on' === $enable_countdown ) {
 				$date_start    = Helper::get_post_meta( 'date_start', $event->post_id );
 				$masthead_args = [
-					'date_start' => $date_start,
+					'date_start' => date( 'M n, Y H:i:s', $date_start ),
 				];
 				Template::render( 'event/masthead-countdown', $masthead_args, true );
 			}

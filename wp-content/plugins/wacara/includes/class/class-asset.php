@@ -169,11 +169,11 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'url' => WACARA_URI . 'assets/js/main.js',
 				],
 				'wacara_main_js'    => [
-					'url'   => WACARA_URI . 'assets/js/app.min.js',
-					'vars'  => [
-						'ajax_url'        => admin_url( 'admin-ajax.php' ),
-						'publishable_key' => Stripe_Payment::get_publishable_key(),
-					],
+					'url'   => WACARA_URI . 'assets/js/wacara.js',
+//					'vars'  => [
+//						'ajax_url'        => admin_url( 'admin-ajax.php' ),
+//						'publishable_key' => Stripe_Payment::get_publishable_key(),
+//					],
 					'depth' => [ 'jquery' ],
 				],
 			];
