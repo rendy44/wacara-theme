@@ -76,7 +76,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
 
 			// Render the speakers section.
-//			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
 
 			// Render the venue section.
 //			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );

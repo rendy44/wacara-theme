@@ -10,43 +10,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="row justify-content-center">
-	<?php
-	foreach ( $speakers as $speaker ) {
-		?>
-        <div class="col-lg-4 col-md-6 mb-4 speaker-item">
-            <div class="card border-0 shadow" data-aos="fade-up" data-aos-delay="600">
-                <img class="card-img-top" src="<?php echo esc_attr( $speaker['image'] ); ?>"
-                     alt="<?php echo esc_attr( $speaker['name'] ); ?>">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-0"><?php echo esc_html( $speaker['name'] ); ?></h5>
-                    <div class="card-text"><?php echo esc_html( $speaker['position'] ); ?></div>
-                    <div class="card-social">
-						<?php
-						if ( ! empty( $speaker['website'] ) ) {
-							echo '<a href="' . esc_url( $speaker['website'] ) . '" target="_blank"><i class="fas fa-globe"></i></a>';
-						}
-						if ( ! empty( $speaker['facebook'] ) ) {
-							echo '<a href="' . esc_url( $speaker['facebook'] ) . '" target="_blank"><i class="fab fa-facebook"></i></a>';
-						}
-						if ( ! empty( $speaker['linkedin'] ) ) {
-							echo '<a href="' . esc_url( $speaker['linkedin'] ) . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
-						}
-						if ( ! empty( $speaker['twitter'] ) ) {
-							echo '<a href="' . esc_url( $speaker['twitter'] ) . '" target="_blank"><i class="fab fa-twitter"></i></a>';
-						}
-						if ( ! empty( $speaker['instagram'] ) ) {
-							echo '<a href="' . esc_url( $speaker['instagram'] ) . '" target="_blank"><i class="fab fa-instagram"></i></a>';
-						}
-						if ( ! empty( $speaker['youtube'] ) ) {
-							echo '<a href="' . esc_url( $speaker['youtube'] ) . '" target="_blank"><i class="fab fa-youtube"></i></a>';
-						}
-						?>
+<div class="wcr-section-content-wrapper">
+    <div class="frow">
+		<?php
+		$maybe_socnet_accounts = [ 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'website' ];
+		foreach ( $speakers as $speaker ) {
+			?>
+            <div class="col-sm-1-2 col-md-1-3">
+                <div class="wcr-speaker-item-wrapper">
+                    <div class="wcr-speaker-image-wrapper"
+                         style="background-image: url(<?php echo esc_attr( $speaker['image'] ); ?>)"></div>
+                    <div class="wcr-speaker-detail-wrapper">
+                        <div class="wcr-speaker-link-wrapper">
+                            <a href="#" class="wcr-speaker-link"><?php echo esc_html( $speaker['name'] ); ?></a>
+                        </div>
+                        <div class="wcr-speaker-desc-wrapper">
+                            <p class="wcr-speaker-desc"><?php echo esc_html( $speaker['position'] ); ?></p>
+                        </div>
+                        <div class="wcr-speaker-socnet-wrapper">
+                            <ul class="wcr-speaker-socnet">
+								<?php
+								foreach ( $maybe_socnet_accounts as $account ) {
+									if ( ! empty( $speaker[ $account ] ) ) {
+										?>
+                                        <li class="wcr-speaker-<?php echo esc_attr( $account ); ?>-wrapper">
+                                            <a target="_blank" href="<?php echo esc_url( $speaker[ $account ] ); ?>"
+                                               class="wcr-speaker-<?php echo esc_attr( $account ); ?>">
+                                                <span class="wcr-speaker-socnet-label"><?php echo esc_html( ucfirst( $account ) ); ?></span>
+                                            </a>
+                                        </li>
+										<?php
+									}
+								}
+								?>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-		<?php
-	}
-	?>
+			<?php
+		}
+		?>
+    </div>
 </div>
