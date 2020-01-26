@@ -126,7 +126,7 @@ new class {
      */
     register_event() {
         const instance = this;
-        $('.btn-do-register').click(function (e) {
+        $('.wcr-pricing-cta').click(function (e) {
             e.preventDefault();
             const submit_button = $(this),
                 event_id = $(this).data('event'),
