@@ -61,7 +61,7 @@ $bubble_arrow_size: 30px !default;
         @include breakpoint($size_tablet) {
           width: 50%;
 
-          &.wcr-schedule-item-even {
+          &:nth-child(even) {
             left: 50%;
 
             &:after {
@@ -69,7 +69,7 @@ $bubble_arrow_size: 30px !default;
             }
           }
 
-          &.wcr-schedule-item-odd {
+          &:nth-child(odd) {
             text-align: right;
 
             &:after {
@@ -111,45 +111,6 @@ $bubble_arrow_size: 30px !default;
             }
           }
         }
-
-        //
-        //  &.wcr-schedule-item-odd {
-        //    left: 0;
-        //
-        //    &:before {
-        //      content: " ";
-        //      height: 0;
-        //      position: absolute;
-        //      top: 22px;
-        //      width: 0;
-        //      z-index: 1;
-        //      right: 30px;
-        //      border: medium solid white;
-        //      border-width: 10px 0 10px 10px;
-        //      border-color: transparent transparent transparent white;
-        //    }
-        //  }
-        //
-        //  &.wcr-schedule-item-even {
-        //    right: 50%;
-        //
-        //    &:before {
-        //      content: " ";
-        //      height: 0;
-        //      position: absolute;
-        //      top: 22px;
-        //      width: 0;
-        //      z-index: 1;
-        //      left: 30px;
-        //      border: medium solid white;
-        //      border-width: 10px 10px 10px 0;
-        //      border-color: transparent white transparent transparent;
-        //    }
-        //
-        //    &:after {
-        //      left: -16px;
-        //    }
-        //  }
       }
     }
   }

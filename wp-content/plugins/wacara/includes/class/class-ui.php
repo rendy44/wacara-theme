@@ -88,7 +88,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 //			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
-//			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
 
 			// Render the pricing section.
 //			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
