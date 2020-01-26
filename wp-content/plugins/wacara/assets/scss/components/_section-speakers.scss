@@ -1,4 +1,5 @@
 $facebook_color: #3b5998 !default;
+$linkedin_color: #2867B2 !default;
 $twitter_color: #1DA1F2 !default;
 $youtube_color: #ff0000 !default;
 
@@ -135,6 +136,16 @@ $youtube_color: #ff0000 !default;
 
                   &:before {
                     content: 'W';
+                  }
+                }
+              }
+
+              &.wcr-speaker-linkedin-wrapper {
+                & > a {
+                  background-color: $linkedin_color;
+
+                  &:before {
+                    content: 'L';
                   }
                 }
               }
