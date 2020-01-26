@@ -91,7 +91,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
 
 			// Render the pricing section.
-//			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
 
 			// Render registrant.
 //			add_action( 'wacara_before_displaying_registrant_content', [
