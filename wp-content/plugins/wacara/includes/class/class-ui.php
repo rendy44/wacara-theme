@@ -94,9 +94,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_pricing_section', [ $this, 'event_pricing_section_callback' ], 10, 1 );
 
 			// Render registrant.
-			// add_action( 'wacara_before_registrant_content', [
-			// $this,
-			// 'event_registrant_header_callback', ], 10, 1 );
+			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_masthead_opening_callback' ], 10, 1 );
+			// add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_masthead_opening_callback' ], 10, 1 );
+			add_action( 'wacara_after_registrant_masthead', [ $this, 'registrant_masthead_closing_callback' ], 10, 1 );
 		}
 
 		/**
@@ -253,9 +253,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
+			$masthead_args = [
+				'masthead_class' => 'wcr-event-header wcr-height-100-vh',
+			];
+
+			Template::render( 'global/masthead-open', $masthead_args, true );
 			?>
-			<header class="wcr-event-header wcr-height-100-vh">
-			<div class="frow-container wcr-height-100-p">
 			<div class="frow wcr-height-100-p wcr-align-items-center">
 			<div class="col-md-2-3 wcr-text-center">
 			<?php
@@ -306,9 +309,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			?>
 			</div>
 			</div>
-			</div>
-			</header>
 			<?php
+			Template::render( 'global/masthead-close', [], true );
 		}
 
 		/**
@@ -530,6 +532,28 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			Template::render( $default_template, $pricing_args, true );
+		}
+
+		/**
+		 * Callback for displaying masthead opening tag.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_masthead_opening_callback( $registrant ) {
+			$masthead_args = [
+				'masthead_class' => 'wcr-registrant-header',
+			];
+
+			Template::render( 'global/masthead-open', $masthead_args, true );
+		}
+
+		/**
+		 * Callback for displaying masthead closing tag.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_masthead_closing_callback( $registrant ) {
+			Template::render( 'global/masthead-close', [], true );
 		}
 	}
 

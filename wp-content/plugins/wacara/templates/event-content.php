@@ -49,8 +49,10 @@ if ( ! $is_event_past ) {
 
 	/**
 	 * Wacara after event masthead hook.
+	 *
+	 * @param Event $event object of the current event.
 	 */
-	do_action( 'wacara_after_event_masthead' );
+	do_action( 'wacara_after_event_masthead', $event );
 
 	/**
 	 * Render all sections.
