@@ -113,7 +113,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * Load js file
 		 *
 		 * @param string $name js name.
-		 * @param array $obj_js js object.
+		 * @param array  $obj_js js object.
 		 */
 		private function load_js( $name, array $obj_js ) {
 			$depth = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * Load css file
 		 *
 		 * @param string $name css name.
-		 * @param array $obj_css css object.
+		 * @param array  $obj_css css object.
 		 */
 		private function load_css( $name, array $obj_css ) {
 			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : [];
@@ -172,7 +172,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'url'   => WACARA_URI . 'assets/js/wacara.js',
 					'vars'  => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
-						//						'publishable_key' => Stripe_Payment::get_publishable_key(),
+						// 'publishable_key' => Stripe_Payment::get_publishable_key(),
 					],
 					'depth' => [ 'jquery' ],
 				],

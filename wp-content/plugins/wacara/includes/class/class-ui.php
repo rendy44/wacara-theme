@@ -61,10 +61,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_event_masthead', [ $this, 'event_cta_closing_callback' ], 50, 1 );
 
 			// Render the masthead section.
-			add_action( 'wacara_event_masthead_section', [ $this, 'event_masthead_opening_callback' ], 10, 2 );
-			add_action( 'wacara_event_masthead_section', [ $this, 'event_masthead_content_callback' ], 20, 2 );
-			add_action( 'wacara_event_masthead_section', [ $this, 'event_masthead_countdown_callback' ], 30, 2 );
-			add_action( 'wacara_event_masthead_section', [ $this, 'event_masthead_closing_callback' ], 40, 2 );
+			add_action( 'wacara_event_masthead', [ $this, 'event_masthead_opening_callback' ], 10, 2 );
+			add_action( 'wacara_event_masthead', [ $this, 'event_masthead_content_callback' ], 20, 2 );
+			add_action( 'wacara_event_masthead', [ $this, 'event_masthead_countdown_callback' ], 30, 2 );
+			add_action( 'wacara_event_masthead', [ $this, 'event_masthead_closing_callback' ], 40, 2 );
 
 			// Render the sections.
 			add_filter( 'wacara_event_section_class', [ $this, 'event_section_class_callback' ], 10, 3 );
@@ -79,13 +79,13 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_speakers_section', [ $this, 'event_speakers_section_callback' ], 10, 1 );
 
 			// Render the venue section.
-//			add_action( 'wacara_venue_section', [ $this, 'event_venue_section_callback' ], 10, 1 );
+			// add_action( 'wacara_venue_section', [ $this, 'event_venue_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
-//			add_action( 'wacara_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
+			// add_action( 'wacara_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
 			add_action( 'wacara_event_schedule_section', [ $this, 'event_schedule_section_callback' ], 10, 1 );
@@ -94,104 +94,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_pricing_section', [ $this, 'event_pricing_section_callback' ], 10, 1 );
 
 			// Render registrant.
-//			add_action( 'wacara_before_registrant_content', [
-//				$this,
-//				'event_registrant_header_callback', ], 10, 1 );
-		}
-
-		/**
-		 * Render small header
-		 */
-		public function maybe_small_header_callback() {
-			// we don't need small header in front page, since front page already has a full-page header.
-			if ( ! is_front_page() && ! is_page_template( 'page-templates/event-checkin.php' ) ) {
-				$header_subtitle = '';
-				if ( is_archive() ) {
-					$header_title = get_the_archive_title();
-				} elseif ( is_search() ) {
-					// translators: %s: search term.
-					$header_title = sprintf( __( 'Search Results for "%s"', 'wacara' ), get_search_query() );
-				} elseif ( is_404() ) {
-					$header_title = __( 'Not Found', 'wacara' );
-				} elseif ( is_singular() ) {
-					if ( is_singular( 'registrant' ) ) {
-						$header_title = __( 'Payment', 'wacara' );
-						$event_id     = Helper::get_post_meta( 'event_id', get_the_ID() );
-						$event_title  = get_the_title( $event_id );
-						/* translators: %s: event title name */
-						$header_subtitle = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
-					} elseif ( is_singular( 'event' ) ) {
-						$header_title = get_the_title();
-						// Remove title for event landing page because we do not need this small header.
-						$header_title = '';
-					}
-				} else {
-					$header_title = single_post_title( '', false );
-				}
-
-				/**
-				 * Perform the filter to modify page title.
-				 *
-				 * @param string $header_title current page title.
-				 */
-				$header_title = apply_filters( 'wacara_filter_page_title', $header_title );
-
-				// Only render the small header id header title is actually defined.
-				if ( $header_title ) {
-
-					// Render the header.
-					echo Template::render( // phpcs:ignore
-						'global/header-small',
-						[
-							'title'    => $header_title,
-							'subtitle' => $header_subtitle,
-						]
-					);
-				}
-			}
-		}
-
-		/**
-		 * Render header navbar
-		 */
-		public function header_navbar_callback() {
-			// Hide navbar on landing page.
-			if ( ! is_page_template( 'page-templates/event-checkin.php' ) ) {
-				$use_full_nav = true;
-				$post_id      = get_the_ID();
-				if ( is_singular( 'registrant' ) ) {
-					$use_full_nav = false;
-					$post_id      = Helper::get_post_meta( 'event_id', get_the_ID() );
-				}
-				$logo_url  = Helper::get_event_logo_url( $post_id );
-				$nav_class = '';
-				$nav_items = [];
-
-				/**
-				 * Perform filter to modify navbar extra class.
-				 *
-				 * @param string $nav_class original navbar class.
-				 */
-				$final_nav_class = apply_filters( 'wacara_navbar_extra_class', $nav_class );
-
-				/**
-				 * Apply filters to modify navbar items.
-				 *
-				 * @param array $nav_items original navbar items.
-				 */
-				$nav_items = apply_filters( 'wacara_navbar_items', $nav_items );
-
-				echo Template::render( // phpcs:ignore
-					'global/navbar',
-					[
-						'nav_items'    => $nav_items,
-						'nav_class'    => $final_nav_class,
-						'logo_url'     => $logo_url,
-						'use_full_nav' => $use_full_nav,
-						'home_link'    => ! $use_full_nav ? get_permalink( $post_id ) : '#masthead',
-					]
-				);
-			}
+			// add_action( 'wacara_before_registrant_content', [
+			// $this,
+			// 'event_registrant_header_callback', ], 10, 1 );
 		}
 
 		/**
@@ -246,12 +151,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of the current event.
 		 */
 		public function event_expired_opening_callback( $event ) {
-			?>
-            <section class="bg-light expired" id="<?php echo esc_attr( 'event-' . $event->post_id ); ?>">
-            <div class="container h-100">
-            <div class="row h-100 align-items-center">
-            <div class="col-lg-8 mx-auto text-center mb-3">
-			<?php
+			$section_args = [
+				'section_class' => 'wcr-section-expired',
+				'section'       => 'expired',
+			];
+
+			Template::render( 'global/section-open', $section_args, true );
 		}
 
 		/**
@@ -280,11 +185,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$expired_content = apply_filters( 'wacara_filter_expired_content', $expired_content, $event );
 
 			$expired_args = [
-				'expired_title'   => $expired_title,
-				'expired_content' => $expired_content,
+				'section_title'    => $expired_title,
+				'section_subtitle' => $expired_content,
 			];
 
-			Template::render( 'event/expired', $expired_args, true );
+			Template::render( 'global/section-title', $expired_args, true );
 		}
 
 		/**
@@ -294,10 +199,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_expired_closing_callback( $event ) {
 			?>
-            </div>
-            </div>
-            </div>
-            </section>
+			</div>
+			</section>
 			<?php
 
 		}
@@ -309,9 +212,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_cta_opening_callback( $event ) {
 			?>
-            <div class="wcr-event-alert wcr-alert-with-cta">
-            <div class="frow-container">
-            <div class="wcr-event-alert-content-wrapper">
+			<div class="wcr-event-alert wcr-alert-with-cta">
+			<div class="frow-container">
+			<div class="wcr-event-alert-content-wrapper">
 			<?php
 		}
 
@@ -337,31 +240,31 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_cta_closing_callback( $event ) {
 			?>
-            </div>
-            </div>
-            </div>
+			</div>
+			</div>
+			</div>
 			<?php
 		}
 
 		/**
 		 * Callback for displaying masthead opening tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
 			?>
-            <header class="wcr-event-header wcr-height-100-vh">
-            <div class="frow-container wcr-height-100-p">
-            <div class="frow wcr-height-100-p wcr-align-items-center">
-            <div class="col-md-2-3 wcr-text-center">
+			<header class="wcr-event-header wcr-height-100-vh">
+			<div class="frow-container wcr-height-100-p">
+			<div class="frow wcr-height-100-p wcr-align-items-center">
+			<div class="col-md-2-3 wcr-text-center">
 			<?php
 		}
 
 		/**
 		 * Callback for displaying masthead section.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_content_callback( $event, $header_template ) {
@@ -379,7 +282,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead countdown.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_countdown_callback( $event, $header_template ) {
@@ -396,15 +299,15 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead closing tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_closing_callback( $event, $header_template ) {
 			?>
-            </div>
-            </div>
-            </div>
-            </header>
+			</div>
+			</div>
+			</div>
+			</header>
 			<?php
 		}
 
@@ -413,7 +316,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param string $section_class current class of the section.
 		 * @param string $section the name of the current section.
-		 * @param int $section_num ordering number of the current section.
+		 * @param int    $section_num ordering number of the current section.
 		 *
 		 * @return string
 		 */
@@ -427,7 +330,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section opening tag.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -444,7 +347,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section title.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -464,7 +367,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section closing tag.
 		 *
 		 * @param string $section the name of the selected section.
-		 * @param Event $event the object of the current event.
+		 * @param Event  $event the object of the current event.
 		 * @param string $section_class the css class of the selected section.
 		 * @param string $section_title the title of the selected section.
 		 * @param string $section_subtitle the subtitle of the selected section.
@@ -627,55 +530,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			Template::render( $default_template, $pricing_args, true );
-		}
-
-		public function event_registrant_header_callback() {
-
-		}
-
-		/**
-		 * Get header extra classes.
-		 *
-		 * @param string $width half|center header width.
-		 * @param string $scheme light|dark header color scheme.
-		 * @param string $alignment left|center|right header alignment.
-		 *
-		 * @return array
-		 */
-		public static function get_header_extra_class( $width, $scheme, $alignment ) {
-			$result = [ $width, '', '' ];
-			if ( 'center' === $width ) {
-				$result[0] .= ' ' . $scheme;
-				$result[1] .= 'col-lg-8 col-md-10 mx-auto';
-			} else {
-				$result[1] .= 'col-lg-6';
-				if ( 'right' === $alignment ) {
-					$result[0] .= ' right';
-					$result[2] .= 'justify-content-end';
-				}
-			}
-			$result[0] .= ' text-' . $alignment;
-
-			return $result;
-		}
-
-		/**
-		 * Generate header background image style for event.
-		 *
-		 * @param string $event_background_image event background image.
-		 * @param string $header_background_image header background image.
-		 *
-		 * @return string
-		 */
-		public static function generate_header_background_image( $event_background_image, $header_background_image ) {
-			$result   = '';
-			$image_id = $event_background_image ? $event_background_image : $header_background_image;
-			if ( $image_id ) {
-				$image_url = wp_get_attachment_image_url( $image_id, 'large' );
-				$result    = 'background-image:url(' . $image_url . ')';
-			}
-
-			return $result;
 		}
 	}
 

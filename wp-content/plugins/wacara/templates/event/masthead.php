@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wcr-event-title-wrapper">
-    <h1 class="wcr-event-title"><?php echo esc_html($title); ?></h1>
+	<h1 class="wcr-event-title"><?php echo esc_html( $title ); ?></h1>
 </div>
 <div class="wcr-event-subtitle-wrapper">
-    <h2 class="wcr-event-subtitle">Pellentesque bibendum blandit ex</h2>
+	<h2 class="wcr-event-subtitle">Pellentesque bibendum blandit ex</h2>
 </div>
 <div class="wcr-event-highlight-wrapper">
-    <p class="wcr-event-highlight"><?php echo esc_html($excerpt); ?></p>
+	<p class="wcr-event-highlight"><?php echo esc_html( $excerpt ); ?></p>
 </div>

@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 <div class="wcr-event-alert-block-wrapper wcr-event-alert-title-wrapper">
-    <span class="wcr-event-alert-title"><?php echo esc_html( $alert_title ); ?></span>
+	<span class="wcr-event-alert-title"><?php echo esc_html( $alert_title ); ?></span>
 </div>
 <div class="wcr-event-alert-block-wrapper wcr-event-alert-content-wrapper">
-    <span class="wcr-event-alert-content"><?php echo esc_html( $alert_content ); ?></span>
+	<span class="wcr-event-alert-content"><?php echo esc_html( $alert_content ); ?></span>
 </div>
 <div class="wcr-event-alert-block-wrapper wcr-event-alert-cta-wrapper">
-    <a class="wcr-event-alert-cta"><?php echo esc_html( $alert_button ); ?></a>
+	<a class="wcr-event-alert-cta"><?php echo esc_html( $alert_button ); ?></a>
 </div>

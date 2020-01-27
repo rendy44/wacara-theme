@@ -21,13 +21,18 @@ $registrant = new Registrant( get_the_ID() );
  *
  * @param Registrant $registrant the object of the current registrant.
  */
-do_action( 'wacara_before_displaying_registrant_masthead', $registrant );
+do_action( 'wacara_before_registrant_masthead', $registrant );
 
 /**
  * Wacara registrant masthead hook.
  *
  * @param Registrant $registrant the object of the current registrant.
  */
-do_action( 'wacara_render_registrant_masthead_section', $registrant );
+do_action( 'wacara_registrant_masthead', $registrant );
 
-do_action( 'wacara_after_displaying_registrant_masthead', $registrant );
+/**
+ * Wacara after registrant masthead hook.
+ *
+ * @param Registrant the object of the current registrant.
+ */
+do_action( 'wacara_after_registrant_masthead', $registrant );

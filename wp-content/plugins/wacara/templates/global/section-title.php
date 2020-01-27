@@ -12,14 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wcr-section-heading-wrapper">
-    <div class="frow">
-        <div class="col-md-2-3 wcr-text-center">
-            <div class="wcr-section-title-wrapper">
-                <h2 class="wcr-section-title"><?php echo esc_html( $section_title ); ?></h2>
-            </div>
-            <div class="wcr-section-subtitle-wrapper">
-                <h3 class="wcr-section-subtitle"><?php echo esc_html( $section_subtitle ); ?></h3>
-            </div>
-        </div>
-    </div>
+	<div class="frow">
+		<div class="col-md-2-3 wcr-text-center">
+			<div class="wcr-section-title-wrapper">
+				<h2 class="wcr-section-title"><?php echo esc_html( $section_title ); ?></h2>
+			</div>
+			<div class="wcr-section-subtitle-wrapper">
+				<h3 class="wcr-section-subtitle"><?php echo esc_html( $section_subtitle ); ?></h3>
+			</div>
+		</div>
+	</div>
 </div>

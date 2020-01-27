@@ -45,7 +45,7 @@ if ( ! $is_event_past ) {
 	 * @hooked render_masthead_countdown_callback - 30
 	 * @hooked render_masthead_closing_callback - 40
 	 */
-	do_action( 'wacara_event_masthead_section', $event, $header_template );
+	do_action( 'wacara_event_masthead', $event, $header_template );
 
 	/**
 	 * Wacara after event masthead hook.
@@ -60,7 +60,7 @@ if ( ! $is_event_past ) {
 	foreach ( $sections as $section ) {
 
 		// Define section class based on odd or even position.
-		$section_class    = 'wcr-event-section';
+		$section_class    = 0 === $section_num % 2 ? 'wcr-section-even' : 'wcr-section-odd';
 		$section_title    = Helper::get_post_meta( $section . '_title' );
 		$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
 
