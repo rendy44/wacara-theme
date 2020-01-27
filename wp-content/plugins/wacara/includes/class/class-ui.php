@@ -47,8 +47,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		private function __construct() {
 			// Render form field.
-			add_filter( 'sk_input_field', [ $this, 'input_field_callback' ], 10, 4 );
-			add_filter( 'sk_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
+			add_filter( 'wacara_input_field', [ $this, 'input_field_callback' ], 10, 4 );
+			add_filter( 'wacara_input_field_event', [ $this, 'input_field_event_callback' ], 10, 2 );
 
 			// Render the expired content.
 			add_action( 'wacara_before_event_expired', [ $this, 'event_expired_opening_callback' ], 10, 1 );
@@ -95,8 +95,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render registrant.
 			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_masthead_opening_callback' ], 10, 1 );
-			 add_action( 'wacara_registrant_masthead', [ $this, 'registrant_masthead_content_callback' ], 10, 2 );
+			add_action( 'wacara_registrant_masthead', [ $this, 'registrant_masthead_content_callback' ], 10, 2 );
 			add_action( 'wacara_after_registrant_masthead', [ $this, 'registrant_masthead_closing_callback' ], 50, 1 );
+			add_action( 'wacara_before_registrant_content', [ $this, 'registrant_section_opening_callback' ], 10, 1 );
+			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
 		}
 
 		/**
@@ -136,9 +138,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$field_required = Helper::get_post_meta( $key . '_required', $event_id );
 
 			if ( $use_field ) {
-				$result .= '<div class="form-group">';
+				$result .= "<div class='wcr-field-{$key} wcr-form-field-wrapper'>";
 				$result .= '<label for="' . $key . '">' . $field_label . '</label>';
-				$result .= apply_filters( 'sk_input_field', $key, 'text', $field_required ? 'required' : '' );
+				$result .= apply_filters( 'wacara_input_field', $key, 'text', $field_required ? 'required' : '' );
 				$result .= '</div>';
 			}
 
@@ -271,6 +273,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'title'   => $event->post_title,
 				'excerpt' => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
 			];
+
 			Template::render( 'event/masthead', $masthead_args, true );
 		}
 
@@ -287,6 +290,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$masthead_args = [
 					'date_start' => date( 'M j, Y H:i:s', $date_start ),
 				];
+
 				Template::render( 'event/masthead-countdown', $masthead_args, true );
 			}
 		}
@@ -330,6 +334,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'section_class' => $section_class,
 				'section'       => $section,
 			];
+
 			Template::render( 'global/section-open', $section_args, true );
 		}
 
@@ -547,7 +552,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$event_id    = $registrant->get_event_info();
 			$event_title = get_the_title( $event_id );
 
-			$masthead_title = $registrant->post_title;
 			/* translators: %s: event name */
 			$masthead_desc = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
 
@@ -559,7 +563,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			$masthead_args = [
-				'masthead_title' => $masthead_title,
+				'masthead_title' => $registrant->post_title,
 				'masthead_desc'  => $masthead_desc,
 			];
 
@@ -573,6 +577,29 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function registrant_masthead_closing_callback( $registrant ) {
 			Template::render( 'global/masthead-close', [], true );
+		}
+
+		/**
+		 * Callback for displaying registrant section opening tag.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_section_opening_callback( $registrant ) {
+			$section_args = [
+				'section_class' => 'wcr-registrant-section',
+				'section'       => 'registrant-form',
+			];
+
+			Template::render( 'global/section-open', $section_args, true );
+		}
+
+		/**
+		 * Callback for displaying registrant section closing tag.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_section_closing_callback( $registrant ) {
+			Template::render( 'global/section-close', [], true );
 		}
 	}
 

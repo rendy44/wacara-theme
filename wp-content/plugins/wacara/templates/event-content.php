@@ -21,6 +21,7 @@ $event = new Event( get_the_ID(), true );
 $is_event_past   = $event->is_event_past();
 $header_template = Helper::get_post_meta( 'header' );
 
+// Check the event's validity.
 if ( ! $is_event_past ) {
 
 	/**
@@ -62,7 +63,7 @@ if ( ! $is_event_past ) {
 	foreach ( $sections as $section ) {
 
 		// Define section class based on odd or even position.
-		$section_class    = 0 === $section_num % 2 ? 'wcr-section-even' : 'wcr-section-odd';
+		$section_class    = 'wcr-event-section';
 		$section_title    = Helper::get_post_meta( $section . '_title' );
 		$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
 

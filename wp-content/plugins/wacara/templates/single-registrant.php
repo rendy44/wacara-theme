@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header( 'wacara' );
 
 /**
- * Wacara before displaying registrant content hook.
+ * Wacara before registrant outer content hook.
  */
-do_action( 'wacara_before_displaying_registrant_content' );
+do_action( 'wacara_before_registrant_outer_content' );
 
 while ( have_posts() ) {
 	the_post();
@@ -27,8 +27,8 @@ while ( have_posts() ) {
 }
 
 /**
- * Wacara after displaying registrant content hook.
+ * Wacara after registrant outer content hook.
  */
-do_action( 'wacara_after_displaying_registrant_content' );
+do_action( 'wacara_after_registrant_outer_content' );
 
 get_footer( 'wacara' );

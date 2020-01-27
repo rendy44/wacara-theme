@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$fields = [ 'name', 'email', 'company', 'position', 'id_number', 'phone' ];
 
 					foreach ( $fields as $field ) {
-						echo apply_filters( 'sk_input_field_event', $event_id, $field ); // phpcs:ignore
+						 echo apply_filters( 'sk_input_field_event', $event_id, $field ); // phpcs:ignore
 					}
 
 					/**
