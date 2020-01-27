@@ -33,6 +33,8 @@ do_action( 'wacara_before_registrant_masthead', $registrant );
  *
  * @param Registrant $registrant the object of the current registrant.
  * @param string $reg_status the status of the registrant.
+ *
+ * @hooked registrant_masthead_content_callback - 10
  */
 do_action( 'wacara_registrant_masthead', $registrant, $reg_status );
 
