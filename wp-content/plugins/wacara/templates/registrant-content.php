@@ -14,4 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Fetch registrant object.
-$registrant_id = new Registrant( get_the_ID() );
+$registrant = new Registrant( get_the_ID() );
+
+/**
+ * Wacara before registrant masthead hook.
+ *
+ * @param Registrant $registrant the object of the current registrant.
+ */
+do_action( 'wacara_before_displaying_registrant_masthead', $registrant );
+
+/**
+ * Wacara registrant masthead hook.
+ *
+ * @param Registrant $registrant the object of the current registrant.
+ */
+do_action( 'wacara_render_registrant_masthead_section', $registrant );
+
+do_action( 'wacara_after_displaying_registrant_masthead', $registrant );
