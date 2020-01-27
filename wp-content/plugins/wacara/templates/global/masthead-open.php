@@ -9,7 +9,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
+
+$column_size = isset( $masthead_column ) ? $masthead_column : '2-3';
+?>
 
 <header class="<?php echo esc_attr( $masthead_class ); ?>">
 	<div class="frow-container">
+		<div class="frow wcr-align-items-center">
+			<div class="col-md-<?php echo esc_attr( $column_size ); ?> wcr-text-center">

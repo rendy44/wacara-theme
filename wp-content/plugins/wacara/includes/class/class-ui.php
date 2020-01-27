@@ -254,14 +254,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
 			$masthead_args = [
-				'masthead_class' => 'wcr-event-header wcr-height-100-vh',
+				'masthead_class' => 'wcr-event-header',
 			];
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
-			?>
-			<div class="frow wcr-height-100-p wcr-align-items-center">
-			<div class="col-md-2-3 wcr-text-center">
-			<?php
 		}
 
 		/**
@@ -306,10 +302,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_closing_callback( $event, $header_template ) {
-			?>
-			</div>
-			</div>
-			<?php
 			Template::render( 'global/masthead-close', [], true );
 		}
 
