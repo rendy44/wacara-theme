@@ -166,5 +166,7 @@ if ( 'done' === $reg_status ) {
  * Wacara after registrant content hook.
  *
  * @param Registrant $registrant the object of the current registrant.
+ *
+ * @hooked registrant_section_closing_callback - 50
  */
 do_action( 'wacara_after_registrant_content', $registrant );
