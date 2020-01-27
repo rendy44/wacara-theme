@@ -45,7 +45,7 @@ if ( ! $is_event_past ) {
 	 * @hooked render_masthead_countdown_callback - 30
 	 * @hooked render_masthead_closing_callback - 40
 	 */
-	do_action( 'wacara_render_masthead_section', $event, $header_template );
+	do_action( 'wacara_render_event_masthead_section', $event, $header_template );
 
 	/**
 	 * Wacara after event masthead hook.
@@ -71,7 +71,7 @@ if ( ! $is_event_past ) {
 		 * @param string $section the name of the current section.
 		 * @param int $section_num ordering number of the current section.
 		 */
-		$section_class = apply_filters( 'wacara_section_class', $section_class, $section, $section_num );
+		$section_class = apply_filters( 'wacara_event_section_class', $section_class, $section, $section_num );
 
 		/**
 		 * Wacara before displaying section hook.
@@ -85,14 +85,14 @@ if ( ! $is_event_past ) {
 		 * @hooked render_section_opening_callback - 10
 		 * @hooked maybe_render_section_title_callback - 20
 		 */
-		do_action( 'wacara_before_rendering_section', $section, $event, $section_class, $section_title, $section_subtitle );
+		do_action( 'wacara_before_rendering_event_section', $section, $event, $section_class, $section_title, $section_subtitle );
 
 		/**
 		 * Wacara render single section hook.
 		 *
 		 * @param Event $event the object of the current event.
 		 */
-		do_action( "wacara_render_{$section}_section", $event );
+		do_action( "wacara_render_event_{$section}_section", $event );
 
 		/**
 		 * Wacara after displaying section hook.
@@ -105,7 +105,7 @@ if ( ! $is_event_past ) {
 		 *
 		 * @hooked render_section_closing_callback - 50;
 		 */
-		do_action( 'wacara_after_rendering_section', $section, $event, $section_class, $section_title, $section_subtitle );
+		do_action( 'wacara_after_rendering_event_section', $section, $event, $section_class, $section_title, $section_subtitle );
 
 		$section_num ++;
 	}

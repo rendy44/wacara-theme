@@ -61,37 +61,37 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_displaying_event_masthead', [ $this, 'render_cta_closing_callback' ], 50, 1 );
 
 			// Render the masthead section.
-			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
-			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_content_callback' ], 20, 2 );
-			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_countdown_callback' ], 30, 2 );
-			add_action( 'wacara_render_masthead_section', [ $this, 'render_masthead_closing_callback' ], 40, 2 );
+			add_action( 'wacara_render_event_masthead_section', [ $this, 'render_masthead_opening_callback' ], 10, 2 );
+			add_action( 'wacara_render_event_masthead_section', [ $this, 'render_masthead_content_callback' ], 20, 2 );
+			add_action( 'wacara_render_event_masthead_section', [ $this, 'render_masthead_countdown_callback' ], 30, 2 );
+			add_action( 'wacara_render_event_masthead_section', [ $this, 'render_masthead_closing_callback' ], 40, 2 );
 
 			// Render the sections.
-			add_filter( 'wacara_section_class', [ $this, 'section_class_callback' ], 10, 3 );
-			add_action( 'wacara_before_rendering_section', [ $this, 'render_section_opening_callback' ], 10, 5 );
-			add_action( 'wacara_before_rendering_section', [ $this, 'maybe_render_section_title_callback' ], 20, 5 );
-			add_action( 'wacara_after_rendering_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
+			add_filter( 'wacara_event_section_class', [ $this, 'section_class_callback' ], 10, 3 );
+			add_action( 'wacara_before_rendering_event_section', [ $this, 'render_section_opening_callback' ], 10, 5 );
+			add_action( 'wacara_before_rendering_event_section', [ $this, 'maybe_render_section_title_callback' ], 20, 5 );
+			add_action( 'wacara_after_rendering_event_section', [ $this, 'render_section_closing_callback' ], 50, 5 );
 
 			// Render the about section.
-			add_action( 'wacara_render_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_event_about_section', [ $this, 'render_about_section_callback' ], 10, 1 );
 
 			// Render the speakers section.
-			add_action( 'wacara_render_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_event_speakers_section', [ $this, 'render_speakers_section_callback' ], 10, 1 );
 
 			// Render the venue section.
 //			add_action( 'wacara_render_venue_section', [ $this, 'render_venue_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
-			add_action( 'wacara_render_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_event_gallery_section', [ $this, 'render_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
 //			add_action( 'wacara_render_sponsors_section', [ $this, 'render_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
-			add_action( 'wacara_render_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_event_schedule_section', [ $this, 'render_schedule_section_callback' ], 10, 1 );
 
 			// Render the pricing section.
-			add_action( 'wacara_render_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
+			add_action( 'wacara_render_event_pricing_section', [ $this, 'render_pricing_section_callback' ], 10, 1 );
 
 			// Render registrant.
 //			add_action( 'wacara_before_displaying_registrant_content', [
