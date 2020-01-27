@@ -198,11 +198,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of the current event.
 		 */
 		public function event_expired_closing_callback( $event ) {
-			?>
-			</div>
-			</section>
-			<?php
-
+			Template::render( 'global/section-close', [], true );
 		}
 
 		/**
