@@ -95,8 +95,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render registrant.
 			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_masthead_opening_callback' ], 10, 1 );
-			// add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_masthead_opening_callback' ], 10, 1 );
-			add_action( 'wacara_after_registrant_masthead', [ $this, 'registrant_masthead_closing_callback' ], 10, 1 );
+			 add_action( 'wacara_registrant_masthead', [ $this, 'registrant_masthead_content_callback' ], 10, 2 );
+			add_action( 'wacara_after_registrant_masthead', [ $this, 'registrant_masthead_closing_callback' ], 50, 1 );
 		}
 
 		/**
@@ -533,6 +533,37 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
+		}
+
+		/**
+		 * Callback for displaying registrant masthead content.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 * @param string     $registrant_status the status of the registrant.
+		 */
+		public function registrant_masthead_content_callback( $registrant, $registrant_status ) {
+
+			// Get event info.
+			$event_id    = $registrant->get_event_info();
+			$event_title = get_the_title( $event_id );
+
+			$masthead_title = $registrant->post_title;
+			/* translators: %s: event name */
+			$masthead_desc = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
+
+			switch ( $registrant_status ) {
+				case 'done':
+					/* translators: %s: event name */
+					$masthead_desc = sprintf( __( 'You are successfully registered to %s', 'wacara' ), $event_title );
+					break;
+			}
+
+			$masthead_args = [
+				'masthead_title' => $masthead_title,
+				'masthead_desc'  => $masthead_desc,
+			];
+
+			Template::render( 'global/masthead-content', $masthead_args, true );
 		}
 
 		/**

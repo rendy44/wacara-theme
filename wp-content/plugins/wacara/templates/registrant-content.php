@@ -23,6 +23,8 @@ $reg_status = $registrant->get_registration_status();
  * Wacara before registrant masthead hook.
  *
  * @param Registrant $registrant the object of the current registrant.
+ *
+ * @hooked registrant_masthead_opening_callback - 10
  */
 do_action( 'wacara_before_registrant_masthead', $registrant );
 
@@ -30,13 +32,16 @@ do_action( 'wacara_before_registrant_masthead', $registrant );
  * Wacara registrant masthead hook.
  *
  * @param Registrant $registrant the object of the current registrant.
+ * @param string $reg_status the status of the registrant.
  */
-do_action( 'wacara_registrant_masthead', $registrant );
+do_action( 'wacara_registrant_masthead', $registrant, $reg_status );
 
 /**
  * Wacara after registrant masthead hook.
  *
  * @param Registrant $registrant the object of the current registrant.
+ *
+ * @hooked registrant_masthead_closing_callback - 50
  */
 do_action( 'wacara_after_registrant_masthead', $registrant );
 
@@ -52,9 +57,6 @@ do_action( 'wacara_before_registrant_content', $registrant );
  *
  * @param Registrant $registrant the object of the current registrant.
  * @param string $reg_status the status of the registration.
- *                               '' for fresh participant.
- *                               'done' for participant who is ready to get the qrcode.
- *                               also you can customize your own status to meet your needs.
  */
 do_action( 'wacara_registrant_content', $registrant, $reg_status );
 
