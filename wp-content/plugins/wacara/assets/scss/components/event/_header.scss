@@ -1,14 +1,14 @@
 header.wcr-event-header {
-  background-color: darken($white, 1%);
-  min-height: 300px;
+  height: 400px;
   @include breakpoint($size_laptop) {
-    min-height: 500px;
+    height: 500px;
   }
 
   .wcr-event-title-wrapper {
     margin-bottom: .5rem;
 
     h1.wcr-event-title {
+      margin: 0;
       font-size: 14px;
       font-weight: 300;
       @include breakpoint($size_tablet) {
@@ -24,6 +24,7 @@ header.wcr-event-header {
     margin-bottom: 2rem;
 
     h2.wcr-event-subtitle {
+      margin: 0;
       font-size: 26px;
       text-transform: uppercase;
       font-weight: 500;

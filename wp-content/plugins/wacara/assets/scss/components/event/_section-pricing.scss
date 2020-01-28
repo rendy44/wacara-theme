@@ -7,13 +7,16 @@
       @include box-shadow();
       @include transition(all .2s ease);
       background-color: $white;
+      border: 1px solid transparent;
 
       .wcr-pricing-title-wrapper {
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
         text-align: center;
         background-color: darken($white, 5%);
 
         h4.wcr-pricing-title {
+          font-size: 16px;
+          margin: 0;
           font-weight: 400;
         }
       }
@@ -43,6 +46,7 @@
           padding-left: 0;
 
           li.wcr-pricing-feature {
+            font-size: 16px;
             padding: .75rem 1rem;
             border-bottom: 1px solid darken($white, 5%);
 
@@ -80,6 +84,7 @@
         width: 100%;
 
         button.wcr-pricing-cta {
+          font-size: 16px;
           width: 100%;
           padding: .75rem;
           background-color: $white;
@@ -89,6 +94,8 @@
       }
 
       &.wcr-pricing-item-best-value {
+        border-color: $base_color;
+
         .wcr-pricing-item-ribbon-wrapper {
           width: 140px;
           height: 140px;
@@ -158,6 +165,16 @@
       @include breakpoint($size_tablet) {
         margin-left: 15px;
         margin-right: 15px;
+      }
+    }
+
+    > .frow {
+      > div {
+        &:last-child {
+          .wcr-pricing-item-wrapper {
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }

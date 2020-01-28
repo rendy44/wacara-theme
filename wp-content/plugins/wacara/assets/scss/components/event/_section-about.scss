@@ -12,6 +12,7 @@
         margin-bottom: .5rem;
 
         h4.wcr-about-item-title {
+          margin: 0;
           font-weight: 400;
           letter-spacing: 5px;
           font-size: 20px;
@@ -27,6 +28,16 @@
           margin: 0;
           text-align: justify;
           line-height: 1.5;
+        }
+      }
+    }
+
+    > .frow {
+      > div {
+        &:last-child {
+          .wcr-about-item-wrapper {
+            margin-bottom: 0;
+          }
         }
       }
     }

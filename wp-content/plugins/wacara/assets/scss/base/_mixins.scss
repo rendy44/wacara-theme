@@ -144,3 +144,10 @@
   -webkit-line-clamp: $rows; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
+
+@mixin user_select($mode: none) {
+  -webkit-user-select: $mode;
+  -moz-user-select: $mode;
+  -ms-user-select: $mode;
+  user-select: $mode;
+}

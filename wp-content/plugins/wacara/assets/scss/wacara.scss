@@ -1,13 +1,23 @@
+// Style from library
 @import "libs/frow/frow";
+
+// Base styling
 @import "base/variables";
 @import "base/mixins";
 @import "base/base";
+@import "base/section";
+@import "base/form";
 @import "base/utils";
-@import "components/alert";
-@import "components/header";
-@import "components/sections";
-@import "components/section-about";
-@import "components/section-speakers";
-@import "components/section-pricing";
-@import "components/section-schedule";
-@import "components/section-gallery";
+
+// Event styling
+@import "components/event/alert";
+@import "components/event/header";
+@import "components/event/section-about";
+@import "components/event/section-speakers";
+@import "components/event/section-pricing";
+@import "components/event/section-schedule";
+@import "components/event/section-gallery";
+
+// Registrant styling
+@import "components/registrant/header";
+@import "components/registrant/content";

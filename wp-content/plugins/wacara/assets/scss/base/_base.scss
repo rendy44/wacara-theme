@@ -1,7 +1,10 @@
-body {
-  font-family: 'Exo', sans-serif;
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
 
-  a {
-    text-decoration: none;
-  }
+body {
+  //font-family: 'Exo', sans-serif;
+  font-family: 'Exo', monospace;
 }

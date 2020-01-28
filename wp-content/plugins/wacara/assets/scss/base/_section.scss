@@ -1,10 +1,18 @@
-.wcr-event-section {
+.wcr-header {
+  background-color: darken($white, 5%);
+  height: 160px;
+  @include breakpoint($size_tablet) {
+    height: 200px;
+  }
+  @include breakpoint($size_tablet) {
+    height: 300px;
+  }
+}
+
+.wcr-section {
+  background-color: $white;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  @include breakpoint($size_laptop) {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
 
   .wcr-section-heading-wrapper {
     margin-bottom: 1.5rem;
@@ -16,6 +24,7 @@
       margin-bottom: .5rem;
 
       h2.wcr-section-title {
+        margin: 0;
         font-size: 14px;
         font-weight: 400;
         letter-spacing: 4px;
@@ -25,6 +34,7 @@
 
     .wcr-section-subtitle-wrapper {
       h3.wcr-section-subtitle {
+        margin: 0;
         font-size: 26px;
         font-weight: 600;
       }
@@ -37,7 +47,13 @@
       p.wcr-section-desc {
         margin: 0;
         line-height: 1.5;
+        font-size: 16px;
       }
     }
+  }
+
+  @include breakpoint($size_laptop) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }

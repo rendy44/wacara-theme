@@ -94,12 +94,20 @@ $bubble_arrow_size: 30px !default;
 
           .wcr-schedule-item-title-wrapper {
             margin-bottom: 1rem;
+
+            h4.wcr-schedule-item-title {
+              margin: 0;
+              font-weight: 500;
+              font-size: 16px;
+            }
           }
 
           .wcr-schedule-item-content-wrapper {
             p {
+              font-size: 16px;
               margin: 0;
               font-weight: 300;
+              line-height: 1.35;
               @include ellipse_text(4);
               @include transition(all .2s ease);
 

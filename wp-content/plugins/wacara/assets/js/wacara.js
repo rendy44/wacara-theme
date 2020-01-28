@@ -11,6 +11,7 @@
          */
         constructor() {
             this.eventLoadCountdown();
+            this.eventRegister();
         }
 
         /**
@@ -58,6 +59,13 @@
                     secondCounter.text(secondsLeft);
                 }, 1000);
             })
+        }
+
+        /**
+         * This function will be triggered once the user register on a registrant page.
+         */
+        eventRegister(){
+
         }
     };
 })(jQuery);
