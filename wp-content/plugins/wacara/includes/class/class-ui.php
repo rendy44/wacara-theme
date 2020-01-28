@@ -98,6 +98,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_registrant_masthead', [ $this, 'registrant_masthead_content_callback' ], 10, 2 );
 			add_action( 'wacara_after_registrant_masthead', [ $this, 'registrant_masthead_closing_callback' ], 50, 1 );
 			add_action( 'wacara_before_registrant_content', [ $this, 'registrant_section_opening_callback' ], 10, 1 );
+			add_action( 'wacara_before_registrant_content', [ $this, 'registrant_before_content_wrapper_callback' ], 20, 1 );
+			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
 		}
 
@@ -534,7 +536,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function registrant_masthead_opening_callback( $registrant ) {
 			$masthead_args = [
-				'masthead_class' => 'wcr-registrant-header',
+				'masthead_class' => 'wcr-header wcr-registrant-header',
 			];
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
@@ -591,6 +593,24 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			Template::render( 'global/section-open', $section_args, true );
+		}
+
+		/**
+		 * Callback for displaying extra wrapper before registrant content.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_before_content_wrapper_callback( $registrant ) {
+			Template::render( 'registrant/before-content', [], true );
+		}
+
+		/**
+		 * Callback for displaying extra wrapper closing tag after registrant content.
+		 *
+		 * @param Registrant $registrant the object of the current registrant.
+		 */
+		public function registrant_after_content_wrapper_callback( $registrant ) {
+			Template::render( 'registrant/after-content', [], true );
 		}
 
 		/**

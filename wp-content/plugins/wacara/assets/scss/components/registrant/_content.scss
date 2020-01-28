@@ -5,7 +5,7 @@
 
   .wcr-section-content-wrapper {
     .wcr-section-content-inner-wrapper {
-      background-color: $white;
+      background-color: transparent;
       padding: 1rem 0;
 
       .wcr-field-disclaimer {
@@ -26,6 +26,7 @@
     margin-top: -3rem;
     .wcr-section-content-wrapper {
       .wcr-section-content-inner-wrapper {
+        background-color: $white;
         padding: 2rem;
         @include border-radius(6px);
         @include box-shadow(0, 0.5rem, 1rem);

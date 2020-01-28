@@ -42,7 +42,7 @@ button {
       padding: .5rem 1rem;
       width: 100%;
       border: 1px solid darken($white, 20%);
-      font-size: 90%;
+      font-size: 14px;
     }
 
     .wcr-form-field-multi-radio-wrapper {
@@ -88,8 +88,9 @@ button {
       }
 
       > label {
+        display: inline-block;
         cursor: pointer;
-        font-size: 90%;
+        font-size: 14px;
         margin-left: 5px;
       }
     }
