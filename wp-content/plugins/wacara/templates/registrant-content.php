@@ -161,16 +161,7 @@ if ( '' === $reg_status ) {
 	do_action( 'wacara_before_registrant_success_content', $registrant );
 
 	// Render the content for success page.
-	$success_title = __( 'Congratulation', 'wacara' );
-	$success_desc  = __( 'We have recorded your registration, please check your email for the further detail', 'wacara' );
-
-	/**
-	 * Wacara registrant success title filter hook.
-	 *
-	 * @param string $success_title current success title.
-	 * @param Registrant $registrant the object of the current registrant.
-	 */
-	$success_title = apply_filters( 'wacara_filter_registrant_success_title', $success_title, $registrant );
+	$success_desc = __( 'We have recorded your registration, please check your email for the further detail', 'wacara' );
 
 	/**
 	 * Wacara registrant success description filter hook.
@@ -181,12 +172,11 @@ if ( '' === $reg_status ) {
 	$success_desc = apply_filters( 'wacara_filter_registrant_success_desc', $success_desc, $registrant );
 
 	$success_args = [
-		'success_title' => $success_title,
-		'success_desc'  => $success_desc,
+		'success_desc' => $success_desc,
 	];
 
 	// Render the success template.
-	Template::render( 'registrant/register-success', $success_args, true );
+	Template::render( 'registrant/status-done', $success_args, true );
 
 	/**
 	 * Wacara after registrant success content hook.
