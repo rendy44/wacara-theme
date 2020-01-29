@@ -36,6 +36,16 @@ button {
       display: block;
       margin-bottom: .5rem;
       font-weight: 500;
+
+      &.error {
+        font-weight: 300;
+        font-size: 12px;
+        margin-top: .5rem;
+        padding: .5rem .75rem;
+        background-color: lighten($danger_color, 40%);
+        color: darken($danger_color, 5%);
+        border: 1px dotted $danger_color;
+      }
     }
 
     > input.wcr-form-field {

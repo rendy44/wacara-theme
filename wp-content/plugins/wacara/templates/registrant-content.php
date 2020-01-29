@@ -112,13 +112,16 @@ if ( 'done' === $reg_status ) {
 				<div class="wcr-field-payment-method wcr-form-field-wrapper">
 					<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
 					<?php
+					$payment_count = 0;
 					foreach ( $payment_methods as $payment_method ) {
+						$maybe_checked = 0 === $payment_count ? 'checked' : '';
 						?>
 						<div class="wcr-form-field-multi-radio-wrapper">
-							<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>">
+							<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
 							<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
 						</div>
 						<?php
+						$payment_count++;
 					}
 					?>
 				</div>

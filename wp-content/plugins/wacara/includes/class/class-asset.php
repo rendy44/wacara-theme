@@ -66,6 +66,12 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private $admin_js = [];
 
 		/**
+		 * Variable for mapping modules.
+		 *
+		 * @var array
+		 */
+		private $module_js = [];
+		/**
 		 * Singleton
 		 *
 		 * @return null|Asset
@@ -101,8 +107,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * @since 4.1.0
 		 */
 		public function load_as_module( $tag, $handle, $src ) {
-			$modules = [ 'main', 'checkin', 'app_be' ];
-			if ( in_array( $handle, $modules, true ) ) {
+			if ( in_array( $handle, $this->module_js, true ) ) {
 				$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>'; // phpcs:ignore
 			}
 
@@ -121,8 +126,22 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			if ( isset( $obj_js['vars'] ) ) {
 				wp_localize_script( $name, 'obj', $obj_js['vars'] );
 			}
+
+			// Maybe save as module.
+			$this->maybe_add_to_module( $name, $obj_js );
 		}
 
+		/**
+		 * Save js as module.
+		 *
+		 * @param string $name the handler name of the js.
+		 * @param array  $obj_js js object.
+		 */
+		private function maybe_add_to_module( $name, $obj_js ) {
+			if ( ! empty( $obj_js['module'] ) ) {
+				$this->module_js[] = $name;
+			}
+		}
 		/**
 		 * Load css file
 		 *
@@ -141,7 +160,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			// CSS files.
 			$this->front_css = [
 				'google_font'       => [
-					'url' => 'https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700&amp;display=swap',
+					'url' => 'https://fonts.googleapis.com/css?family=Exo:300,400,500&display=swap',
 				],
 				'sweetalert2'       => [
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',
@@ -159,22 +178,17 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				'jquery-validation' => [
 					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
 				],
-				'stripe'            => [
-					'url' => 'https://js.stripe.com/v3/',
-				],
-				'checkin'           => [
-					'url' => WACARA_URI . 'assets/js/checkin.js',
-				],
-				'main'              => [
-					'url' => WACARA_URI . 'assets/js/main.js',
-				],
+//				'checkin'           => [
+//					'url'    => WACARA_URI . 'assets/js/checkin.js',
+//					'module' => true,
+//				],
 				'wacara_main_js'    => [
-					'url'   => WACARA_URI . 'assets/js/wacara.js',
-					'vars'  => [
+					'url'    => WACARA_URI . 'assets/js/wacara.js',
+					'vars'   => [
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
-						// 'publishable_key' => Stripe_Payment::get_publishable_key(),
 					],
-					'depth' => [ 'jquery' ],
+					'depth'  => [ 'jquery' ],
+					'module' => true,
 				],
 			];
 		}

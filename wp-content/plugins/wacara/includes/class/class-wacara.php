@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\Wacara' ) ) {
+if ( ! class_exists( 'Wacara\Wacara' ) ) {
 
 	/**
 	 * Class Wacara
@@ -87,7 +87,7 @@ if ( ! class_exists( '\Wacara\Wacara' ) ) {
 				'class-mailer',
 				'abstract/class-payment-method',
 				'payment/class-offline-payment',
-				'payment/class-stripe-payment',
+//				'payment/class-stripe-payment',
 				'class-asset',
 			];
 		}

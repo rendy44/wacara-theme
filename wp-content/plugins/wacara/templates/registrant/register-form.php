@@ -89,7 +89,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					echo apply_filters( 'sk_input_field', 'registrant_id', 'hidden', '', $id ); // phpcs:ignore
 
 					// Add nonce.
-					wp_nonce_field( 'sk_nonce', 'sk_payment' );
+					wp_nonce_field( 'wacara_nonce', 'sk_payment' );
 					?>
 					<p><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
 					<button class="btn btn-primary btn-lg btn-submit-reg"

@@ -1,4 +1,6 @@
 'use strict';
+import Ajax from "./class/ajax.js";
+
 (function ($) {
     /**
      * The main class.
@@ -12,6 +14,7 @@
         constructor() {
             this.eventLoadCountdown();
             this.eventRegister();
+            this.eventCheckout();
         }
 
         /**
@@ -62,10 +65,107 @@
         }
 
         /**
-         * This function will be triggered once the user register on a registrant page.
+         * This function will be triggered once user click pricing package.
          */
-        eventRegister(){
+        eventRegister() {
+            const instance = this;
+            $('.wcr-pricing-cta').click(function (e) {
+                e.preventDefault();
+                const submit_button = $(this),
+                    event_id = $(this).data('event'),
+                    pricing_id = $(this).data('pricing'),
+                    original_caption = $(this).html();
+                // Disable the button.
+                submit_button.prop('disabled', true).html('Loading...');
+                // Perform the registration.
+                instance.doRegister(event_id, pricing_id)
+                    .done(function (data) {
+                        instance.doNormalizeError(data, submit_button, original_caption);
+                    })
+                    .fail(function (data) {
+                        // TODO: Validate error ajax.
+                    });
+            })
+        }
 
+        /**
+         * This function will be triggered once user checkout the registration.
+         */
+        eventCheckout() {
+            const instance = this;
+            $('.wcr-form.wcr-registrant-form').validate({
+                focusInvalid: true,
+                submitHandler: function (form, e) {
+                    e.preventDefault();
+                    // Define variables.
+                    const submit_button = $(form).find('.wcr-registrant-form-submit'),
+                        btn_original_text = submit_button.html(),
+                        inputs = $(form).serializeArray();
+                    // const user_info = {
+                    //     name: $(form).find('input[name=name]').val(),
+                    //     email: $(form).find('input[name=email]').val(),
+                    // };
+
+                    // Disable button.
+                    submit_button.html('Loading...').prop('disabled', true);
+
+                    instance.doCheckout(inputs)
+                        .done(function (data) {
+                            instance.doNormalizeError(data, submit_button, btn_original_text);
+                        })
+                        .fail(function (x) {
+                            // TODO: Validate error ajax.
+                        });
+                }
+            })
+        }
+
+        /**
+         * Method to perform registration.
+         *
+         * @param event_id
+         * @param pricing_id
+         * @returns {Ajax}
+         */
+        doRegister(event_id, pricing_id) {
+            return new Ajax(true, {
+                action: 'register',
+                event_id: event_id,
+                pricing_id: pricing_id,
+            });
+        }
+
+        /**
+         * Method to perform payment.
+         *
+         * @param inputs
+         * @returns {Ajax}
+         */
+        doCheckout(inputs) {
+            return new Ajax(true, {
+                action: 'payment',
+                data: inputs
+            });
+        }
+        /**
+         * Normalize the button depends on ajax status
+         *
+         * @param data
+         * @param button_element
+         * @param button_caption
+         */
+        doNormalizeError(data, button_element, button_caption) {
+            if (data.success) {
+                // Reload the page once the payment is success.
+                location.href = data.callback;
+            } else {
+                button_element.prop('disabled', false).html(button_caption);
+
+                Swal.fire({
+                    html: data.message,
+                    type: 'error',
+                })
+            }
         }
     };
 })(jQuery);

@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						echo apply_filters( 'sk_input_field', 'registrant_id', 'hidden', '', $id ); // phpcs:ignore
 
 						// Add nonce.
-						wp_nonce_field( 'sk_nonce', 'sk_payment' );
+						wp_nonce_field( 'wacara_nonce', 'sk_payment' );
 						?>
 					</div>
 					<p class="lead"><?php esc_html_e( 'Once you made a transfer, please click button below to confirm', 'wacara' ); ?></p>

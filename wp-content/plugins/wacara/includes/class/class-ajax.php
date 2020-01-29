@@ -265,13 +265,13 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'wacara_payment' );
 
 			// Validate the inputs.
 			if ( $registrant_id && isset( $bank_account ) ) {
 
 				// Validate the nonce.
-				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
+				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
 
 					// Prepare the variables.
 					$bank_accounts = [];
@@ -318,13 +318,13 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'sk_payment' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'wacara_payment' );
 
 			// Validate the inputs.
 			if ( $registrant_id ) {
 
 				// Validate the nonce.
-				if ( wp_verify_nonce( $nonce, 'sk_nonce' ) ) {
+				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
 
 					// Define variables.
 					$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
