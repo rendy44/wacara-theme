@@ -10,6 +10,7 @@
 use Wacara\Helper;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -64,17 +65,8 @@ do_action( 'wacara_after_registrant_masthead', $registrant );
  */
 do_action( 'wacara_before_registrant_content', $registrant );
 
-// Check whether registrant is complete or not.
-if ( 'done' === $reg_status ) {
-
-	/**
-	 * Wacara registrant done or success content hook.
-	 *
-	 * @param Registrant $registrant the object of the current registrant.
-	 */
-	do_action( 'wacara_registrant_done_content', $registrant );
-
-} else {
+// Check whether registrant is still fresh or not.
+if ( '' === $reg_status ) {
 
 	/**
 	 * Wacara before registrant form content hook.
@@ -121,7 +113,7 @@ if ( 'done' === $reg_status ) {
 							<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
 						</div>
 						<?php
-						$payment_count++;
+						$payment_count ++;
 					}
 					?>
 				</div>
@@ -159,6 +151,72 @@ if ( 'done' === $reg_status ) {
 	 */
 	do_action( 'wacara_after_registrant_form_content', $registrant );
 
+} elseif ( 'done' === $reg_status ) {
+
+	/**
+	 * Wacara before registrant success content hook.
+	 *
+	 * @param Registrant $registrant object of the current registrant.
+	 */
+	do_action( 'wacara_before_registrant_success_content', $registrant );
+
+	// Render the content for success page.
+	$success_title = __( 'Congratulation', 'wacara' );
+	$success_desc  = __( 'We have recorded your registration, please check your email for the further detail', 'wacara' );
+
+	/**
+	 * Wacara registrant success title filter hook.
+	 *
+	 * @param string $success_title current success title.
+	 * @param Registrant $registrant the object of the current registrant.
+	 */
+	$success_title = apply_filters( 'wacara_filter_registrant_success_title', $success_title, $registrant );
+
+	/**
+	 * Wacara registrant success description filter hook.
+	 *
+	 * @param string $success_desc current success description.
+	 * @param Registrant $registrant the object of the current registrant.
+	 */
+	$success_desc = apply_filters( 'wacara_filter_registrant_success_desc', $success_desc, $registrant );
+
+	$success_args = [
+		'success_title' => $success_title,
+		'success_desc'  => $success_desc,
+	];
+
+	// Render the success template.
+	Template::render( 'registrant/register-success', $success_args, true );
+
+	/**
+	 * Wacara after registrant success content hook.
+	 *
+	 * @param Registrant $registrant object of the current registrant.
+	 */
+	do_action( 'wacara_after_registrant_success_content', $registrant );
+
+} else {
+
+	/**
+	 * Wacara before registrant custom content hook.
+	 *
+	 * @param Registrant object of the current registrant.
+	 */
+	do_action( 'wacara_before_registrant_custom_content', $registrant );
+
+	/**
+	 * Wacara registrant specific status's content hook
+	 *
+	 * @param Registrant $registrant the object of the current registrant.
+	 */
+	do_action( "wacara_registrant_{$reg_status}_content", $registrant );
+
+	/**
+	 * Wacara after registrant custom content hook.
+	 *
+	 * @param Registrant object of the current registrant.
+	 */
+	do_action( 'wacara_after_registrant_custom_content', $registrant );
 }
 
 /**
