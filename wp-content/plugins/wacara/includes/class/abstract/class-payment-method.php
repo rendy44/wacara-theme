@@ -81,19 +81,6 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		abstract public function admin_setting();
 
 		/**
-		 * Get content that will be rendered after making manual payment.
-		 *
-		 * @param Registrant $registrant the registrant object of registered registrant.
-		 * @param string     $reg_status current registration status of the registrant.
-		 * @param string     $pricing_id the id of selected pricing.
-		 * @param int        $pricing_price amount of invoice in cent.
-		 * @param string     $pricing_currency the currency code of invoice.
-		 *
-		 * @return string
-		 */
-		abstract public function maybe_page_after_payment( $registrant, $reg_status, $pricing_id, $pricing_price, $pricing_currency);
-
-		/**
 		 * Get admin settings from db.
 		 *
 		 * @param string $key specific key to filter the admin setting.
@@ -110,15 +97,6 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			}
 
 			return $result;
-		}
-
-		/**
-		 * Get content for displaying success page.
-		 *
-		 * @return string
-		 */
-		protected function get_success_page() {
-			return Template::render( 'registrant/register-success' ); // phpcs:ignore
 		}
 	}
 }

@@ -9,16 +9,16 @@
       padding: 1rem 0;
 
       .wcr-field-disclaimer {
-        border: 1px dashed $info_color;
-        padding: 1rem;
-        background-color: lighten($info_color, 55%);
+        //border: 1px dashed $info_color;
+        //padding: 1rem;
+        //background-color: lighten($info_color, 55%);
 
-        p.wcr-registrant-form-disclaimer {
-          color: darken($info_color, 10%);
-          margin: 0;
-          line-height: 1.3;
-          font-size: 14px;
-        }
+        //p.wcr-registrant-form-disclaimer {
+        //  color: darken($info_color, 10%);
+        //  margin: 0;
+        //  line-height: 1.3;
+        //  font-size: 14px;
+        //}
       }
     }
   }

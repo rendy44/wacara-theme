@@ -1,10 +1,15 @@
 $white: #fff !default;
 $black: #000 !default;
-$base_color: #b25ddb !default;
-$success_color: #28a745 !default;
-$danger_color: #dc3545 !default;
-$warning_color: #ffc107 !default;
-$info_color: #17a2b8 !default;
+
+$base_color: #ff00ff !default;
+//$success_color: #28a745 !default;
+$success_color: #00ff00 !default;
+//$danger_color: #dc3545 !default;
+$danger_color: #ff0000 !default;
+//$warning_color: #ffc107 !default;
+$warning_color: #ffff00 !default;
+//$info_color: #17a2b8 !default;
+$info_color: #00ffff !default;
 
 $size_tablet: map_get($sizes-mobile, 'sm') !default;
 $size_laptop: map_get($sizes-desktop, 'md') !default;

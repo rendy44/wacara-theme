@@ -136,7 +136,9 @@ if ( '' === $reg_status ) {
 
 		?>
 		<div class="wcr-field-disclaimer wcr-form-field-wrapper">
-			<p class="wcr-registrant-form-disclaimer"><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
+			<div class="wcr-alert wcr-alert-info">
+				<p><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
+			</div>
 		</div>
 		<div class="wcr-form-submit wcr-registrant-form-submit-wrapper">
 			<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Register', 'wacara' ); ?></button>
