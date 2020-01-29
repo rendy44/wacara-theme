@@ -201,6 +201,8 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
 	 * @param string $reg_status current status of the registration.
+	 *
+	 * @hooked registrant_custom_content_callback - 10
 	 */
 	do_action( 'wacara_registrant_custom_content', $registrant, $reg_status );
 
