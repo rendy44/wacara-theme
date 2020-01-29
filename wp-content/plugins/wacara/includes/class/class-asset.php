@@ -178,10 +178,10 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				'jquery-validation' => [
 					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
 				],
-//				'checkin'           => [
-//					'url'    => WACARA_URI . 'assets/js/checkin.js',
-//					'module' => true,
-//				],
+				// 'checkin'           => [
+				// 'url'    => WACARA_URI . 'assets/js/checkin.js',
+				// 'module' => true,
+				// ],
 				'wacara_main_js'    => [
 					'url'    => WACARA_URI . 'assets/js/wacara.js',
 					'vars'   => [

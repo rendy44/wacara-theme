@@ -107,7 +107,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 			// There is nothing to do here, just finish the process and wait for the payment :).
 			$result->success  = true;
-			$result->callback = 'wait_payment';
+			$result->callback = 'waiting-payment';
 
 			return $result;
 		}
@@ -196,7 +196,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						$register_args['bank_accounts'] = $bank_accounts;
 						$register_args['currency_code'] = $pricing_currency;
 						$register_args['amount']        = $amount_formatted;
-						$template                       = 'waiting-payment';
+						$template                       = 'status-waiting-payment';
 						break;
 					case 'wait_verification':
 						$template = 'waiting-verification';

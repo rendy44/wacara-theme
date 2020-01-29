@@ -4,6 +4,7 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

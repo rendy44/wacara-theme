@@ -87,8 +87,8 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-mailer',
 				'abstract/class-payment-method',
 				'payment/class-offline-payment',
-//				'payment/class-stripe-payment',
-				'class-asset',
+				// 'payment/class-stripe-payment',
+									'class-asset',
 			];
 		}
 

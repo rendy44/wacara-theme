@@ -197,11 +197,12 @@ if ( '' === $reg_status ) {
 	do_action( 'wacara_before_registrant_custom_content', $registrant );
 
 	/**
-	 * Wacara registrant specific status's content hook
+	 * Wacara registrant custom content hook
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
+	 * @param string $reg_status current status of the registration.
 	 */
-	do_action( "wacara_registrant_{$reg_status}_content", $registrant );
+	do_action( 'wacara_registrant_custom_content', $registrant, $reg_status );
 
 	/**
 	 * Wacara after registrant custom content hook.
