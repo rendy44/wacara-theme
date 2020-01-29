@@ -42,9 +42,9 @@ button {
         font-size: 12px;
         margin-top: .5rem;
         padding: .5rem .75rem;
-        background-color: lighten($danger_color, 40%);
-        color: darken($danger_color, 5%);
-        border: 1px dotted $danger_color;
+        background-color: lighten($danger_color, 47%);
+        color: darken($danger_color, 30%);
+        border: 1px dotted darken($danger_color, 10%);
       }
     }
 

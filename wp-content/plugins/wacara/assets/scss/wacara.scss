@@ -6,10 +6,10 @@
 @import "base/mixins";
 @import "base/base";
 @import "base/section";
-@import "base/form";
 @import "base/utils";
 
 // Useful elements.
+@import "components/form";
 @import "components/alert";
 
 // Event styling
