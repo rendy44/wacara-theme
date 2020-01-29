@@ -118,6 +118,23 @@ if ( '' === $reg_status ) {
 					?>
 				</div>
 				<?php
+			} else {
+				$error_no_payment = __( 'No payment methods available', 'wacara' );
+
+				/**
+				 * Wacara registrant no payment method message filter hook.
+				 *
+				 * @param string $error_no_payment current error message.
+				 */
+				$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment );
+
+				?>
+				<div class="wcr-form-field-wrapper">
+					<div class="wcr-alert wcr-alert-danger">
+                        <?php echo sprintf('<p>%s</p>',$error_no_payment); // phpcs:ignore?>
+					</div>
+				</div>
+				<?php
 			}
 		}
 
