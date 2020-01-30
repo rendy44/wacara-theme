@@ -439,92 +439,82 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						// Instance the pricing.
 						$pricing = new Pricing( $pricing_id );
 
-						// Make sure the selected pricing is exist.
+						// Validate the pricing.
 						if ( $pricing->success ) {
 
-							// Validate the pricing.
-							$pricing->validate();
+							// Fetch pricing's details.
+							$pricing_currency = $pricing->get_currency_code();
+							$pricing_price    = $pricing->get_price();
 
-							if ( $pricing->success ) {
+							// First, convert the price into cent.
+							$pricing_price_in_cent = $pricing_price * 100;
 
-								// Fetch pricing's details.
-								$pricing_currency = $pricing->get_currency_code();
-								$pricing_price    = $pricing->get_price();
+							// Instance the registrant.
+							$registrant = new Registrant( $registrant_id );
 
-								// First, convert the price into cent.
-								$pricing_price_in_cent = $pricing_price * 100;
+							// Save the details.
+							$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
 
-								// Instance the registrant.
-								$registrant = new Registrant( $registrant_id );
+							// Save invoice info.
+							$registrant->save_invoicing_info( $pricing_price_in_cent, $pricing_currency );
 
-								// Save the details.
-								$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+							// Define some variables related to registration.
+							$reg_status = '';
 
-								// Save invoice info.
-								$registrant->save_invoicing_info( $pricing_price_in_cent, $pricing_currency );
+							/**
+							 * Wacara before filling registrant detail hook.
+							 *
+							 * @param Registrant $registrant object of the current registrant.
+							 * @param string $maybe_payment_method maybe selected payment method.
+							 */
+							do_action( 'wacara_before_filling_registrant', $registrant, $maybe_payment_method );
 
-								// Define some variables related to registration.
-								$reg_status = '';
+							// Check pricing price.
+							if ( $pricing_price > 0 ) {
 
-								/**
-								 * Wacara before filling registrant detail hook.
-								 *
-								 * @param Registrant $registrant object of the current registrant.
-								 * @param string $maybe_payment_method maybe selected payment method.
-								 */
-								do_action( 'wacara_before_filling_registrant', $registrant, $maybe_payment_method );
+								// Check if payment method is selected.
+								if ( $maybe_payment_method ) {
 
-								// Check pricing price.
-								if ( $pricing_price > 0 ) {
-
-									// Check if payment method is selected.
-									if ( $maybe_payment_method ) {
-
-										// Update the result.
-										$result->success = true;
-
-										// Save registration status.
-										$reg_status = 'hold';
-
-									} else {
-
-										// Update the result.
-										$result->message = __( 'Please select a payment method', 'wacara' );
-									}
-								} else {
-
-									// There is nothing to do here, since payment is not required just finish the process :).
+									// Update the result.
 									$result->success = true;
 
 									// Save registration status.
-									$reg_status = 'done';
+									$reg_status = 'hold';
+
+								} else {
+
+									// Update the result.
+									$result->message = __( 'Please select a payment method', 'wacara' );
 								}
-
-								/**
-								 * Wacara after filling registrant hook.
-								 *
-								 * @param Registrant $registrant object of the current registrant.
-								 * @param string $reg_status the status of registration.
-								 */
-								do_action( 'wacara_after_filling_registration', $registrant, $reg_status );
-
-								// Update the callback.
-								$result->callback = $registrant->get_registrant_url();
-
-								// Update registration status.
-								$registrant->set_registration_status( $reg_status );
-
-								// Save payment method information.
-								$registrant->save_payment_method_info( $maybe_payment_method );
-
 							} else {
 
-								// Update result.
-								$result->message = $pricing->message;
+								// There is nothing to do here, since payment is not required just finish the process :).
+								$result->success = true;
+
+								// Save registration status.
+								$reg_status = 'done';
 							}
+
+							/**
+							 * Wacara after filling registrant hook.
+							 *
+							 * @param Registrant $registrant object of the current registrant.
+							 * @param string $reg_status the status of registration.
+							 */
+							do_action( 'wacara_after_filling_registration', $registrant, $reg_status );
+
+							// Update the callback.
+							$result->callback = $registrant->get_registrant_url();
+
+							// Update registration status.
+							$registrant->set_registration_status( $reg_status );
+
+							// Save payment method information.
+							$registrant->save_payment_method_info( $maybe_payment_method );
+
 						} else {
 
-							// Update the result.
+							// Update result.
 							$result->message = $pricing->message;
 						}
 					} else {
@@ -565,49 +555,87 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Instance the registrant.
 					$registrant = new Registrant( $registrant_id );
 
-					// Fetch payment method.
-					$payment_method = $registrant->get_payment_method_id();
+					// Validate the registrant.
+					if ( $registrant->success ) {
 
-					/**
-					 * Wacara before registrant payment process hook.
-					 *
-					 * @param Registrant $registrant object of the current registrant.
-					 */
-					do_action( 'wacara_before_registrant_payment_process', $registrant );
+						// Get registrant invoice detail.
+						$invoice = $registrant->get_invoicing_info();
 
-					// Process the payment.
-					$selected_payment_method = Register_Payment::get_payment_method_class( $payment_method );
+						// Instance pricing.
+						$pricing = new Pricing( $invoice['pricing_id'] );
 
-					// Check if payment method is exist.
-					if ( $selected_payment_method ) {
-						$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
+						// Validate the pricing.
+						if ( $pricing->success ) {
 
-						// Validate the process.
-						if ( $do_payment->success ) {
+							// Fetch pricing detail.
+							$pricing_price    = $pricing->get_price();
+							$pricing_currency = $pricing->get_currency_code();
 
-							// Update the registration status.
-							$result->success = true;
-							$reg_status      = $do_payment->callback;
+							// Fetch payment method.
+							$payment_method = $registrant->get_payment_method_id();
+
+							// Save default registrant status.
+							$reg_status = $registrant->get_registration_status();
+
+							/**
+							 * Wacara before registrant payment process hook.
+							 *
+							 * @param Registrant $registrant object of the current registrant.
+							 */
+							do_action( 'wacara_before_registrant_payment_process', $registrant );
+
+							// Process the payment.
+							$selected_payment_method = Register_Payment::get_payment_method_class( $payment_method );
+
+							// Check if payment method is exist.
+							if ( $selected_payment_method ) {
+
+								// Process the payment.
+								$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
+
+								// Validate the process.
+								if ( $do_payment->success ) {
+
+									// Update the result.
+									$result->success = true;
+								} else {
+
+									// Update the result.
+									$result->message = $do_payment->message;
+								}
+
+								// Save registrant status.
+								$reg_status = $do_payment->callback;
+							} else {
+
+								// Update the result.
+								$result->message = __( 'Unknown payment method', 'wacara' );
+							}
+
+							// Update the callback.
+							$result->callback = $registrant->get_registrant_url();
+
+							// Update the registrant status.
+							$registrant->set_registration_status( $reg_status );
+
+							/**
+							 * Wacara after registrant payment process hook.
+							 *
+							 * @param Registrant $registrant object of the current registrant.
+							 * @param string $reg_status status of the current registrant.
+							 */
+							do_action( 'wacara_after_registrant_payment_process', $registrant, $reg_status );
+
 						} else {
 
 							// Update the result.
-							$result->message = $do_payment->message;
+							$result->success = $pricing->message;
 						}
+					} else {
+
+						// Update the result.
+						$result->message = $registrant->message;
 					}
-
-					/**
-					 * Wacara after registrant payment process hook.
-					 *
-					 * @param Registrant $registrant object of the current registrant.
-					 */
-					do_action( 'wacara_after_registrant_payment_process', $registrant );
-
-					// Update the callback.
-					$result->callback = $registrant->get_registrant_url();
-
-					// Update registration status.
-					$registrant->set_registration_status( $reg_status );
-
 				} else {
 
 					// Update the result.

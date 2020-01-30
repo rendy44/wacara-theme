@@ -29,6 +29,9 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		 */
 		public function __construct( $pricing_id ) {
 			parent::__construct( $pricing_id, 'price' );
+
+			// Self validate the pricing.
+			$this->validate();
 		}
 
 		/**
@@ -86,7 +89,7 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		/**
 		 * Validate the pricing.
 		 */
-		public function validate() {
+		private function validate() {
 
 			// Validate the price.
 			$price = $this->get_price();
