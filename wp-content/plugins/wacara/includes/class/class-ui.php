@@ -101,11 +101,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_registrant_content', [ $this, 'registrant_before_content_wrapper_callback' ], 20, 1 );
 			add_action( 'wacara_before_registrant_form_content', [ $this, 'registrant_form_opening_callback' ], 10, 1 );
 			add_action( 'wacara_after_registrant_form_content', [ $this, 'registrant_form_closing_callback' ], 50, 1 );
-			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 2 );
-			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 2 );
-			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 2 );
-			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 2 );
-			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_callback' ], 50, 2 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 3 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 3 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 3 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 3 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_callback' ], 50, 3 );
+			add_action( 'wacara_before_registrant_custom_content', [ $this, 'registrant_hold_opening_callback' ], 10, 3 );
+			add_action( 'wacara_after_registrant_custom_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 3 );
+			add_action( 'wacara_after_registrant_custom_content', [ $this, 'registrant_hold_closing_callback' ], 50, 3 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
 		}
@@ -643,11 +646,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $payment_method id of the selected payment method.
+		 * @param string     $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_opening_callback( $registrant, $payment_method ) {
+		public function registrant_hold_opening_callback( $registrant, $payment_method, $reg_status ) {
 			$hold_args = [
-				'form_class' => 'wcr-hold-registrant-form',
-				'form_id'    => 'wcr-form-' . $payment_method . '-' . $registrant->post_id,
+				'form_class' => "wcr-{$reg_status}-registrant-form",
+				'form_id'    => "wcr-{$reg_status}-form-{$payment_method}-{$registrant->post_id}",
 			];
 
 			Template::render( 'registrant/form-open', $hold_args, true );
@@ -683,20 +687,22 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $payment_method id of the selected payment.
+		 * @param string     $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_submit_button_callback( $registrant, $payment_method ) {
+		public function registrant_hold_submit_button_callback( $registrant, $payment_method, $reg_status ) {
 
 			// Prepare default variable.
 			$submit_label = __( 'Checkout', 'wacara' );
 
 			/**
-			 * Wacara hold registrant submit button filter hook.
+			 * Wacara registrant submit form button filter hook.
 			 *
 			 * @param string $submit_label current submit label.
 			 * @param Registrant $registrant object of the current registrant.
 			 * @param string $payment_method id of the selected payment method.
+			 * @param string $reg_status status of the current registrant.
 			 */
-			$submit_label = apply_filters( 'wacara_filter_hold_registrant_submit_label', $submit_label, $registrant, $payment_method );
+			$submit_label = apply_filters( 'wacara_filter_form_registrant_submit_label', $submit_label, $registrant, $payment_method, $reg_status );
 
 			$submit_args = [
 				'submit_label' => $submit_label,
@@ -710,8 +716,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $payment_method id of the selected payment method.
+		 * @param string     $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_closing_callback( $registrant, $payment_method ) {
+		public function registrant_hold_closing_callback( $registrant, $payment_method, $reg_status ) {
 			$form_args = [
 				'registrant_id' => $registrant->post_id,
 			];

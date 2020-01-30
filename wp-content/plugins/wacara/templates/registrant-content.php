@@ -29,6 +29,9 @@ $event_id = $registrant->get_event_info();
 // Fetch invoice detail.
 $invoice = $registrant->get_invoicing_info();
 
+// Instance pricing.
+$pricing = new Pricing( $invoice['pricing_id'] );
+
 // Fetch payment method.
 $payment_method = $registrant->get_payment_method_id();
 $payment_class  = Register_Payment::get_payment_method_class( $payment_method );
@@ -95,9 +98,6 @@ if ( '' === $reg_status ) {
 	 * @param Registrant $registrant the object of the current registrant.
 	 */
 	do_action( 'wacara_before_registrant_payment_method_form', $registrant );
-
-	// Instance pricing.
-	$pricing = new Pricing( $invoice['pricing_id'] );
 
 	// Validate the pricing.
 	if ( $pricing->success ) {
@@ -219,11 +219,12 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrantobject of the current registrant.
 	 * @param string $payment_method id of the selected payment method.
+	 * @param string $reg_status status of the current registrant.
 	 *
 	 * @hooked registrant_hold_opening_callback - 10
 	 * @hooked registrant_hold_opening_field_callback - 20
 	 */
-	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_method );
+	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_method, $reg_status );
 
 	// Make sure payment class is available.
 	if ( $payment_class ) {
@@ -237,12 +238,13 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrant object of the current registrant.
 	 * @param string $payment_method id of the selected payment method.
+	 * @param string $reg_status status of the current registrant.
 	 *
 	 * @hooked registrant_hold_closing_field_callback - 30
 	 * @hooked registrant_hold_submit_button_callback - 40
 	 * @hooked registrant_hold_closing_callback - 50
 	 */
-	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_method );
+	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_method, $reg_status );
 
 } elseif ( 'done' === $reg_status ) {
 
@@ -283,9 +285,13 @@ if ( '' === $reg_status ) {
 	/**
 	 * Wacara before registrant custom content hook.
 	 *
-	 * @param Registrant object of the current registrant.
+	 * @param Registrant $registrant object of the current registrant.
+	 * @param string $payment_method id of the selected payment method.
+	 * @param string $reg_status status of the current registrant.
+	 *
+	 * @hooked registrant_hold_opening_callback - 10
 	 */
-	do_action( 'wacara_before_registrant_custom_content', $registrant );
+	do_action( 'wacara_before_registrant_custom_content', $registrant, $payment_method, $reg_status );
 
 	// Make sure payment class is available.
 	if ( $payment_class ) {
@@ -295,9 +301,14 @@ if ( '' === $reg_status ) {
 	/**
 	 * Wacara after registrant custom content hook.
 	 *
-	 * @param Registrant object of the current registrant.
+	 * @param Registrant $registrant object of the current registrant.
+	 * @param string $payment_method id of the selected payment method.
+	 * @param string $reg_status status of the current registrant.
+	 *
+	 * @hooked registrant_hold_submit_button_callback - 40
+	 * @hooked registrant_hold_closing_callback - 50
 	 */
-	do_action( 'wacara_after_registrant_custom_content', $registrant );
+	do_action( 'wacara_after_registrant_custom_content', $registrant, $payment_method, $reg_status );
 }
 
 /**
