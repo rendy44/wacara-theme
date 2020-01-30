@@ -361,28 +361,41 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					 */
 					do_action( 'wacara_before_finishing_registration', $registrant_id, $maybe_payment_method );
 
-					// Check if using payment method.
-					if ( $maybe_payment_method ) {
-						$selected_payment_method = Register_Payment::get_payment_method_class( $maybe_payment_method );
+					// Validate the pricing.
+					$validate_pricing = Helper::is_pricing_valid( $pricing_id, true );
+					if ( $validate_pricing->success ) {
 
-						// Check if payment method is exist.
-						if ( $selected_payment_method ) {
-							$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
+						// Check if payment method is selected.
+						if ( $maybe_payment_method ) {
+
+							// Update the result.
+							$result->success = true;
+
+							// Save registration status.
+							$reg_status = 'hold';
+							// $selected_payment_method = Register_Payment::get_payment_method_class( $maybe_payment_method );
+							//
+							// Check if payment method is exist.
+							// if ( $selected_payment_method ) {
+							// $do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
 							// Validate the process.
-							if ( $do_payment->success ) {
-
-								// Update the registration status.
-								$result->success = true;
-								$reg_status      = $do_payment->callback;
-							} else {
-
-								// Update the result.
-								$result->message = $do_payment->message;
-							}
+							// if ( $do_payment->success ) {
+							//
+							// Update the registration status.
+							// $result->success = true;
+							// $reg_status      = $do_payment->callback;
+							// } else {
+							//
+							// Update the result.
+							// $result->message = $do_payment->message;
+							// }
+							// }
+						} else {
+							$result->message = __( 'Please select a payment method', 'wacara' );
 						}
 					} else {
 
-						// There is nothing to do here, just finish the process :).
+						// There is nothing to do here, since payment is not required just finish the process :).
 						$result->success = true;
 
 						// Save registration status.

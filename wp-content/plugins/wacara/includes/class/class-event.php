@@ -79,8 +79,8 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 
 				// Parse more detail.
 				if ( $get_detail ) {
-					$is_single_day              = parent::get_meta( 'single_day' );
-					$this->date_start_timestamp = parent::get_meta( 'date_start' );
+					$is_single_day              = $this->get_meta( 'single_day' );
+					$this->date_start_timestamp = $this->get_meta( 'date_start' );
 					$this->date_start           = Helper::convert_date( $this->date_start_timestamp, true );
 					$this->is_single_day        = 'on' === $is_single_day ? true : false;
 
@@ -93,8 +93,8 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * Get event date end.
 		 */
 		private function set_date_end() {
-			$maybe_multi_date_end_timestamp = parent::get_meta( 'date_end' );
-			$this->maybe_time_end           = parent::get_meta( 'time_end' );
+			$maybe_multi_date_end_timestamp = $this->get_meta( 'date_end' );
+			$this->maybe_time_end           = $this->get_meta( 'time_end' );
 			$this->date_end                 = $this->is_single_day ? Helper::convert_date( $this->date_start_timestamp ) . ' ' . $this->maybe_time_end : Helper::convert_date( $maybe_multi_date_end_timestamp );
 			$this->date_end_timestamp       = $this->is_single_day ? strtotime( $this->date_end ) : $maybe_multi_date_end_timestamp;
 		}
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @return string
 		 */
 		public function get_logo_url() {
-			$main_logo = parent::get_meta( 'main_logo_id' );
+			$main_logo = $this->get_meta( 'main_logo_id' );
 
 			return $main_logo ? wp_get_attachment_image_url( $main_logo, 'medium' ) : Helper::get_site_logo_url();
 		}
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 */
 		public function is_event_allows_register() {
 			$result         = false;
-			$allow_register = parent::get_meta( 'allow_register' );
+			$allow_register = $this->get_meta( 'allow_register' );
 			if ( 'on' === $allow_register ) {
 				$result = true;
 			}
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 */
 		public function is_registration_limited() {
 			$result = false;
-			$limit  = parent::get_meta( 'limit_register' );
+			$limit  = $this->get_meta( 'limit_register' );
 			if ( 'on' === $limit ) {
 				$result = true;
 			}
@@ -192,9 +192,9 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			if ( $is_limited ) {
 
 				// Save limitation info into variables.
-				$maybe_limited_by_number                 = (int) parent::get_meta( 'max_registrant' );
-				$current_number_of_registered_registrant = (int) parent::get_meta( 'number_of_registrant' );
-				$maybe_limited_by_date                   = parent::get_meta( 'max_date' );
+				$maybe_limited_by_number                 = (int) $this->get_meta( 'max_registrant' );
+				$current_number_of_registered_registrant = (int) $this->get_meta( 'number_of_registrant' );
+				$maybe_limited_by_date                   = $this->get_meta( 'max_date' );
 				$current_timestamp                       = current_time( 'timestamp' );
 
 				// Check maybe limited by number of registrant.
@@ -240,7 +240,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 						if ( $event_end ) {
 
 							// Is location assigned.
-							$location = parent::get_meta( 'location' );
+							$location = $this->get_meta( 'location' );
 							if ( $location ) {
 
 								// Validate location.
@@ -282,9 +282,9 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * Maybe update the limitation.
 		 */
 		public function maybe_recount_limitation() {
-			$current_number_of_registered_registrant = (int) parent::get_meta( 'number_of_registrant' );
+			$current_number_of_registered_registrant = (int) $this->get_meta( 'number_of_registrant' );
 			$new_number_of_registered_registrant     = $current_number_of_registered_registrant + 1;
-			parent::save_meta( [ 'number_of_registrant' => $new_number_of_registered_registrant ] );
+			$this->save_meta( [ 'number_of_registrant' => $new_number_of_registered_registrant ] );
 		}
 
 		/**

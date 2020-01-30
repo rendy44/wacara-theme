@@ -129,7 +129,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						$this->save_qrcode_to_registrant();
 
 						// Update registrant meta after successfully being created.
-						parent::save_meta( $args );
+						$this->save_meta( $args );
 					}
 				} else {
 
@@ -163,11 +163,11 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					}
 
 					// Fetch registrant detail.
-					$this->registrant_data = parent::get_meta( $used_args );
+					$this->registrant_data = $this->get_meta( $used_args );
 
 					// Get readable status.
 					$readable_status = '';
-					$status          = parent::get_meta( 'reg_status' );
+					$status          = $this->get_meta( 'reg_status' );
 					switch ( $status ) {
 						case 'wait_payment':
 							$readable_status = __( 'Waiting Payment', 'wacara' );
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$qrcode_uri  = WACARA_URI . '/assets/qrcode/' . $qrcode_name;
 
 			// Save qrcode into registrant.
-			parent::save_meta(
+			$this->save_meta(
 				[
 					'qrcode_name' => $qrcode_name,
 					'qrcode_url'  => $qrcode_uri,
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @return array
 		 */
 		public function get_checkin_lists() {
-			$checkin_dates = (array) parent::get_meta( 'checkin_dates' );
+			$checkin_dates = (array) $this->get_meta( 'checkin_dates' );
 
 			return array_filter( $checkin_dates );
 		}
@@ -253,7 +253,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param string $id_number registrant id number.
 		 */
 		public function save_more_details( $name = '', $email = '', $company = '', $position = '', $phone = '', $id_number = '' ) {
-			parent::save_meta(
+			$this->save_meta(
 				[
 					'name'      => $name,
 					'email'     => $email,
@@ -273,13 +273,13 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$registrant_id = $this->post_id;
 
 			// Get registrant status.
-			$reg_status = parent::get_meta( 'reg_status' );
+			$reg_status = $this->get_meta( 'reg_status' );
 
 			// Validate registrant status.
 			if ( 'done' === $reg_status ) {
 
 				// Save event id into variable.
-				$event_id = parent::get_meta( 'event_id' );
+				$event_id = $this->get_meta( 'event_id' );
 
 				// Instance event obj.
 				$event = new Event( $event_id, true );
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$previous_checkin[] = $today_timestamp;
 
 			// Update the checkin dates.
-			parent::save_meta( [ 'checkin_dates' => $previous_checkin ] );
+			$this->save_meta( [ 'checkin_dates' => $previous_checkin ] );
 		}
 
 		/**
@@ -386,7 +386,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$registrant_id = $this->post_id;
 
 			// Change the status.
-			parent::save_meta( [ 'reg_status' => $status ] );
+			$this->save_meta( [ 'reg_status' => $status ] );
 
 			/**
 			 * Perform action when registrant status changed.
@@ -404,7 +404,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param string $payment_method selected payment method.
 		 */
 		public function save_payment_method_info( $payment_method ) {
-			parent::save_meta( [ 'payment_method' => $payment_method ] );
+			$this->save_meta( [ 'payment_method' => $payment_method ] );
 		}
 
 		/**
@@ -414,7 +414,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param string $currency currency code of invoice.
 		 */
 		public function save_invoicing_info( $price_need_to_pay_in_cent, $currency ) {
-			parent::save_meta(
+			$this->save_meta(
 				[
 					'price_in_cent' => $price_need_to_pay_in_cent,
 					'currency'      => $currency,
@@ -470,7 +470,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 				$this->set_registration_status( 'wait_verification' );
 
 				// Update the status.
-				parent::save_meta(
+				$this->save_meta(
 					[
 						'confirmation_timestamp' => $date_update,
 						'selected_bank_account'  => $selected_bank_account,
@@ -496,9 +496,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param int $unique_number the unique number.
 		 */
 		public function maybe_save_unique_number( $unique_number ) {
-			$old_price_in_cent                    = parent::get_meta( 'price_in_cent' );
+			$old_price_in_cent                    = $this->get_meta( 'price_in_cent' );
 			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique_number;
-			parent::save_meta(
+			$this->save_meta(
 				[
 					'maybe_unique_number'             => $unique_number,
 					'maybe_price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
@@ -512,7 +512,16 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_registration_status() {
-			return parent::get_meta( 'reg_status' );
+			return $this->get_meta( 'reg_status' );
+		}
+
+		/**
+		 * Get payment method id.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_payment_method_id() {
+			return $this->get_meta( 'payment_method' );
 		}
 
 		/**
@@ -522,19 +531,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_manual_payment_info_status() {
 			$result         = [ 'reg_status' => $this->get_registration_status() ];
-			$payment_method = parent::get_meta( 'payment_method' );
+			$payment_method = $this->get_payment_method_id();
 
 			// Parse the selected payment method.
 			if ( 'manual' === $payment_method ) {
 
 				// Prepare the variable.
-				$confirmation_timestamp = parent::get_meta( 'confirmation_timestamp' );
+				$confirmation_timestamp = $this->get_meta( 'confirmation_timestamp' );
 
 				$more_fields = [
-					'selected_bank_account'           => parent::get_meta( 'selected_bank_account' ),
-					'currency'                        => parent::get_meta( 'currency' ),
-					'maybe_unique_number'             => parent::get_meta( 'maybe_unique_number' ),
-					'maybe_price_in_cent_with_unique' => parent::get_meta( 'maybe_price_in_cent_with_unique' ),
+					'selected_bank_account'           => $this->get_meta( 'selected_bank_account' ),
+					'currency'                        => $this->get_meta( 'currency' ),
+					'maybe_unique_number'             => $this->get_meta( 'maybe_unique_number' ),
+					'maybe_price_in_cent_with_unique' => $this->get_meta( 'maybe_price_in_cent_with_unique' ),
 					'confirmation_timestamp'          => $confirmation_timestamp,
 					'confirmation_date_time'          => Helper::convert_date( $confirmation_timestamp, true, true ),
 					'payment_method'                  => $payment_method,

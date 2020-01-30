@@ -555,7 +555,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 						if ( (int) $price > 0 ) {
 							$result->success = true;
 						} else {
-							$result->message = __( 'The pricing amount should be greater than 0', 'wacara' );
+							$result->message = __( 'This pricing is free of charge', 'wacara' );
 						}
 					} else {
 						$result->success = true;

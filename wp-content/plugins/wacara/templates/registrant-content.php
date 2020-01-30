@@ -125,17 +125,36 @@ if ( '' === $reg_status ) {
 				 * Wacara registrant no payment method message filter hook.
 				 *
 				 * @param string $error_no_payment current error message.
+				 * @param Registrant $registrant object of the current registrant.
 				 */
-				$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment );
+				$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment, $registrant );
 
 				?>
 				<div class="wcr-form-field-wrapper">
 					<div class="wcr-alert wcr-alert-danger">
-                        <?php echo sprintf('<p>%s</p>',$error_no_payment); // phpcs:ignore?>
+						<?php echo sprintf( '<p>%s</p>', $error_no_payment ); // phpcs:ignore ?>
 					</div>
 				</div>
 				<?php
 			}
+		} else {
+			$no_payment_needed = $validate_pricing->message;
+
+			/**
+			 * Wacara registrant invalid pricing filter hook.
+			 *
+			 * @param string $no_payment_needed current invalid message.
+			 * @param Registrant $registrant object of the current registrant.
+			 */
+			$no_payment_needed = apply_filters( 'wacara_filter_registrant_invalid_pricing', $no_payment_needed, $registrant );
+
+			?>
+			<div class="wcr-form-field-wrapper">
+				<div class="wcr-alert wcr-alert-info">
+					<?php echo sprintf( '<p>%s</p>', $no_payment_needed ); // phpcs:ignore ?>
+				</div>
+			</div>
+			<?php
 		}
 
 		/**
@@ -154,11 +173,11 @@ if ( '' === $reg_status ) {
 		?>
 		<div class="wcr-field-disclaimer wcr-form-field-wrapper">
 			<div class="wcr-alert wcr-alert-info">
-				<p><?php esc_html_e( 'By clicking register, you are automatically agree to our term of service', 'wacara' ); ?></p>
+				<p><?php esc_html_e( 'By clicking continue, you are automatically agree to our term of service', 'wacara' ); ?></p>
 			</div>
 		</div>
 		<div class="wcr-form-submit wcr-registrant-form-submit-wrapper">
-			<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Register', 'wacara' ); ?></button>
+			<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Continue', 'wacara' ); ?></button>
 		</div>
 	</form>
 
@@ -169,6 +188,35 @@ if ( '' === $reg_status ) {
 	 * @param Registrant $registrant the object of the current registrant.
 	 */
 	do_action( 'wacara_after_registrant_form_content', $registrant );
+
+} elseif ( 'hold' === $reg_status ) {
+
+	/**
+	 * Wacara before registrant hold content hook.
+	 *
+	 * @param Registrant $registrantobject of the current registrant.
+	 */
+	do_action( 'wacara_before_registrant_hold_content', $registrant );
+
+	// Fetch payment method.
+	$payment_method = $registrant->get_payment_method_id();
+
+	// Make sure payment method is available.
+	if ( $payment_method ) {
+
+		// Fetch payment method class.
+		$payment_class = Register_Payment::get_payment_method_class( $payment_method );
+
+		// Render the content.
+		$payment_class->render();
+	}
+
+	/**
+	 * Wacara after registrant hold content hook.
+	 *
+	 * @param Registrant $registrant object of the current registrant.
+	 */
+	do_action( 'wacara_after_registrant_hold_content', $registrant );
 
 } elseif ( 'done' === $reg_status ) {
 
