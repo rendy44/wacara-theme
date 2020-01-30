@@ -108,9 +108,7 @@ if ( '' === $reg_status ) {
 					$maybe_checked = 0 === $payment_count ? 'checked' : '';
 					?>
 					<div class="wcr-form-field-multi-radio-wrapper">
-						<input type="radio" class="wcr-form-field"
-							   id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method"
-							   value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
+						<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
 						<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
 					</div>
 					<?php
@@ -120,6 +118,7 @@ if ( '' === $reg_status ) {
 			</div>
 			<?php
 		} else {
+
 			$error_no_payment = __( 'No payment methods available', 'wacara' );
 
 			/**
@@ -139,6 +138,7 @@ if ( '' === $reg_status ) {
 			<?php
 		}
 	} else {
+
 		$no_payment_needed = $validate_pricing->message;
 
 		/**
@@ -171,11 +171,25 @@ if ( '' === $reg_status ) {
 			<p><?php esc_html_e( 'By clicking continue, you are automatically agree to our term of service', 'wacara' ); ?></p>
 		</div>
 	</div>
-	<div class="wcr-form-submit wcr-registrant-form-submit-wrapper">
-		<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Continue', 'wacara' ); ?></button>
-	</div>
 
 	<?php
+
+	$submit_label = __( 'Continue', 'wacara' );
+
+	/**
+	 * Wacara hold registrant submit button filter hook.
+	 *
+	 * @param string $submit_label current submit label.
+	 * @param Registrant $registrant object of the current registrant.
+	 */
+	$submit_label = apply_filters( 'wacara_filter_hold_registrant_submit_label', $submit_label, $registrant );
+
+	$submit_args = [
+		'submit_label' => $submit_label,
+	];
+
+	Template::render( 'registrant/form-submit', $submit_args, true );
+
 	/**
 	 * Wacara after registrant form content hook.
 	 *
@@ -217,7 +231,8 @@ if ( '' === $reg_status ) {
 	 * @param Registrant $registrant object of the current registrant.
 	 * @param string $payment_method id of the selected payment method.
 	 *
-	 * @hooked registrant_hold_closing_field_callback - 40
+	 * @hooked registrant_hold_closing_field_callback - 30
+	 * @hooked registrant_hold_submit_button_callback - 40
 	 * @hooked registrant_hold_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_method );

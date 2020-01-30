@@ -98,13 +98,9 @@ import Ajax from "./class/ajax.js";
                 submitHandler: function (form, e) {
                     e.preventDefault();
                     // Define variables.
-                    const submit_button = $(form).find('.wcr-registrant-form-submit'),
+                    const submit_button = $(form).find('.wcr-form-submit'),
                         btn_original_text = submit_button.html(),
                         inputs = $(form).serializeArray();
-                    // const user_info = {
-                    //     name: $(form).find('input[name=name]').val(),
-                    //     email: $(form).find('input[name=email]').val(),
-                    // };
 
                     // Disable button.
                     submit_button.html('Loading...').prop('disabled', true);

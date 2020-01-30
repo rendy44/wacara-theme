@@ -103,7 +103,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_registrant_form_content', [ $this, 'registrant_form_closing_callback' ], 50, 1 );
 			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 2 );
 			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 2 );
-			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 40, 2 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 2 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 2 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_callback' ], 50, 2 );
 			add_action( 'wacara_registrant_custom_content', [ $this, 'registrant_custom_content_callback' ], 10, 2 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
@@ -679,6 +680,33 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
+		 * Callback for displaying hold participant form submit.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $payment_method id of the selected payment.
+		 */
+		public function registrant_hold_submit_button_callback( $registrant, $payment_method ) {
+
+			// Prepare default variable.
+			$submit_label = __( 'Checkout', 'wacara' );
+
+			/**
+			 * Wacara hold registrant submit button filter hook.
+			 *
+			 * @param string $submit_label current submit label.
+			 * @param Registrant $registrant object of the current registrant.
+			 * @param string $payment_method id of the selected payment method.
+			 */
+			$submit_label = apply_filters( 'wacara_filter_hold_registrant_submit_label', $submit_label, $registrant, $payment_method );
+
+			$submit_args = [
+				'submit_label' => $submit_label,
+			];
+
+			Template::render( 'registrant/form-submit', $submit_args, true );
+		}
+
+		/**
 		 * Callback for displaying hold participant form closing tag.
 		 *
 		 * @param Registrant $registrant object of the current registrant.
@@ -707,8 +735,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			 * Wacara registrant custom content variable filter hook.
 			 *
 			 * @param array $custom_args current default args.
+			 * @param Registrant $registrant object of the current registrant.
 			 */
-			$custom_args = apply_filters( 'wacara_filter_registrant_custom_content_var', $custom_args );
+			$custom_args = apply_filters( 'wacara_filter_registrant_custom_content_var', $custom_args, $registrant );
 
 			Template::render( "registrant/status-{$reg_status}", $custom_args, true );
 		}
