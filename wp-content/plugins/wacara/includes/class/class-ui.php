@@ -101,6 +101,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_registrant_content', [ $this, 'registrant_before_content_wrapper_callback' ], 20, 1 );
 			add_action( 'wacara_before_registrant_form_content', [ $this, 'registrant_form_opening_callback' ], 10, 1 );
 			add_action( 'wacara_after_registrant_form_content', [ $this, 'registrant_form_closing_callback' ], 50, 1 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 2 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 2 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 40, 2 );
+			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_callback' ], 50, 2 );
 			add_action( 'wacara_registrant_custom_content', [ $this, 'registrant_custom_content_callback' ], 10, 2 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
@@ -627,7 +631,65 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Registrant $registrant object of the current registrant.
 		 */
 		public function registrant_form_closing_callback( $registrant ) {
-			Template::render( 'registrant/form-close', [], true );
+			$form_args = [
+				'registrant_id' => $registrant->post_id,
+			];
+
+			Template::render( 'registrant/form-close', $form_args, true );
+		}
+
+		/**
+		 * Callback for displaying hold registrant form opening tag.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $payment_method id of the selected payment method.
+		 */
+		public function registrant_hold_opening_callback( $registrant, $payment_method ) {
+			$hold_args = [
+				'form_class' => 'wcr-hold-registrant-form',
+				'form_id'    => 'wcr-form-' . $payment_method . '-' . $registrant->post_id,
+			];
+
+			Template::render( 'registrant/form-open', $hold_args, true );
+		}
+
+		/**
+		 * Callback for displaying opening field for hold participant.
+		 *
+		 * @param Registrant $registrant object of the current participant.
+		 * @param string     $payment_method id of the selected payment method.
+		 */
+		public function registrant_hold_opening_field_callback( $registrant, $payment_method ) {
+			?>
+			<div class="wcr-field-payment wcr-form-field-wrapper">
+			<label><?php esc_html_e( 'Payment', 'wacara' ); ?></label>
+			<?php
+		}
+
+		/**
+		 * Callback for displaying closing field for hold participant.
+		 *
+		 * @param Registrant $registrant object of the current participant.
+		 * @param string     $payment_method id of the selected payment method.
+		 */
+		public function registrant_hold_closing_field_callback( $registrant, $payment_method ) {
+			?>
+			</div>
+			<?php
+		}
+
+		/**
+		 * Callback for displaying hold participant form closing tag.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $payment_method id of the selected payment method.
+		 */
+		public function registrant_hold_closing_callback( $registrant, $payment_method ) {
+			$form_args = [
+				'registrant_id' => $registrant->post_id,
+			];
+
+			Template::render( 'registrant/form-close', $form_args, true );
 		}
 
 		/**

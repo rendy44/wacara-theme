@@ -265,7 +265,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'wacara_payment' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
 
 			// Validate the inputs.
 			if ( $registrant_id && isset( $bank_account ) ) {
@@ -318,7 +318,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			$data            = Helper::post( 'data' );
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, 'wacara_payment' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
 
 			// Validate the inputs.
 			if ( $registrant_id ) {
