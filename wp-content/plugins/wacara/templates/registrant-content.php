@@ -195,9 +195,9 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrantobject of the current registrant.
 	 * @param string $payment_method id of the selected payment method.
-     *
+	 *
 	 * @hooked registrant_hold_opening_callback - 10
-     * @hooked registrant_hold_opening_field_callback - 20
+	 * @hooked registrant_hold_opening_field_callback - 20
 	 */
 	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_method );
 
@@ -217,7 +217,7 @@ if ( '' === $reg_status ) {
 	 * @param Registrant $registrant object of the current registrant.
 	 * @param string $payment_method id of the selected payment method.
 	 *
-     * @hooked registrant_hold_closing_field_callback - 40
+	 * @hooked registrant_hold_closing_field_callback - 40
 	 * @hooked registrant_hold_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_method );
