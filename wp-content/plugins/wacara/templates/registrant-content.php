@@ -200,6 +200,7 @@ if ( '' === $reg_status ) {
 		'submit_label' => $submit_label,
 	];
 
+	// Render submit button.
 	Template::render( 'registrant/form-submit', $submit_args, true );
 
 	/**
@@ -288,7 +289,7 @@ if ( '' === $reg_status ) {
 
 	// Make sure payment class is available.
 	if ( $payment_class ) {
-		$payment_class->render_custom_content( $registrant, $reg_status );
+		$payment_class->render_custom_content( $registrant, $pricing, $reg_status );
 	}
 
 	/**
