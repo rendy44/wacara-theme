@@ -174,6 +174,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function front_js() {
+		    return [];
 			return [
 				'offline-payment' => [
 					'url'     => plugin_dir_url( __FILE__ ) . '/js/offline-payment.js',

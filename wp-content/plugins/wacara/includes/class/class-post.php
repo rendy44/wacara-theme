@@ -48,8 +48,11 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		 */
 		public function __construct( $post_id, $post_type = 'post' ) {
 
+			// Get post type from db.
+			$db_post_type = get_post_type( $post_id );
+
 			// Validate the post.
-			if ( get_post_type( $post_id ) === $post_type ) {
+			if ( $db_post_type === $post_type ) {
 				$this->post_id    = $post_id;
 				$this->post_url   = get_permalink( $post_id );
 				$this->post_title = get_the_title( $post_id );
@@ -58,7 +61,7 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 				$this->success = true;
 			} else {
 				/* translators: 1: post tye */
-				$this->message = sprintf( __( 'The given id is not a valid %s', 'wacara' ), $post_type );
+				$this->message = sprintf( __( 'The given id is not a valid %1$s', 'wacara' ), $post_type );
 			}
 		}
 

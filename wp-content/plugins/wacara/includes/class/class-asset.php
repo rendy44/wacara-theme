@@ -98,7 +98,8 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * @return  string
 		 */
 		public function load_as_module( $tag, $handle, $src ) {
-			if ( in_array( $handle, $this->module_js, true ) ) {
+			$js_prefix = WACARA_PREFIX . 'module_';
+			if ( in_array( $handle, $this->module_js, true ) || false !== strpos( $handle, $js_prefix ) ) {
 				$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>'; // phpcs:ignore
 			}
 
@@ -145,6 +146,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				'wacara_main_js'    => [
 					'url'    => WACARA_URI . 'assets/js/wacara.js',
 					'vars'   => [
+						'prefix'   => WACARA_PREFIX,
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 					],
 					'depth'  => [ 'jquery' ],

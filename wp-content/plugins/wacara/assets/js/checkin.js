@@ -92,14 +92,14 @@ new class {
 
     find_registrant(booking_code) {
         return new Ajax(true, {
-            action: 'find_by_booking_code',
+            action: 'wcr_find_by_booking_code',
             booking_code: booking_code,
         });
     }
 
     do_checkin(registrant_id) {
         return new Ajax(true, {
-            action: 'registrant_checkin',
+            action: 'wcr_registrant_checkin',
             registrant_id: registrant_id,
         });
     }

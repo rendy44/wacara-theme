@@ -22,6 +22,13 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 	class Ajax {
 
 		/**
+		 * Variable for mapping js.
+		 *
+		 * @var array
+		 */
+		private $ajax_endpoints = [];
+
+		/**
 		 * Instance variable
 		 *
 		 * @var null
@@ -45,35 +52,121 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Ajax constructor.
 		 */
 		private function __construct() {
+			$this->register_ajax();
+
 			// Register ajax endpoint for registering registrant.
-			add_action( 'wp_ajax_nopriv_register', [ $this, 'register_callback' ] );
-			add_action( 'wp_ajax_register', [ $this, 'register_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_register', [ $this, 'register_callback' ] );
+			// add_action( 'wp_ajax_register', [ $this, 'register_callback' ] );
+			//
 			// Register ajax endpoint for making payment.
-			add_action( 'wp_ajax_nopriv_payment', [ $this, 'payment_callback' ] );
-			add_action( 'wp_ajax_payment', [ $this, 'payment_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_payment', [ $this, 'payment_callback' ] );
+			// add_action( 'wp_ajax_payment', [ $this, 'payment_callback' ] );
+			//
 			// Register ajax endpoint for processing payment confirmation.
-			add_action( 'wp_ajax_nopriv_confirmation', [ $this, 'confirmation_callback' ] );
-			add_action( 'wp_ajax_confirmation', [ $this, 'confirmation_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_confirmation', [ $this, 'confirmation_callback' ] );
+			// add_action( 'wp_ajax_confirmation', [ $this, 'confirmation_callback' ] );
+			//
 			// Register ajax endpoint for finding registrant by booking code before checking in..
-			add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
-			add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
+			// add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
+			//
 			// Register ajax endpoint for processing checkin.
-			add_action( 'wp_ajax_nopriv_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
-			add_action( 'wp_ajax_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
+			// add_action( 'wp_ajax_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
+			//
 			// Register ajax endpoint for displaying all registrants.
-			add_action( 'wp_ajax_nopriv_list_registrants', [ $this, 'list_registrants_callback' ] );
-			add_action( 'wp_ajax_list_registrants', [ $this, 'list_registrants_callback' ] );
-
+			// add_action( 'wp_ajax_nopriv_list_registrants', [ $this, 'list_registrants_callback' ] );
+			// add_action( 'wp_ajax_list_registrants', [ $this, 'list_registrants_callback' ] );
+			//
 			// Register ajax endpoint for displaying registrant payment status.
-			add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
-
+			// add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
+			//
 			// Register ajax endpoint for either verify or reject payment.
-			add_action( 'wp_ajax_verify_payment', [ $this, 'check_verify_payment_callback' ] );
+			// add_action( 'wp_ajax_verify_payment', [ $this, 'check_verify_payment_callback' ] );
+		}
+
+		/**
+		 * Register ajax endpoints.
+		 */
+		private function register_ajax() {
+			// Map endpoints first.
+			$this->map_ajax();
+
+			$default_obj = [
+				'public'   => true,
+				'admin'    => true,
+				'callback' => false,
+			];
+
+			foreach ( $this->ajax_endpoints as $endpoint => $obj ) {
+				$obj = wp_parse_args( $obj, $default_obj );
+
+				$this->do_register_ajax( $endpoint, $obj );
+			}
+		}
+
+		/**
+		 * Register ajax endpoints.
+		 *
+		 * @param string   $endpoint custome endpoint name.
+		 * @param callable $obj callback function.
+		 */
+		private function do_register_ajax( $endpoint, $obj ) {
+			$is_public       = $obj['public'];
+			$is_admin        = $obj['admin'];
+			$callback        = $obj['callback'];
+			$endpoint_prefix = WACARA_PREFIX;
+
+			// Only register endpoint that has callback.
+			if ( $callback ) {
+
+				// Register endpoint for public access.
+				if ( $is_public ) {
+					add_action( 'wp_ajax_nopriv_' . $endpoint_prefix . $endpoint, $callback );
+				}
+
+				// Register endpoint for admin access.
+				if ( $is_admin ) {
+					add_action( 'wp_ajax_' . $endpoint_prefix . $endpoint, $callback );
+				}
+			}
+		}
+
+		/**
+		 * Map ajax endpoint and its callback
+		 */
+		private function map_ajax() {
+			$this->ajax_endpoints = [
+				'select_price'     => [
+					'callback' => [ $this, 'register_callback' ],
+				],
+				'fill_detail'      => [
+					'callback' => [ $this, 'payment_callback' ],
+				],
+				'checkout'         => [
+					'callback' => [ $this, 'checkout_callback' ],
+				],
+				'confirm'          => [
+					'callback' => [ $this, 'confirmation_callback' ],
+				],
+				'find_reg_by_code' => [
+					'callback' => [ $this, 'find_by_booking_code_callback' ],
+				],
+				'checkin'          => [
+					'callback' => [ $this, 'registrant_checkin_callback' ],
+				],
+				'list_registrants' => [
+					'callback' => [ $this, 'list_registrants_callback' ],
+				],
+				'payment_status'   => [
+					'callback' => [ $this, 'check_payment_status_callback' ],
+					'public'   => false,
+				],
+				'verify_payment'   => [
+					'callback' => [ $this, 'check_verify_payment_callback' ],
+					'public'   => false,
+				],
+			];
 		}
 
 		/**
@@ -204,8 +297,9 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function register_callback() {
 			$result     = new Result();
-			$event_id   = Helper::post( 'event_id' );
-			$pricing_id = Helper::post( 'pricing_id' );
+			$data       = Helper::post( 'data' );
+			$event_id   = Helper::array_val( $data, 'event_id' );
+			$pricing_id = Helper::array_val( $data, 'pricing_id' );
 
 			// Validate the inputs.
 			if ( $event_id && $pricing_id ) {
@@ -326,98 +420,193 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				// Validate the nonce.
 				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
 
-					// Define variables.
-					$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
-					$email                = Helper::get_serialized_val( $unserialize_obj, 'email' );
-					$name                 = Helper::get_serialized_val( $unserialize_obj, 'name' );
-					$company              = Helper::get_serialized_val( $unserialize_obj, 'company' );
-					$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
-					$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
-					$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
-					$pricing_id           = Helper::get_post_meta( 'pricing_id', $registrant_id );
-					$pricing_currency     = Helper::get_post_meta( 'currency', $pricing_id );
-					$pricing_price        = Helper::get_post_meta( 'price', $pricing_id );
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
 
-					// First, convert the price into cent.
-					$pricing_price = $pricing_price * 100;
+					// Validate the registrant.
+					if ( $registrant->success ) {
+
+						// Define variables.
+						$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
+						$email                = Helper::get_serialized_val( $unserialize_obj, 'email' );
+						$name                 = Helper::get_serialized_val( $unserialize_obj, 'name' );
+						$company              = Helper::get_serialized_val( $unserialize_obj, 'company' );
+						$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
+						$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
+						$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
+						$pricing_id           = Helper::get_post_meta( 'pricing_id', $registrant->post_id );
+
+						// Instance the pricing.
+						$pricing = new Pricing( $pricing_id );
+
+						// Make sure the selected pricing is exist.
+						if ( $pricing->success ) {
+
+							// Validate the pricing.
+							$pricing->validate();
+
+							if ( $pricing->success ) {
+
+								// Fetch pricing's details.
+								$pricing_currency = $pricing->get_currency_code();
+								$pricing_price    = $pricing->get_price();
+
+								// First, convert the price into cent.
+								$pricing_price_in_cent = $pricing_price * 100;
+
+								// Instance the registrant.
+								$registrant = new Registrant( $registrant_id );
+
+								// Save the details.
+								$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+
+								// Save invoice info.
+								$registrant->save_invoicing_info( $pricing_price_in_cent, $pricing_currency );
+
+								// Define some variables related to registration.
+								$reg_status = '';
+
+								/**
+								 * Wacara before filling registrant detail hook.
+								 *
+								 * @param Registrant $registrant object of the current registrant.
+								 * @param string $maybe_payment_method maybe selected payment method.
+								 */
+								do_action( 'wacara_before_filling_registrant', $registrant, $maybe_payment_method );
+
+								// Check pricing price.
+								if ( $pricing_price > 0 ) {
+
+									// Check if payment method is selected.
+									if ( $maybe_payment_method ) {
+
+										// Update the result.
+										$result->success = true;
+
+										// Save registration status.
+										$reg_status = 'hold';
+
+									} else {
+
+										// Update the result.
+										$result->message = __( 'Please select a payment method', 'wacara' );
+									}
+								} else {
+
+									// There is nothing to do here, since payment is not required just finish the process :).
+									$result->success = true;
+
+									// Save registration status.
+									$reg_status = 'done';
+								}
+
+								/**
+								 * Wacara after filling registrant hook.
+								 *
+								 * @param Registrant $registrant object of the current registrant.
+								 * @param string $reg_status the status of registration.
+								 */
+								do_action( 'wacara_after_filling_registration', $registrant, $reg_status );
+
+								// Update the callback.
+								$result->callback = $registrant->get_registrant_url();
+
+								// Update registration status.
+								$registrant->set_registration_status( $reg_status );
+
+								// Save payment method information.
+								$registrant->save_payment_method_info( $maybe_payment_method );
+
+							} else {
+
+								// Update result.
+								$result->message = $pricing->message;
+							}
+						} else {
+
+							// Update the result.
+							$result->message = $pricing->message;
+						}
+					} else {
+
+						// Update the result.
+						$result->message = $registrant->message;
+					}
+				} else {
+
+					// Update the result.
+					$result->message = __( 'Please reload the page and try again', 'wacara' );
+				}
+			} else {
+
+				// Update the result.
+				$result->message = __( 'Please try again later', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
+		 * Callback for checking-out.
+		 */
+		public function checkout_callback() {
+			$result          = new Result();
+			$data            = Helper::post( 'data' );
+			$unserialize_obj = maybe_unserialize( $data );
+			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
+
+			// Validate the registrant.
+			if ( $registrant_id ) {
+
+				// Validate the nonce.
+				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
 
 					// Instance the registrant.
 					$registrant = new Registrant( $registrant_id );
 
-					// Save the details.
-					$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
-
-					// Save invoice info.
-					$registrant->save_invoicing_info( $pricing_price, $pricing_currency );
-
-					// Define some variables related to registration.
-					$reg_status = '';
+					// Fetch payment method.
+					$payment_method = $registrant->get_payment_method_id();
 
 					/**
-					 * Perform actions before finishing registration.
+					 * Wacara before registrant payment process hook.
 					 *
-					 * @param string $registrant_id the id of registrant.
-					 * @param string $maybe_payment_method maybe selected payment method.
+					 * @param Registrant $registrant object of the current registrant.
 					 */
-					do_action( 'wacara_before_finishing_registration', $registrant_id, $maybe_payment_method );
+					do_action( 'wacara_before_registrant_payment_process', $registrant );
 
-					// Validate the pricing.
-					$validate_pricing = Helper::is_pricing_valid( $pricing_id, true );
-					if ( $validate_pricing->success ) {
+					// Process the payment.
+					$selected_payment_method = Register_Payment::get_payment_method_class( $payment_method );
 
-						// Check if payment method is selected.
-						if ( $maybe_payment_method ) {
+					// Check if payment method is exist.
+					if ( $selected_payment_method ) {
+						$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
 
-							// Update the result.
-							$result->success = true;
+						// Validate the process.
+						if ( $do_payment->success ) {
 
-							// Save registration status.
-							$reg_status = 'hold';
-							// $selected_payment_method = Register_Payment::get_payment_method_class( $maybe_payment_method );
-							//
-							// Check if payment method is exist.
-							// if ( $selected_payment_method ) {
-							// $do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
-							// Validate the process.
-							// if ( $do_payment->success ) {
-							//
 							// Update the registration status.
-							// $result->success = true;
-							// $reg_status      = $do_payment->callback;
-							// } else {
-							//
-							// Update the result.
-							// $result->message = $do_payment->message;
-							// }
-							// }
+							$result->success = true;
+							$reg_status      = $do_payment->callback;
 						} else {
-							$result->message = __( 'Please select a payment method', 'wacara' );
+
+							// Update the result.
+							$result->message = $do_payment->message;
 						}
-					} else {
-
-						// There is nothing to do here, since payment is not required just finish the process :).
-						$result->success = true;
-
-						// Save registration status.
-						$reg_status = 'done';
 					}
 
 					/**
-					 * Perform actions after finishing registration.
+					 * Wacara after registrant payment process hook.
 					 *
-					 * @param string $registrant_id registrant id.
-					 * @param string $reg_status the status of registration.
+					 * @param Registrant $registrant object of the current registrant.
 					 */
-					do_action( 'wacara_after_finishing_registration', $registrant_id, $reg_status );
+					do_action( 'wacara_after_registrant_payment_process', $registrant );
 
 					// Update the callback.
 					$result->callback = $registrant->get_registrant_url();
 
 					// Update registration status.
 					$registrant->set_registration_status( $reg_status );
-
-					// Save payment method information.
-					$registrant->save_payment_method_info( $maybe_payment_method );
 
 				} else {
 

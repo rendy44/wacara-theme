@@ -536,41 +536,6 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		}
 
 		/**
-		 * Check whether the pricing is valid or not.
-		 *
-		 * @param string $pricing_id pricing id.
-		 * @param bool   $validate_the_price whether validate the price or not.
-		 *
-		 * @return Result
-		 */
-		public static function is_pricing_valid( $pricing_id, $validate_the_price = false ) {
-			$result = new Result();
-			// Is price assigned.
-			$price = self::get_post_meta( 'price', $pricing_id );
-			if ( $price || 0 === (int) $price ) {
-				// Is currency assigned.
-				$currency = self::get_post_meta( 'currency', $pricing_id );
-				if ( $currency ) {
-					if ( $validate_the_price ) {
-						if ( (int) $price > 0 ) {
-							$result->success = true;
-						} else {
-							$result->message = __( 'This pricing is free of charge', 'wacara' );
-						}
-					} else {
-						$result->success = true;
-					}
-				} else {
-					$result->message = __( 'The pricing is invalid, the currency has not been assigned yet', 'wacara' ) . $currency;
-				}
-			} else {
-				$result->message = __( 'The pricing is invalid, the price amount has not been assigned yet', 'wacara' );
-			}
-
-			return $result;
-		}
-
-		/**
 		 * Convert currency code into currency symbol.
 		 *
 		 * @param string $currency_code currency code that will be converted into currency symbol.

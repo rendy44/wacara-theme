@@ -1,5 +1,6 @@
 'use strict';
 import Ajax from "./class/ajax.js";
+import Helper from "./class/helper.js";
 
 (function ($) {
     /**
@@ -14,7 +15,7 @@ import Ajax from "./class/ajax.js";
         constructor() {
             this.eventLoadCountdown();
             this.eventRegister();
-            this.eventCheckout();
+            this.eventFillDetail();
         }
 
         /**
@@ -80,7 +81,7 @@ import Ajax from "./class/ajax.js";
                 // Perform the registration.
                 instance.doRegister(event_id, pricing_id)
                     .done(function (data) {
-                        instance.doNormalizeError(data, submit_button, original_caption);
+                        Helper.doNormalizeError(data, submit_button, original_caption);
                     })
                     .fail(function (data) {
                         // TODO: Validate error ajax.
@@ -89,9 +90,9 @@ import Ajax from "./class/ajax.js";
         }
 
         /**
-         * This function will be triggered once user checkout the registration.
+         * This function will be triggered once user filled the details.
          */
-        eventCheckout() {
+        eventFillDetail() {
             const instance = this;
             $('.wcr-form.wcr-registrant-form').validate({
                 focusInvalid: true,
@@ -105,9 +106,9 @@ import Ajax from "./class/ajax.js";
                     // Disable button.
                     submit_button.html('Loading...').prop('disabled', true);
 
-                    instance.doCheckout(inputs)
+                    instance.doFillDetail(inputs)
                         .done(function (data) {
-                            instance.doNormalizeError(data, submit_button, btn_original_text);
+                            Helper.doNormalizeError(data, submit_button, btn_original_text);
                         })
                         .fail(function (x) {
                             // TODO: Validate error ajax.
@@ -124,8 +125,7 @@ import Ajax from "./class/ajax.js";
          * @returns {Ajax}
          */
         doRegister(event_id, pricing_id) {
-            return new Ajax(true, {
-                action: 'register',
+            return new Ajax('select_price', true, {
                 event_id: event_id,
                 pricing_id: pricing_id,
             });
@@ -137,31 +137,8 @@ import Ajax from "./class/ajax.js";
          * @param inputs
          * @returns {Ajax}
          */
-        doCheckout(inputs) {
-            return new Ajax(true, {
-                action: 'payment',
-                data: inputs
-            });
-        }
-        /**
-         * Normalize the button depends on ajax status
-         *
-         * @param data
-         * @param button_element
-         * @param button_caption
-         */
-        doNormalizeError(data, button_element, button_caption) {
-            if (data.success) {
-                // Reload the page once the payment is success.
-                location.href = data.callback;
-            } else {
-                button_element.prop('disabled', false).html(button_caption);
-
-                Swal.fire({
-                    html: data.message,
-                    type: 'error',
-                })
-            }
+        doFillDetail(inputs) {
+            return new Ajax('fill_detail', true, inputs);
         }
     };
 })(jQuery);

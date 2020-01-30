@@ -8,6 +8,7 @@
  */
 
 use Wacara\Helper;
+use Wacara\Pricing;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
 use Wacara\Template;
@@ -91,68 +92,100 @@ if ( '' === $reg_status ) {
 	 */
 	do_action( 'wacara_before_registrant_payment_method_form', $registrant );
 
-	// Check whether payment is required or not.
-	$validate_pricing = Helper::is_pricing_valid( $invoice['pricing_id'], true );
-	if ( $validate_pricing->success ) {
+	// Instance pricing.
+	$pricing = new Pricing( $invoice['pricing_id'] );
 
-		// Fetch all available payment methods.
-		$payment_methods = Register_Payment::get_registered();
+	// Make sure the selected pricing is exist.
+	if ( $pricing->success ) {
 
-		if ( ! empty( $payment_methods ) ) {
-			?>
-			<div class="wcr-field-payment-method wcr-form-field-wrapper">
-				<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
-				<?php
-				$payment_count = 0;
-				foreach ( $payment_methods as $payment_method ) {
-					$maybe_checked = 0 === $payment_count ? 'checked' : '';
+		// Validate the pricing.
+		$pricing->validate();
+
+		if ( $pricing->success ) {
+
+			// Validate the pricing price.
+			$pricing_price = $pricing->get_price();
+			if ( $pricing_price > 0 ) {
+
+				// Fetch all available payment methods.
+				$payment_methods = Register_Payment::get_registered();
+
+				if ( ! empty( $payment_methods ) ) {
 					?>
-					<div class="wcr-form-field-multi-radio-wrapper">
-						<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
-						<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
+					<div class="wcr-field-payment-method wcr-form-field-wrapper">
+						<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
+						<?php
+						$payment_count = 0;
+						foreach ( $payment_methods as $payment_method ) {
+							$maybe_checked = 0 === $payment_count ? 'checked' : '';
+							?>
+							<div class="wcr-form-field-multi-radio-wrapper">
+								<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
+								<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
+							</div>
+							<?php
+							$payment_count ++;
+						}
+						?>
 					</div>
 					<?php
-					$payment_count ++;
+				} else {
+
+					$error_no_payment = __( 'No payment methods available', 'wacara' );
+
+					/**
+					 * Wacara registrant no payment method message filter hook.
+					 *
+					 * @param string $error_no_payment current error message.
+					 * @param Registrant $registrant object of the current registrant.
+					 */
+					$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment, $registrant );
+
+					?>
+					<div class="wcr-form-field-wrapper">
+						<div class="wcr-alert wcr-alert-danger">
+							<?php echo sprintf( '<p>%s</p>', $error_no_payment ); // phpcs:ignore ?>
+						</div>
+					</div>
+					<?php
 				}
-				?>
-			</div>
-			<?php
+			}
 		} else {
 
-			$error_no_payment = __( 'No payment methods available', 'wacara' );
+			$invalid_pricing = $pricing->message;
 
 			/**
-			 * Wacara registrant no payment method message filter hook.
+			 * Wacara registrant error pricing filter hook.
 			 *
-			 * @param string $error_no_payment current error message.
+			 * @param string $invalid_pricing current invalid message.
 			 * @param Registrant $registrant object of the current registrant.
 			 */
-			$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment, $registrant );
+			$invalid_pricing = apply_filters( 'wacara_filter_registrant_invalid_pricing', $invalid_pricing, $registrant );
 
 			?>
 			<div class="wcr-form-field-wrapper">
 				<div class="wcr-alert wcr-alert-danger">
-					<?php echo sprintf( '<p>%s</p>', $error_no_payment ); // phpcs:ignore ?>
+					<?php echo sprintf( '<p>%s</p>', $invalid_pricing ); // phpcs:ignore ?>
 				</div>
 			</div>
 			<?php
 		}
 	} else {
 
-		$no_payment_needed = $validate_pricing->message;
+		$error_pricing = $pricing->message;
 
 		/**
-		 * Wacara registrant invalid pricing filter hook.
+		 * Wacara registrant error pricing filter hook.
 		 *
-		 * @param string $no_payment_needed current invalid message.
+		 * @param string $error_pricing current invalid message.
 		 * @param Registrant $registrant object of the current registrant.
 		 */
-		$no_payment_needed = apply_filters( 'wacara_filter_registrant_invalid_pricing', $no_payment_needed, $registrant );
+		$error_pricing = apply_filters( 'wacara_filter_registrant_error_pricing', $error_pricing, $registrant );
 
 		?>
 		<div class="wcr-form-field-wrapper">
-			<div class="wcr-alert wcr-alert-info">
-				<?php echo sprintf( '<p>%s</p>', $no_payment_needed ); // phpcs:ignore ?>
+			<div class="wcr-alert wcr-alert-danger">
+				<?php echo sprintf( '<p>%s</p>', $error_pricing ); // phpcs:ignore ?>
 			</div>
 		</div>
 		<?php

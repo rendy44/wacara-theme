@@ -116,12 +116,18 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 */
 		public function maybe_load_assets_callback() {
 			global $post;
+			$js_prefix = WACARA_PREFIX . 'module_';
 			$js_files  = $this->front_js();
 			$css_files = $this->front_css();
 
+			// Just in case the payment method doesn't have js file, use default file instead.
+			if ( empty( $js_files ) ) {
+				$js_files = $this->reserve_js_files();
+			}
+
 			if ( 'registrant' === $post->post_type ) {
 				foreach ( $js_files as $js_name => $js_obj ) {
-					Helper::load_js( $js_name, $js_obj );
+					Helper::load_js( $js_prefix . $js_name, $js_obj );
 				}
 
 				foreach ( $css_files as $css_name => $css_obj ) {
@@ -147,6 +153,20 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Get default js files in checkout page.
+		 *
+		 * @return array
+		 */
+		private function reserve_js_files() {
+			return [
+				'default_checkout' => [
+					'url'     => WACARA_URI . 'assets/js/checkout.js',
+					'modules' => true,
+				],
+			];
 		}
 	}
 }
