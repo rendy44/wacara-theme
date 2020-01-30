@@ -33,7 +33,7 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 *
 		 * @var string
 		 */
-		private static $meta_prefix = TEMP_PREFIX;
+		private static $meta_prefix = WACARA_PREFIX;
 
 		/**
 		 * Theme options variable.
@@ -185,7 +185,7 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 * @param string $parent_slug parent slug.
 		 * @param string $prefix prefix key for option name.
 		 */
-		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = 'theme_options', $prefix = TEMP_PREFIX ) {
+		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = 'theme_options', $prefix = WACARA_PREFIX ) {
 			// Register custom option page.
 			$option_args = [
 				'id'           => $prefix . $option_id,

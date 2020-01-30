@@ -18,7 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define the constanta.
 defined( 'WACARA_URI' ) || define( 'WACARA_URI', plugin_dir_url( __FILE__ ) );
 defined( 'WACARA_PATH' ) || define( 'WACARA_PATH', plugin_dir_path( __FILE__ ) );
-defined( 'TEMP_PREFIX' ) || define( 'TEMP_PREFIX', 'wcr_' );
+defined( 'WACARA_PREFIX' ) || define( 'WACARA_PREFIX', 'wcr_' );
+defined( 'WACARA_VERSION' ) || define( 'WACARA_VERSION', '0.0.1' );
 
 // Require our main class.
 require_once WACARA_PATH . '/includes/class/class-wacara.php';

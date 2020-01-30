@@ -35,7 +35,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		 *
 		 * @var string
 		 */
-		private $meta_prefix = TEMP_PREFIX;
+		private $meta_prefix = WACARA_PREFIX;
 
 		/**
 		 * Singleton

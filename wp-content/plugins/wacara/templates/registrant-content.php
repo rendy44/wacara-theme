@@ -72,134 +72,137 @@ if ( '' === $reg_status ) {
 	 * Wacara before registrant form content hook.
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
+	 *
+	 * @hooked registrant_form_opening_callback - 10
 	 */
 	do_action( 'wacara_before_registrant_form_content', $registrant );
-	?>
 
-	<form class="wcr-form wcr-registrant-form" id="wcr-registrant-form-<?php echo esc_attr( $registrant->post_id ); ?>" method="post">
-		<?php
-		$used_fields = [ 'name', 'email', 'company', 'position', 'id_number', 'phone' ];
+	$used_fields = [ 'name', 'email', 'company', 'position', 'id_number', 'phone' ];
 
-		// Render all the fields.
-		foreach ( $used_fields as $field ) {
-			echo apply_filters( 'wacara_input_field_event', $event_id, $field ); // phpcs:ignore
-		}
+	// Render all the fields.
+	foreach ( $used_fields as $field ) {
+		echo apply_filters( 'wacara_input_field_event', $event_id, $field ); // phpcs:ignore
+	}
 
-		/**
-		 * Wacara before registrant payment method form hook.
-		 *
-		 * @param Registrant $registrant the object of the current registrant.
-		 */
-		do_action( 'wacara_before_registrant_payment_method_form', $registrant );
+	/**
+	 * Wacara before registrant payment method form hook.
+	 *
+	 * @param Registrant $registrant the object of the current registrant.
+	 */
+	do_action( 'wacara_before_registrant_payment_method_form', $registrant );
 
-		// Check whether payment is required or not.
-		$validate_pricing = Helper::is_pricing_valid( $invoice['pricing_id'], true );
-		if ( $validate_pricing->success ) {
+	// Check whether payment is required or not.
+	$validate_pricing = Helper::is_pricing_valid( $invoice['pricing_id'], true );
+	if ( $validate_pricing->success ) {
 
-			// Fetch all available payment methods.
-			$payment_methods = Register_Payment::get_registered();
+		// Fetch all available payment methods.
+		$payment_methods = Register_Payment::get_registered();
 
-			if ( ! empty( $payment_methods ) ) {
-				?>
-				<div class="wcr-field-payment-method wcr-form-field-wrapper">
-					<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
-					<?php
-					$payment_count = 0;
-					foreach ( $payment_methods as $payment_method ) {
-						$maybe_checked = 0 === $payment_count ? 'checked' : '';
-						?>
-						<div class="wcr-form-field-multi-radio-wrapper">
-							<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
-							<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
-						</div>
-						<?php
-						$payment_count ++;
-					}
+		if ( ! empty( $payment_methods ) ) {
+			?>
+			<div class="wcr-field-payment-method wcr-form-field-wrapper">
+				<label><?php esc_html_e( 'Payment Method', 'wacara' ); ?></label>
+				<?php
+				$payment_count = 0;
+				foreach ( $payment_methods as $payment_method ) {
+					$maybe_checked = 0 === $payment_count ? 'checked' : '';
 					?>
-				</div>
-				<?php
-			} else {
-				$error_no_payment = __( 'No payment methods available', 'wacara' );
-
-				/**
-				 * Wacara registrant no payment method message filter hook.
-				 *
-				 * @param string $error_no_payment current error message.
-				 * @param Registrant $registrant object of the current registrant.
-				 */
-				$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment, $registrant );
-
-				?>
-				<div class="wcr-form-field-wrapper">
-					<div class="wcr-alert wcr-alert-danger">
-						<?php echo sprintf( '<p>%s</p>', $error_no_payment ); // phpcs:ignore ?>
+					<div class="wcr-form-field-multi-radio-wrapper">
+						<input type="radio" class="wcr-form-field"
+							   id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method"
+							   value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
+						<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
 					</div>
-				</div>
-				<?php
-			}
+					<?php
+					$payment_count ++;
+				}
+				?>
+			</div>
+			<?php
 		} else {
-			$no_payment_needed = $validate_pricing->message;
+			$error_no_payment = __( 'No payment methods available', 'wacara' );
 
 			/**
-			 * Wacara registrant invalid pricing filter hook.
+			 * Wacara registrant no payment method message filter hook.
 			 *
-			 * @param string $no_payment_needed current invalid message.
+			 * @param string $error_no_payment current error message.
 			 * @param Registrant $registrant object of the current registrant.
 			 */
-			$no_payment_needed = apply_filters( 'wacara_filter_registrant_invalid_pricing', $no_payment_needed, $registrant );
+			$error_no_payment = apply_filters( 'wacara_filter_registrant_no_payment_method', $error_no_payment, $registrant );
 
 			?>
 			<div class="wcr-form-field-wrapper">
-				<div class="wcr-alert wcr-alert-info">
-					<?php echo sprintf( '<p>%s</p>', $no_payment_needed ); // phpcs:ignore ?>
+				<div class="wcr-alert wcr-alert-danger">
+					<?php echo sprintf( '<p>%s</p>', $error_no_payment ); // phpcs:ignore ?>
 				</div>
 			</div>
 			<?php
 		}
+	} else {
+		$no_payment_needed = $validate_pricing->message;
 
 		/**
-		 * Wacara after registrant payment method form hook.
+		 * Wacara registrant invalid pricing filter hook.
 		 *
-		 * @param Registrant $registrant the object of the current registrant.
+		 * @param string $no_payment_needed current invalid message.
+		 * @param Registrant $registrant object of the current registrant.
 		 */
-		do_action( 'wacara_after_registrant_payment_method_form', $registrant );
-
-		// Render current registrant id.
-		echo apply_filters( 'wacara_input_field', 'registrant_id', 'hidden', '', $registrant->post_id ); // phpcs:ignore
-
-		// Add nonce.
-		wp_nonce_field( 'wacara_nonce', 'wacara_payment' );
+		$no_payment_needed = apply_filters( 'wacara_filter_registrant_invalid_pricing', $no_payment_needed, $registrant );
 
 		?>
-		<div class="wcr-field-disclaimer wcr-form-field-wrapper">
+		<div class="wcr-form-field-wrapper">
 			<div class="wcr-alert wcr-alert-info">
-				<p><?php esc_html_e( 'By clicking continue, you are automatically agree to our term of service', 'wacara' ); ?></p>
+				<?php echo sprintf( '<p>%s</p>', $no_payment_needed ); // phpcs:ignore ?>
 			</div>
 		</div>
-		<div class="wcr-form-submit wcr-registrant-form-submit-wrapper">
-			<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Continue', 'wacara' ); ?></button>
+		<?php
+	}
+
+	/**
+	 * Wacara after registrant payment method form hook.
+	 *
+	 * @param Registrant $registrant the object of the current registrant.
+	 */
+	do_action( 'wacara_after_registrant_payment_method_form', $registrant );
+
+	// Render current registrant id.
+	echo apply_filters( 'wacara_input_field', 'registrant_id', 'hidden', '', $registrant->post_id ); // phpcs:ignore
+
+	// Add nonce.
+	wp_nonce_field( 'wacara_nonce', 'wacara_payment' );
+
+	?>
+	<div class="wcr-field-disclaimer wcr-form-field-wrapper">
+		<div class="wcr-alert wcr-alert-info">
+			<p><?php esc_html_e( 'By clicking continue, you are automatically agree to our term of service', 'wacara' ); ?></p>
 		</div>
-	</form>
+	</div>
+	<div class="wcr-form-submit wcr-registrant-form-submit-wrapper">
+		<button type="submit" class="wcr-form-submit wcr-button-main wcr-registrant-form-submit"><?php esc_html_e( 'Continue', 'wacara' ); ?></button>
+	</div>
 
 	<?php
 	/**
 	 * Wacara after registrant form content hook.
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
+	 *
+	 * @hooked registrant_form_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_form_content', $registrant );
 
 } elseif ( 'hold' === $reg_status ) {
 
+	// Fetch payment method.
+	$payment_method = $registrant->get_payment_method_id();
+
 	/**
 	 * Wacara before registrant hold content hook.
 	 *
 	 * @param Registrant $registrantobject of the current registrant.
+	 * @param string $payment_method id of the selected payment method.
 	 */
-	do_action( 'wacara_before_registrant_hold_content', $registrant );
-
-	// Fetch payment method.
-	$payment_method = $registrant->get_payment_method_id();
+	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_method );
 
 	// Make sure payment method is available.
 	if ( $payment_method ) {
@@ -215,8 +218,9 @@ if ( '' === $reg_status ) {
 	 * Wacara after registrant hold content hook.
 	 *
 	 * @param Registrant $registrant object of the current registrant.
+	 * @param string $payment_method id of the selected payment method.
 	 */
-	do_action( 'wacara_after_registrant_hold_content', $registrant );
+	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_method );
 
 } elseif ( 'done' === $reg_status ) {
 

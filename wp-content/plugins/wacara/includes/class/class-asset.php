@@ -31,13 +31,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Theme version variable.
-		 *
-		 * @var string
-		 */
-		private $version = '';
-
-		/**
 		 * Variable to mapping all css in front-end
 		 *
 		 * @var array
@@ -71,6 +64,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * @var array
 		 */
 		private $module_js = [];
+
 		/**
 		 * Singleton
 		 *
@@ -88,8 +82,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 * Asset constructor.
 		 */
 		private function __construct() {
-			$theme_object  = wp_get_theme();
-			$this->version = $theme_object->get( 'Version' );
 			$this->load_front_asset();
 			$this->load_admin_asset();
 
@@ -99,12 +91,11 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		/**
 		 * Filters the HTML script tag of an enqueued script.
 		 *
-		 * @param string $tag The `<script>` tag for the enqueued script.
+		 * @param string $tag The <script> tag for the enqueued script.
 		 * @param string $handle The script's registered handle.
 		 * @param string $src The script's source URL.
 		 *
 		 * @return  string
-		 * @since 4.1.0
 		 */
 		public function load_as_module( $tag, $handle, $src ) {
 			if ( in_array( $handle, $this->module_js, true ) ) {
@@ -112,23 +103,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			}
 
 			return $tag;
-		}
-
-		/**
-		 * Load js file
-		 *
-		 * @param string $name js name.
-		 * @param array  $obj_js js object.
-		 */
-		private function load_js( $name, array $obj_js ) {
-			$depth = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
-			wp_enqueue_script( $name, $obj_js['url'], $depth, $this->version, true );
-			if ( isset( $obj_js['vars'] ) ) {
-				wp_localize_script( $name, 'obj', $obj_js['vars'] );
-			}
-
-			// Maybe save as module.
-			$this->maybe_add_to_module( $name, $obj_js );
 		}
 
 		/**
@@ -141,16 +115,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			if ( ! empty( $obj_js['module'] ) ) {
 				$this->module_js[] = $name;
 			}
-		}
-		/**
-		 * Load css file
-		 *
-		 * @param string $name css name.
-		 * @param array  $obj_css css object.
-		 */
-		private function load_css( $name, array $obj_css ) {
-			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : [];
-			wp_enqueue_style( $name, $obj_css['url'], $depth, $this->version );
 		}
 
 		/**
@@ -178,10 +142,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				'jquery-validation' => [
 					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
 				],
-				// 'checkin'           => [
-				// 'url'    => WACARA_URI . 'assets/js/checkin.js',
-				// 'module' => true,
-				// ],
 				'wacara_main_js'    => [
 					'url'    => WACARA_URI . 'assets/js/wacara.js',
 					'vars'   => [
@@ -249,12 +209,14 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		public function front_asset_callback() {
 			// Load all css files.
 			foreach ( $this->front_css as $css_name => $css_obj ) {
-				wp_enqueue_style( $css_name, $css_obj['url'], [], $this->version );
+				Helper::load_css( $css_name, $css_obj );
 			}
 
 			// Load all js files.
 			foreach ( $this->front_js as $js_name => $js_obj ) {
-				$this->load_js( $js_name, $js_obj );
+				Helper::load_js( $js_name, $js_obj );
+
+				$this->maybe_add_to_module( $js_name, $js_obj );
 			}
 		}
 
@@ -264,12 +226,14 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		public function admin_assets_callback() {
 			// Load all js files.
 			foreach ( $this->admin_js as $js_name => $js_obj ) {
-				$this->load_js( $js_name, $js_obj );
+				Helper::load_js( $js_name, $js_obj );
+
+				$this->maybe_add_to_module( $js_name, $js_obj );
 			}
 
 			// Load all css files.
 			foreach ( $this->admin_css as $css_name => $css_obj ) {
-				$this->load_css( $css_name, $css_obj );
+				Helper::load_css( $css_name, $css_obj );
 			}
 		}
 	}

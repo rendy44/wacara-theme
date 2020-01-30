@@ -26,7 +26,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 *
 		 * @var string
 		 */
-		private static $meta_prefix = TEMP_PREFIX;
+		private static $meta_prefix = WACARA_PREFIX;
 
 		/**
 		 * Get main column bootstrap css class width
@@ -262,7 +262,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_list_of_locations() {
-			$cache_key = TEMP_PREFIX . 'locations_cache';
+			$cache_key = WACARA_PREFIX . 'locations_cache';
 			$locations = wp_cache_get( $cache_key );
 			if ( false === $locations ) {
 				global $wpdb;
@@ -280,7 +280,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_list_of_speakers() {
-			$cache_key = TEMP_PREFIX . 'speakers_cache';
+			$cache_key = WACARA_PREFIX . 'speakers_cache';
 			$speakers  = wp_cache_get( $cache_key );
 			if ( false === $speakers ) {
 				global $wpdb;
@@ -298,7 +298,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_list_of_prices() {
-			$cache_key = TEMP_PREFIX . 'prices_cache';
+			$cache_key = WACARA_PREFIX . 'prices_cache';
 			$prices    = wp_cache_get( $cache_key );
 			if ( false === $prices ) {
 				global $wpdb;
@@ -316,7 +316,7 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_list_of_headers() {
-			$cache_key = TEMP_PREFIX . 'headers_cache';
+			$cache_key = WACARA_PREFIX . 'headers_cache';
 			$headers   = wp_cache_get( $cache_key );
 			if ( false === $headers ) {
 				global $wpdb;
@@ -643,8 +643,8 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 			$result     = new Result();
 			$table_meta = $wpdb->prefix . 'postmeta';
 			$table_post = $wpdb->prefix . 'posts';
-			$post_meta  = TEMP_PREFIX . $meta_key;
-			$cache_key  = TEMP_PREFIX . $post_type . $meta_key . $meta_value;
+			$post_meta  = WACARA_PREFIX . $meta_key;
+			$cache_key  = WACARA_PREFIX . $post_type . $meta_key . $meta_value;
 
 			// Find post id from the cache.
 			$post_id = wp_cache_get( $cache_key );
@@ -747,6 +747,31 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 */
 		public static function locate_template( $template_name ) {
 			return locate_template( "wacara/{$template_name}.php" );
+		}
+
+		/**
+		 * Load css file
+		 *
+		 * @param string $name css name.
+		 * @param array  $obj_css css object.
+		 */
+		public static function load_css( $name, array $obj_css ) {
+			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : [];
+			wp_enqueue_style( $name, $obj_css['url'], $depth, WACARA_VERSION );
+		}
+
+		/**
+		 * Load js file
+		 *
+		 * @param string $name js name.
+		 * @param array  $obj_js js object.
+		 */
+		public static function load_js( $name, array $obj_js ) {
+			$depth = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
+			wp_enqueue_script( $name, $obj_js['url'], $depth, WACARA_VERSION, true );
+			if ( isset( $obj_js['vars'] ) ) {
+				wp_localize_script( $name, 'obj', $obj_js['vars'] );
+			}
 		}
 	}
 }

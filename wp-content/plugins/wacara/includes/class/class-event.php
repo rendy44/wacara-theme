@@ -291,7 +291,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * Generate all registrants.
 		 */
 		public function get_all_done_registrants() {
-			$key = TEMP_PREFIX;
+			$key = WACARA_PREFIX;
 			$this->get_all_registrants(
 				[
 					'meta_query' => [ // phpcs:ignore
@@ -314,7 +314,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @param int $page the current page.
 		 */
 		public function get_all_registrants_by_registration_status( $page = 1 ) {
-			$key = TEMP_PREFIX;
+			$key = WACARA_PREFIX;
 			$this->get_all_registrants(
 				[
 					'paged'          => $page,
@@ -331,7 +331,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @param array $custom_args override args.
 		 */
 		public function get_all_registrants( $custom_args = [] ) {
-			$key          = TEMP_PREFIX;
+			$key          = WACARA_PREFIX;
 			$default_args = [
 				'post_type'      => 'registrant',
 				'post_status'    => 'publish',

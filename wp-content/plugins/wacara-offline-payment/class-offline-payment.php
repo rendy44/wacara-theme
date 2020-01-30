@@ -51,15 +51,14 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		/**
 		 * Offline_Payment constructor.
 		 */
-		private function __construct() {
+		protected function __construct() {
 			$this->id          = 'offline-payment';
 			$this->name        = __( 'Offline Payment', 'wacara' );
 			$this->description = __( 'Offline payment method for Wacara', 'wacara' );
 			$this->automatic   = false;
 			$this->enable      = true;
 
-			// Do register the method.
-			Register_Payment::register( $this );
+			parent::__construct();
 		}
 
 		/**
@@ -166,6 +165,30 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					],
 				],
 			];
+		}
+
+
+		/**
+		 * Map js files that will be loaded in front-end.
+		 *
+		 * @return array
+		 */
+		public function front_js() {
+			return [
+				'offline-payment' => [
+					'url'     => plugin_dir_url( __FILE__ ) . '/js/offline-payment.js',
+					'modules' => true,
+				],
+			];
+		}
+
+		/**
+		 * Map css files that will be loaded in front-end.
+		 *
+		 * @return array
+		 */
+		public function front_css() {
+			return [];
 		}
 
 		/**
