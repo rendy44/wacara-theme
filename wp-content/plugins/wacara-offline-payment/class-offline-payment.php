@@ -60,6 +60,41 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			$this->path        = __FILE__;
 
 			parent::__construct();
+
+			$this->hooks();
+		}
+
+		/**
+		 * Register custom hook.
+		 */
+		private function hooks() {
+			add_filter( 'wacara_filter_form_registrant_submit_label', [ $this, 'custom_button_label_callback' ], 10, 4 );
+		}
+
+		/**
+		 * Callback for modifying submit button label.
+		 *
+		 * @param string     $submit_label current submit label.
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $payment_method id of the selected payment method.
+		 * @param string     $reg_status status of the current registrant.
+		 *
+		 * @return string|void
+		 */
+		public function custom_button_label_callback( $submit_label, $registrant, $payment_method, $reg_status ) {
+			switch ( $reg_status ) {
+				case 'waiting-payment':
+					$result = __( 'I have made a payment', 'wacara' );
+					break;
+				case 'waiting-verification':
+					$result = __( 'Oke', 'wacara' );
+					break;
+				default:
+					$result = $submit_label;
+					break;
+			}
+
+			return $result;
 		}
 
 		/**
@@ -175,7 +210,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function front_js() {
-		    return [];
+			return [];
+
 			return [
 				'offline-payment' => [
 					'url'     => plugin_dir_url( __FILE__ ) . '/js/offline-payment.js',
