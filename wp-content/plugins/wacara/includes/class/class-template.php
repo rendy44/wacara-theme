@@ -31,12 +31,22 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		/**
 		 * Set template folder
 		 */
-		private static function set_folder() {
+		private static function maybe_set_folder() {
 			$folder = WACARA_PATH . '/templates';
-			if ( $folder ) {
-				// normalize the internal folder value by removing any final slashes.
-				self::$folder = rtrim( $folder, '/' );
+
+			if ( ! self::$folder ) {
+
+				self::do_set_folder( $folder );
 			}
+		}
+
+		/**
+		 * Save folder path.
+		 *
+		 * @param string $path the folder path.
+		 */
+		private static function do_set_folder( $path ) {
+			self::$folder = rtrim( $path, '/' );
 		}
 
 		/**
@@ -47,7 +57,8 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 		 * @return bool|string
 		 */
 		private static function find_template( $file_name ) {
-			self::set_folder();
+			self::maybe_set_folder();
+
 			$found = false;
 			$file  = self::$folder . "/{$file_name}.php";
 			if ( file_exists( $file ) ) {
@@ -96,6 +107,30 @@ if ( ! class_exists( '\Wacara\Template' ) ) {
 			} else {
 				return $output;
 			}
+		}
+
+		/**
+		 * Set template folder
+		 *
+		 * @param bool|string $file file path.
+		 */
+		public static function override_folder( $file = false ) {
+			$folder = WACARA_PATH . '/templates';
+
+			if ( $file ) {
+				$folder = plugin_dir_path( $file ) . '/templates';
+			}
+
+			if ( $folder ) {
+				self::do_set_folder( $folder );
+			}
+		}
+
+		/**
+		 * Reset the template folder.
+		 */
+		public static function reset_folder() {
+			self::do_set_folder( '' );
 		}
 	}
 }

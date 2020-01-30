@@ -29,6 +29,10 @@ $event_id = $registrant->get_event_info();
 // Fetch invoice detail.
 $invoice = $registrant->get_invoicing_info();
 
+// Fetch payment method.
+$payment_method = $registrant->get_payment_method_id();
+$payment_class  = Register_Payment::get_payment_method_class( $payment_method );
+
 /**
  * Wacara before registrant masthead hook.
  *
@@ -209,9 +213,6 @@ if ( '' === $reg_status ) {
 
 } elseif ( 'hold' === $reg_status ) {
 
-	// Fetch payment method.
-	$payment_method = $registrant->get_payment_method_id();
-
 	/**
 	 * Wacara before registrant hold content hook.
 	 *
@@ -223,11 +224,8 @@ if ( '' === $reg_status ) {
 	 */
 	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_method );
 
-	// Make sure payment method is available.
-	if ( $payment_method ) {
-
-		// Fetch payment method class.
-		$payment_class = Register_Payment::get_payment_method_class( $payment_method );
+	// Make sure payment class is available.
+	if ( $payment_class ) {
 
 		// Render the content.
 		$payment_class->render();
@@ -288,15 +286,10 @@ if ( '' === $reg_status ) {
 	 */
 	do_action( 'wacara_before_registrant_custom_content', $registrant );
 
-	/**
-	 * Wacara registrant custom content hook
-	 *
-	 * @param Registrant $registrant the object of the current registrant.
-	 * @param string $reg_status current status of the registration.
-	 *
-	 * @hooked registrant_custom_content_callback - 10
-	 */
-	do_action( 'wacara_registrant_custom_content', $registrant, $reg_status );
+	// Make sure payment class is available.
+	if ( $payment_class ) {
+		$payment_class->render_custom_content( $registrant, $reg_status );
+	}
 
 	/**
 	 * Wacara after registrant custom content hook.

@@ -57,6 +57,13 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		public $enable = true;
 
 		/**
+		 * Path of main file location.
+		 *
+		 * @var string
+		 */
+		public $path = '';
+
+		/**
 		 * Payment_Method constructor.
 		 */
 		protected function __construct() {
@@ -167,6 +174,28 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 					'modules' => true,
 				],
 			];
+		}
+
+		/**
+		 * Render custom content based on registrant status.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $reg_status status of the registrant.
+		 */
+		public function render_custom_content( $registrant, $reg_status ) {
+
+			// Override template folder.
+			Template::override_folder( $this->path );
+
+			$temp_args = [
+				'registrant' => $registrant,
+				'reg_status' => $reg_status,
+			];
+
+			Template::render( 'status-' . $reg_status, $temp_args, true );
+
+			// Reset template folder.
+			Template::reset_folder();
 		}
 	}
 }

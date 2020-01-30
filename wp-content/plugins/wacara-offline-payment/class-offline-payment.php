@@ -57,6 +57,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			$this->description = __( 'Offline payment method for Wacara', 'wacara' );
 			$this->automatic   = false;
 			$this->enable      = true;
+			$this->path        = __FILE__;
 
 			parent::__construct();
 		}

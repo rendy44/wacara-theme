@@ -106,7 +106,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 2 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 2 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_callback' ], 50, 2 );
-			add_action( 'wacara_registrant_custom_content', [ $this, 'registrant_custom_content_callback' ], 10, 2 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
 		}
@@ -718,28 +717,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			Template::render( 'registrant/form-close', $form_args, true );
-		}
-
-		/**
-		 * Callback for displaying custom content based on registrant status.
-		 *
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param string     $reg_status status of the current registrant.
-		 */
-		public function registrant_custom_content_callback( $registrant, $reg_status ) {
-
-			// Prepare default variable.
-			$custom_args = [];
-
-			/**
-			 * Wacara registrant custom content variable filter hook.
-			 *
-			 * @param array $custom_args current default args.
-			 * @param Registrant $registrant object of the current registrant.
-			 */
-			$custom_args = apply_filters( 'wacara_filter_registrant_custom_content_var', $custom_args, $registrant );
-
-			Template::render( "registrant/status-{$reg_status}", $custom_args, true );
 		}
 
 		/**
