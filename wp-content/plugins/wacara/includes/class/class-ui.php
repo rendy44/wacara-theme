@@ -644,14 +644,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying hold registrant form opening tag.
 		 *
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param string     $payment_method id of the selected payment method.
-		 * @param string     $reg_status status of the current registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_opening_callback( $registrant, $payment_method, $reg_status ) {
+		public function registrant_hold_opening_callback( $registrant, $payment_class, $reg_status ) {
 			$hold_args = [
 				'form_class' => "wcr-{$reg_status}-registrant-form",
-				'form_id'    => "wcr-{$reg_status}-form-{$payment_method}-{$registrant->post_id}",
+				'form_id'    => "wcr-{$reg_status}-form-{$payment_class->id}-{$registrant->post_id}",
 			];
 
 			Template::render( 'registrant/form-open', $hold_args, true );
@@ -660,10 +660,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying opening field for hold participant.
 		 *
-		 * @param Registrant $registrant object of the current participant.
-		 * @param string     $payment_method id of the selected payment method.
+		 * @param Registrant                $registrant object of the current participant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 		 */
-		public function registrant_hold_opening_field_callback( $registrant, $payment_method ) {
+		public function registrant_hold_opening_field_callback( $registrant, $payment_class ) {
 			?>
 			<div class="wcr-field-payment wcr-form-field-wrapper">
 			<label><?php esc_html_e( 'Payment', 'wacara' ); ?></label>
@@ -673,10 +673,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying closing field for hold participant.
 		 *
-		 * @param Registrant $registrant object of the current participant.
-		 * @param string     $payment_method id of the selected payment method.
+		 * @param Registrant                $registrant object of the current participant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 		 */
-		public function registrant_hold_closing_field_callback( $registrant, $payment_method ) {
+		public function registrant_hold_closing_field_callback( $registrant, $payment_class ) {
 			?>
 			</div>
 			<?php
@@ -685,11 +685,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying hold participant form submit.
 		 *
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param string     $payment_method id of the selected payment.
-		 * @param string     $reg_status status of the current registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class id of the selected payment.
+		 * @param string                    $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_submit_button_callback( $registrant, $payment_method, $reg_status ) {
+		public function registrant_hold_submit_button_callback( $registrant, $payment_class, $reg_status ) {
 
 			// Prepare default variable.
 			$submit_label = __( 'Checkout', 'wacara' );
@@ -699,10 +699,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			 *
 			 * @param string $submit_label current submit label.
 			 * @param Registrant $registrant object of the current registrant.
-			 * @param string $payment_method id of the selected payment method.
+			 * @param Payment_Method|bool|mixed     $payment_class object of the selected payment method.
 			 * @param string $reg_status status of the current registrant.
 			 */
-			$submit_label = apply_filters( 'wacara_filter_form_registrant_submit_label', $submit_label, $registrant, $payment_method, $reg_status );
+			$submit_label = apply_filters( 'wacara_filter_form_registrant_submit_label', $submit_label, $registrant, $payment_class, $reg_status );
 
 			$submit_args = [
 				'submit_label' => $submit_label,
@@ -714,11 +714,11 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying hold participant form closing tag.
 		 *
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param string     $payment_method id of the selected payment method.
-		 * @param string     $reg_status status of the current registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
 		 */
-		public function registrant_hold_closing_callback( $registrant, $payment_method, $reg_status ) {
+		public function registrant_hold_closing_callback( $registrant, $payment_class, $reg_status ) {
 			$form_args = [
 				'registrant_id' => $registrant->post_id,
 			];

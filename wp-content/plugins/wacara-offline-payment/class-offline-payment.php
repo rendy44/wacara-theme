@@ -69,19 +69,20 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		private function hooks() {
 			add_filter( 'wacara_filter_form_registrant_submit_label', [ $this, 'custom_button_label_callback' ], 10, 4 );
+			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
 		}
 
 		/**
 		 * Callback for modifying submit button label.
 		 *
-		 * @param string     $submit_label current submit label.
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param string     $payment_method id of the selected payment method.
-		 * @param string     $reg_status status of the current registrant.
+		 * @param string                    $submit_label current submit label.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
 		 *
 		 * @return string|void
 		 */
-		public function custom_button_label_callback( $submit_label, $registrant, $payment_method, $reg_status ) {
+		public function custom_button_label_callback( $submit_label, $registrant, $payment_class, $reg_status ) {
 			switch ( $reg_status ) {
 				case 'waiting-payment':
 					$result = __( 'I have made a payment', 'wacara' );
@@ -95,6 +96,40 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Callback for modifying args for registrant custom content.
+		 *
+		 * @param array                     $temp_args default args.
+		 * @param string                    $reg_status status of the current registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 *
+		 * @return array
+		 */
+		public function custom_args_callback( $temp_args, $reg_status, $registrant, $payment_class ) {
+			switch ( $reg_status ) {
+				case 'waiting-payment':
+					// Fetch invoice info of the registrant.
+					$invoice_info = $registrant->get_invoicing_info();
+
+					// Fetch bank accounts from settings.
+					$bank_accounts = $this->get_bank_accounts();
+
+					// Add new element to the default array.
+					$new_args = [
+						'bank_accounts' => $bank_accounts,
+						'currency_code' => $invoice_info['currency'],
+						'amount'        => $invoice_info['price_in_cent'],
+					];
+
+					// Merge the array.
+					$temp_args = array_merge( $temp_args, $new_args );
+					break;
+			}
+
+			return $temp_args;
 		}
 
 		/**

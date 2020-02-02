@@ -179,11 +179,12 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		/**
 		 * Render custom content based on registrant status.
 		 *
-		 * @param Registrant $registrant object of the current registrant.
-		 * @param Pricing    $pricing object of selected pricing.
-		 * @param string     $reg_status status of the registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the registrant.
+		 * @param Pricing                   $pricing object of selected pricing.
 		 */
-		public function render_custom_content( $registrant, $pricing, $reg_status ) {
+		public function render_custom_content( $registrant, $payment_class, $reg_status, $pricing ) {
 
 			// Override template folder.
 			Template::override_folder( $this->path );
@@ -194,6 +195,17 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 				'reg_status' => $reg_status,
 			];
 
+			/**
+			 * Wacara filter registrant custom content args hook.
+			 *
+			 * @param array $temp_args default args.
+			 * @param string $reg_status status of the current registrant.
+			 * @param Registrant $registrant object of the current registrant.
+			 * @param Payment_Method|bool|mixed     $payment_class object of the selected payment method.
+			 */
+			$temp_args = apply_filters( 'wacara_filter_registrant_custom_content_args', $temp_args, $reg_status, $registrant, $payment_class );
+
+			// Render the template.
 			Template::render( 'status-' . $reg_status, $temp_args, true );
 
 			// Reset template folder.
