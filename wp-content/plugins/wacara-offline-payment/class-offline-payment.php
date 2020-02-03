@@ -9,6 +9,7 @@
 
 namespace Wacara\Payment;
 
+use Wacara\Helper;
 use Wacara\Payment_Method;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
@@ -119,9 +120,10 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 					// Add new element to the default array.
 					$new_args = [
-						'bank_accounts' => $bank_accounts,
-						'currency_code' => $invoice_info['currency'],
-						'amount'        => $invoice_info['price_in_cent'],
+						'bank_accounts'   => $bank_accounts,
+						'currency_code'   => $invoice_info['currency'],
+						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
+						'amount'          => number_format_i18n( $invoice_info['price_in_cent'] / 100, 2 ),
 					];
 
 					// Merge the array.
@@ -249,7 +251,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 			return [
 				'offline-payment' => [
-					'url'     => plugin_dir_url( __FILE__ ) . '/js/offline-payment.js',
+					'url'     => WCR_OP_URI . '/js/offline-payment.js',
 					'modules' => true,
 				],
 			];
@@ -261,7 +263,11 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function front_css() {
-			return [];
+			return [
+				'offline-payment' => [
+					'url' => WCR_OP_URI . '/css/offline-payment.css',
+				],
+			];
 		}
 
 		/**

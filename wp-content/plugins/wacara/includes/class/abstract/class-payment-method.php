@@ -206,7 +206,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			$temp_args = apply_filters( 'wacara_filter_registrant_custom_content_args', $temp_args, $reg_status, $registrant, $payment_class );
 
 			// Render the template.
-			Template::render( 'status-' . $reg_status, $temp_args, true );
+			Template::render( 'registrant/status-' . $reg_status, $temp_args, true );
 
 			// Reset template folder.
 			Template::reset_folder();

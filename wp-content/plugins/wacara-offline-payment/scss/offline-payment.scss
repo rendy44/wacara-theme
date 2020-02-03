@@ -1,0 +1,68 @@
+@import "../../wacara/assets/scss/base/variables";
+@import "../../wacara/assets/scss/base/mixins";
+
+.wcr-waiting-payment-registrant-form {
+  .wcr-command-wrapper {
+    margin-bottom: 1rem;
+
+    p.wcr-command {
+      margin: 0;
+    }
+  }
+
+  .wcr-amount-wrapper {
+    margin-bottom: 1rem;
+
+    h1.wcr-amount {
+      margin: 0;
+      font-weight: 600;
+      font-size: 40px;
+
+      span.wcr-currency {
+        font-weight: 400;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .wcr-bank-accounts-wrapper {
+    margin-bottom: 1rem;
+
+    .wcr-bank-account {
+      position: relative;
+
+      > label {
+        border: 1px solid $base_color;
+        overflow: hidden;
+        padding: 1rem .5rem .5rem .5rem;
+        margin-bottom: 0;
+        text-align: center;
+        cursor: pointer;
+        @include border-radius(4px);
+        @include transition(all .2s ease);
+
+        p {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+
+      > input[type=radio] {
+        display: none;
+
+        &:checked {
+          + label {
+            //background-color: red;
+            @include box-shadow(0, .4rem, 1rem);
+            border: 1px dashed darken($base_color, 10%);
+            background-color: lighten($base_color, 47%);
+
+            p {
+              color: darken($base_color, 30%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
