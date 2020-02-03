@@ -556,7 +556,11 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 				'GBP' => '£',
 			];
 
-			// Filter currency_symbols.
+			/**
+			 * Wacara currency symbol filter hook.
+			 *
+			 * @param array $symbols default available symbols.
+			 */
 			$symbols = apply_filters( 'wacara_currency_symbols', $symbols );
 
 			if ( ! empty( $symbols[ $currency_code ] ) ) {
