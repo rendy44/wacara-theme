@@ -70,7 +70,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			// Register this payment method.
 			Register_Payment::register( $this );
 
-			$this->maybe_load_assets();
+			$this->hooks();
 		}
 
 		/**
@@ -112,10 +112,18 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		abstract public function front_css();
 
 		/**
-		 * Load assets in front-end.
+		 * Get custom ajax endpoints.
+		 *
+		 * @return array
 		 */
-		private function maybe_load_assets() {
+		abstract public function ajax_endpoints();
+
+		/**
+		 * Add custom hooks.
+		 */
+		private function hooks() {
 			add_action( 'wp_enqueue_scripts', [ $this, 'maybe_load_assets_callback' ] );
+			add_filter( 'wacara_ajax_endpoints', [ $this, 'custom_ajax_endpoints_callback' ] );
 		}
 
 		/**
@@ -141,6 +149,24 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 					Helper::load_css( $css_name, $css_obj );
 				}
 			}
+		}
+
+		/**
+		 * Callback for modifying ajax endpoints.
+		 *
+		 * @param array $endpoints default ajax endpoints.
+		 *
+		 * @return  array
+		 */
+		public function custom_ajax_endpoints_callback( $endpoints ) {
+			$new_endpoints = $this->ajax_endpoints();
+
+			// Merge custom and core endpoints.
+			if ( ! empty( $new_endpoints ) ) {
+				$endpoints = array_merge( $endpoints, $new_endpoints );
+			}
+
+			return $endpoints;
 		}
 
 		/**
@@ -201,7 +227,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			 * @param array $temp_args default args.
 			 * @param string $reg_status status of the current registrant.
 			 * @param Registrant $registrant object of the current registrant.
-			 * @param Payment_Method|bool|mixed     $payment_class object of the selected payment method.
+			 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 			 */
 			$temp_args = apply_filters( 'wacara_filter_registrant_custom_content_args', $temp_args, $reg_status, $registrant, $payment_class );
 

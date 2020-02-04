@@ -66,6 +66,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 */
 		private function map_classes() {
 			$this->classes = [
+				'abstract/class-payment-method',
 				'class-result',
 				'class-helper',
 				'class-register-payment',
@@ -86,7 +87,6 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-pricing',
 				'class-stripe-wrapper',
 				'class-mailer',
-				'abstract/class-payment-method',
 				'class-asset',
 			];
 		}

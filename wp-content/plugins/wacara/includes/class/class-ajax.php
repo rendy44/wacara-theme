@@ -22,13 +22,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 	class Ajax {
 
 		/**
-		 * Variable for mapping js.
-		 *
-		 * @var array
-		 */
-		private $ajax_endpoints = [];
-
-		/**
 		 * Instance variable
 		 *
 		 * @var null
@@ -53,36 +46,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		private function __construct() {
 			$this->register_ajax();
-
-			// Register ajax endpoint for registering registrant.
-			// add_action( 'wp_ajax_nopriv_register', [ $this, 'register_callback' ] );
-			// add_action( 'wp_ajax_register', [ $this, 'register_callback' ] );
-			//
-			// Register ajax endpoint for making payment.
-			// add_action( 'wp_ajax_nopriv_payment', [ $this, 'payment_callback' ] );
-			// add_action( 'wp_ajax_payment', [ $this, 'payment_callback' ] );
-			//
-			// Register ajax endpoint for processing payment confirmation.
-			// add_action( 'wp_ajax_nopriv_confirmation', [ $this, 'confirmation_callback' ] );
-			// add_action( 'wp_ajax_confirmation', [ $this, 'confirmation_callback' ] );
-			//
-			// Register ajax endpoint for finding registrant by booking code before checking in..
-			// add_action( 'wp_ajax_nopriv_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
-			// add_action( 'wp_ajax_find_by_booking_code', [ $this, 'find_by_booking_code_callback' ] );
-			//
-			// Register ajax endpoint for processing checkin.
-			// add_action( 'wp_ajax_nopriv_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
-			// add_action( 'wp_ajax_registrant_checkin', [ $this, 'registrant_checkin_callback' ] );
-			//
-			// Register ajax endpoint for displaying all registrants.
-			// add_action( 'wp_ajax_nopriv_list_registrants', [ $this, 'list_registrants_callback' ] );
-			// add_action( 'wp_ajax_list_registrants', [ $this, 'list_registrants_callback' ] );
-			//
-			// Register ajax endpoint for displaying registrant payment status.
-			// add_action( 'wp_ajax_check_payment_status', [ $this, 'check_payment_status_callback' ] );
-			//
-			// Register ajax endpoint for either verify or reject payment.
-			// add_action( 'wp_ajax_verify_payment', [ $this, 'check_verify_payment_callback' ] );
 		}
 
 		/**
@@ -90,7 +53,14 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		private function register_ajax() {
 			// Map endpoints first.
-			$this->map_ajax();
+			$endpoints = $this->map_ajax();
+
+			/**
+			 * Wacara ajax endpoint filter hook.
+			 *
+			 * @param array $endpoints default ajax endpoints.
+			 */
+			$endpoints = apply_filters( 'wacara_ajax_endpoints', $endpoints );
 
 			$default_obj = [
 				'public'   => true,
@@ -98,8 +68,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				'callback' => false,
 			];
 
-			foreach ( $this->ajax_endpoints as $endpoint => $obj ) {
+			foreach ( $endpoints as $endpoint => $obj ) {
 				$obj = wp_parse_args( $obj, $default_obj );
+
+				echo '<pre>';
+				var_dump( $endpoint );
+				echo '</pre>';
 
 				$this->do_register_ajax( $endpoint, $obj );
 			}
@@ -108,7 +82,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		/**
 		 * Register ajax endpoints.
 		 *
-		 * @param string   $endpoint custome endpoint name.
+		 * @param string   $endpoint custom endpoint name.
 		 * @param callable $obj callback function.
 		 */
 		private function do_register_ajax( $endpoint, $obj ) {
@@ -134,9 +108,11 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 		/**
 		 * Map ajax endpoint and its callback
+		 *
+		 * @return array
 		 */
 		private function map_ajax() {
-			$this->ajax_endpoints = [
+			return [
 				'select_price'     => [
 					'callback' => [ $this, 'register_callback' ],
 				],
@@ -145,9 +121,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				],
 				'checkout'         => [
 					'callback' => [ $this, 'checkout_callback' ],
-				],
-				'confirm'          => [
-					'callback' => [ $this, 'confirmation_callback' ],
 				],
 				'find_reg_by_code' => [
 					'callback' => [ $this, 'find_by_booking_code_callback' ],
@@ -232,7 +205,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate registration status.
 					if ( 'wait_verification' === $reg_status ) {
 
-						// Collect payment infor.
+						// Collect payment information.
 						$payment_info       = $registrant->get_manual_payment_info_status();
 						$payment_info['id'] = $registrant->post_id;
 
@@ -345,60 +318,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 				// Update the result.
 				$result->message = __( 'Please provide a valid event id', 'wacara' );
-			}
-
-			wp_send_json( $result );
-		}
-
-		/**
-		 * Callback for making payment confirmation with manual bank transfer.
-		 */
-		public function confirmation_callback() {
-			$result          = new Result();
-			$data            = Helper::post( 'data' );
-			$unserialize_obj = maybe_unserialize( $data );
-			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
-			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
-
-			// Validate the inputs.
-			if ( $registrant_id && isset( $bank_account ) ) {
-
-				// Validate the nonce.
-				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
-
-					// Prepare the variables.
-					$bank_accounts = [];
-
-					// Get payment method options.
-					$payment_method     = Helper::get_post_meta( 'payment_method', $registrant_id );
-					$payment_method_obj = Register_Payment::get_payment_method_class( $payment_method );
-					if ( $payment_method_obj ) {
-						$bank_accounts = $payment_method_obj->get_admin_setting( 'bank_accounts' );
-					}
-
-					// Instance the registrant.
-					$registrant = new Registrant( $registrant_id );
-
-					// Update the registration.
-					$registrant->update_confirmation( $bank_account, $bank_accounts );
-
-					// Check the success status.
-					if ( $registrant->success ) {
-						$result->success  = true;
-						$result->callback = $registrant->get_registrant_url();
-					} else {
-						$result->message = $registrant->message;
-					}
-				} else {
-
-					// Update the result.
-					$result->message = __( 'Please reload the page and try again', 'wacara' );
-				}
-			} else {
-
-				// Update the result.
-				$result->message = __( 'Please select the bank account', 'wacara' );
 			}
 
 			wp_send_json( $result );

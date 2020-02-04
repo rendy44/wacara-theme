@@ -16,15 +16,21 @@ defined( 'WCR_OP_URI' ) || define( 'WCR_OP_URI', plugin_dir_url( __FILE__ ) );
 defined( 'WCR_OP_PATH' ) || define( 'WCR_OP_PATH', plugin_dir_path( __FILE__ ) );
 
 // Maybe load the main files.
-add_action( 'plugin_loaded', 'load_offline_payment' );
+register_activation_hook( __FILE__, 'maybe_activate_offline_payment' );
 
 /**
- * Callback for loading main class file.
+ * Callback for checking dependency plugin.
  */
-function load_offline_payment() {
-
-	// Only load the main class if wacara core is available.
-	if ( class_exists( 'Wacara\Wacara' ) ) {
-		require_once WCR_OP_PATH . 'class-offline-payment.php';
+function maybe_activate_offline_payment() {
+	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+		include_once ABSPATH . '/wp-admin/includes/plugin.php';
+	}
+	if ( current_user_can( 'activate_plugins' ) && ! class_exists( 'Wacara\Wacara' ) ) {
+		// Deactivate the plugin.
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		// Throw an error in the WordPress admin console.
+		/* translators: %s: plugin nme */
+		$error_message = '<p>' . sprintf( __( 'This plugin requires <strong>%s</strong> plugin to be active', 'wacara' ), 'Wacara' ) . '</p>';
+		die( $error_message ); // phpcs:ignore
 	}
 }

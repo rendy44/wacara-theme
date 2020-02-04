@@ -135,6 +135,60 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
+		 * Callback for making payment confirmation with manual bank transfer.
+		 */
+		public function confirmation_callback() {
+			$result          = new Result();
+			$data            = Helper::post( 'data' );
+			$unserialize_obj = maybe_unserialize( $data );
+			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
+			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
+
+			// Validate the inputs.
+			if ( $registrant_id && isset( $bank_account ) ) {
+
+				// Validate the nonce.
+				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
+
+					// Prepare the variables.
+					$bank_accounts = [];
+
+					// Get payment method options.
+					$payment_method     = Helper::get_post_meta( 'payment_method', $registrant_id );
+					$payment_method_obj = Register_Payment::get_payment_method_class( $payment_method );
+					if ( $payment_method_obj ) {
+						$bank_accounts = $payment_method_obj->get_admin_setting( 'bank_accounts' );
+					}
+
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
+
+					// Update the registration.
+					$registrant->update_confirmation( $bank_account, $bank_accounts );
+
+					// Check the success status.
+					if ( $registrant->success ) {
+						$result->success  = true;
+						$result->callback = $registrant->get_registrant_url();
+					} else {
+						$result->message = $registrant->message;
+					}
+				} else {
+
+					// Update the result.
+					$result->message = __( 'Please reload the page and try again', 'wacara' );
+				}
+			} else {
+
+				// Update the result.
+				$result->message = __( 'Please select the bank account', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
 		 * Render the offline payment in front-end.
 		 */
 		public function render() {
@@ -247,12 +301,9 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function front_js() {
-			return [];
-
 			return [
 				'offline-payment' => [
-					'url'     => WCR_OP_URI . '/js/offline-payment.js',
-					'modules' => true,
+					'url' => WCR_OP_URI . '/js/offline-payment.js',
 				],
 			];
 		}
@@ -266,6 +317,19 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			return [
 				'offline-payment' => [
 					'url' => WCR_OP_URI . '/css/offline-payment.css',
+				],
+			];
+		}
+
+		/**
+		 * Map custom ajax endpoints.
+		 *
+		 * @return array
+		 */
+		public function ajax_endpoints() {
+			return [
+				'confirm' => [
+					'callback' => [ $this, 'confirmation_callback' ],
 				],
 			];
 		}
