@@ -12,120 +12,130 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Wacara\Wacara' ) ) {
+/**
+ * Class Wacara
+ *
+ * @package Wacara
+ */
+final class Wacara {
 
 	/**
-	 * Class Wacara
+	 * Instance variable
 	 *
-	 * @package Wacara
+	 * @var null
 	 */
-	class Wacara {
+	private static $instance = null;
+	/**
+	 * Classes variable
+	 *
+	 * @var array
+	 */
+	private $classes = [];
+	/**
+	 * Libraries variable
+	 *
+	 * @var array
+	 */
+	private $libraries = [];
 
-		/**
-		 * Instance variable
-		 *
-		 * @var null
-		 */
-		private static $instance = null;
-		/**
-		 * Classes variable
-		 *
-		 * @var array
-		 */
-		private $classes = [];
-		/**
-		 * Libraries variable
-		 *
-		 * @var array
-		 */
-		private $libraries = [];
-
-		/**
-		 * Singleton
-		 *
-		 * @return null|Wacara
-		 */
-		public static function init() {
-			if ( null === self::$instance ) {
-				self::$instance = new self();
-			}
-
-			return self::$instance;
+	/**
+	 * Singleton
+	 *
+	 * @return null|Wacara
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
 		}
 
-		/**
-		 * Wacara constructor.
-		 */
-		private function __construct() {
-			$this->load_libraries();
-			$this->load_classes();
-		}
+		return self::$instance;
+	}
 
-		/**
-		 * Map all dependency classes that's required by our theme
-		 */
-		private function map_classes() {
-			$this->classes = [
-				'abstract/class-payment-method',
-				'class-result',
-				'class-helper',
-				'class-register-payment',
-				'class-template',
-				'class-ui',
-				'class-setting',
-				'class-options',
-				'class-metabox',
-				'class-cpt',
-				'class-cmb2-conditionals',
-				'class-cmb2-hooks',
-				'class-ajax',
-				'class-action',
-				'class-post',
-				'class-event',
-				'class-transaction',
-				'class-registrant',
-				'class-pricing',
-				'class-stripe-wrapper',
-				'class-mailer',
-				'class-asset',
-			];
-		}
+	/**
+	 * Wacara constructor.
+	 */
+	private function __construct() {
+		$this->load_libraries();
+		$this->load_classes();
+		$this->load_hooks();
+	}
 
-		/**
-		 * Map all dependency libraries that`s required by our theme
-		 */
-		private function map_libraries() {
-			$this->libraries = [
-				'cmb2/init',
-				'cmb2-tabs/plugin',
-				'cmb2-select2/cmb-field-select2',
-				'stripe-php/init',
-				'phpqrcode/qrlib',
-			];
-		}
+	/**
+	 * Trigger loaded plugin hook.
+	 */
+	private function load_hooks() {
+		add_action( 'plugins_loaded', [ $this, 'trigger_hook_loader_callback' ], - 1 );
+	}
 
-		/**
-		 * Load dependency classes
-		 */
-		private function load_classes() {
-			$this->map_classes();
+	/**
+	 * Callback for triggering hook loader.
+	 */
+	public function trigger_hook_loader_callback() {
+		do_action( 'wacara_loaded' );
+	}
 
-			foreach ( $this->classes as $class ) {
-				require WACARA_PATH . "/includes/class/{$class}.php";
-			}
-		}
+	/**
+	 * Map all dependency classes that's required by our theme
+	 */
+	private function map_classes() {
+		$this->classes = [
+			'abstract/class-payment-method',
+			'class-result',
+			'class-helper',
+			'class-register-payment',
+			'class-template',
+			'class-ui',
+			'class-setting',
+			'class-options',
+			'class-metabox',
+			'class-cpt',
+			'class-cmb2-conditionals',
+			'class-cmb2-hooks',
+			'class-ajax',
+			'class-action',
+			'class-post',
+			'class-event',
+			'class-transaction',
+			'class-registrant',
+			'class-pricing',
+			'class-stripe-wrapper',
+			'class-mailer',
+			'class-asset',
+		];
+	}
 
-		/**
-		 * Load dependency libraries
-		 */
-		private function load_libraries() {
-			$this->map_libraries();
+	/**
+	 * Map all dependency libraries that`s required by our theme
+	 */
+	private function map_libraries() {
+		$this->libraries = [
+			'cmb2/init',
+			'cmb2-tabs/plugin',
+			'cmb2-select2/cmb-field-select2',
+			'stripe-php/init',
+			'phpqrcode/qrlib',
+		];
+	}
 
-			foreach ( $this->libraries as $library ) {
-				require WACARA_PATH . "/includes/lib/{$library}.php";
-			}
+	/**
+	 * Load dependency classes
+	 */
+	private function load_classes() {
+		$this->map_classes();
+
+		foreach ( $this->classes as $class ) {
+			require WACARA_PATH . "/includes/class/{$class}.php";
 		}
 	}
 
-	Wacara::init();
+	/**
+	 * Load dependency libraries
+	 */
+	private function load_libraries() {
+		$this->map_libraries();
+
+		foreach ( $this->libraries as $library ) {
+			require WACARA_PATH . "/includes/lib/{$library}.php";
+		}
+	}
 }

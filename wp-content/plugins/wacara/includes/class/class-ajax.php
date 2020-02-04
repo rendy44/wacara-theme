@@ -71,10 +71,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			foreach ( $endpoints as $endpoint => $obj ) {
 				$obj = wp_parse_args( $obj, $default_obj );
 
-				echo '<pre>';
-				var_dump( $endpoint );
-				echo '</pre>';
-
 				$this->do_register_ajax( $endpoint, $obj );
 			}
 		}

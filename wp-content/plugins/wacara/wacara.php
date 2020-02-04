@@ -11,6 +11,8 @@
  * @package Wacara
  */
 
+use Wacara\Wacara;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -22,4 +24,8 @@ defined( 'WACARA_PREFIX' ) || define( 'WACARA_PREFIX', 'wcr_' );
 defined( 'WACARA_VERSION' ) || define( 'WACARA_VERSION', '0.0.1' );
 
 // Require our main class.
-require_once WACARA_PATH . '/includes/class/class-wacara.php';
+if ( ! class_exists( 'Wacara\Wacara' ) ) {
+	require_once WACARA_PATH . '/includes/class/class-wacara.php';
+}
+
+$GLOBALS['wacara'] = Wacara::init();
