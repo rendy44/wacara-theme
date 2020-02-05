@@ -649,8 +649,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string                    $reg_status status of the current registrant.
 		 */
 		public function registrant_hold_opening_callback( $registrant, $payment_class, $reg_status ) {
-			$hold_args = [
-				'form_class' => "wcr-{$reg_status}-registrant-form",
+			$custom_checkout_class = $payment_class->custom_checkout ? 'custom-checkout' : 'normal-checkout';
+			$hold_args             = [
+				'form_class' => "wcr-{$reg_status}-registrant-form wcr-{$custom_checkout_class}",
 				'form_id'    => "wcr-{$reg_status}-form-{$payment_class->id}-{$registrant->post_id}",
 			];
 

@@ -53,12 +53,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * Offline_Payment constructor.
 		 */
 		protected function __construct() {
-			$this->id          = 'offline-payment';
-			$this->name        = __( 'Offline Payment', 'wacara' );
-			$this->description = __( 'Offline payment method for Wacara', 'wacara' );
-			$this->automatic   = false;
-			$this->enable      = true;
-			$this->path        = __FILE__;
+			$this->id              = 'offline-payment';
+			$this->name            = __( 'Offline Payment', 'wacara' );
+			$this->description     = __( 'Manual payment using bank transfer', 'wacara' );
+			$this->custom_checkout = false;
+			$this->enable          = true;
+			$this->path            = __FILE__;
 
 			parent::__construct();
 

@@ -120,7 +120,7 @@ if ( '' === $reg_status ) {
 						?>
 						<div class="wcr-form-field-multi-radio-wrapper">
 							<input type="radio" class="wcr-form-field" id="payment_<?php echo esc_attr( $payment_method->id ); ?>" name="payment_method" value="<?php echo esc_attr( $payment_method->id ); ?>" <?php echo esc_attr( $maybe_checked ); ?>>
-							<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>"><?php echo esc_html( $payment_method->name ); ?></label>
+							<label for="payment_<?php echo esc_attr( $payment_method->id ); ?>" class="wcr-tooltip"><?php echo esc_html( $payment_method->name ); ?><span class="wcr-tooltip-text"><?php echo esc_html( $payment_method->description ); ?></span></label>
 						</div>
 						<?php
 						$payment_count ++;
@@ -185,7 +185,6 @@ if ( '' === $reg_status ) {
 	</div>
 
 	<?php
-
 	$submit_label = __( 'Continue', 'wacara' );
 
 	/**
@@ -285,9 +284,9 @@ if ( '' === $reg_status ) {
 	/**
 	 * Wacara before registrant custom content hook.
 	 *
-	 * @param Registrant                $registrant object of the current registrant.
+	 * @param Registrant $registrant object of the current registrant.
 	 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-	 * @param string                    $reg_status status of the current registrant.
+	 * @param string $reg_status status of the current registrant.
 	 *
 	 * @hooked registrant_hold_opening_callback - 10
 	 */

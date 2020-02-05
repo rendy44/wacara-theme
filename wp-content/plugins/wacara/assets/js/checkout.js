@@ -8,7 +8,7 @@ import Helper from "./class/helper.js";
      * Default checkout class.
      */
     new class {
-        checkoutForm = $('.wcr-form.wcr-hold-registrant-form');
+        checkoutForm = $('.wcr-form.wcr-hold-registrant-form.wcr-normal-checkout');
 
         /**
          * Default checkout constructor.
