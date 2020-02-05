@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Wacara
- * Description: Ultimate Event Organizer for WordPress
+ * Description: Ultimate Conference Ticket Organizer for WordPress
  * Author: Rendy
  * Author URI: http://fb.com/rendy.444444
  * Version: 0.0.1
@@ -28,4 +28,5 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 	require_once WACARA_PATH . '/includes/class/class-wacara.php';
 }
 
+// Instance the main class.
 $GLOBALS['wacara'] = Wacara::init();
