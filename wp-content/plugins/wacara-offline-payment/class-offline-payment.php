@@ -66,129 +66,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
-		 * Register custom hook.
-		 */
-		private function hooks() {
-			add_filter( 'wacara_filter_form_registrant_submit_label', [ $this, 'custom_button_label_callback' ], 10, 4 );
-			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
-		}
-
-		/**
-		 * Callback for modifying submit button label.
-		 *
-		 * @param string                    $submit_label current submit label.
-		 * @param Registrant                $registrant object of the current registrant.
-		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-		 * @param string                    $reg_status status of the current registrant.
-		 *
-		 * @return string|void
-		 */
-		public function custom_button_label_callback( $submit_label, $registrant, $payment_class, $reg_status ) {
-			switch ( $reg_status ) {
-				case 'waiting-payment':
-					$result = __( 'I have made a payment', 'wacara' );
-					break;
-				case 'waiting-verification':
-					$result = __( 'Oke', 'wacara' );
-					break;
-				default:
-					$result = $submit_label;
-					break;
-			}
-
-			return $result;
-		}
-
-		/**
-		 * Callback for modifying args for registrant custom content.
-		 *
-		 * @param array                     $temp_args default args.
-		 * @param string                    $reg_status status of the current registrant.
-		 * @param Registrant                $registrant object of the current registrant.
-		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-		 *
-		 * @return array
-		 */
-		public function custom_args_callback( $temp_args, $reg_status, $registrant, $payment_class ) {
-			switch ( $reg_status ) {
-				case 'waiting-payment':
-					// Fetch invoice info of the registrant.
-					$invoice_info = $registrant->get_invoicing_info();
-
-					// Fetch bank accounts from settings.
-					$bank_accounts = $this->get_bank_accounts();
-
-					// Add new element to the default array.
-					$new_args = [
-						'bank_accounts'   => $bank_accounts,
-						'currency_code'   => $invoice_info['currency'],
-						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
-						'amount'          => number_format_i18n( $invoice_info['price_in_cent'] / 100, 2 ),
-					];
-
-					// Merge the array.
-					$temp_args = array_merge( $temp_args, $new_args );
-					break;
-			}
-
-			return $temp_args;
-		}
-
-		/**
-		 * Callback for making payment confirmation with manual bank transfer.
-		 */
-		public function confirmation_callback() {
-			$result          = new Result();
-			$data            = Helper::post( 'data' );
-			$unserialize_obj = maybe_unserialize( $data );
-			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
-			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
-			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
-
-			// Validate the inputs.
-			if ( $registrant_id && isset( $bank_account ) ) {
-
-				// Validate the nonce.
-				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
-
-					// Prepare the variables.
-					$bank_accounts = [];
-
-					// Get payment method options.
-					$payment_method     = Helper::get_post_meta( 'payment_method', $registrant_id );
-					$payment_method_obj = Register_Payment::get_payment_method_class( $payment_method );
-					if ( $payment_method_obj ) {
-						$bank_accounts = $payment_method_obj->get_admin_setting( 'bank_accounts' );
-					}
-
-					// Instance the registrant.
-					$registrant = new Registrant( $registrant_id );
-
-					// Update the registration.
-					$registrant->update_confirmation( $bank_account, $bank_accounts );
-
-					// Check the success status.
-					if ( $registrant->success ) {
-						$result->success  = true;
-						$result->callback = $registrant->get_registrant_url();
-					} else {
-						$result->message = $registrant->message;
-					}
-				} else {
-
-					// Update the result.
-					$result->message = __( 'Please reload the page and try again', 'wacara' );
-				}
-			} else {
-
-				// Update the result.
-				$result->message = __( 'Please select the bank account', 'wacara' );
-			}
-
-			wp_send_json( $result );
-		}
-
-		/**
 		 * Render the offline payment in front-end.
 		 */
 		public function render() {
@@ -243,7 +120,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 			return $result;
 		}
-
 
 		/**
 		 * Admin settings.
@@ -335,12 +211,128 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
+		 * Register custom hook.
+		 */
+		private function hooks() {
+			add_filter( 'wacara_filter_form_registrant_submit_label', [ $this, 'custom_button_label_callback' ], 10, 4 );
+			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
+		}
+
+		/**
 		 * Get bank accounts information.
 		 *
 		 * @return bool|mixed|void
 		 */
 		private function get_bank_accounts() {
 			return $this->get_admin_setting( 'bank_accounts' );
+		}
+
+		/**
+		 * Callback for making payment confirmation with manual bank transfer.
+		 */
+		public function confirmation_callback() {
+			$result          = new Result();
+			$data            = Helper::post( 'data' );
+			$unserialize_obj = maybe_unserialize( $data );
+			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
+			$bank_account    = Helper::get_serialized_val( $unserialize_obj, 'selected_bank' );
+			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
+
+			// Validate the inputs.
+			if ( $registrant_id && isset( $bank_account ) ) {
+
+				// Validate the nonce.
+				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
+
+					// Prepare the variables.
+					$bank_accounts = $this->get_bank_accounts();
+
+					// Instance the registrant.
+					$registrant = new Registrant( $registrant_id );
+
+					// Update the registration.
+					$registrant->update_confirmation( $bank_account, $bank_accounts );
+
+					// Check the success status.
+					if ( $registrant->success ) {
+						$result->success  = true;
+						$result->callback = $registrant->get_registrant_url();
+					} else {
+						$result->message = $registrant->message;
+					}
+				} else {
+
+					// Update the result.
+					$result->message = __( 'Please reload the page and try again', 'wacara' );
+				}
+			} else {
+
+				// Update the result.
+				$result->message = __( 'Please select the bank account', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
+		 * Callback for modifying submit button label.
+		 *
+		 * @param string                    $submit_label current submit label.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
+		 *
+		 * @return string|void
+		 */
+		public function custom_button_label_callback( $submit_label, $registrant, $payment_class, $reg_status ) {
+			switch ( $reg_status ) {
+				case 'waiting-payment':
+					$result = __( 'I have made a payment', 'wacara' );
+					break;
+				case 'waiting-verification':
+					$result = __( 'Oke', 'wacara' );
+					break;
+				default:
+					$result = $submit_label;
+					break;
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Callback for modifying args for registrant custom content.
+		 *
+		 * @param array                     $temp_args default args.
+		 * @param string                    $reg_status status of the current registrant.
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 *
+		 * @return array
+		 */
+		public function custom_args_callback( $temp_args, $reg_status, $registrant, $payment_class ) {
+			switch ( $reg_status ) {
+				case 'waiting-payment':
+					// Fetch invoice info of the registrant.
+					$invoice_info = $registrant->get_invoicing_info();
+
+					// Fetch bank accounts from settings.
+					$bank_accounts = $this->get_bank_accounts();
+
+					// Add new element to the default array.
+					$new_args = [
+						'bank_accounts'   => $bank_accounts,
+						'currency_code'   => $invoice_info['currency'],
+						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
+						'amount'          => number_format_i18n( $invoice_info['price_in_cent'] / 100, 2 ),
+					];
+
+					// Merge the array.
+					$temp_args = array_merge( $temp_args, $new_args );
+					break;
+			}
+
+			return $temp_args;
 		}
 	}
 
