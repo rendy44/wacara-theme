@@ -71,6 +71,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			Register_Payment::register( $this );
 
 			$this->hooks();
+			$this->register_custom_ajax_endpoints();
 		}
 
 		/**
@@ -123,7 +124,6 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 */
 		private function hooks() {
 			add_action( 'wp_enqueue_scripts', [ $this, 'maybe_load_assets_callback' ] );
-			add_filter( 'wacara_ajax_endpoints', [ $this, 'custom_ajax_endpoints_callback' ] );
 		}
 
 		/**
@@ -147,21 +147,18 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		}
 
 		/**
-		 * Callback for modifying ajax endpoints.
-		 *
-		 * @param array $endpoints default ajax endpoints.
-		 *
-		 * @return  array
+		 * Maybe register custom ajax endpoints.
 		 */
-		public function custom_ajax_endpoints_callback( $endpoints ) {
+		public function register_custom_ajax_endpoints() {
 			$new_endpoints = $this->ajax_endpoints();
 
-			// Merge custom and core endpoints.
 			if ( ! empty( $new_endpoints ) ) {
-				$endpoints = array_merge( $endpoints, $new_endpoints );
-			}
+				foreach ( $new_endpoints as $endpoint => $endpoint_obj ) {
+					$args = Helper::maybe_convert_ajax_endpoint_obj( $endpoint_obj );
 
-			return $endpoints;
+					Helper::add_ajax_endpoint( $endpoint, $args['callback'], $args['public'], $args['logged_in'] );
+				}
+			}
 		}
 
 		/**

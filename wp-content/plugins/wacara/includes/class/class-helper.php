@@ -742,5 +742,48 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 				wp_localize_script( $name, 'obj', $obj_js['vars'] );
 			}
 		}
+
+		/**
+		 * Register ajax endpoint.
+		 *
+		 * @param string   $endpoint the endpoint name.
+		 * @param callable $callback obect of the endpoint.
+		 * @param bool     $is_public whether set endpoint as public or not.
+		 * @param bool     $is_logged_in whether set endpoint as accessible in logged in user or not.
+		 */
+		public static function add_ajax_endpoint( $endpoint, $callback, $is_public = true, $is_logged_in = true ) {
+			$endpoint_prefix = WACARA_PREFIX;
+
+			// Only register endpoint that has callback.
+			if ( is_callable( $callback ) ) {
+
+				// Register endpoint for public access.
+				if ( $is_public ) {
+					add_action( 'wp_ajax_nopriv_' . $endpoint_prefix . $endpoint, $callback );
+				}
+
+				// Register endpoint for admin access.
+				if ( $is_logged_in ) {
+					add_action( 'wp_ajax_' . $endpoint_prefix . $endpoint, $callback );
+				}
+			}
+		}
+
+		/**
+		 * Maybe convert ajax endpoint object to fill the default args.
+		 *
+		 * @param array $endpoint_object default endpoint.
+		 *
+		 * @return array
+		 */
+		public static function maybe_convert_ajax_endpoint_obj( $endpoint_object ) {
+			$default_args = [
+				'callback'  => false,
+				'public'    => true,
+				'logged_in' => true,
+			];
+
+			return wp_parse_args( $endpoint_object, $default_args );
+		}
 	}
 }

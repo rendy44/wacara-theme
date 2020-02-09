@@ -27,6 +27,3 @@ defined( 'WACARA_VERSION' ) || define( 'WACARA_VERSION', '0.0.1' );
 if ( ! class_exists( 'Wacara\Wacara' ) ) {
 	require_once WACARA_PATH . '/includes/class/class-wacara.php';
 }
-
-// Instance the main class.
-$GLOBALS['wacara'] = Wacara::init();

@@ -16,7 +16,7 @@ defined( 'WCR_OP_URI' ) || define( 'WCR_OP_URI', plugin_dir_url( __FILE__ ) );
 defined( 'WCR_OP_PATH' ) || define( 'WCR_OP_PATH', plugin_dir_path( __FILE__ ) );
 
 // Maybe load the main files.
-add_action( 'plugins_loaded', 'load_main_file_callback', 11 );
+add_action( 'wacara_loaded', 'load_main_file_callback' );
 
 /**
  * Callback for loading main file.

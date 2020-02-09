@@ -45,60 +45,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Ajax constructor.
 		 */
 		private function __construct() {
-			$this->register_ajax();
-		}
+			$endpoints = $this->get_default_endpoints();
 
-		/**
-		 * Register ajax endpoints.
-		 */
-		private function register_ajax() {
-			// Map endpoints first.
-			$endpoints = $this->map_ajax();
+			foreach ( $endpoints as $endpoint => $endpoint_obj ) {
+				$args = Helper::maybe_convert_ajax_endpoint_obj( $endpoint_obj );
 
-			/**
-			 * Wacara ajax endpoint filter hook.
-			 *
-			 * @param array $endpoints default ajax endpoints.
-			 */
-			$endpoints = apply_filters( 'wacara_ajax_endpoints', $endpoints );
-
-			$default_obj = [
-				'public'   => true,
-				'admin'    => true,
-				'callback' => false,
-			];
-
-			foreach ( $endpoints as $endpoint => $obj ) {
-				$obj = wp_parse_args( $obj, $default_obj );
-
-				$this->do_register_ajax( $endpoint, $obj );
-			}
-		}
-
-		/**
-		 * Register ajax endpoints.
-		 *
-		 * @param string   $endpoint custom endpoint name.
-		 * @param callable $obj callback function.
-		 */
-		private function do_register_ajax( $endpoint, $obj ) {
-			$is_public       = $obj['public'];
-			$is_admin        = $obj['admin'];
-			$callback        = $obj['callback'];
-			$endpoint_prefix = WACARA_PREFIX;
-
-			// Only register endpoint that has callback.
-			if ( $callback ) {
-
-				// Register endpoint for public access.
-				if ( $is_public ) {
-					add_action( 'wp_ajax_nopriv_' . $endpoint_prefix . $endpoint, $callback );
-				}
-
-				// Register endpoint for admin access.
-				if ( $is_admin ) {
-					add_action( 'wp_ajax_' . $endpoint_prefix . $endpoint, $callback );
-				}
+				Helper::add_ajax_endpoint( $endpoint, $args['callback'], $args['public'], $args['logged_in'] );
 			}
 		}
 
@@ -107,7 +59,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 *
 		 * @return array
 		 */
-		private function map_ajax() {
+		private function get_default_endpoints() {
 			return [
 				'select_price'     => [
 					'callback' => [ $this, 'register_callback' ],
