@@ -170,7 +170,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			];
 		}
 
-
 		/**
 		 * Map js files that will be loaded in front-end.
 		 *
@@ -244,21 +243,22 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				// Validate the nonce.
 				if ( wp_verify_nonce( $nonce, 'wacara_nonce' ) ) {
 
-					// Prepare the variables.
-					$bank_accounts = $this->get_bank_accounts();
-
 					// Instance the registrant.
 					$registrant = new Registrant( $registrant_id );
 
-					// Update the registration.
-					$registrant->update_confirmation( $bank_account, $bank_accounts );
+					// Process the payment confirmation.
+					$confirm = $this->update_confirmation( $registrant, $bank_account );
 
 					// Check the success status.
-					if ( $registrant->success ) {
+					if ( $confirm->success ) {
+
+						// Update the result.
 						$result->success  = true;
 						$result->callback = $registrant->get_registrant_url();
 					} else {
-						$result->message = $registrant->message;
+
+						// Update the result.
+						$result->message = $confirm->message;
 					}
 				} else {
 
@@ -333,6 +333,47 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $temp_args;
+		}
+
+		/**
+		 * Update the registration status after confirming the transfer.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param int        $bank_account_number the index number of bank account array.
+		 *
+		 * @return Result
+		 */
+		private function update_confirmation( $registrant, $bank_account_number ) {
+			$result = new Result();
+
+			// Prepare some variables.
+			$date_update           = current_time( 'timestamp' );
+			$bank_accounts         = $this->get_bank_accounts();
+			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts[ $bank_account_number ] : false;
+
+			// Validate the selected bank accounts.
+			if ( $selected_bank_account ) {
+
+				// Update the status.
+				$registrant->set_registration_status( 'waiting-verification' );
+
+				// Update the meta.
+				Helper::save_post_meta(
+					$registrant->post_id,
+					[
+						'confirmation_timestamp' => $date_update,
+						'selected_bank_account'  => $selected_bank_account,
+					]
+				);
+
+				// Update the result.
+				$result->success = true;
+
+			} else {
+				$result->message = __( 'Invalid bank account selected', 'wacara' );
+			}
+
+			return $result;
 		}
 	}
 

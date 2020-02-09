@@ -441,56 +441,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Update the registration status after confirming the transfer.
-		 *
-		 * @param int   $bank_account_number the index number of bank account array.
-		 * @param array $bank_accounts list of available bank accounts.
-		 */
-		public function update_confirmation( $bank_account_number, $bank_accounts ) {
-
-			// Save registrant id into variable.
-			$registrant_id = $this->post_id;
-
-			// Prepare some variables.
-			$date_update           = current_time( 'timestamp' );
-			$selected_bank_account = ! empty( $bank_accounts[ $bank_account_number ] ) ? $bank_accounts[ $bank_account_number ] : false;
-
-			// Validate the selected bank accounts.
-			if ( $selected_bank_account ) {
-
-				/**
-				 * Perform actions before confirming payment
-				 *
-				 * @param string $registrant_id the registrant id.
-				 */
-				do_action( 'wacara_before_confirming_payment', $registrant_id );
-
-				// Update the status.
-				$this->success = true;
-				$this->set_registration_status( 'wait_verification' );
-
-				// Update the status.
-				$this->save_meta(
-					[
-						'confirmation_timestamp' => $date_update,
-						'selected_bank_account'  => $selected_bank_account,
-					]
-				);
-
-				/**
-				 * Perform actions after confirming payment.
-				 *
-				 * @param string $registrant_id the registrant id.
-				 */
-				do_action( 'wacara_after_confirming_payment', $registrant_id );
-
-			} else {
-				$this->success = false;
-				$this->message = __( 'Invalid bank account selected', 'wacara' );
-			}
-		}
-
-		/**
 		 * Maybe save unique number for easier payment confirmation.
 		 *
 		 * @param int $unique_number the unique number.
