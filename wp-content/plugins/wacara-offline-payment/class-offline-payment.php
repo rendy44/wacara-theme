@@ -290,7 +290,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					$result = __( 'I have made a payment', 'wacara' );
 					break;
 				case 'waiting-verification':
-					$result = __( 'Oke', 'wacara' );
+					// Clean the submit button label, since we want to hide it.
+					$result = '';
 					break;
 				default:
 					$result = $submit_label;
