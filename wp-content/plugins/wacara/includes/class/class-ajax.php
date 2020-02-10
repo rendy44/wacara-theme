@@ -79,52 +79,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				'list_registrants' => [
 					'callback' => [ $this, 'list_registrants_callback' ],
 				],
-				'verify_payment'   => [
-					'callback' => [ $this, 'check_verify_payment_callback' ],
-					'public'   => false,
-				],
 			];
-		}
-
-		/**
-		 * Callback for performing payment action.
-		 */
-		public function check_verify_payment_callback() {
-			$result        = new Result();
-			$registrant_id = Helper::post( 'id' );
-			$new_status    = Helper::post( 'status' );
-
-			// Validate the inputs.
-			if ( $registrant_id && $new_status ) {
-
-				// Instance registrant object.
-				$registrant = new Registrant( $registrant_id );
-
-				// Validate the registrant object.
-				if ( $registrant->success ) {
-
-					// Validate the new status output.
-					$message_output = __( 'Verification is successful', 'wacara' );
-					if ( 'done' !== $new_status ) {
-						$new_status     = 'fail';
-						$message_output = __( 'Rejection is successful', 'wacara' );
-					}
-
-					// Update the status.
-					$registrant->set_registration_status( $new_status );
-
-					// Update the result.
-					$result->success = true;
-					$result->message = $message_output;
-
-				} else {
-					$result->message = $registrant->message;
-				}
-			} else {
-				$result->message = __( 'Please try again later', 'wacara' );
-			}
-
-			wp_send_json( $result );
 		}
 
 		/**

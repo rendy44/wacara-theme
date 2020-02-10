@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for displaying waiting verification page in single registration.
+ * Template for displaying failed page in single registration.
  *
  * @author  Rendy
  * @package Wacara
@@ -11,6 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wcr-alert wcr-alert-info">
+<div class="wcr-alert wcr-alert-danger">
 	<p><?php echo esc_html( $alert_message ); ?></p>
 </div>

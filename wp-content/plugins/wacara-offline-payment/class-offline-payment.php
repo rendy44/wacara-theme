@@ -211,6 +211,10 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					'callback' => [ $this, 'check_payment_status_callback' ],
 					'public'   => false,
 				],
+				'verify_payment' => [
+					'callback' => [ $this, 'check_verify_payment_callback' ],
+					'public'   => false,
+				],
 			];
 		}
 
@@ -331,6 +335,48 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
+		 * Callback for performing payment action.
+		 */
+		public function check_verify_payment_callback() {
+			$result        = new Result();
+			$data          = Helper::post( 'data' );
+			$registrant_id = Helper::array_val( $data, 'id' );
+			$new_status    = Helper::array_val( $data, 'status' );
+
+			// Validate the inputs.
+			if ( $registrant_id && $new_status ) {
+
+				// Instance registrant object.
+				$registrant = new Registrant( $registrant_id );
+
+				// Validate the registrant object.
+				if ( $registrant->success ) {
+
+					// Validate the new status output.
+					$message_output = __( 'Verification is successful', 'wacara' );
+					if ( 'done' !== $new_status ) {
+						$new_status     = 'fail';
+						$message_output = __( 'Rejection is successful', 'wacara' );
+					}
+
+					// Update the status.
+					$registrant->set_registration_status( $new_status );
+
+					// Update the result.
+					$result->success = true;
+					$result->message = $message_output;
+
+				} else {
+					$result->message = $registrant->message;
+				}
+			} else {
+				$result->message = __( 'Please try again later', 'wacara' );
+			}
+
+			wp_send_json( $result );
+		}
+
+		/**
 		 * Callback for modifying submit button label.
 		 *
 		 * @param string                    $submit_label current submit label.
@@ -346,6 +392,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					$result = __( 'I have made a payment', 'wacara' );
 					break;
 				case 'waiting-verification':
+				case 'fail':
 					// Clean the submit button label, since we want to hide it.
 					$result = '';
 					break;
@@ -386,6 +433,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 					// Merge the array.
 					$temp_args = array_merge( $temp_args, $new_args );
+					break;
+				case 'waiting-verification':
+					$temp_args['alert_message'] = __( 'We are verifying your payment, we\'ll get back to you once we have an update', 'wacara' );
+					break;
+				case 'fail':
+					$temp_args['alert_message'] = __( 'We have declined your payment, if you think this is not supposed to be, please contact us.', 'wacara' );
 					break;
 			}
 

@@ -183,8 +183,7 @@ import Ajax from '../../js/class/ajax.js';
          * @returns {Ajax}
          */
         do_verify_registrant(registrant_id, new_status) {
-            return new Ajax(true, {
-                action: 'verify_payment',
+            return new Ajax('verify_payment',true, {
                 id: registrant_id,
                 status: new_status
             });
