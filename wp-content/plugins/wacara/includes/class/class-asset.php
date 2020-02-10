@@ -182,10 +182,12 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'depth' => [ 'jquery', 'cmb2-scripts' ],
 				],
 				'app_be'            => [
-					'url'  => WACARA_URI . 'assets/admin/js/app.js',
-					'vars' => [
+					'url'    => WACARA_URI . 'assets/admin/js/app.js',
+					'vars'   => [
+						'prefix'   => WACARA_PREFIX,
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 					],
+					'module' => true,
 				],
 			];
 

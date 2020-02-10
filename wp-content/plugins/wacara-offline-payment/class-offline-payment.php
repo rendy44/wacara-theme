@@ -14,6 +14,7 @@ use Wacara\Payment_Method;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
 use Wacara\Result;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -203,8 +204,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		public function ajax_endpoints() {
 			return [
-				'confirm' => [
+				'confirm'        => [
 					'callback' => [ $this, 'confirmation_callback' ],
+				],
+				'payment_status' => [
+					'callback' => [ $this, 'check_payment_status_callback' ],
+					'public'   => false,
 				],
 			];
 		}
@@ -272,6 +277,57 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			wp_send_json( $result );
+		}
+
+		/**
+		 * Callback for checking payment status.
+		 */
+		public function check_payment_status_callback() {
+			$registrant_id = Helper::get( 'id' );
+			$output        = __( 'Please try again later', 'wacara' );
+
+			// Validate the inputs.
+			if ( $registrant_id ) {
+
+				// Instance registrant object.
+				$registrant = new Registrant( $registrant_id );
+
+				// Validate the registrant object.
+				if ( $registrant->success ) {
+
+					// Get registration status.
+					$reg_status = $registrant->get_registration_status();
+
+					// Validate registration status.
+					if ( 'waiting-verification' === $reg_status ) {
+
+						$confirmation_timestamp                           = Helper::get_post_meta( 'confirmation_timestamp', $registrant->post_id );
+						$template_args                                    = $registrant->get_invoicing_info();
+						$template_args['id']                              = $registrant->post_id;
+						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
+						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
+						$template_args['maybe_price_in_cent_with_unique'] = Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
+						$template_args['selected_bank_account']           = Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
+
+						// Override the template first.
+						Template::override_folder( $this->path );
+
+						// Update the output result.
+						$output = Template::render( 'admin/registrant-detail', $template_args );
+
+						// Restore folder.
+						Template::reset_folder();
+
+					} else {
+						$output = __( 'Invalid registrant', 'wacara' );
+					}
+				} else {
+					$output = $registrant->message;
+				}
+			}
+
+			echo $output; // phpcs:ignore
+			die( 200 );
 		}
 
 		/**

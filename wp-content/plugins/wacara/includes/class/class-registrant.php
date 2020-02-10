@@ -167,12 +167,12 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 					// Get readable status.
 					$readable_status = '';
-					$status          = $this->get_meta( 'reg_status' );
+					$status          = $this->get_registration_status();
 					switch ( $status ) {
-						case 'wait_payment':
+						case 'waiting-payment':
 							$readable_status = __( 'Waiting Payment', 'wacara' );
 							break;
-						case 'wait_verification':
+						case 'waiting-verification':
 							$readable_status = __( 'Waiting Verification', 'wacara' );
 							break;
 						case 'fail':
@@ -472,38 +472,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_payment_method_id() {
 			return $this->get_meta( 'payment_method' );
-		}
-
-		/**
-		 * Get manual payment information.
-		 *
-		 * @return array
-		 */
-		public function get_manual_payment_info_status() {
-			$result         = [ 'reg_status' => $this->get_registration_status() ];
-			$payment_method = $this->get_payment_method_id();
-
-			// Parse the selected payment method.
-			if ( 'manual' === $payment_method ) {
-
-				// Prepare the variable.
-				$confirmation_timestamp = $this->get_meta( 'confirmation_timestamp' );
-
-				$more_fields = [
-					'selected_bank_account'           => $this->get_meta( 'selected_bank_account' ),
-					'currency'                        => $this->get_meta( 'currency' ),
-					'maybe_unique_number'             => $this->get_meta( 'maybe_unique_number' ),
-					'maybe_price_in_cent_with_unique' => $this->get_meta( 'maybe_price_in_cent_with_unique' ),
-					'confirmation_timestamp'          => $confirmation_timestamp,
-					'confirmation_date_time'          => Helper::convert_date( $confirmation_timestamp, true, true ),
-					'payment_method'                  => $payment_method,
-				];
-
-				// Merge the result.
-				$result = array_merge( $result, $more_fields );
-			}
-
-			return $result;
 		}
 
 		/**

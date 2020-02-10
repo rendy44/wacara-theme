@@ -79,10 +79,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				'list_registrants' => [
 					'callback' => [ $this, 'list_registrants_callback' ],
 				],
-				'payment_status'   => [
-					'callback' => [ $this, 'check_payment_status_callback' ],
-					'public'   => false,
-				],
 				'verify_payment'   => [
 					'callback' => [ $this, 'check_verify_payment_callback' ],
 					'public'   => false,
@@ -132,53 +128,13 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		}
 
 		/**
-		 * Callback for checking payment status.
-		 */
-		public function check_payment_status_callback() {
-			$registrant_id = Helper::get( 'id' );
-			$output        = __( 'Please try again later', 'wacara' );
-
-			// Validate the inputs.
-			if ( $registrant_id ) {
-
-				// Instance registrant object.
-				$registrant = new Registrant( $registrant_id );
-
-				// Validate the registrant object.
-				if ( $registrant->success ) {
-
-					// Get registration status.
-					$reg_status = $registrant->get_registration_status();
-
-					// Validate registration status.
-					if ( 'wait_verification' === $reg_status ) {
-
-						// Collect payment information.
-						$payment_info       = $registrant->get_manual_payment_info_status();
-						$payment_info['id'] = $registrant->post_id;
-
-						// Update the output result.
-						$output = Template::render( 'admin/registrant-detail', $payment_info );
-
-					} else {
-						$output = __( 'Invalid registrant', 'wacara' );
-					}
-				} else {
-					$output = $registrant->message;
-				}
-			}
-
-			echo $output; // phpcs:ignore
-			die( 200 );
-		}
-
-		/**
 		 * Callback for listing registrants
 		 */
 		public function list_registrants_callback() {
 			$result   = new Result();
-			$event_id = Helper::get( 'id' );
-			$page     = Helper::get( 'page' );
+			$data     = Helper::get( 'data' );
+			$event_id = Helper::array_val( $data, 'id' );
+			$page     = Helper::array_val( $data, 'page' );
 
 			// Maybe validate the page.
 			if ( ! $page ) {

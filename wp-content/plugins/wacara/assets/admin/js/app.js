@@ -23,7 +23,7 @@ import Ajax from '../../js/class/ajax.js';
      * Instance new class
      */
     new class {
-        load_registrants_page;
+        load_registrants_page = 0;
 
         /**
          * Class constructor.
@@ -34,8 +34,6 @@ import Ajax from '../../js/class/ajax.js';
             this.load_registrants_event();
             this.detail_registrants_event();
             this.verify_registrant_event();
-
-            this.load_registrants_page = 0;
         }
 
         /**
@@ -81,8 +79,7 @@ import Ajax from '../../js/class/ajax.js';
             // Update the load registrant pagination status.
             this.load_registrants_page += 1;
 
-            return new Ajax(false, {
-                action: 'list_registrants',
+            return new Ajax('list_registrants', false, {
                 id: event_id,
                 page: this.load_registrants_page
             });
@@ -126,7 +123,7 @@ import Ajax from '../../js/class/ajax.js';
                             html_output += '<td>' + registrant.phone + '</td>';
                             html_output += '<td>' + registrant.id_number + '</td>';
                             html_output += '<td>' + registrant.readable_reg_status + '</td>';
-                            html_output += '<td>' + ('wait_verification' === reg_status ? '<a href="#" class="registrant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
+                            html_output += '<td>' + ('waiting-verification' === reg_status ? '<a href="#" class="registrant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
                             html_output += '</tr>';
                         });
                         // Add table body closer
@@ -149,7 +146,7 @@ import Ajax from '../../js/class/ajax.js';
                 const the_id = $(this).attr('data-id');
 
                 // Load the thickbox.
-                tb_show('', 'admin-ajax.php?action=check_payment_status&id=' + the_id + '&width=380&height=200')
+                tb_show('', 'admin-ajax.php?action=wcr_payment_status&id=' + the_id + '&width=380&height=200');
             })
         }
 
