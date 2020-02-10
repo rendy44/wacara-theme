@@ -9,6 +9,7 @@
 
 namespace Wacara\Payment;
 
+use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment_Method;
 use Wacara\Register_Payment;
@@ -224,6 +225,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		private function hooks() {
 			add_filter( 'wacara_filter_form_registrant_submit_label', [ $this, 'custom_button_label_callback' ], 10, 4 );
 			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
+			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
+			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
 		}
 
 		/**
@@ -443,6 +446,36 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $temp_args;
+		}
+
+		/**
+		 * Callback for altering csv columns.
+		 *
+		 * @param array $csv_columns current csv columns.
+		 * @param Event $event object of the current event.
+		 *
+		 * @return array
+		 */
+		public function custom_csv_columns_callback( $csv_columns, $event ) {
+			$csv_columns['action'] = __( 'Action', 'wacara' );
+
+			return $csv_columns;
+		}
+
+		/**
+		 * Callback for altering registrant more details.
+		 *
+		 * @param array      $more_details current extra details.
+		 * @param Registrant $registrant object of the current registrant.
+		 *
+		 * @return array
+		 */
+		public function registrant_more_details_callback( $more_details, $registrant ) {
+			$reg_status             = $registrant->get_registration_status();
+			$action_content         = 'waiting-verification' === $reg_status ? '<a href="#" class="registrant_action" data-id="' . $registrant->post_id . '">[?]</a>' : '-';
+			$more_details['action'] = $action_content;
+
+			return $more_details;
 		}
 
 		/**

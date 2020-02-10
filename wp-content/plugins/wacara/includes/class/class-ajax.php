@@ -100,22 +100,29 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			if ( $event_id ) {
 
 				// Override the result with event instance.
-				$result = new Event( $event_id );
+				$event = new Event( $event_id );
 
 				// Run the method to fetch all registrants.
-				$result->get_all_registrants_by_registration_status( $page );
+				$event->get_all_registrants_by_registration_status( $page );
+
+				// Override the result object.
+				$result = $event;
 
 				// Get column name for csv.
-				$result->callback = [
-					__( 'Booking Code', 'wacara' ),
-					__( 'Name', 'wacara' ),
-					__( 'Email', 'wacara' ),
-					__( 'Company', 'wacara' ),
-					__( 'Position', 'wacara' ),
-					__( 'Phone', 'wacara' ),
-					__( 'Id Number', 'wacara' ),
-					__( 'Status', 'wacara' ),
+				$csv_columns = [
+					'booking_code'        => __( 'Booking Code', 'wacara' ),
+					'name'                => __( 'Name', 'wacara' ),
+					'email'               => __( 'Email', 'wacara' ),
+					'readable_reg_status' => __( 'Status', 'wacara' ),
 				];
+
+				/**
+				 * Wacara csv column filter hook.
+				 *
+				 * @param array $csv_columns current csv column.
+				 * @param Event $event current selected event.
+				 */
+				$result->callback = apply_filters( 'wacara_filter_event_csv_columns', $csv_columns, $event );
 
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );

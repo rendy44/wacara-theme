@@ -99,9 +99,10 @@ import Ajax from '../../js/class/ajax.js';
                         const theads = data.callback;
 
                         // Fetch table header columns
-                        $.each(theads, function (x, thead) {
+                        $.each(theads, function (key, thead) {
                             html_output += '<th>' + thead + '</th>';
                         });
+
                         // Add column for admin action  manually.
                         html_output += '<th></th>';
                         // Add table head tag closer.
@@ -115,15 +116,13 @@ import Ajax from '../../js/class/ajax.js';
                             const registrant = item.registrant_data,
                                 reg_status = registrant.reg_status;
                             html_output += '<tr class="' + reg_status + '">';
-                            html_output += '<td>' + registrant.booking_code + '</td>';
-                            html_output += '<td>' + registrant.name + '</td>';
-                            html_output += '<td>' + registrant.email + '</td>';
-                            html_output += '<td>' + registrant.company + '</td>';
-                            html_output += '<td>' + registrant.position + '</td>';
-                            html_output += '<td>' + registrant.phone + '</td>';
-                            html_output += '<td>' + registrant.id_number + '</td>';
-                            html_output += '<td>' + registrant.readable_reg_status + '</td>';
-                            html_output += '<td>' + ('waiting-verification' === reg_status ? '<a href="#" class="registrant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
+                            $.each(theads, function (key, name) {
+                                html_output += '<td>' + registrant[key] + '</td>';
+                            });
+                            // html_output += '<td>' + registrant.name + '</td>';
+                            // html_output += '<td>' + registrant.email + '</td>';
+                            // html_output += '<td>' + registrant.readable_reg_status + '</td>';
+                            // html_output += '<td>' + ('waiting-verification' === reg_status ? '<a href="#" class="registrant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
                             html_output += '</tr>';
                         });
                         // Add table body closer

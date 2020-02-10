@@ -363,7 +363,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 				$query_all_registrants = new WP_Query( $args );
 
 				// Save the query to transient.
-				set_transient( $transient_key, $query_all_registrants, HOUR_IN_SECONDS );
+				set_transient( $transient_key, $query_all_registrants, HOUR_IN_SECONDS / 2 );
 			}
 
 			// Update the maximum num pages variable.

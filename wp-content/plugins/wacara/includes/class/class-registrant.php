@@ -150,10 +150,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						'booking_code',
 						'email',
 						'name',
-						'company',
-						'position',
-						'phone',
-						'id_number',
 						'booking_code',
 						'event_id',
 						'pricing_id',
@@ -183,9 +179,22 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 							break;
 					}
 
+					// Add more fields to be displayed.
+					$more_data = [
+						'reg_status'          => $status,
+						'readable_reg_status' => $readable_status,
+					];
+
+					/**
+					 * Wacara registrant more detail filter hooks.
+					 *
+					 * @param array $more_data current extra details.
+					 * @param Registrant $this object of the current registrant.
+					 */
+					$more_data = apply_filters( 'wacara_filter_registrant_more_details', $more_data, $this );
+
 					// Save status into object.
-					$this->registrant_data['reg_status']          = $status;
-					$this->registrant_data['readable_reg_status'] = $readable_status;
+					$this->registrant_data = array_merge( $this->registrant_data, $more_data );
 
 				}
 			}
