@@ -199,6 +199,28 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
+		 * Map js files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		public function admin_js() {
+			return [
+				'offline-payment' => [
+					'url' => WCR_OP_URI . '/js/admin-offline-payment.js',
+				],
+			];
+		}
+
+		/**
+		 * Map css files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		public function admin_css() {
+			return [];
+		}
+
+		/**
 		 * Map custom ajax endpoints.
 		 *
 		 * @return array

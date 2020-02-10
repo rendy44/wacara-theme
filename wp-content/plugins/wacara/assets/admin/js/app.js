@@ -32,8 +32,6 @@ import Ajax from '../../js/class/ajax.js';
             this.inputsosaurus();
             this.inputmoney();
             this.load_registrants_event();
-            this.detail_registrants_event();
-            this.verify_registrant_event();
         }
 
         /**
@@ -119,10 +117,6 @@ import Ajax from '../../js/class/ajax.js';
                             $.each(theads, function (key, name) {
                                 html_output += '<td>' + registrant[key] + '</td>';
                             });
-                            // html_output += '<td>' + registrant.name + '</td>';
-                            // html_output += '<td>' + registrant.email + '</td>';
-                            // html_output += '<td>' + registrant.readable_reg_status + '</td>';
-                            // html_output += '<td>' + ('waiting-verification' === reg_status ? '<a href="#" class="registrant_action" data-id="' + item.post_id + '">[?]</a>' : '') + '</td>';
                             html_output += '</tr>';
                         });
                         // Add table body closer
@@ -134,58 +128,6 @@ import Ajax from '../../js/class/ajax.js';
                 .fail(function (x) {
 
                 })
-        }
-
-        /**
-         * Event when button detail registrant being clicked for verify payment
-         */
-        detail_registrants_event() {
-            $('body').on('click', '.registrant_action', function (e) {
-                e.preventDefault();
-                const the_id = $(this).attr('data-id');
-
-                // Load the thickbox.
-                tb_show('', 'admin-ajax.php?action=wcr_payment_status&id=' + the_id + '&width=380&height=200');
-            })
-        }
-
-        /**
-         * Event when either reject or verify button being clicked,
-         */
-        verify_registrant_event() {
-            const instance = this;
-            $('body').on('click', '.btn-do-payment-action', function (e) {
-                e.preventDefault();
-                const the_id = $(this).attr('data-id'),
-                    new_status = $(this).hasClass('done') ? 'done' : 'fail',
-                    original_text = $(this).html(),
-                    grand_parent = $(this).closest('#TB_ajaxContent');
-                $(this).prop('disabled', true).html('Loading...');
-
-                instance.do_verify_registrant(the_id, new_status)
-                    .done(function (data) {
-                        if (data.success) {
-                            grand_parent.html('<div style="text-align: center;display: flex;height: 100%;justify-content: center;align-items: center;">' + data.message + '</div>');
-                        } else {
-                            $(this).prop('disabled', false).html(original_text);
-                            alert(data.message);
-                        }
-                    })
-            })
-        }
-
-        /**
-         * Method for either verify or reject payment.
-         *
-         * @param registrant_id
-         * @param new_status
-         * @returns {Ajax}
-         */
-        do_verify_registrant(registrant_id, new_status) {
-            return new Ajax('verify_payment',true, {
-                id: registrant_id,
-                status: new_status
-            });
         }
     }
 })(jQuery); // End of use strict

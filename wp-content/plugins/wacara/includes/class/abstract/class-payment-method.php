@@ -113,6 +113,20 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		abstract public function front_css();
 
 		/**
+		 * Get array of js files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		abstract public function admin_js();
+
+		/**
+		 * Get array of css files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		abstract public function admin_css();
+
+		/**
 		 * Get custom ajax endpoints.
 		 *
 		 * @return array
@@ -123,13 +137,14 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * Add custom hooks.
 		 */
 		private function hooks() {
-			add_action( 'wp_enqueue_scripts', [ $this, 'maybe_load_assets_callback' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'maybe_load_front_assets_callback' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_load_admin_assets_callback' ] );
 		}
 
 		/**
-		 * Callback for loading assets.
+		 * Callback for loading front-end assets.
 		 */
-		public function maybe_load_assets_callback() {
+		public function maybe_load_front_assets_callback() {
 			global $post;
 			$js_prefix = WACARA_PREFIX . 'module_';
 			$js_files  = $this->front_js();
@@ -143,6 +158,23 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 				foreach ( $css_files as $css_name => $css_obj ) {
 					Helper::load_css( $css_name, $css_obj );
 				}
+			}
+		}
+
+		/**
+		 * Callback for loading back-end assets.
+		 */
+		public function maybe_load_admin_assets_callback() {
+			$js_prefix = WACARA_PREFIX . 'module_';
+			$js_files  = $this->admin_js();
+			$css_files = $this->admin_css();
+
+			foreach ( $js_files as $js_name => $js_obj ) {
+				Helper::load_js( $js_prefix . $js_name, $js_obj );
+			}
+
+			foreach ( $css_files as $css_name => $css_obj ) {
+				Helper::load_css( $css_name, $css_obj );
 			}
 		}
 
