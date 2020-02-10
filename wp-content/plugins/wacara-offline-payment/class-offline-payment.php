@@ -12,7 +12,6 @@ namespace Wacara\Payment;
 use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment_Method;
-use Wacara\Register_Payment;
 use Wacara\Registrant;
 use Wacara\Result;
 use Wacara\Template;

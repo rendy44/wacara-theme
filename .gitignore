@@ -17,4 +17,5 @@
 /wp-content/plugins/*
 !/wp-content/plugins/wacara/
 !/wp-content/plugins/wacara-offline-payment/
+!/wp-content/plugins/wacara-stripe-payment/
 /wp-content/plugins/wacara/assets/qrcode/*
