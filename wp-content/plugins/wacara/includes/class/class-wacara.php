@@ -66,6 +66,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 */
 		private function load_hooks() {
 			add_action( 'plugins_loaded', [ $this, 'trigger_hook_loader_callback' ], - 1 );
+			add_action( 'plugins_loaded', [ $this, 'load_language_callback' ] );
 		}
 
 		/**
@@ -73,6 +74,13 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 */
 		public function trigger_hook_loader_callback() {
 			do_action( 'wacara_loaded' );
+		}
+
+		/**
+		 * Callback for loading language.
+		 */
+		public function load_language_callback() {
+			load_plugin_textdomain( 'wacara', false, basename( dirname( __FILE__ ) ) . '/i18n/' );
 		}
 
 		/**
