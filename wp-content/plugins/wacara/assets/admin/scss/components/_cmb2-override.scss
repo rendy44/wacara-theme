@@ -1,4 +1,10 @@
 .cmb2-wrap {
+  input,
+  textarea {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
   .cmb-row {
     &.master-field {
       margin-top: 5px !important;

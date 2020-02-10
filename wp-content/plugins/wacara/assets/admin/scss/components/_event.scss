@@ -9,19 +9,23 @@
 
     tr {
       &:nth-child(even) {
-        background-color: $light;
+        background-color: darken($white, 5%);
       }
 
       &.done {
-        background-color: lighten($success, 55%);
+        background-color: lighten($success_color, 45%);
       }
 
-      &.wait_verification {
-        background-color: lighten($warning, 45%);
+      &.waiting-verification {
+        background-color: lighten($warning_color, 45%);
+      }
+
+      &.fail {
+        background-color: lighten($danger_color, 45%);
       }
 
       th {
-        background-color: $light;
+        background-color: darken($white, 5%);
       }
 
       th,
