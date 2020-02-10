@@ -255,18 +255,18 @@ if ( '' === $reg_status ) {
 	do_action( 'wacara_before_registrant_success_content', $registrant );
 
 	// Render the content for success page.
-	$success_desc = __( 'We have recorded your registration, please check your email for the further detail', 'wacara' );
+	$alert_message = __( 'We have recorded your registration, please check your email for the further detail', 'wacara' );
 
 	/**
 	 * Wacara registrant success description filter hook.
 	 *
-	 * @param string $success_desc current success description.
+	 * @param string $alert_message current success message.
 	 * @param Registrant $registrant the object of the current registrant.
 	 */
-	$success_desc = apply_filters( 'wacara_filter_registrant_success_desc', $success_desc, $registrant );
+	$alert_message = apply_filters( 'wacara_filter_registrant_success_desc', $alert_message, $registrant );
 
 	$success_args = [
-		'success_desc' => $success_desc,
+		'alert_message' => $alert_message,
 	];
 
 	// Render the success template.

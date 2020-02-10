@@ -11,4 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<p><?php echo esc_html( $success_desc ); ?></p>
+<div class="wcr-alert wcr-alert-success">
+	<p><?php echo esc_html( $alert_message ); ?></p>
+</div>
