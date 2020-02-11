@@ -720,12 +720,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'About section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'about_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'about_title',
 								'type' => 'text',
@@ -747,12 +741,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'id'     => 'event_speakers_design',
 						'title'  => _x( 'Speakers section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'speakers_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'speakers_title',
@@ -776,12 +764,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Venue section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'venue_title',
 								'type' => 'text',
@@ -803,12 +785,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'id'     => 'event_gallery_design',
 						'title'  => _x( 'Gallery section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'gallery_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'gallery_title',
@@ -833,12 +809,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Sponsors section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'sponsors_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'sponsors_title',
 								'type' => 'text',
@@ -862,12 +832,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Schedule section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'schedule_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'schedule_title',
 								'type' => 'text',
@@ -883,12 +847,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'id'     => 'event_pricing_design',
 						'title'  => _x( 'Pricing section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'pricing_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'pricing_title',
