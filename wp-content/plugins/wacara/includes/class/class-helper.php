@@ -817,5 +817,102 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 
 			return wp_parse_args( $endpoint_object, $default_args );
 		}
+
+		/**
+		 * Convert string into readable string
+		 *
+		 * @param string $string original string.
+		 * @param bool   $uppercase whether convert as uppercase or not.
+		 *
+		 * @return string|string[]
+		 */
+		private static function convert_to_readable_string( $string, $uppercase = true ) {
+			$string = str_replace( '-', ' ', $string );
+			$string = str_replace( '_', ' ', $string );
+
+			if ( $uppercase ) {
+				$string = ucfirst( $string );
+			}
+
+			return $string;
+		}
+
+		/**
+		 * Register custom post type.
+		 *
+		 * @param string $name name of the custom post type.
+		 * @param array  $label_args label configuration.
+		 * @param array  $setting_args setting configuration.
+		 * @param string $dashicon dashicon name.
+		 */
+		public static function register_post_type( $name, $label_args = [], $setting_args = [], $dashicon = '' ) {
+			$readable_string        = self::convert_to_readable_string( $name );
+			$readable_string_plural = $readable_string . 's';
+
+			// Prepare default args for label configuration.
+			$default_label_args = [
+				'name'               => $readable_string_plural,
+				'singular_name'      => $readable_string,
+				'menu_name'          => $readable_string_plural,
+				'name_admin_bar'     => $readable_string,
+				'add_new'            => __( 'Add New', 'wacara' ),
+				/* translators: %s: singular post type */
+				'add_new_item'       => sprintf( _x( 'Add New %s', 'Add New Post Type', 'wacara' ), $readable_string ),
+				/* translators: %s: singular post type */
+				'new_item'           => sprintf( _x( 'New %s', 'New Post Type', 'wacara' ), $readable_string ),
+				/* translators: %s: singular post type */
+				'edit_item'          => sprintf( _x( 'Edit %s', 'Edit Post Type', 'wacara' ), $readable_string ),
+				/* translators: %s: singular post type */
+				'view_item'          => sprintf( _x( 'View %s', 'View Post Type', 'wacara' ), $readable_string ),
+				/* translators: %s: plural post type */
+				'all_items'          => sprintf( _x( 'All %s', 'All Post Types', 'wacara' ), $readable_string_plural ),
+				/* translators: %s: plural post type */
+				'search_items'       => sprintf( _x( 'Search %s', 'Search Post Types', 'wacara' ), $readable_string_plural ),
+				/* translators: %s: plural post type */
+				'parent_item_colon'  => sprintf( _x( 'Parent %s:', 'Parent Post Types:', 'wacara' ), $readable_string_plural ),
+				/* translators: %s: plural post type */
+				'not_found'          => sprintf( _x( 'No %s found.', 'No post types found', 'wacara' ), $readable_string_plural ),
+				/* translators: %s: plural post type */
+				'not_found_in_trash' => sprintf( _x( 'No %s found in Trash.', 'No post types found in trash.', 'wacara' ), $readable_string_plural ),
+			];
+
+			$label_args = wp_parse_args( $label_args, $default_label_args );
+
+			// Prepare default args for setting configuration.
+			$default_args = [
+				'labels'             => $label_args,
+				'public'             => true,
+				'publicly_queryable' => true,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => [ 'slug' => $name ],
+				'capability_type'    => 'post',
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'supports'           => [ 'title' ],
+			];
+			if ( $dashicon ) {
+				$default_args['menu_icon'] = $dashicon;
+			}
+
+			// Clean non editable args.
+			if ( isset( $setting_args['label'] ) ) {
+				unset( $setting_args['label'] );
+			}
+			if ( isset( $setting_args['menu_icon'] ) ) {
+				unset( $setting_args['menu_icon'] );
+			}
+
+			$setting_args = wp_parse_args( $setting_args, $default_args );
+
+			add_action(
+				'init',
+				function () use ( $name, $setting_args ) {
+					// Register the post type.
+					register_post_type( $name, $setting_args );
+				}
+			);
+		}
 	}
 }
