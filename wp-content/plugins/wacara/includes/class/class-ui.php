@@ -264,8 +264,31 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
+
+			// Fetch header detail.
+			$header           = Helper::get_post_meta( 'header', $event->post_id );
+			$header_alignment = Helper::get_post_meta( 'content_alignment', $header );
+
+			// Adjust header class.
+			switch ( $header_alignment ) {
+				case 'left':
+					$masthead_alignment = 'wcr-justify-content-start';
+					$column_alignment   = 'wcr-text-left';
+					break;
+				case 'right':
+					$masthead_alignment = 'wcr-justify-content-end';
+					$column_alignment   = 'wcr-text-right';
+					break;
+				default:
+					$masthead_alignment = 'wcr-justify-content-center';
+					$column_alignment   = 'wcr-text-center';
+					break;
+			}
+
 			$masthead_args = [
-				'masthead_class' => 'wcr-event-header',
+				'masthead_class'           => 'wcr-event-header',
+				'masthead_alignment_class' => $masthead_alignment,
+				'column_alignment'         => $column_alignment,
 			];
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
@@ -279,13 +302,21 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_masthead_content_callback( $event, $header_template ) {
 			$date_start            = Helper::get_post_meta( 'date_start', $event->post_id );
+			$headline              = Helper::get_post_meta( 'headline', $event->post_id );
 			$location              = Helper::get_post_meta( 'location', $event->post_id );
 			$location_country_code = Helper::get_post_meta( 'country', $location );
 			$location_province     = Helper::get_post_meta( 'province', $location );
 			$masthead_args         = [
-				'title'   => $event->post_title,
-				'excerpt' => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
+				'header_title'    => $event->post_title,
+				'header_headline' => $headline,
+				'header_excerpt'  => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
 			];
+
+			// Use default content if headline is not defined.
+			if ( ! $headline ) {
+				$masthead_args['header_title']    = __( 'The Conference', 'wacara' );
+				$masthead_args['header_headline'] = $event->post_title;
+			}
 
 			Template::render( 'event/masthead', $masthead_args, true );
 		}

@@ -26,7 +26,6 @@ if ( ! empty( $price_lists ) ) {
 						<div class="wcr-pricing-price-wrapper">
 							<span class="wcr-pricing-price-currency"><?php echo esc_html( $list['symbol'] ); ?></span>
 							<span class="wcr-pricing-price-value"><?php echo esc_html( number_format_i18n( (int) $list['price'] ) ); ?></span>
-							<!--                            <span class="wcr-pricing-price-value-comma">00</span>-->
 						</div>
 						<div class="wcr-pricing-features-wrapper">
 							<ul class="wcr-pricing-features">
@@ -53,12 +52,9 @@ if ( ! empty( $price_lists ) ) {
 								?>
 							</ul>
 						</div>
-						<div class="wcr-pricing-desc-wrapper">
-							<!--                            <p class="wcr-pricing-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
-						</div>
+						<div class="wcr-pricing-desc-wrapper"></div>
 						<div class="wcr-pricing-cta-wrapper">
-							<button class="wcr-pricing-cta" data-pricing="<?php echo esc_attr( $list['id'] ); ?>"
-									data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
+							<button class="wcr-pricing-cta" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
 						</div>
 					</div>
 				</div>

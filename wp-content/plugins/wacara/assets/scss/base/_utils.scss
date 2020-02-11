@@ -1,15 +1,31 @@
 .wcr-height-100-vh {
-  height: 100vh;
+  height: 100vh !important;
 }
 
 .wcr-height-100-p {
-  height: 100%;
+  height: 100% !important;
 }
 
 .wcr-align-items-center {
-  align-items: center;
+  align-items: center !important;
+}
+
+.wcr-justify-content-start {
+  justify-content: flex-start !important;
+}
+
+.wcr-justify-content-end {
+  justify-content: flex-end !important;
 }
 
 .wcr-text-center {
-  text-align: center;
+  text-align: center !important;
+}
+
+.wcr-text-left {
+  text-align: left !important;
+}
+
+.wcr-text-right {
+  text-align: right !important;
 }

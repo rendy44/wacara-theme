@@ -4,84 +4,102 @@ header.wcr-event-header {
     height: 500px;
   }
 
-  .wcr-event-title-wrapper {
-    margin-bottom: .5rem;
+  .frow {
+    .wcr-event-title-wrapper {
+      margin-bottom: .5rem;
 
-    h1.wcr-event-title {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 300;
-      @include breakpoint($size_tablet) {
-        font-size: 18px;
-      }
-      @include breakpoint($size_laptop) {
-        font-size: 22px;
-      }
-    }
-  }
-
-  .wcr-event-subtitle-wrapper {
-    margin-bottom: 2rem;
-
-    h2.wcr-event-subtitle {
-      margin: 0;
-      font-size: 26px;
-      text-transform: uppercase;
-      font-weight: 500;
-      line-height: 1.2;
-      @include breakpoint($size_tablet) {
-        font-size: 32px;
-      }
-      @include breakpoint($size_laptop) {
-        font-size: 50px;
-      }
-    }
-  }
-
-  .wcr-event-highlight-wrapper {
-    margin-bottom: 2rem;
-
-    p.wcr-event-highlight {
-      margin: 0;
-    }
-  }
-
-  .wcr-event-counter-wrapper {
-    display: flex;
-    @include breakpoint($size_tablet) {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .wcr-event-counter-item {
-      flex: 1;
-      padding: 0.5rem;
-      margin-right: .5rem;
-      background-color: darken($white, 1%);
-      border: 1px solid lighten($black, 90%);
-      @include box-shadow();
-      @include border-radius(4px);
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      span.wcr-event-count-value {
-        display: block;
-        font-weight: 600;
-        font-size: 22px;
-        margin-bottom: .25rem;
+      h1.wcr-event-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 300;
+        @include breakpoint($size_tablet) {
+          font-size: 18px;
+        }
         @include breakpoint($size_laptop) {
-          font-size: 32px;
+          font-size: 22px;
         }
       }
+    }
 
-      span.wcr-event-count-label {
-        display: block;
-        font-weight: 300;
-        font-size: 12px;
+    .wcr-event-subtitle-wrapper {
+      margin-bottom: 2rem;
+
+      h2.wcr-event-subtitle {
+        margin: 0;
+        font-size: 26px;
+        text-transform: uppercase;
+        font-weight: 500;
+        line-height: 1.2;
+        @include breakpoint($size_tablet) {
+          font-size: 32px;
+        }
         @include breakpoint($size_laptop) {
-          font-size: 16px;
+          font-size: 50px;
+        }
+      }
+    }
+
+    .wcr-event-highlight-wrapper {
+      margin-bottom: 2rem;
+
+      p.wcr-event-highlight {
+        margin: 0;
+      }
+    }
+
+    .wcr-event-counter-wrapper {
+      display: flex;
+      @include breakpoint($size_tablet) {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .wcr-event-counter-item {
+        text-align: center;
+        flex: 1;
+        padding: 0.5rem;
+        margin-right: .5rem;
+        background-color: darken($white, 1%);
+        border: 1px solid lighten($black, 90%);
+        @include box-shadow();
+        @include border-radius(4px);
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        span.wcr-event-count-value {
+          display: block;
+          font-weight: 600;
+          font-size: 22px;
+          margin-bottom: .25rem;
+          @include breakpoint($size_laptop) {
+            font-size: 32px;
+          }
+        }
+
+        span.wcr-event-count-label {
+          display: block;
+          font-weight: 300;
+          font-size: 12px;
+          @include breakpoint($size_laptop) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    &.wcr-justify-content-end {
+      .wcr-event-counter-wrapper {
+        @include breakpoint($size_tablet) {
+          margin-right: 0;
+        }
+      }
+    }
+    &.wcr-justify-content-start {
+      .wcr-event-counter-wrapper {
+        @include breakpoint($size_tablet) {
+          margin-left: 0;
         }
       }
     }

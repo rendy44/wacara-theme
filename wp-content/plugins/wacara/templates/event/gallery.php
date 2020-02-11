@@ -18,8 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wcr-gallery-item">
 				<div class="wcr-gallery-image-wrapper">
 					<a href="<?php echo esc_url( $image_url ); ?>">
-						<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'medium' ) ); ?>"
-							 class="wcr-gallery-image" alt="Image Gallery">
+						<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'medium' ) ); ?>" class="wcr-gallery-image" alt="Image Gallery">
 					</a>
 				</div>
 			</div>

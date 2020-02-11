@@ -547,29 +547,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => __( 'Layout', 'wacara' ),
 						'fields' => [
 							[
-								'name'    => __( 'Width', 'wacara' ),
-								'id'      => $this->meta_prefix . 'content_width',
-								'type'    => 'select',
-								'desc'    => __( 'If you select half-width, please use transparent background image for the best result', 'wacara' ),
-								'options' => [
-									'center' => __( 'Full-width content', 'wacara' ),
-									'half'   => __( 'Half-width content', 'wacara' ),
-								],
-							],
-							[
-								'name'       => __( 'Scheme', 'wacara' ),
-								'id'         => $this->meta_prefix . 'color_scheme',
-								'type'       => 'select',
-								'options'    => [
-									'light' => __( 'Light color', 'wacara' ),
-									'dark'  => __( 'Dark color', 'wacara' ),
-								],
-								'attributes' => [
-									'data-conditional-id' => $this->meta_prefix . 'content_width',
-									'data-conditional-value' => 'center',
-								],
-							],
-							[
 								'name'    => __( 'Alignment', 'wacara' ),
 								'id'      => $this->meta_prefix . 'content_alignment',
 								'type'    => 'select',
@@ -604,6 +581,12 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 									],
 								],
 								'preview_size' => 'large',
+							],
+							[
+								'name' => __( 'Darken', 'wacara' ),
+								'id'   => $this->meta_prefix . 'darken',
+								'type' => 'checkbox',
+								'desc' => __( 'Darken background image', 'wacara' ),
 							],
 							[
 								'name' => __( 'Countdown', 'wacara' ),
@@ -646,6 +629,12 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
+								'name' => __( 'headline', 'wacara' ),
+								'id'   => $this->meta_prefix . 'headline',
+								'type' => 'text',
+								'desc' => __( 'Give a short and eye-catching headline', 'wacara' ),
+							],
+							[
 								'name'    => __( 'Section order', 'wacara' ),
 								'id'      => $this->meta_prefix . 'section_order',
 								'type'    => 'pw_multiselect',
@@ -668,24 +657,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 									'schedule',
 									'pricing',
 								],
-							],
-							[
-								'name'         => __( 'Main logo', 'wacara' ),
-								'id'           => $this->meta_prefix . 'main_logo',
-								'type'         => 'file',
-								'desc'         => __( 'Only image with .png extension is allowed', 'wacara' ),
-								'options'      => [
-									'url' => false,
-								],
-								'text'         => [
-									'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-								],
-								'query_args'   => [
-									'type' => [
-										'image/png',
-									],
-								],
-								'preview_size' => 'medium',
 							],
 							[
 								'name'    => __( 'Header', 'wacara' ),
@@ -733,7 +704,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Description', 'wacara' ),
 								'id'   => $this->meta_prefix . 'description',
 								'type' => 'textarea_small',
-								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
+								'desc' => __( 'Describe the event in a paragraph', 'wacara' ),
 							],
 						],
 					],
