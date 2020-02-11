@@ -1,0 +1,56 @@
+$tooltip_width: 150px;
+
+.wcr-tooltip {
+  position: relative;
+  display: inline-block;
+
+  .wcr-tooltip-text {
+    opacity: 0;
+    width: $tooltip_width;
+    background-color: rgba($black, .8);
+    color: $white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    //left: 100%;
+    //margin-left: $tooltip_width/2*-1;
+    margin-left: -63px;
+    font-size: 12px;
+    @include transition(all .2s ease);
+    @include border-radius(6px);
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
+    }
+  }
+
+  &:after {
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 14px;
+    height: 14px;
+    font-weight: 700;
+    content: '?';
+    font-size: 10px;
+    margin-left: 5px;
+    border: 1px solid darken($white, 80%);
+    @include border-radius(50%);
+
+    &:hover {
+      .wcr-tooltip-text {
+        opacity: 1;
+      }
+    }
+  }
+}

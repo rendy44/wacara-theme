@@ -1,0 +1,190 @@
+$facebook_color: #3b5998 !default;
+$linkedin_color: #2867B2 !default;
+$twitter_color: #1DA1F2 !default;
+$youtube_color: #ff0000 !default;
+
+.wcr-section-speakers {
+  .wcr-section-content-wrapper {
+    .wcr-speaker-item-wrapper {
+      margin-bottom: 1.5rem;
+      position: relative;
+      //height: 100%;
+      @include box-shadow();
+
+      .wcr-speaker-image-wrapper {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 250px;
+      }
+
+      .wcr-speaker-detail-wrapper {
+        background-color: rgba($black, .35);
+        padding: 1rem;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        @include transition(all .2s ease);
+
+        .wcr-speaker-link-wrapper {
+          margin-bottom: .7rem;
+
+          a.wcr-speaker-link {
+            font-size: 16px;
+            color: $white;
+            font-weight: 500;
+            letter-spacing: 1px;
+          }
+        }
+
+        .wcr-speaker-desc-wrapper {
+          margin-bottom: .7rem;
+
+          p.wcr-speaker-desc {
+            font-size: 16px;
+            margin: 0;
+            color: $white;
+            font-weight: 300;
+          }
+        }
+
+        .wcr-speaker-socnet-wrapper {
+          height: 0;
+          opacity: 0;
+          @include transition(all .2s ease-out);
+          //transition-timing-function: ease-in-out;
+
+          ul.wcr-speaker-socnet {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+
+            li {
+              display: inline-block;
+              height: 30px;
+              width: 30px;
+              //border: 1px solid rgba($white, .5);
+              border: 1px solid $white;
+              @include border-radius(50%);
+              margin: auto;
+              position: relative;
+              overflow: hidden;
+
+              & > a {
+                line-height: 30px;
+                display: block;
+                width: 100%;
+                color: $white;
+                font-weight: 600;
+                font-size: 14px;
+
+                span.wcr-speaker-socnet-label {
+                  display: none;
+                }
+
+                &:hover,
+                &:active,
+                &:focus {
+                  text-decoration: none;
+                }
+              }
+
+              &.wcr-speaker-facebook-wrapper {
+                & > a {
+                  background-color: $facebook_color;
+
+                  &:before {
+                    content: 'F';
+                  }
+                }
+              }
+
+              &.wcr-speaker-instagram-wrapper {
+                & > a {
+                  @include custom_gradient(#F56040, #405DE6, #833AB4);
+
+                  &:before {
+                    content: 'I';
+                  }
+                }
+              }
+
+              &.wcr-speaker-twitter-wrapper {
+                & > a {
+                  background-color: $twitter_color;
+
+                  &:before {
+                    content: 'T';
+                  }
+                }
+              }
+
+              &.wcr-speaker-youtube-wrapper {
+                & > a {
+                  background-color: $youtube_color;
+
+                  &:before {
+                    content: 'Y';
+                  }
+                }
+              }
+
+              &.wcr-speaker-website-wrapper {
+                & > a {
+                  background-color: $base_color;
+
+                  &:before {
+                    content: 'W';
+                  }
+                }
+              }
+
+              &.wcr-speaker-linkedin-wrapper {
+                & > a {
+                  background-color: $linkedin_color;
+
+                  &:before {
+                    content: 'L';
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        @include box-shadow(0, .25rem, 1rem);
+
+        .wcr-speaker-detail-wrapper {
+          background-color: rgba($black, .65);
+
+          .wcr-speaker-socnet-wrapper {
+            height: 30px;
+            opacity: 1;
+          }
+        }
+      }
+
+      @include breakpoint($size_tablet) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+
+    > .frow {
+      > div {
+        &:last-child {
+          .wcr-speaker-item-wrapper {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.cmb2-wrap {
+  input,
+  textarea {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .cmb-row {
+    &.master-field {
+      margin-top: 5px !important;
+      margin-bottom: 0 !important;
+    }
+
+    &.mini-label {
+      margin-bottom: 0 !important;
+
+      > .cmb-th {
+        label {
+          font-weight: 400;
+          font-size: small;
+          padding: 0 !important;
+        }
+      }
+
+      > .cmb-td {
+        input {
+          margin: 0 !important;
+        }
+      }
+    }
+
+    .cmb2-metabox-description {
+      padding-bottom: 0 !important;
+    }
+  }
+}
+
+.cmb-add-row {
+  margin-top: 0 !important;
+}
+
+.cmb-repeatable-group {
+  .inside {
+    .cmb-row {
+      padding: 0 !important;
+    }
+  }
+}

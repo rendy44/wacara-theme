@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>Wacara Event Organizer Documentation</title>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+    <style type="text/css" media="screen">
+        p, table, hr, .box {
+            margin-bottom: 25px;
+        }
+
+        .box p {
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+<div class="container">
+
+    <h3 class="center alt">&ldquo;Wacara Event Organizer&rdquo; Documentation by &ldquo;Rendy&rdquo; v1.0</h3>
+
+    <hr>
+
+    <h1 class="center">&ldquo;Wacara Event Organizer&rdquo;</h1>
+
+    <div class="borderTop">
+        <div class="span-6 colborder info prepend-1">
+            <p class="prepend-top">
+                <strong>
+                    Created: 29/9/2019<br>
+                    By: Rendy<br>
+                    Email: <a href="mailto:rendy.de.p@gmail.com">rendy.de.p@gmail.com</a>
+                </strong>
+            </p>
+        </div><!-- end div .span-6 -->
+
+        <div class="span-12 last">
+            <p class="prepend-top append-0">Thank you for purchasing Wacara Event Organizer. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form
+                <a href="http://themeforest.net/user/rendy44">here</a>. Thank you so much!</p>
+        </div>
+    </div><!-- end div .borderTop -->
+
+    <hr>
+
+    <h2 id="toc" class="alt">Table of Contents</h2>
+    <ol class="alpha">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#headers">Headers</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#apis">Actions and Filters</a> <em class="quiet small">(developers only)</em></li>
+        <li><a href="#credits">Credits</a></li>
+    </ol>
+    <hr>
+
+    <h3 id="introduction"><strong>A) Introduction</strong> - <a href="#toc">top</a></h3>
+    <p><strong>Wacara Event Organizer</strong> is a WordPress theme to create and manage events on the fly.</p>
+    <p>With Wacara you can create both paid and free event, and it uses Stripe for the payment gateway.</p>
+    <hr>
+
+    <h3 id="installation"><strong>B) Installation</strong> - <a href="#toc">top</a></h3>
+    <p>Before installing the theme, make sure you have Stripe account to be used as the payment gateway.</p>
+    <p>To install the theme, as simple as below:</p>
+    <ol>
+        <li>Go to your site administrator page.</li>
+        <li>Goto <strong>Appearance</strong> > <strong>Themes</strong></li>
+        <li>Click <strong>Add New</strong> > <strong>Upload Theme</strong></li>
+        <li>And select your theme with <strong>.zip</strong> format</li>
+    </ol>
+    <p>Your theme is installed, but before creating an event, there are some steps that you need to complete first to get the most of the theme.</p>
+    <ol>
+        <li>Update your site logo, by clicking <strong>Wacara Options</strong></li>
+        <li>Update the Stripe setting with your Stripe account, simply go to <strong>Wacara Options</strong> >
+            <strong>Stripe Options</strong></li>
+        <li>Create your first event's <strong>Headers</strong>. Go to <strong>Headers</strong> >
+            <strong>Add New</strong>. For more details about <strong>Headers</strong> you can jump
+            <a href="#headers">here</a></li>
+        <li>Create your first event's <strong>Locations</strong>. Go to <strong>Locations</strong> >
+            <strong>Add New</strong>. For more details about <strong>Locations</strong> you can jump
+            <a href="#locations">here</a></li>
+        <li>Create your first event's <strong>Speakers</strong>. Go to <strong>Speakers</strong> >
+            <strong>Add New</strong>. For more details about <strong>Speakers</strong> you can jump
+            <a href="#speakers">here</a></li>
+        <li>Create your first event's <strong>Prices</strong>. Go to <strong>Prices</strong> >
+            <strong>Add New</strong>. For more details about <strong>Prices</strong> you can jump
+            <a href="#prices">here</a></li>
+        <li>Once everything is ready, you can start creating your first event by clicking <strong>Events</strong> >
+            <strong>Add New</strong></li>
+    </ol>
+    <hr>
+
+    <h3 id="events"><strong>D) The Events</strong> - <a href="#toc">top</a></h3>
+    <p>When you are creating an event, there are bunch of configurations you can play with. Basically, they are separated into three different metaboxes,
+        <strong>Detail</strong>, <strong>Schedule</strong>, and <strong>Design</strong>.</p>
+
+    <h4 id="metabox-detail"><strong>D.1) Detail</strong> - <a href="#toc">top</a></h4>
+    <p>In this metabox we will separate into three different tabs, <strong>General</strong>,
+        <strong>Rules</strong>, and <strong>Fields</strong>.</p>
+    <h5 id="detail-general"><strong>D.1.1) General</strong> - <a href="#toc">top</a></h5>
+    <p>This tab contains few fields that will be explained below.</p>
+    <ul>
+        <li>
+            <strong>Date start</strong>, is field to configure when the event will be started. This field also has responsibility to the countdown in header section.
+            <img src="assets/images/countdown.jpg" alt="">
+            <p><small><i>Countdown section in header.</i></small></p>
+        </li>
+        <li>
+            <strong>Single day</strong>, as its name, whether we want to create an event that will be held in one day or multiple day. If
+            <strong>Single day</strong> is checked, it will reproduce another field which is called
+            <strong>Time end</strong>. The field is used to save information when the event will be ended.
+            In another hand, if <strong>Single day</strong> is not checked, it will also reproduce a field called
+            <strong>Date end</strong>. it's opposite from
+            <strong>Date start</strong>, which is to save the date end time of when the event will be ended.
+        </li>
+    </ul>
+    <h5 id="detail-rules"><strong>D.1.2) Rules</strong> - <a href="#toc">top</a></h5>
+    <p>This tab only contains one main field, that is
+        <strong>Allow register</strong>, if you check this option you will allow the user to register to your event. In another hand, if you uncheck this option you will not allow user to register to your event. This option will useful if you are organizing free public event which does not require any registration.
+        Moreover, if you activate the <i>Allow register</i>, it will produce one more field that's called
+        <strong>Limit register</strong>.
+        Just like its name, the field will add more flexibility to the event whether you want to create an event with limited seats or limited registration time. Currently we can limit the registration by two fields,
+        <strong>By registrant</strong>, and <strong>By date</strong>.
+    </p>
+    <img src="assets/images/no-registration.jpg" alt="">
+    <p><small><i>Registration section if the event does not allow registration.</i></small></p>
+    <h5 id="detail-fields"><strong>D.1.3) Fields</strong> - <a href="#toc">top</a></h5>
+    <p>In this tab you can configure the fields of your event's registration form.</p>
+    <p>Basically, every field has three options, whether include the field on the registration form or not, set the field as mandatory, and set the label of the field. But there are two fields that you can not exclude the field and its mandatory function, they are
+        <strong>Email</strong> and <strong>Name</strong>.</p>
+    <hr/>
+
+    <h4 id="metabox-schedule"><strong>D.2) Schedule</strong> - <a href="#toc">top</a></h4>
+    <p>You can display the information of the event's rundown from the start until the finish. You can add as many timeline as you desire, and each timeline has three fields, they are
+        <strong>Period</strong>, <strong>Title</strong>, and <strong>Content</strong>.</p>
+    <img src="assets/images/timeline.jpg" alt="">
+    <p><small><i>Sample of schedule section</i></small></p>
+    <hr>
+
+    <h4 id="metabox-design"><strong>D.3) Design</strong> - <a href="#toc">top</a></h4>
+    <p>This metabox has eight different tabs, mostly they are representing the layout of the event's landing page. Those tabs are
+        <strong>General</strong>, <strong>About section</strong>, <strong>Speakers section</strong>,
+        <strong>Venue section</strong>, <strong>Gallery section</strong>, <strong>Sponsors section</strong>,
+        <strong>Schedule section</strong>, and <strong>Pricing section</strong>.</p>
+    <h5 id="design-general"><strong>D.3.1) General</strong> - <a href="#toc">top</a></h5>
+    <p>This tab contains four fields that will be explained below.</p>
+    <ul>
+        <li>
+            <strong>Section order</strong>, this means you an adjust the order of sections in your event's landing page. You can even drop not desired section. But keep in mind, header will always remain in the top.
+        </li>
+        <li>
+            <strong>Main logo</strong>, you can adjust the logo for each event. and if you leave the field empty your event will use logo of your site which is you can set it from options.
+        </li>
+        <li>
+            <strong>Header</strong>, you can design the header differently from one to another, you can learn more about here
+            <a href="#headers">here</a>
+        </li>
+        <li>
+            <strong>Background</strong>, just in case you want use use the same
+            <i>header</i> template from previous created header but you want to modify the background color here. But you can always leave it empty to exactly use the same as previous created
+            <i>header</i>
+        </li>
+    </ul>
+    <img src="assets/images/design-general.jpg" alt="">
+    <p><i><small>Design editor for general tab</small></i></p>
+    <p>Before we moving further, next part we will walk through the available options for each sections. And all of them have three common fields, they are:</p>
+    <ul>
+        <li><strong>Nav title</strong>, whether you want to make a
+            <i>shortcut to your section from your nav bar, just put the nav title and it will create a shortcut to the respective section. In another hand, if you leave it empty you won't see the shortcut in the nav bar.</i>
+        </li>
+        <li>
+            <strong>Title</strong>, maybe you want to name all your sections with your own word, just write the title in this field.
+        </li>
+        <li>
+            <strong>Subtitle</strong>, this is an additional field you can use to create little bit more explanation to the section.
+        </li>
+    </ul>
+    <img src="assets/images/navbar.jpg" alt="">
+    <p><small><i>Sample nav bar of the event</i></small></p>
+    <h5 id="design-about"><strong>D.3.2) About Section</strong> - <a href="#toc">top</a></h5>
+    <p>Except the common fields we have mentioned above, this tab has one more field which is
+        <strong>Description</strong>. You can write a short description about the event and it will be displayed in about section alongside date information and location information.
+    </p>
+    <img src="assets/images/about-section.jpg" alt="">
+    <p><small><i>Sample about section</i></small></p>
+    <h5 id="design-speakers"><strong>D.3.3) Speakers Section</strong> - <a href="#toc">top</a></h5>
+    <p>This tab also has one more field, which is
+        <strong>Speakers</strong>, where you can select lists of speakers that you have created before. For more detail about speakers, please refer to
+        <a href="#speakers">this</a> section </p>
+    <img src="assets/images/speakers-section.jpg" alt="">
+    <p><small><i>Sample of speakers section</i></small></p>
+    <h5 id="design-venue"><strong>D.3.4) Venue Section</strong> - <a href="#toc">top</a></h5>
+    <p>Just like two tabs above, this tab also has one field which is
+        <strong>Location</strong>, where you can select one location you have created before. To learn more about
+        <i>location</i> please refer to <a href="#locations">this</a> section</p>
+    <img src="assets/images/location-section.jpg" alt="">
+    <p><small><i>Sample of location section</i></small></p>
+    <h5 id="design-gallery"><strong>D.3.5) Gallery section</strong> - <a href="#toc">top</a></h5>
+    <p>This tab also has one field called
+        <strong>Gallery</strong>, where you can put bunch of images related to the event, you can select any images.</p>
+    <h5 id="design-sponsors"><strong>D.3.6) Sponsors section</strong> - <a href="#toc">top</a></h5>
+    <p>This tab exactly 90% is identical with last tab above, only contain one field for image lists, the only different is the name of the field, which is called
+        <strong>Sponsors</strong>. This field is used to display list of sponsor logos. </p>
+    <h5 id="design-schedule"><strong>D.3.7) Schedule section</strong> - <a href="#toc">top</a></h5>
+    <p>This tab does not have any field except three common fields above. This tab has its own metabox instead, the metabox called
+        <a href="#metabox-schedule"><strong>Schedule</strong></a></p>
+    <h5 id="design-pricing"><strong>D.3.8) Pricing section</strong> - <a href="#toc">top</a></h5>
+    <p>Last but not least, this tab has major role related to the registration. This tab has one field called
+        <strong>Pricing</strong>, which is a list of package/tier of the registration. You can select lists of pricing that you have created before. To learn more about pricing, please refer to
+        <a href="#prices">this</a> section</p>
+    <img src="assets/images/pricing-section.jpg" alt="">
+    <p><small><i>Sample of pricing section</i></small></p>
+    <hr/>
+    <h3 id="headers"><strong>E) Headers</strong> - <a href="#toc">top</a></h3>
+
+    <p>I've used the following images, icons or other files as listed.
+
+    <ul>
+        <li>File name from file author</li>
+        <li>File name from file author</li>
+        <li>File name from file author</li>
+        <li>File name from file author</li>
+    </ul>
+
+    <hr>
+
+    <p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p>
+
+    <p class="append-bottom alt large"><strong>Rendy</strong></p>
+    <p><a href="#toc">Go To Table of Contents</a></p>
+
+    <hr class="space">
+</div><!-- end div .container -->
+</body>
+</html>

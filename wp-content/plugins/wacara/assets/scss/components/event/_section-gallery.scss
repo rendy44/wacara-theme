@@ -1,0 +1,33 @@
+.wcr-section-gallery {
+  .wcr-section-content-wrapper {
+    .wcr-gallery-items-wrapper {
+      columns: 2;
+      column-gap: 7.5px;
+
+      .wcr-gallery-item {
+        margin-bottom: 7.5px;
+
+        .wcr-gallery-image-wrapper {
+          img.wcr-gallery-image {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid rgba($black, .2);
+            background-color: $white;
+            @include border-radius(6px);
+            @include transition(all .2s ease);
+          }
+        }
+      }
+
+      @include breakpoint($size_tablet) {
+        column-count: 3;
+      }
+      @include breakpoint($size_laptop) {
+        column-count: 4;
+      }
+      @include breakpoint($size-desktop) {
+        column-count: 5;
+      }
+    }
+  }
+}

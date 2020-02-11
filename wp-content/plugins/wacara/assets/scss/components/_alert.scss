@@ -1,0 +1,49 @@
+.wcr-alert {
+  padding: 1rem;
+  border: 1px dashed darken($base_color, 10%);
+  background-color: lighten($base_color, 47%);
+
+  margin-bottom: 1rem;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: darken($base_color, 30%);
+  }
+
+  &.wcr-alert-info {
+    border-color: darken($info_color, 10%);
+    background-color: lighten($info_color, 47%);
+
+    p {
+      color: darken($info_color, 30%);
+    }
+  }
+
+  &.wcr-alert-success {
+    border-color: darken($success_color, 10%);
+    background-color: lighten($success_color, 47%);
+
+    p {
+      color: darken($success_color, 30%);
+    }
+  }
+
+  &.wcr-alert-warning {
+    border-color: darken($warning_color, 10%);
+    background-color: lighten($warning_color, 47%);
+
+    p {
+      color: darken($warning_color, 30%);
+    }
+  }
+
+  &.wcr-alert-danger {
+    border-color: darken($danger_color, 10%);
+    background-color: lighten($danger_color, 47%);
+
+    p {
+      color: darken($danger_color, 30%);
+    }
+  }
+}

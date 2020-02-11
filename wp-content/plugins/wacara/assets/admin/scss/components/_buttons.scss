@@ -1,0 +1,17 @@
+.button {
+  &.button-danger {
+    background-color: lighten($danger_color, 10%);
+    border-color: $danger_color;
+    color: $white;
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten($danger_color, 15%);
+        color: $white !important;
+        border-color: $danger_color !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+header.wcr-registrant-header {
+  //margin-bottom: 4rem;
+
+  .wcr-registrant-title-wrapper {
+    margin-bottom: 1rem;
+
+    h1.wcr-registrant-title {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+      line-height: 1.2;
+      @include breakpoint($size_laptop) {
+        font-size: 50px;
+      }
+    }
+  }
+
+  .wcr-registrant-desc-wrapper {
+    p.wcr-registrant-desc {
+      margin: 0;
+    }
+  }
+
+  @include breakpoint($size_tablet) {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    height: auto;
+  }
+}

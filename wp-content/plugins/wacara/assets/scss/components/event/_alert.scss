@@ -1,0 +1,92 @@
+.wcr-event-alert {
+  background-color: lighten($base_color, 15%);
+  color: $white;
+
+  .wcr-event-alert-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .wcr-event-alert-block-wrapper {
+      display: block;
+      padding: .5rem 2rem;
+      text-align: center;
+
+      &.wcr-event-alert-title-wrapper {
+        background-color: lighten($base_color, 45%);
+        color: darken($base_color, 15%);
+        width: 100%;
+
+        span.wcr-event-alert-title {
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+      }
+
+      &.wcr-event-alert-content-wrapper {
+        span.wcr-event-alert-content {
+          font-weight: 300;
+          font-size: 16px;
+        }
+      }
+
+      &.wcr-event-alert-cta-wrapper {
+        a.wcr-event-alert-cta {
+          display: block;
+          width: 100%;
+          background-color: darken($base_color, 10%);
+          color: $white;
+          text-transform: uppercase;
+          text-align: center;
+          padding: .5rem 1rem;
+          @include border-radius(4px);
+
+          &:hover,
+          &:active,
+          &:focus {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    @include breakpoint($size_tablet) {
+      flex-direction: row;
+      .wcr-event-alert-block-wrapper {
+        padding: .5rem;
+
+        &.wcr-event-alert-title-wrapper {
+          width: 164px;
+          height: 60px;
+          //padding: .5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          span.wcr-event-alert-title {
+            font-weight: 500;
+            font-size: 18px;
+          }
+        }
+
+        &.wcr-event-alert-content-wrapper {
+          text-align: left;
+
+          span.wcr-event-alert-content {
+            @include ellipse_text(1);
+          }
+        }
+
+        &.wcr-event-alert-cta-wrapper {
+          min-width: 130px;
+
+          a.wcr-event-alert-cta {
+            @include ellipse_text(1);
+            font-weight: 500;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
