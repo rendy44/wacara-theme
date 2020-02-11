@@ -63,9 +63,10 @@ if ( ! $is_event_past ) {
 	foreach ( $sections as $section ) {
 
 		// Define section class based on odd or even position.
-		$section_class    = 'wcr-event-section';
-		$section_title    = Helper::get_post_meta( $section . '_title' );
-		$section_subtitle = Helper::get_post_meta( $section . '_subtitle' );
+		$section_class       = 'wcr-event-section';
+		$section_title       = Helper::get_post_meta( $section . '_title' );
+		$section_subtitle    = Helper::get_post_meta( $section . '_subtitle' );
+		$section_description = Helper::get_post_meta( $section . '_description' );
 
 		/**
 		 * Wacara section class filter.
@@ -79,16 +80,17 @@ if ( ! $is_event_past ) {
 		/**
 		 * Wacara before section hook.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 *
 		 * @hooked render_section_opening_callback - 10
 		 * @hooked maybe_section_title_callback - 20
 		 */
-		do_action( 'wacara_before_event_section', $section, $event, $section_class, $section_title, $section_subtitle );
+		do_action( 'wacara_before_event_section', $section, $event, $section_class, $section_title, $section_subtitle, $section_description );
 
 		/**
 		 * Wacara single section hook.
@@ -100,15 +102,16 @@ if ( ! $is_event_past ) {
 		/**
 		 * Wacara after section hook.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 *
 		 * @hooked render_section_closing_callback - 50;
 		 */
-		do_action( 'wacara_after_event_section', $section, $event, $section_class, $section_title, $section_subtitle );
+		do_action( 'wacara_after_event_section', $section, $event, $section_class, $section_title, $section_subtitle, $section_description );
 
 		$section_num ++;
 	}

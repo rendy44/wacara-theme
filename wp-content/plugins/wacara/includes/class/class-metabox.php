@@ -752,6 +752,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type' => 'text',
 							],
 							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'speakers_description',
+								'type' => 'textarea_small',
+							],
+							[
 								'name'    => __( 'Speakers', 'wacara' ),
 								'id'      => $this->meta_prefix . 'speakers',
 								'type'    => 'pw_multiselect',
@@ -774,6 +779,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type' => 'text',
 							],
 							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'venue_description',
+								'type' => 'textarea_small',
+							],
+							[
 								'name'    => __( 'Location', 'wacara' ),
 								'id'      => $this->meta_prefix . 'location',
 								'type'    => 'select',
@@ -794,6 +804,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'gallery_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'gallery_description',
+								'type' => 'textarea_small',
 							],
 							[
 								'name'         => __( 'Gallery', 'wacara' ),
@@ -819,6 +834,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type' => 'text',
 							],
 							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'sponsors_description',
+								'type' => 'textarea_small',
+							],
+							[
 								'name'         => __( 'Sponsors', 'wacara' ),
 								'id'           => $this->meta_prefix . 'sponsors',
 								'type'         => 'file_list',
@@ -841,6 +861,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'schedule_subtitle',
 								'type' => 'text',
 							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'schedule_description',
+								'type' => 'textarea_small',
+							],
 						],
 					],
 					[
@@ -856,6 +881,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'pricing_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'pricing_description',
+								'type' => 'textarea_small',
 							],
 							[
 								'name'    => __( 'Pricing', 'wacara' ),

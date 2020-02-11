@@ -68,9 +68,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render the sections.
 			add_filter( 'wacara_event_section_class', [ $this, 'event_section_class_callback' ], 10, 3 );
-			add_action( 'wacara_before_event_section', [ $this, 'event_section_opening_callback' ], 10, 5 );
-			add_action( 'wacara_before_event_section', [ $this, 'maybe_event_section_title_callback' ], 20, 5 );
-			add_action( 'wacara_after_event_section', [ $this, 'event_section_closing_callback' ], 50, 5 );
+			add_action( 'wacara_before_event_section', [ $this, 'event_section_opening_callback' ], 10, 6 );
+			add_action( 'wacara_before_event_section', [ $this, 'maybe_event_section_title_callback' ], 20, 6 );
+			add_action( 'wacara_after_event_section', [ $this, 'event_section_closing_callback' ], 50, 6 );
 
 			// Render the about section.
 			add_action( 'wacara_event_about_section', [ $this, 'event_about_section_callback' ], 10, 1 );
@@ -336,13 +336,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section opening tag.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function event_section_opening_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function event_section_opening_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			$section_args = [
 				'section_class' => $section_class,
 				'section'       => $section,
@@ -354,17 +355,19 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section title.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function maybe_event_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function maybe_event_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			if ( $section_title || $section_subtitle ) {
 				$section_args = [
-					'section_title'    => $section_title,
-					'section_subtitle' => $section_subtitle,
+					'section_title'       => $section_title,
+					'section_subtitle'    => $section_subtitle,
+					'section_description' => $section_description,
 				];
 
 				Template::render( 'global/section-title', $section_args, true );
@@ -374,13 +377,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section closing tag.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function event_section_closing_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function event_section_closing_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			Template::render( 'global/section-close', [], true );
 		}
 
