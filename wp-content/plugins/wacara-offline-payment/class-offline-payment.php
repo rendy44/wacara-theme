@@ -334,7 +334,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						$template_args['id']                              = $registrant->post_id;
 						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
 						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
-						$template_args['maybe_price_in_cent_with_unique'] = Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
+						$template_args['maybe_price_in_cent_with_unique'] = $this->maybe_get_price_in_cent_with_unique( $registrant );
 						$template_args['selected_bank_account']           = Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
 
 						// Override the template first.
