@@ -442,7 +442,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			switch ( $reg_status ) {
 				case 'waiting-payment':
 					// Fetch invoice info of the registrant.
-					$invoice_info = $registrant->get_invoicing_info();
+					$invoice_info              = $registrant->get_invoicing_info();
+					$price_in_cent_with_unique = $this->maybe_get_price_in_cent_with_unique( $registrant );
 
 					// Fetch bank accounts from settings.
 					$bank_accounts = $this->get_bank_accounts();
@@ -452,7 +453,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						'bank_accounts'   => $bank_accounts,
 						'currency_code'   => $invoice_info['currency'],
 						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
-						'amount'          => number_format_i18n( $invoice_info['price_in_cent'] / 100, 2 ),
+						'amount'          => number_format_i18n( $price_in_cent_with_unique / 100, 2 ),
 					];
 
 					// Merge the array.
@@ -538,6 +539,17 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Maybe get price in cent with unique key.
+		 *
+		 * @param Registrant $registrant object of the registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		private function maybe_get_price_in_cent_with_unique( $registrant ) {
+			return Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
 		}
 	}
 
