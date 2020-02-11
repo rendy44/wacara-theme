@@ -353,8 +353,9 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						if ( $pricing->success ) {
 
 							// Fetch pricing detail.
-							$pricing_price    = $pricing->get_price();
-							$pricing_currency = $pricing->get_currency_code();
+							$pricing_price         = $pricing->get_price();
+							$pricing_price_in_cent = $pricing_price * 100;
+							$pricing_currency      = $pricing->get_currency_code();
 
 							// Fetch payment method.
 							$payment_method = $registrant->get_payment_method_id();
@@ -376,7 +377,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							if ( $selected_payment_method ) {
 
 								// Process the payment.
-								$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price, $pricing_currency );
+								$do_payment = $selected_payment_method->process( $registrant, $unserialize_obj, $pricing_price_in_cent, $pricing_currency );
 
 								// Validate the process.
 								if ( $do_payment->success ) {

@@ -736,11 +736,43 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		 * @param array  $obj_js js object.
 		 */
 		public static function load_js( $name, array $obj_js ) {
-			$depth = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
+			$js_prefix = WACARA_PREFIX . 'module_';
+			$is_module = false === $obj_js['module'] ? false : true;
+			$depth     = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
+			$name      = $is_module ? $js_prefix . $name : $name;
 			wp_enqueue_script( $name, $obj_js['url'], $depth, WACARA_VERSION, true );
 			if ( isset( $obj_js['vars'] ) ) {
-				wp_localize_script( $name, 'obj', $obj_js['vars'] );
+				$vars = self::convert_script_vars( $obj_js['vars'] );
+				wp_localize_script( $name, 'obj', $vars );
 			}
+		}
+
+		/**
+		 * Merge assets vars.
+		 *
+		 * @param array $vars additional vars.
+		 *
+		 * @return array
+		 */
+		public static function convert_script_vars( $vars ) {
+			$used_vars = self::get_default_script_vars();
+			if ( ! empty( $vars ) ) {
+				$used_vars = array_merge( $used_vars, $vars );
+			}
+
+			return $used_vars;
+		}
+
+		/**
+		 * Get default assets vars.
+		 *
+		 * @return array
+		 */
+		public static function get_default_script_vars() {
+			return [
+				'prefix'   => WACARA_PREFIX,
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			];
 		}
 
 		/**

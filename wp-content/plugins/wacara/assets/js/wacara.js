@@ -1,6 +1,7 @@
 'use strict';
-import Ajax from "./class/ajax.js";
+
 import Helper from "./class/helper.js";
+import Action from "./class/action.js";
 
 (function ($) {
     /**
@@ -8,6 +9,7 @@ import Helper from "./class/helper.js";
      */
     new class {
         countdownWrappers = $('.wcr-event-counter-wrapper');
+        checkoutForm = $('.wcr-form.wcr-hold-registrant-form.wcr-normal-checkout');
 
         /**
          * Class constructor.
@@ -16,6 +18,7 @@ import Helper from "./class/helper.js";
             this.eventLoadCountdown();
             this.eventRegister();
             this.eventFillDetail();
+            this.eventCheckout();
         }
 
         /**
@@ -69,7 +72,6 @@ import Helper from "./class/helper.js";
          * This function will be triggered once user click pricing package.
          */
         eventRegister() {
-            const instance = this;
             $('.wcr-pricing-cta').click(function (e) {
                 e.preventDefault();
                 const submit_button = $(this),
@@ -79,7 +81,7 @@ import Helper from "./class/helper.js";
                 // Disable the button.
                 submit_button.prop('disabled', true).html('Loading...');
                 // Perform the registration.
-                instance.doRegister(event_id, pricing_id)
+                Action.doRegister(event_id, pricing_id)
                     .done(function (data) {
                         Helper.doNormalizeError(data, submit_button, original_caption);
                     })
@@ -93,7 +95,6 @@ import Helper from "./class/helper.js";
          * This function will be triggered once user filled the details.
          */
         eventFillDetail() {
-            const instance = this;
             $('.wcr-form.wcr-registrant-form').validate({
                 focusInvalid: true,
                 submitHandler: function (form, e) {
@@ -106,7 +107,7 @@ import Helper from "./class/helper.js";
                     // Disable button.
                     submit_button.html('Loading...').prop('disabled', true);
 
-                    instance.doFillDetail(inputs)
+                    Action.doFillDetail(inputs)
                         .done(function (data) {
                             Helper.doNormalizeError(data, submit_button, btn_original_text);
                         })
@@ -118,27 +119,30 @@ import Helper from "./class/helper.js";
         }
 
         /**
-         * Method to perform registration.
-         *
-         * @param event_id
-         * @param pricing_id
-         * @returns {Ajax}
+         * Event when checkout form being submitted.
          */
-        doRegister(event_id, pricing_id) {
-            return new Ajax('select_price', true, {
-                event_id: event_id,
-                pricing_id: pricing_id,
-            });
-        }
+        eventCheckout() {
+            this.checkoutForm.validate({
+                focusInvalid: true,
+                submitHandler: function (form, e) {
+                    e.preventDefault();
+                    // Define variables.
+                    const submit_button = $(form).find('.wcr-form-submit'),
+                        btn_original_text = submit_button.html(),
+                        inputs = $(form).serializeArray();
 
-        /**
-         * Method to perform payment.
-         *
-         * @param inputs
-         * @returns {Ajax}
-         */
-        doFillDetail(inputs) {
-            return new Ajax('fill_detail', true, inputs);
+                    // Disable button.
+                    submit_button.html('Loading...').prop('disabled', true);
+
+                    Action.doCheckout(inputs)
+                        .done(function (data) {
+                            Helper.doNormalizeError(data, submit_button, btn_original_text);
+                        })
+                        .fail(function (x) {
+                            // TODO: Validate error ajax.
+                        });
+                }
+            });
         }
     };
 })(jQuery);

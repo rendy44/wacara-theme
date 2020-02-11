@@ -1,24 +1,27 @@
 <?php
 /**
- * Class to manage Stripe payment.
+ * Main class file for Stripe payment.
  *
- * @author  Rendy
- * @package Wacara
+ * @author Rendy
+ * @package Wacara\Payment
+ * @version 0.0.1
  */
 
 namespace Wacara\Payment;
 
-use Wacara\Registrant;
-use Wacara\Payment_Method;
-use Wacara\Register_Payment;
-use Wacara\Result;
+use Wacara\Event;
 use Wacara\Helper;
-use Wacara\Stripe_Wrapper;
-use Wacara\Transaction;
+use Wacara\Payment\Stripe_Payment\Stripe_Wrapper;
+use Wacara\Payment\Stripe_Payment\Transaction;
+use Wacara\Payment_Method;
+use Wacara\Registrant;
+use Wacara\Result;
+use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 
 if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 
@@ -52,22 +55,29 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		/**
 		 * Stripe_Payment constructor.
 		 */
-		private function __construct() {
-			$this->id          = 'stripe-payment';
-			$this->name        = __( 'Stripe Payment', 'wacara' );
-			$this->description = __( 'Stripe payment method for Wacara', 'wacara' );
-			$this->automatic   = false;
-			$this->enable      = true;
+		protected function __construct() {
+			$this->id              = 'stripe-payment';
+			$this->name            = __( 'Stripe Payment', 'wacara' );
+			$this->description     = __( 'Automatic payment using Stripe gateway', 'wacara' );
+			$this->custom_checkout = true;
+			$this->enable          = true;
+			$this->path            = __FILE__;
 
-			// Do register the method.
-			Register_Payment::register( $this );
+			parent::__construct();
+
+			$this->load_dependencies();
 		}
 
 		/**
-		 * Render the payment in front-end.
+		 * Render the stripe payment in front-end.
 		 */
 		public function render() {
-			echo "<div id=\"card\" class=\"form-control form-control-lg\"></div>"; // phpcs:ignore
+			?>
+			<div id="card" class="wcr-form-field-wrapper"></div>
+			<div class="wcr-alert wcr-alert-info">
+				<p><?php esc_html_e( 'We do not save your card information.', 'wacara' ); ?></p>
+			</div>
+			<?php
 		}
 
 		/**
@@ -75,12 +85,12 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 *
 		 * @param Registrant $registrant the registrant object of registered registrant.
 		 * @param array      $fields used fields which is stored from front-end, mostly it contains unserialized object.
-		 * @param int        $pricing_price amount of invoice in cent.
+		 * @param int        $pricing_price_in_cent amount of invoice in cent.
 		 * @param string     $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		public function process( $registrant, $fields, $pricing_price, $pricing_currency ) {
+		public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency ) {
 			$result                 = new Result();
 			$maybe_stripe_source_id = Helper::get_serialized_val( $fields, 'stripe_source_id' );
 			$email                  = Helper::get_serialized_val( $fields, 'email' );
@@ -132,9 +142,10 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $used_stripe_customer_id ) {
 
 				// Charge the customer.
+				$event_id = $registrant->get_event_info();
 				/* translators: 1: the event name */
-				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $registrant->get_event_info() ) );
-				$charge      = $stripe_wrapper->charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price, $pricing_currency, $charge_name );
+				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
+				$charge      = $stripe_wrapper->charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price_in_cent, $pricing_currency, $charge_name );
 
 				// Validate charge status.
 				if ( $charge->success ) {
@@ -153,20 +164,21 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 				/**
 				 * Perform actions after making payment by stripe.
 				 *
-				 * @param string $registrant_id registrant id.
+				 * @param Registrant $registrant object of the current registrant.
 				 * @param int $pricing_price the price of pricing in cent.
 				 * @param string $pricing_currency the currency of pricing.
 				 * @param Result $charge the object of payment.
 				 */
-				do_action( 'wacara_after_making_stripe_payment', $registrant->post_id, $pricing_price, $pricing_currency, $charge );
+				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price, $pricing_currency, $charge );
 			}
 
 			return $result;
 		}
 
 		/**
-		 * Define fields for admin settings.
+		 * Admin settings.
 		 *
+		 * @inheritDoc
 		 * @return array
 		 */
 		public function admin_setting() {
@@ -205,52 +217,110 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		}
 
 		/**
-		 * Get content that will be rendered after making manual payment.
+		 * Map js files that will be loaded in front-end.
 		 *
-		 * @param Registrant $registrant the registrant object of registered registrant.
-		 * @param string     $reg_status current registration status of the registrant.
-		 * @param string     $pricing_id the id of selected pricing.
-		 * @param int        $pricing_price amount of invoice in cent.
-		 * @param string     $pricing_currency the currency code of invoice.
-		 *
-		 * @return string
+		 * @return array
 		 */
-		public function maybe_page_after_payment( $registrant, $reg_status, $pricing_id, $pricing_price, $pricing_currency ) {
-			return ''; // Well, we don't need to display anything since this payment method is automatic.
+		public function front_js() {
+			return [
+				'stripe-api'     => [
+					'url'    => 'https://js.stripe.com/v3',
+					'module' => false,
+				],
+				'stripe-payment' => [
+					'url'  => WCR_STP_URI . 'js/stripe-payment.js',
+					'vars' => [
+						'stripe_key' => $this->get_publishable_key(),
+					],
+				],
+			];
 		}
 
 		/**
-		 * Check whether Stripe is run as sandbox or live.
+		 * Map css files that will be loaded in front-end.
+		 *
+		 * @return array
+		 */
+		public function front_css() {
+			return [];
+		}
+
+		/**
+		 * Map js files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		public function admin_js() {
+			return [];
+		}
+
+		/**
+		 * Map css files that will be loaded in back-end.
+		 *
+		 * @return array
+		 */
+		public function admin_css() {
+			return [];
+		}
+
+		/**
+		 * Map custom ajax endpoints.
+		 *
+		 * @return array
+		 */
+		public function ajax_endpoints() {
+			return [];
+		}
+
+		/**
+		 * Load dependency classes.
+		 */
+		private function load_dependencies() {
+			include WCR_STP_PATH . 'lib/stripe-php/init.php';
+			include WCR_STP_PATH . 'includes/class-stripe-wrapper.php';
+			include WCR_STP_PATH . 'includes/class-transaction.php';
+		}
+
+		/**
+		 * Get status whether current payment is using sandbox or not.
 		 *
 		 * @return bool
 		 */
-		private static function is_sandbox() {
-			return 'on' === ( new static() )->get_admin_setting( 'sandbox' ) ? true : false;
+		private function is_sandbox() {
+			$result          = true;
+			$sandbox_setting = $this->get_admin_setting( 'sandbox' );
+			if ( 'on' !== $sandbox_setting ) {
+				$result = false;
+			}
+			return $result;
 		}
 
 		/**
-		 * Get stripe secret key whether it is sandbox or live.
+		 * Get publishable key.
+		 *
+		 * @return bool|mixed|void
+		 */
+		private function get_publishable_key() {
+			$sb_key = 'publishable_key';
+			if ( $this->is_sandbox() ) {
+				$sb_key = 'sandbox_' . $sb_key;
+			}
+			return $this->get_admin_setting( $sb_key );
+		}
+
+		/**
+		 * Get secret key.
 		 *
 		 * @return bool|mixed|void
 		 */
 		private function get_secret_key() {
-			$field_secret_key = self::is_sandbox() ? 'sandbox_secret_key' : 'live_secret_key';
-
-			return ( new static() )->get_admin_setting( $field_secret_key );
-		}
-
-		/**
-		 * Get stripe publishable key whether it is sandbox or live.
-		 *
-		 * @return bool|mixed|void
-		 */
-		public static function get_publishable_key() {
-			$field_publishable_key = self::is_sandbox() ? 'sandbox_publishable_key' : 'live_publishable_key';
-
-			return ( new static() )->get_admin_setting( $field_publishable_key );
+			$sb_key = 'secret_key';
+			if ( $this->is_sandbox() ) {
+				$sb_key = 'sandbox_' . $sb_key;
+			}
+			return $this->get_admin_setting( $sb_key );
 		}
 	}
 
-	// Instance the class.
 	Stripe_Payment::init();
 }

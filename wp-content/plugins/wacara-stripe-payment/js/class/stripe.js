@@ -26,12 +26,12 @@ export default class WcStripe {
         // (Note that this demo uses a wider set of styles than the guide below.)
         const style = {
             base: {
-                color: '#555',
+                color: '#666',
                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
                 '::placeholder': {
-                    color: '#aab7c4'
+                    color: '#888'
                 }
             },
             invalid: {

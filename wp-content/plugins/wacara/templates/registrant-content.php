@@ -85,7 +85,7 @@ if ( '' === $reg_status ) {
 	 */
 	do_action( 'wacara_before_registrant_form_content', $registrant );
 
-	$used_fields = [ 'name', 'email', 'company', 'position', 'id_number', 'phone' ];
+	$used_fields = [ 'name', 'email' ];
 
 	// Render all the fields.
 	foreach ( $used_fields as $field ) {

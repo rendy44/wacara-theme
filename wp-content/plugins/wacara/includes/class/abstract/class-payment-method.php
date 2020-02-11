@@ -84,12 +84,12 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 *
 		 * @param Registrant $registrant the registrant object of registered registrant.
 		 * @param array      $fields used fields which is stored from front-end, mostly it contains unserialized object.
-		 * @param int        $pricing_price amount of invoice in cent.
+		 * @param int        $pricing_price_in_cent amount of invoice in cent.
 		 * @param string     $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		abstract public function process( $registrant, $fields, $pricing_price, $pricing_currency );
+		abstract public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency );
 
 		/**
 		 * Get cmb2 fields that will be translated into option page.
@@ -146,13 +146,12 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 */
 		public function maybe_load_front_assets_callback() {
 			global $post;
-			$js_prefix = WACARA_PREFIX . 'module_';
 			$js_files  = $this->front_js();
 			$css_files = $this->front_css();
 
 			if ( 'registrant' === $post->post_type ) {
 				foreach ( $js_files as $js_name => $js_obj ) {
-					Helper::load_js( $js_prefix . $js_name, $js_obj );
+					Helper::load_js( $js_name, $js_obj );
 				}
 
 				foreach ( $css_files as $css_name => $css_obj ) {
@@ -165,12 +164,11 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * Callback for loading back-end assets.
 		 */
 		public function maybe_load_admin_assets_callback() {
-			$js_prefix = WACARA_PREFIX . 'module_';
 			$js_files  = $this->admin_js();
 			$css_files = $this->admin_css();
 
 			foreach ( $js_files as $js_name => $js_obj ) {
-				Helper::load_js( $js_prefix . $js_name, $js_obj );
+				Helper::load_js( $js_name, $js_obj );
 			}
 
 			foreach ( $css_files as $css_name => $css_obj ) {

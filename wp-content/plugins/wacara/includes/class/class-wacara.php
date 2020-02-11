@@ -103,10 +103,8 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-action',
 				'class-post',
 				'class-event',
-				'class-transaction',
 				'class-registrant',
 				'class-pricing',
-				'class-stripe-wrapper',
 				'class-mailer',
 				'class-asset',
 				'abstract/class-payment-method',
@@ -121,7 +119,6 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'cmb2/init',
 				'cmb2-tabs/plugin',
 				'cmb2-select2/cmb-field-select2',
-				'stripe-php/init',
 				'phpqrcode/qrlib',
 			];
 		}

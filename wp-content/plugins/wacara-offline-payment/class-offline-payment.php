@@ -85,12 +85,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 *
 		 * @param Registrant $registrant the registrant object of registered registrant.
 		 * @param array      $fields used fields which is stored from front-end, mostly it contains unserialized object.
-		 * @param int        $pricing_price amount of invoice in cent.
+		 * @param int        $pricing_price_in_cent amount of invoice in cent.
 		 * @param string     $pricing_currency the currency code of invoice.
 		 *
 		 * @return Result
 		 */
-		public function process( $registrant, $fields, $pricing_price, $pricing_currency ) {
+		public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency ) {
 			$result      = new Result();
 			$settings    = $this->get_admin_setting();
 			$unique_code = $settings['unique_code'];
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				// Determine the amount of unique number.
 				// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
 				// So we will multiple the unique number by 100.
-				if ( 1000000 < $pricing_price ) {
+				if ( 1000000 < $pricing_price_in_cent ) {
 					$unique *= 100;
 				}
 			}

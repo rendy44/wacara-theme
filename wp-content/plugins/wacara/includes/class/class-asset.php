@@ -138,23 +138,17 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			// JS files.
 			$this->front_js = [
 				'sweetalert2'       => [
-					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
+					'url'    => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
+					'module' => false,
 				],
 				'jquery-validation' => [
-					'url' => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
-				],
-				'wacara_checkout'   => [
-					'url'    => WACARA_URI . 'assets/js/checkout.js',
-					'module' => true,
+					'url'    => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
+					'module' => false,
 				],
 				'wacara_main_js'    => [
-					'url'    => WACARA_URI . 'assets/js/wacara.js',
-					'vars'   => [
-						'prefix'   => WACARA_PREFIX,
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
-					],
-					'depth'  => [ 'jquery' ],
-					'module' => true,
+					'url'   => WACARA_URI . 'assets/js/wacara.js',
+					'vars'  => [],
+					'depth' => [ 'jquery' ],
 				],
 			];
 		}
@@ -174,20 +168,18 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function map_admin_asset() {
 			$this->admin_js = [
 				'cmb2_conditionals' => [
-					'url'   => WACARA_URI . 'assets/admin/js/cmb2-conditionals.js',
-					'depth' => [ 'jquery', 'cmb2-scripts' ],
+					'url'    => WACARA_URI . 'assets/admin/js/cmb2-conditionals.js',
+					'depth'  => [ 'jquery', 'cmb2-scripts' ],
+					'module' => false,
 				],
 				'inputosaurus'      => [
-					'url'   => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.js',
-					'depth' => [ 'jquery', 'cmb2-scripts' ],
+					'url'    => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.js',
+					'depth'  => [ 'jquery', 'cmb2-scripts' ],
+					'module' => false,
 				],
 				'app_be'            => [
-					'url'    => WACARA_URI . 'assets/admin/js/app.js',
-					'vars'   => [
-						'prefix'   => WACARA_PREFIX,
-						'ajax_url' => admin_url( 'admin-ajax.php' ),
-					],
-					'module' => true,
+					'url'  => WACARA_URI . 'assets/admin/js/app.js',
+					'vars' => [],
 				],
 			];
 

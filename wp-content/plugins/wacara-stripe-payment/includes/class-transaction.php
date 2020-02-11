@@ -1,20 +1,23 @@
 <?php
 /**
- * Class to handle all transaction related to transaction.
+ * Class as a bridge between stripe database and local database.
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
-namespace Wacara;
+namespace Wacara\Payment\Stripe_Payment;
 
+use Wacara\Helper;
+use Wacara\Result;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Wacara\Transaction' ) ) {
+if ( ! class_exists( 'Wacara\Payment\Stripe_Payment\Transaction' ) ) {
 
 	/**
 	 * Class Transaction

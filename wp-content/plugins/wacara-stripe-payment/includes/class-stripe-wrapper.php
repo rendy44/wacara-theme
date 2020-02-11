@@ -1,23 +1,25 @@
 <?php
 /**
- * Class to handle all the Stripe_Wrapper related to stripe.
+ * Class to handle all the functions related to stripe.
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
-namespace Wacara;
+namespace Wacara\Payment\Stripe_Payment;
 
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Error\Base;
 use Stripe\Stripe;
+use Wacara\Result;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Wacara\Stripe_Wrapper' ) ) {
+if ( ! class_exists( 'Wacara\Payment\Stripe_Payment\Stripe_Wrapper' ) ) {
 
 	/**
 	 * Class Stripe_Wrapper
@@ -100,18 +102,18 @@ if ( ! class_exists( 'Wacara\Stripe_Wrapper' ) ) {
 		 *
 		 * @param string $stripe_customer_id stripe customer id.
 		 * @param string $stripe_source_id stripe source id.
-		 * @param int    $amount amount that will be charged.
+		 * @param int    $amount_in_cent amount that will be charged in cent.
 		 * @param string $currency currency code.
 		 * @param string $description name of the charge.
 		 *
 		 * @return Result
 		 */
-		public function charge_customer( $stripe_customer_id, $stripe_source_id, $amount, $currency, $description ) {
+		public function charge_customer( $stripe_customer_id, $stripe_source_id, $amount_in_cent, $currency, $description ) {
 			$result = new Result();
 			try {
 				$charge           = Charge::create(
 					[
-						'amount'      => $amount,
+						'amount'      => $amount_in_cent,
 						'currency'    => strtolower( $currency ),
 						'description' => $description,
 						'source'      => $stripe_source_id,
