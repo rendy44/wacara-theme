@@ -66,6 +66,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			parent::__construct();
 
 			$this->load_dependencies();
+			$this->register_post_types();
 		}
 
 		/**
@@ -165,11 +166,11 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 				 * Perform actions after making payment by stripe.
 				 *
 				 * @param Registrant $registrant object of the current registrant.
-				 * @param int $pricing_price the price of pricing in cent.
+				 * @param int $pricing_price_in_cent the price of pricing in cent.
 				 * @param string $pricing_currency the currency of pricing.
 				 * @param Result $charge the object of payment.
 				 */
-				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price, $pricing_currency, $charge );
+				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price_in_cent, $pricing_currency, $charge );
 			}
 
 			return $result;
@@ -279,6 +280,25 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			include WCR_STP_PATH . 'lib/stripe-php/init.php';
 			include WCR_STP_PATH . 'includes/class-stripe-wrapper.php';
 			include WCR_STP_PATH . 'includes/class-transaction.php';
+		}
+
+		/**
+		 * Register post types.
+		 */
+		private function register_post_types() {
+			Helper::register_post_type(
+				'customer',
+				[],
+				[
+					'public'       => false,
+					'show_ui'      => false,
+					'show_in_menu' => false,
+					'query_var'    => false,
+					'capabilities' => [
+						'create_posts' => 'do_not_allow',
+					],
+				]
+			);
 		}
 
 		/**
