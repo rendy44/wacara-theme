@@ -266,8 +266,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		public function event_masthead_opening_callback( $event, $header_template ) {
 
 			// Fetch header detail.
-			$header           = Helper::get_post_meta( 'header', $event->post_id );
-			$header_alignment = Helper::get_post_meta( 'content_alignment', $header );
+			$header             = Helper::get_post_meta( 'header', $event->post_id );
+			$header_alignment   = Helper::get_post_meta( 'content_alignment', $header );
+			$header_darken      = Helper::get_post_meta( 'darken', $header );
+			$maybe_bg_image_url = Helper::get_event_background_image_url( $event, $header );
 
 			// Adjust header class.
 			switch ( $header_alignment ) {
@@ -287,9 +289,15 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			$masthead_args = [
 				'masthead_class'           => 'wcr-event-header',
+				'masthead_bg_image_url'    => $maybe_bg_image_url,
 				'masthead_alignment_class' => $masthead_alignment,
 				'column_alignment'         => $column_alignment,
 			];
+
+			// Maybe header using darken mode.
+			if ( 'on' === $header_darken ) {
+				$masthead_args['masthead_class'] .= ' wcr-header-darken';
+			}
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
 		}

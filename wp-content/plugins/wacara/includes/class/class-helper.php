@@ -838,6 +838,37 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		}
 
 		/**
+		 * Get event background image url.
+		 *
+		 * @param Event    $event ofject of the event.
+		 * @param bool|int $header id of the event's header.
+		 *
+		 * @return bool|false|string
+		 */
+		public static function get_event_background_image_url( $event, $header = false ) {
+			$result = false;
+
+			// Fetch background image from event.
+			$event_bg = self::get_post_meta( 'background_image_id', $event->post_id );
+			if ( $event_bg ) {
+				$result = wp_get_attachment_image_url( $event_bg, 'large' );
+			} else {
+
+				// Fetch background image from header.
+				// Maybe re-fetch header.
+				if ( false === $header ) {
+					$header = self::get_post_meta( 'header', $event->post_id );
+				}
+				$header_bg = self::get_post_meta( 'default_image_id', $header );
+				if ( $header_bg ) {
+					$result = wp_get_attachment_image_url( $header_bg, 'large' );
+				}
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Register custom post type.
 		 *
 		 * @param string $name name of the custom post type.
