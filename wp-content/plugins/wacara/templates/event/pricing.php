@@ -54,7 +54,7 @@ if ( ! empty( $price_lists ) ) {
 						</div>
 						<div class="wcr-pricing-desc-wrapper"></div>
 						<div class="wcr-pricing-cta-wrapper">
-							<button class="wcr-pricing-cta" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
+							<button class="wcr-button wcr-pricing-cta" data-pricing="<?php echo esc_attr( $list['id'] ); ?>" data-event="<?php echo esc_attr( $event_id ); ?>"><?php esc_html_e( 'Book Now', 'wacara' ); ?></button>
 						</div>
 					</div>
 				</div>
