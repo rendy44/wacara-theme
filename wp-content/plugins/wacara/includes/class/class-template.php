@@ -4,6 +4,7 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
@@ -12,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\Template' ) ) {
+if ( ! class_exists( 'Wacara\Template' ) ) {
 
 	/**
 	 * Class Template

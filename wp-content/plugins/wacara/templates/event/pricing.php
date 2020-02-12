@@ -4,13 +4,13 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<?php
 if ( ! empty( $price_lists ) ) {
 	?>
 	<div class="wcr-section-content-wrapper">

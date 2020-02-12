@@ -14,18 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wcr-event-counter-wrapper" data-target="<?php echo esc_attr( $date_start ); ?>">
 	<div class="wcr-event-counter-item wcr-event-counter-day">
 		<span class="wcr-event-count-value">99</span>
-		<span class="wcr-event-count-label">Days</span>
+		<span class="wcr-event-count-label"><?php esc_html_e( 'Days', 'wacara' ); ?></span>
 	</div>
 	<div class="wcr-event-counter-item wcr-event-counter-hour">
 		<span class="wcr-event-count-value">99</span>
-		<span class="wcr-event-count-label">Hours</span>
+		<span class="wcr-event-count-label"><?php esc_html_e( 'Hours', 'wacara' ); ?></span>
 	</div>
 	<div class="wcr-event-counter-item wcr-event-counter-minute">
 		<span class="wcr-event-count-value">99</span>
-		<span class="wcr-event-count-label">Minutes</span>
+		<span class="wcr-event-count-label"><?php esc_html_e( 'Minutes', 'wacara' ); ?></span>
 	</div>
 	<div class="wcr-event-counter-item wcr-event-counter-second">
 		<span class="wcr-event-count-value">99</span>
-		<span class="wcr-event-count-label">Seconds</span>
+		<span class="wcr-event-count-label"><?php esc_html_e( 'Seconds', 'wacara' ); ?></span>
 	</div>
 </div>

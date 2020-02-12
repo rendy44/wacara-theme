@@ -4,11 +4,10 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
-
-use Wacara\Payment\Stripe_Payment;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

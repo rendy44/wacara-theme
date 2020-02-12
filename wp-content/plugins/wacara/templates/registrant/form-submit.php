@@ -9,9 +9,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<?php
 if ( $submit_label ) {
 	?>
 	<div class="wcr-form-submit-wrapper">

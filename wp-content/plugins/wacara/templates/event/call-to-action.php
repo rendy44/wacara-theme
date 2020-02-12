@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-
 <div class="wcr-event-alert-block-wrapper wcr-event-alert-title-wrapper">
 	<span class="wcr-event-alert-title"><?php echo esc_html( $alert_title ); ?></span>
 </div>

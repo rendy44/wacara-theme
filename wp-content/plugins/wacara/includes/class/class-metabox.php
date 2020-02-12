@@ -5,6 +5,7 @@
  *
  * @author  Rendy
  * @package Wacara
+ * @version 0.0.1
  * @see     https://github.com/CMB2/CMB2/wiki
  */
 

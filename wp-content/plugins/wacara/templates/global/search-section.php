@@ -8,9 +8,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-?>
+} ?>
 
 <section class="checkin">
 	<div class="container h-100">

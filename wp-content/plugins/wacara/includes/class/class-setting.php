@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\Setting' ) ) {
+if ( ! class_exists( 'Wacara\Setting' ) ) {
 
 	/**
 	 * Class Setting
