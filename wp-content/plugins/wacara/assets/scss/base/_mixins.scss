@@ -151,3 +151,13 @@
   -ms-user-select: $mode;
   user-select: $mode;
 }
+
+@mixin display_accessibility($active: true) {
+  @if ($active) {
+    display: inline;
+    background-color: rgba($white, .3);
+  } @else {
+    display: inherit;
+    background-color: inherit;
+  }
+}
