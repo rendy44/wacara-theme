@@ -549,9 +549,21 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Set default template name.
 			$default_template = 'event/directly';
 
+			// Set default message.
+			$direct_message = __( 'This event does not require any registration, you can attend the event immediately', 'wacara' );
+
+			/**
+			 * Wacara event direct registration message filter hook.
+			 *
+			 * @param string $direct_message default message.
+			 * @param Event $event object of the current message.
+			 */
+			$direct_message = apply_filters( 'wacara_filter_event_direct_registration_message', $direct_message, $event );
+
 			// Prepare the args.
 			$pricing_args = [
-				'event_id' => $event->post_id,
+				'event_id'       => $event->post_id,
+				'direct_message' => $direct_message,
 			];
 
 			// Only render the pricing section if registration is required to join the event.
