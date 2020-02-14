@@ -49,20 +49,44 @@ if ( ! class_exists( 'Wacara_Theme\Wacara' ) ) {
 		private function __construct() {
 			$this->add_supports();
 			$this->load_classes();
+			$this->add_mobile_optimization();
 		}
 
 		/**
 		 * Add specific theme supports.
 		 */
 		private function add_supports() {
+
+			// Make sure the theme is supporting the Wacara.
 			add_theme_support( 'wacara' );
+
+			// Add other necessary supports.
+			add_theme_support( 'title-tag' );
+			add_theme_support( 'menus' );
+			add_theme_support( 'post-thumbnails' );
 		}
 
 		/**
 		 * Load dependency classes.
 		 */
 		private function load_classes() {
-			include WCR_THM_PATH . 'includes/class-assets.php';
+			include WCR_THM_PATH . '/includes/class-assets.php';
+		}
+
+		/**
+		 * Add mobile optimization.
+		 */
+		private function add_mobile_optimization() {
+			add_action( 'wp_head', [ $this, 'mobile_optimization_callback' ] );
+		}
+
+		/**
+		 * Callback for adding mobile optimization.
+		 */
+		public function mobile_optimization_callback() {
+			?>
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<?php
 		}
 	}
 
