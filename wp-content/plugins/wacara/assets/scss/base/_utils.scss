@@ -29,3 +29,23 @@
 .wcr-text-right {
   text-align: right !important;
 }
+
+.wcr-text-base {
+  color: darken($base_color, 20%) !important;
+}
+
+.wcr-text-success {
+  color: darken($success_color, 20%) !important;
+}
+
+.wcr-text-info {
+  color: darken($info_color, 20%) !important;
+}
+
+.wcr-text-warning {
+  color: darken($warning_color, 20%) !important;
+}
+
+.wcr-text-danger {
+  color: darken($danger_color, 20%) !important;
+}
