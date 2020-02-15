@@ -75,18 +75,21 @@ if ( ! class_exists( 'Wacara_Theme\Assets' ) ) {
 		}
 
 		/**
-		 * Map assets that will be loaded in fron-end.
+		 * Map assets that will be loaded in front-end.
 		 */
 		private function map_front_assets() {
 			$this->front_css = [
 				'wacara_theme_main_style' => [
-					'url' => WCR_THM_URI . '/assets/css/wacara.css',
+					'url' => WACARA_MAYBE_THEME_URI . '/assets/css/wacara.css',
+				],
+				'remixicon'               => [
+					'url' => WACARA_MAYBE_THEME_URI . '/assets/lib/remixicon/remixicon.css',
 				],
 			];
 
 			$this->front_js = [
 				'wacara_theme_main_js' => [
-					'url'   => WCR_THM_URI . '/assets/js/wacara.js',
+					'url'   => WACARA_MAYBE_THEME_URI . '/assets/js/wacara.js',
 					'vars'  => [],
 					'depth' => [ 'jquery' ],
 				],

@@ -64,6 +64,11 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 
 			// Add nav menu.
 			add_action( 'wacara_before_event_masthead', [ $this, 'event_nav_menu_callback' ], 10, 1 );
+
+			// Remove expired content.
+			remove_action( 'wacara_event_expired', [ UI::init(), 'event_expired_content_callback' ], 10 );
+			// Replace expired content.
+			add_action( 'wacara_event_expired', [ $this, 'event_expired_content_callback' ], 10 );
 		}
 
 		/**
@@ -72,14 +77,29 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 * @param Event $event object of the current event.
 		 */
 		public function event_nav_menu_callback( $event ) {
-			$nav_menu = $event->get_nav_menus();
+			$nav_menu       = $event->get_nav_menus();
 			$maybe_logo_url = $event->get_logo_url();
-			$nav_args = [
-				'nav_logo_url' =>$maybe_logo_url,
-				'nav_items' => $nav_menu,
+			$nav_args       = [
+				'nav_logo_url' => $maybe_logo_url,
+				'nav_items'    => $nav_menu,
 			];
 
 			Helper::render_local_template( 'event/top-nav', $nav_args, true );
+		}
+
+		/**
+		 * Callback for displaying expired content.
+		 *
+		 * @param Event $event object of the current event.
+		 */
+		public function event_expired_content_callback( $event ) {
+
+			$exp_args = [
+				'exp_title'   => __( 'Expired', 'wacara' ),
+				'exp_content' => __( 'This event is already past', 'wacara' ),
+			];
+
+			Helper::render_local_template( 'event/expired', $exp_args, true );
 		}
 	}
 

@@ -1,0 +1,12 @@
+.wcr-section.wcr-section-expired {
+  height: 100vh;
+  min-height: 400px;
+
+  > .frow-container {
+    height: 100%;
+
+    > .frow {
+      align-items: center;
+    }
+  }
+}
