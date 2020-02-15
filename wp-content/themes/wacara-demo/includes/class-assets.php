@@ -80,13 +80,13 @@ if ( ! class_exists( 'Wacara_Theme\Assets' ) ) {
 		private function map_front_assets() {
 			$this->front_css = [
 				'wacara_theme_main_style' => [
-					'url' => WCR_STP_URI . 'assets/css/wacara.css',
+					'url' => WCR_THM_URI . '/assets/css/wacara.css',
 				],
 			];
 
 			$this->front_js = [
 				'wacara_theme_main_js' => [
-					'url'   => WCR_THM_URI . 'assets/js/wacara.js',
+					'url'   => WCR_THM_URI . '/assets/js/wacara.js',
 					'vars'  => [],
 					'depth' => [ 'jquery' ],
 				],

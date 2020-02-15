@@ -1,0 +1,6 @@
+header.wcr-event-header {
+  @include breakpoint($size_laptop) {
+    height: 100vh;
+    min-height: 500px;
+  }
+}

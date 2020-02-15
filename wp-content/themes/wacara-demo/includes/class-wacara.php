@@ -70,7 +70,9 @@ if ( ! class_exists( 'Wacara_Theme\Wacara' ) ) {
 		 * Load dependency classes.
 		 */
 		private function load_classes() {
+			include WCR_THM_PATH . '/includes/class-helper.php';
 			include WCR_THM_PATH . '/includes/class-assets.php';
+			include WCR_THM_PATH . '/includes/class-customizer.php';
 		}
 
 		/**

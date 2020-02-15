@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the constanta.
-defined( 'WCR_THM_DIR' ) || define( 'WCR_THM_DIR', get_template_directory() );
-defined( 'WCR_THM_URI' ) || define( 'WCR_THM_URI', get_template_directory_uri() );
+defined( 'WCR_THM_DIR' ) || define( 'WCR_THM_DIR', get_stylesheet_directory() );
+defined( 'WCR_THM_URI' ) || define( 'WCR_THM_URI', get_stylesheet_directory_uri() );
 defined( 'WCR_THM_PATH' ) || define( 'WCR_THM_PATH', get_theme_file_path() );
 
 // Require our main class if the main class from plugin does exist.

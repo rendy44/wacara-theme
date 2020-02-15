@@ -1,0 +1,156 @@
+$z_index: 9999;
+.wcr-event-nav {
+  background-color: $white;
+  overflow: hidden;
+
+  .wcr-nav-wrapper {
+    position: relative;
+
+    .wcr-nav-toggle-wrapper {
+      position: absolute;
+      right: 0;
+      width: 40px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4px;
+      cursor: pointer;
+
+      span.wcr-nav-toggle {
+        height: 3px;
+        width: 100%;
+        background-color: lighten($black, 10%);
+        border: 1px solid transparent;
+        //background-color: darken($white, 40%);
+        margin-bottom: 7px;
+        @include transition(all .2s ease);
+        @include border-radius(6px);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .wcr-nav-logo-wrapper {
+      display: inline-block;
+      padding: .5rem 0;
+
+      img.wcr-nav-logo {
+        max-width: 150px;
+        max-height: 50px;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+    }
+
+    .wcr-nav-menu-wrapper {
+      ul.wcr-nav-menu {
+        display: none;
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+
+        li.wcr-nav-menu-item-wrapper {
+          text-align: center;
+          padding: .75rem;
+
+          a {
+            @include transition(all .2s ease);
+          }
+        }
+      }
+    }
+  }
+
+  &.wcr-nav-expanded {
+    overflow: visible;
+
+    .wcr-nav-wrapper {
+      position: relative;
+
+      .wcr-nav-toggle-wrapper {
+        span.wcr-nav-toggle {
+          width: 6px;
+          height: 6px;
+          background-color: lighten($black, 70%);
+          border-color: lighten($black, 50%);
+          @include border-radius(50%);
+          @include box-shadow(1px, 1px, 2px);
+        }
+      }
+
+      .wcr-nav-menu-wrapper {
+        background-color: $white;
+        position: absolute;
+        top: 70px;
+        left: -15px;
+        right: -15px;
+        z-index: $z_index;
+
+        ul.wcr-nav-menu {
+          display: inherit;
+        }
+      }
+    }
+  }
+
+  @include breakpoint($size_laptop) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    z-index: $z_index;
+
+    .wcr-nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      .wcr-nav-toggle-wrapper {
+        display: none;
+      }
+
+      .wcr-nav-logo-wrapper {
+        img.wcr-nav-logo {
+          filter: brightness(0) invert(1);
+          -ms-filter: brightness(0) invert(1);
+          -webkit-filter: brightness(0) invert(1);
+        }
+      }
+
+      .wcr-nav-menu-wrapper {
+        display: inline-flex;
+        position: inherit !important;
+        background-color: transparent !important;
+        top: unset !important;
+        left: unset !important;
+        right: unset !important;
+
+        ul.wcr-nav-menu {
+          display: flex;
+
+          li.wcr-nav-menu-item-wrapper {
+            display: inline-flex;
+            padding: .5rem 1rem;
+            align-items: center;
+
+            a {
+              text-transform: uppercase;
+              color: darken($white, 15%);
+              font-size: 80%;
+
+              &:hover,
+              &:active,
+              &:focus {
+                color: $white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
