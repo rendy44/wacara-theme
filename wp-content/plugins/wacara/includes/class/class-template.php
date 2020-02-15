@@ -32,13 +32,24 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 		/**
 		 * Set template folder
 		 */
-		private static function maybe_set_folder() {
+		private static function set_default_folder() {
 			$folder = WACARA_PATH . '/templates';
 
 			if ( ! self::$folder ) {
 
 				self::do_set_folder( $folder );
 			}
+		}
+
+		/**
+		 * Maybe find template file in theme.
+		 *
+		 * @param string $file_name name of the template file.
+		 *
+		 * @return string
+		 */
+		private static function find_template_in_theme( $file_name ) {
+			return locate_template( "templates/wacara/{$file_name}.php" );
 		}
 
 		/**
@@ -58,12 +69,29 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 		 * @return bool|string
 		 */
 		private static function find_template( $file_name ) {
-			self::maybe_set_folder();
-
 			$found = false;
-			$file  = self::$folder . "/{$file_name}.php";
-			if ( file_exists( $file ) ) {
-				$found = $file;
+
+			// Maybe check template file in theme if it supports wacara.
+			if ( current_theme_supports( 'wacara' ) ) {
+
+				// Check template file in theme.
+				$file_in_theme = self::find_template_in_theme( $file_name );
+				if ( '' !== $file_in_theme ) {
+					$found = $file_in_theme;
+				}
+			}
+
+			// Find default file in plugin.
+			if ( ! $found ) {
+
+				// Set default folder.
+				self::set_default_folder();
+
+				// Check file in plugin.
+				$file = self::$folder . "/{$file_name}.php";
+				if ( file_exists( $file ) ) {
+					$found = $file;
+				}
 			}
 
 			return $found;
@@ -120,7 +148,7 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 			$folder = WACARA_PATH . '/templates';
 
 			if ( $file ) {
-				$folder  = $from_plugin ? plugin_dir_path( $file ) : WCR_THM_PATH;
+				$folder  = $from_plugin ? plugin_dir_path( $file ) : WACARA_MAYBE_THEME_PATH;
 				$folder .= '/templates';
 			}
 

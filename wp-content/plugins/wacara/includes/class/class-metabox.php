@@ -581,7 +581,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 										'image/png',
 									],
 								],
-								'preview_size' => 'large',
+								'preview_size' => 'medium',
 							],
 							[
 								'name' => __( 'Darken', 'wacara' ),
@@ -683,7 +683,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 										'image/png',
 									],
 								],
-								'preview_size' => 'large',
+								'preview_size' => 'medium',
 							],
 						],
 					],

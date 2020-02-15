@@ -49,7 +49,7 @@ import Action from "./class/action.js";
                     let minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     let secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    // If the count down is finished, write some text
+                    // If the count down is finished, clean everything and reload it.
                     if (distance < 0) {
                         clearInterval(wcrTimer);
 
@@ -57,6 +57,9 @@ import Action from "./class/action.js";
                         hoursLeft = 0;
                         minutesLeft = 0;
                         secondsLeft = 0;
+
+                        $('body').html('');
+                        location.reload();
                     }
 
                     // Display the result in the element with id="demo"
