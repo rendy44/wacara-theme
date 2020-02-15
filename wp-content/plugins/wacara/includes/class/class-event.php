@@ -69,7 +69,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		/**
 		 * Event constructor.
 		 *
-		 * @param string $event_id   event id.
+		 * @param string $event_id event id.
 		 * @param bool   $get_detail whether get detail or not.
 		 */
 		public function __construct( $event_id, $get_detail = false ) {
@@ -103,12 +103,33 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		/**
 		 * Get event logo url.
 		 *
-		 * @return string
+		 * @return bool|false|string
 		 */
 		public function get_logo_url() {
 			$main_logo = $this->get_meta( 'main_logo_id' );
 
 			return $main_logo ? wp_get_attachment_image_url( $main_logo, 'medium' ) : Helper::get_site_logo_url();
+		}
+
+		/**
+		 * Get list of menus.
+		 *
+		 * @return array
+		 */
+		public function get_nav_menus() {
+
+			// Prepare empty result.
+			$result = [];
+
+			// Fetch sections ordering.
+			$sections = $this->get_meta( 'section_order' );
+			if ( ! empty( $sections ) ) {
+				foreach ( $sections as $section ) {
+					$result[ $section ] = $this->get_meta( $section . '_title' );
+				}
+			}
+
+			return $result;
 		}
 
 		/**

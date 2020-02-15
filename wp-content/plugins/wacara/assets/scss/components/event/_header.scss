@@ -33,7 +33,7 @@ header.wcr-event-header {
         font-size: 26px;
         text-transform: uppercase;
         font-weight: 500;
-        line-height: 1.2;
+        line-height: 1.4;
         @include display_accessibility();
         @include breakpoint($size_tablet) {
           font-size: 32px;
@@ -87,10 +87,10 @@ header.wcr-event-header {
         span.wcr-event-count-label {
           display: block;
           font-weight: 300;
-          font-size: 12px;
-          @include breakpoint($size_laptop) {
-            font-size: 16px;
-          }
+          font-size: 80%;
+          //@include breakpoint($size_laptop) {
+          //  font-size: 16px;
+          //}
         }
       }
     }
@@ -142,7 +142,8 @@ header.wcr-event-header {
 
     .wcr-event-counter-wrapper {
       .wcr-event-counter-item {
-        background-color: rgba($black, .7);
+        background-color: rgba($black, .1);
+        border-color: rgba(lighten($black, 90%), .3);
       }
     }
 

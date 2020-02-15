@@ -114,12 +114,14 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 		 * Set template folder
 		 *
 		 * @param bool|string $file file path.
+		 * @param bool        $from_plugin whether override the template from plugin or theme.
 		 */
-		public static function override_folder( $file = false ) {
+		public static function override_folder( $file = false, $from_plugin = true ) {
 			$folder = WACARA_PATH . '/templates';
 
 			if ( $file ) {
-				$folder = plugin_dir_path( $file ) . '/templates';
+				$folder  = $from_plugin ? plugin_dir_path( $file ) : WCR_THM_PATH;
+				$folder .= '/templates';
 			}
 
 			if ( $folder ) {

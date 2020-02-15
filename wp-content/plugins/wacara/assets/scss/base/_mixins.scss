@@ -161,3 +161,13 @@
     background-color: inherit;
   }
 }
+
+@mixin text_shadow($color) {
+  text-shadow: 1px 1px $color;
+}
+
+@mixin filter($args) {
+  filter: $args;
+  -ms-filter: $args;
+  -webkit-filter: $args;
+}

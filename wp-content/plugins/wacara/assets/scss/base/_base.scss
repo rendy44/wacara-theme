@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 *,
 :after,
 :before {
@@ -6,5 +10,10 @@
 
 body {
   //font-family: 'Exo', sans-serif;
-  font-family: 'Exo', monospace;
+  //font-family: 'Exo', monospace;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: darken($base_color, 20%);
 }

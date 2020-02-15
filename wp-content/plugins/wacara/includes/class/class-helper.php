@@ -587,16 +587,16 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		/**
 		 * Get site logo url.
 		 *
-		 * @return false|string
+		 * @return bool|false|string
 		 */
 		public static function get_site_logo_url() {
-			$static_logo = WACARA_URI . '/assets/img/sample-logo.png';
-			$site_logo   = Options::get_theme_option( 'logo_id' );
+			$result    = false;
+			$site_logo = Options::get_theme_option( 'logo_id' );
 			if ( $site_logo ) {
-				$static_logo = wp_get_attachment_image_url( $site_logo, 'medium' );
+				$result = wp_get_attachment_image_url( $site_logo, 'medium' );
 			}
 
-			return $static_logo;
+			return $result;
 		}
 
 		/**
