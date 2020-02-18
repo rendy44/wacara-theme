@@ -12,36 +12,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wcr-section-content-wrapper">
-	<div class="frow">
-		<div class="col-sm-4-10">
-			<div class="wcr-about-item-wrapper">
-				<div class="wcr-about-item-title-wrapper">
-					<h4 class="wcr-about-item-title"><?php esc_html_e( 'What is it?', 'wacara' ); ?></h4>
-				</div>
-				<div class="wcr-about-item-content-wrapper">
-					<p><?php echo esc_html( $description ); ?></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-3-10">
-			<div class="wcr-about-item-wrapper">
-				<div class="wcr-about-item-title-wrapper">
-					<h4 class="wcr-about-item-title"><?php esc_html_e( 'Where?', 'wacara' ); ?></h4>
-				</div>
-				<div class="wcr-about-item-content-wrapper">
-					<p><?php echo esc_html( $location ); ?></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-3-10">
-			<div class="wcr-about-item-wrapper">
-				<div class="wcr-about-item-title-wrapper">
-					<h4 class="wcr-about-item-title"><?php esc_html_e( 'When?', 'wacara' ); ?></h4>
-				</div>
-				<div class="wcr-about-item-content-wrapper">
-					<p><?php echo esc_html( $time ); ?></p>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="frow wcr-justify-content-start">
+        <div class="col-sm-1-1 col-sm-3-5 col-md-1-2">
+            <div class="wcr-section-content-inner-wrapper">
+                <div class="wcr-about-title-wrapper">
+                    <h4 class="wcr-about-title"><?php echo esc_html( $title ); ?></h4>
+                </div>
+                <div class="wcr-about-content-wrapper">
+                    <p class="wcr-about-content"><?php echo esc_html( $description ); ?></p>
+                    <div class="wcr-about-content-details-wrapper">
+                        <div class="wcr-about-content-detail-wrapper">
+                            <div class="frow">
+                                <div class="col-xs-1-12">
+                                    <div class="wcr-about-icon-detail-wrapper">
+                                        <i class="ri-time-line wcr-about-item-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-11-12">
+                                    <div class="wcr-about-value-detail-wrapper">
+                                        <p><?php echo esc_html( $time ); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wcr-about-content-detail-wrapper">
+                            <div class="frow">
+                                <div class="col-xs-1-12">
+                                    <div class="wcr-about-icon-detail-wrapper">
+                                        <i class="ri-map-pin-line wcr-about-item-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-11-12">
+                                    <div class="wcr-about-value-detail-wrapper">
+                                        <p><?php echo esc_html( $location ); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

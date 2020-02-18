@@ -69,6 +69,9 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			remove_action( 'wacara_event_expired', [ UI::init(), 'event_expired_content_callback' ], 10 );
 			// Replace expired content.
 			add_action( 'wacara_event_expired', [ $this, 'event_expired_content_callback' ], 10 );
+
+			// Add args in about section.
+			add_filter( 'wacara_filter_about_section_args', [ $this, 'event_about_args_callback' ], 10, 2 );
 		}
 
 		/**
@@ -100,6 +103,20 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			];
 
 			Helper::render_local_template( 'event/expired', $exp_args, true );
+		}
+
+		/**
+		 * Callback for modifying about section args.
+		 *
+		 * @param array $args current args.
+		 * @param Event $event object of the current event.
+		 *
+		 * @return array
+		 */
+		public function event_about_args_callback( $args, $event ) {
+			$args['title'] = $event->post_title;
+
+			return $args;
 		}
 	}
 

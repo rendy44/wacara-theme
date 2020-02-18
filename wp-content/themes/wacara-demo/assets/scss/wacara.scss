@@ -3,6 +3,10 @@
 @import "../../../../plugins/wacara/assets/scss/base/mixins";
 
 // Import components.
+@import "base/variable";
+@import "base/base";
 @import "components/expired";
 @import "components/top-nav";
 @import "components/header";
+@import "components/sections";
+@import "components/about";

@@ -1,0 +1,76 @@
+.wcr-section.wcr-event-section.wcr-section-about {
+  background-image: url("../img/shapes/8.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right top;
+
+  .wcr-section-content-wrapper {
+    .wcr-section-content-inner-wrapper {
+      .wcr-about-icon-wrapper {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        @include breakpoint($size_tablet) {
+          text-align: right;
+        }
+      }
+
+      .wcr-about-title-wrapper {
+        margin-bottom: 1rem;
+        text-align: center;
+
+        h4.wcr-about-title {
+          font-size: 24px;
+          margin: 0;
+          @include breakpoint($size_laptop) {
+            font-size: 32px;
+          }
+        }
+      }
+
+      .wcr-about-content-wrapper {
+        p.wcr-about-content {
+          text-align: justify;
+          margin: 0 0 1rem;
+          font-size: 18px;
+          color: lighten($black, 60%);
+          line-height: 1.4;
+        }
+
+        .wcr-about-content-details-wrapper {
+          .wcr-about-content-detail-wrapper {
+            margin-bottom: .75rem;
+
+            .wcr-about-icon-detail-wrapper {
+              i.wcr-about-item-icon {
+                font-size: 1.2rem;
+                color: darken($base_color, 20%);
+              }
+            }
+
+            .wcr-about-value-detail-wrapper {
+              p {
+                line-height: 1.3;
+                margin: 0;
+              }
+            }
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      @include breakpoint($size_tablet) {
+        padding: 3rem 2rem;
+        background-color: $white;
+        @include box-shadow();
+        @include border-radius(4px);
+      }
+
+      @include breakpoint($size_laptop) {
+        padding: 4rem 3rem;
+      }
+    }
+  }
+}

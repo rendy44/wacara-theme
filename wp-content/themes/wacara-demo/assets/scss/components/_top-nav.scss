@@ -58,6 +58,7 @@ $z_index: 9999;
           padding: .75rem;
 
           a {
+            color: $base_black_color;
             @include transition(all .2s ease);
           }
         }
@@ -102,7 +103,7 @@ $z_index: 9999;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: transparent;
+    background-color: rgba($black, .2);
     z-index: $z_index;
 
     .wcr-nav-wrapper {
@@ -134,18 +135,35 @@ $z_index: 9999;
 
           li.wcr-nav-menu-item-wrapper {
             display: inline-flex;
-            padding: .5rem 1rem;
+            padding: .75rem .2rem;
             align-items: center;
 
             a {
+              padding: .6rem 1rem;
               text-transform: uppercase;
               color: darken($white, 15%);
               font-size: 80%;
+              @include transition(all .2s ease);
 
               &:hover,
               &:active,
               &:focus {
                 color: $white;
+              }
+            }
+
+            &.pricing {
+              a {
+                color: $white;
+                background-color: darken($base_color, 15%);
+                @include border-radius(4px);
+
+                &:hover,
+                &:active,
+                &:focus {
+                  background-color: darken($base_color, 10%);
+                  @include box-shadow();
+                }
               }
             }
           }
