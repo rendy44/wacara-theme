@@ -48,7 +48,7 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function __construct() {
 			$this->register_event_post_type();
 			$this->register_header_post_type();
-			$this->register_venue_post_type();
+			$this->register_location_post_type();
 			$this->register_speaker_post_type();
 			$this->register_price_post_type();
 			$this->register_registrant_post_type();
@@ -78,13 +78,13 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		}
 
 		/**
-		 * Register venue post type.
+		 * Register location post type.
 		 */
-		private function register_venue_post_type() {
+		private function register_location_post_type() {
 			Helper::register_post_type(
-				'venue',
+				'location',
 				[
-					'all_items' => __( 'Venues', 'wacara' ),
+					'all_items' => __( 'Locations', 'wacara' ),
 				],
 				[
 					'publicly_queryable' => false,
