@@ -124,7 +124,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			// CSS files.
 			$this->front_css = [
 				'google_font'       => [
-					'url' => 'https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap',
+					'url' => 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap',
 				],
 				'sweetalert2'       => [
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',

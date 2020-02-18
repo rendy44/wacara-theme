@@ -64,6 +64,8 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 
 			// Add nav menu.
 			add_action( 'wacara_before_event_masthead', [ $this, 'event_nav_menu_callback' ], 10, 1 );
+			// Modify masthead class.
+			add_filter( 'wacara_filter_event_opening_masthead_args', [ $this, 'event_opening_masthead_args_callback' ], 10, 2 );
 
 			// Remove expired content.
 			remove_action( 'wacara_event_expired', [ UI::init(), 'event_expired_content_callback' ], 10 );
@@ -88,6 +90,19 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			];
 
 			Helper::render_local_template( 'event/top-nav', $nav_args, true );
+		}
+
+		/**
+		 * Callback for modifying event opening masthead args.
+		 *
+		 * @param array $args current args.
+		 * @param Event $event object of the current event.
+		 *
+		 * @return array
+		 */
+		public function event_opening_masthead_args_callback( $args, $event ) {
+			$args['masthead_column'] = '4-5';
+			return $args;
 		}
 
 		/**

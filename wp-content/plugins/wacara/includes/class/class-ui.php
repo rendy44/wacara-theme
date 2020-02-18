@@ -79,7 +79,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_speakers_section', [ $this, 'event_speakers_section_callback' ], 10, 1 );
 
 			// Render the location section.
-			 add_action( 'wacara_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
+			add_action( 'wacara_event_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );
@@ -299,6 +299,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$masthead_args['masthead_class'] .= ' wcr-header-darken';
 			}
 
+			/**
+			 * Wacara event masthead args filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_event_opening_masthead_args', $masthead_args, $event );
+
 			Template::render( 'global/masthead-open', $masthead_args, true );
 		}
 
@@ -498,7 +506,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		public function event_location_section_callback( $event ) {
 			$location      = Helper::get_post_meta( 'location', $event->post_id );
 			$location_args = [
-				'sliders'              => Helper::get_post_meta( 'photo', $location ),
+				'location_sliders'     => Helper::get_post_meta( 'photo', $location ),
 				'location_name'        => Helper::get_post_meta( 'name', $location ),
 				'location_description' => Helper::get_post_meta( 'description', $location ),
 			];
@@ -644,6 +652,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$masthead_args = [
 				'masthead_class' => 'wcr-header wcr-registrant-header',
 			];
+
+			/**
+			 * Wacara registrant masthead args filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Registrant object of the current registrant.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_registrant_opening_masthead_args', $masthead_args, $registrant );
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
 		}

@@ -166,6 +166,10 @@
   text-shadow: 1px 1px $color;
 }
 
+@mixin custom_text_shadow($args...) {
+  text-shadow: $args;
+}
+
 @mixin filter($args) {
   filter: $args;
   -ms-filter: $args;

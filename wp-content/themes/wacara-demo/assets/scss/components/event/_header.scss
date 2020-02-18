@@ -1,6 +1,73 @@
 header.wcr-event-header {
   @include breakpoint($size_laptop) {
     height: 100vh;
-    min-height: 500px;
+    min-height: 600px;
+  }
+
+  .frow {
+    .wcr-event-title-wrapper {
+      h1.wcr-event-title {
+        color: $white;
+        font-weight: 600;
+        @include display_accessibility(false);
+        @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+      }
+    }
+
+    .wcr-event-subtitle-wrapper {
+      h2.wcr-event-subtitle {
+        line-height: 1.3;
+        color: $white;
+        font-weight: 700;
+        @include display_accessibility(false);
+        @include custom_text_shadow(4px 4px 1px rgba($black, .4));
+        @include breakpoint($size_tablet) {
+          font-size: 36px;
+        }
+        @include breakpoint($size_laptop) {
+          font-size: 60px;
+        }
+      }
+    }
+
+    .wcr-event-highlight-wrapper {
+      p.wcr-event-highlight {
+        font-weight: 600;
+        color: $white;
+        @include display_accessibility(false);
+        @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+      }
+    }
+
+    .wcr-event-counter-wrapper {
+      .wcr-event-counter-item {
+        background-color: rgba($white, .1);
+        border-color: $white;
+        @include border-radius(0);
+
+        span.wcr-event-count-value {
+          color: $white;
+          font-size: 30px;
+          @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+          @include breakpoint($size_laptop) {
+            font-size: 36px;
+          }
+        }
+
+        span.wcr-event-count-label {
+          color: $white;
+          font-weight: 400;
+          @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+        }
+      }
+    }
+  }
+
+  &.wcr-header-darken {
+    .wcr-event-counter-wrapper {
+      .wcr-event-counter-item {
+        background-color: rgba($black, .1);
+      }
+    }
   }
 }
