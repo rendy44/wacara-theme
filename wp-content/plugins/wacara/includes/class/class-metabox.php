@@ -630,7 +630,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'headline', 'wacara' ),
+								'name' => __( 'Headline', 'wacara' ),
 								'id'   => $this->meta_prefix . 'headline',
 								'type' => 'text',
 								'desc' => __( 'Give a short and eye-catching headline', 'wacara' ),
