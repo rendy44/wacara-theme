@@ -642,7 +642,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'options' => [
 									'about'    => __( 'About section', 'wacara' ),
 									'speakers' => __( 'Speakers section', 'wacara' ),
-									'venue'    => __( 'Venue section', 'wacara' ),
+									'location' => __( 'Location section', 'wacara' ),
 									'gallery'  => __( 'Gallery section', 'wacara' ),
 									'sponsors' => __( 'Sponsors section', 'wacara' ),
 									'schedule' => __( 'Schedule section', 'wacara' ),
@@ -652,7 +652,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'default' => [
 									'about',
 									'speakers',
-									'venue',
+									'location',
 									'gallery',
 									'sponsors',
 									'schedule',
@@ -737,22 +737,22 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						],
 					],
 					[
-						'id'     => 'event_venue_design',
-						'title'  => _x( 'Venue section', 'Tab metabox title', 'wacara' ),
+						'id'     => 'event_location_design',
+						'title'  => _x( 'Location section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
 								'name' => __( 'Title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_title',
+								'id'   => $this->meta_prefix . 'location_title',
 								'type' => 'text',
 							],
 							[
 								'name' => __( 'Subtitle', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_subtitle',
+								'id'   => $this->meta_prefix . 'location_subtitle',
 								'type' => 'text',
 							],
 							[
 								'name' => __( 'Description', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_description',
+								'id'   => $this->meta_prefix . 'location_description',
 								'type' => 'textarea_small',
 							],
 							[

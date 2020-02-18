@@ -78,8 +78,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Render the speakers section.
 			add_action( 'wacara_event_speakers_section', [ $this, 'event_speakers_section_callback' ], 10, 1 );
 
-			// Render the venue section.
-			// add_action( 'wacara_venue_section', [ $this, 'event_venue_section_callback' ], 10, 1 );
+			// Render the location section.
+			// add_action( 'wacara_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );
@@ -491,19 +491,19 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for displaying venue section.
+		 * Callback for displaying location section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
-		public function event_venue_section_callback( $event ) {
-			$location   = Helper::get_post_meta( 'location', $event->post_id );
-			$venue_args = [
+		public function event_location_section_callback( $event ) {
+			$location      = Helper::get_post_meta( 'location', $event->post_id );
+			$location_args = [
 				'sliders'              => Helper::get_post_meta( 'photo', $location ),
 				'location_name'        => Helper::get_post_meta( 'name', $location ),
 				'location_description' => Helper::get_post_meta( 'description', $location ),
 			];
 
-			Template::render( 'event/venue', $venue_args, true );
+			Template::render( 'event/location', $location_args, true );
 		}
 
 		/**
