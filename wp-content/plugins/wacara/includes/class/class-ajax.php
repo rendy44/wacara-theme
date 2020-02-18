@@ -2,7 +2,7 @@
 /**
  * Use this class to add custome ajax handler
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

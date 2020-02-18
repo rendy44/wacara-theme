@@ -2,7 +2,7 @@
 /**
  * The parent class for payment method.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

@@ -2,7 +2,7 @@
 /**
  * Class to manage post type.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

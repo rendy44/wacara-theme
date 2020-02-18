@@ -2,7 +2,7 @@
 /**
  * This is our main class, only use this class to load other classes and dependency libraries
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

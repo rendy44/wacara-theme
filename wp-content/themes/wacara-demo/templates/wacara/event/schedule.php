@@ -2,7 +2,7 @@
 /**
  * Custom template to render schedule section
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

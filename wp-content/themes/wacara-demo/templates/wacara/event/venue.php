@@ -2,7 +2,7 @@
 /**
  * Custom template to render venue section in event landing.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

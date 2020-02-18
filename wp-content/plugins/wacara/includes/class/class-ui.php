@@ -2,7 +2,7 @@
 /**
  * Use this class to define default layout, such as header and footer
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_speakers_section', [ $this, 'event_speakers_section_callback' ], 10, 1 );
 
 			// Render the location section.
-			// add_action( 'wacara_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
+			 add_action( 'wacara_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );

@@ -2,7 +2,7 @@
 /**
  * Template for displaying extra wrapper's closing tag after content in single registrant.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

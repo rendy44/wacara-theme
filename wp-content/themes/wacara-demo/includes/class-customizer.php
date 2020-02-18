@@ -2,7 +2,7 @@
 /**
  * Use this class to modify the core plugin template.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara_Theme
  * @version 0.0.1
  */

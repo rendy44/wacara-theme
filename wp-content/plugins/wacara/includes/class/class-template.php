@@ -2,7 +2,7 @@
 /**
  * Simple helper class to render php file into output buffer
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

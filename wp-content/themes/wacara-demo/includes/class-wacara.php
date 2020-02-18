@@ -3,7 +3,7 @@
  * Main class that will do anything.
  * Everything is started from here.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara_Theme
  * @version 0.0.1
  */

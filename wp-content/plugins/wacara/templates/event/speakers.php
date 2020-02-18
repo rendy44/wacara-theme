@@ -2,7 +2,7 @@
 /**
  * Custom template to display speakers section in landing event.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

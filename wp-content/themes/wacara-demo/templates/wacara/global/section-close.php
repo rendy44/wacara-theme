@@ -2,7 +2,7 @@
 /**
  * Template for displaying section closing tag.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

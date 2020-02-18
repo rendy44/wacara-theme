@@ -2,7 +2,7 @@
 /**
  * Use this class to add some configuration to override WordPress default behaviors
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

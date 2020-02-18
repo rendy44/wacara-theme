@@ -2,7 +2,7 @@
 /**
  * Use this class to override cmb2 default behaviour nor extends its functionality including its library extensions.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Wacara - Offline Payment
  * Description: An add-on for Wacara to enable offline payment method.
- * Author: Rendy
+ * Author: WPerfekt
  * Author URI: http://fb.com/rendy.444444
  * Version: 0.0.1
  * Text Domain: wacara

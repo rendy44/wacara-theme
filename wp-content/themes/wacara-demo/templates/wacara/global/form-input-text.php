@@ -2,7 +2,7 @@
 /**
  * Template for displaying input text.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

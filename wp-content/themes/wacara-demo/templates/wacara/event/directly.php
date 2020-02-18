@@ -2,7 +2,7 @@
 /**
  * Custom template for displaying direct registration section.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

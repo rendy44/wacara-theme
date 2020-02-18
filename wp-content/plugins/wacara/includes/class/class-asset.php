@@ -2,7 +2,7 @@
 /**
  * Use this class to enqueuing assets both in front-end and back-end
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

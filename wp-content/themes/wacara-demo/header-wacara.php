@@ -2,7 +2,7 @@
 /**
  * Header template.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara_Theme
  * @version 0.0.1
  */

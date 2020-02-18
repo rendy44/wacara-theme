@@ -2,7 +2,7 @@
 /**
  * Use this class to register custom post types.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

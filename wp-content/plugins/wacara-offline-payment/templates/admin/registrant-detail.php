@@ -2,7 +2,7 @@
 /**
  * Custom template for displaying modal for detail registrant in wp-admin
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

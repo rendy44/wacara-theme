@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Wacara
  * Description: Ultimate Conference Ticket Organizer for WordPress
- * Author: Rendy
+ * Author: WPerfekt
  * Author URI: http://fb.com/rendy.444444
  * Version: 0.0.1
  * Text Domain: wacara

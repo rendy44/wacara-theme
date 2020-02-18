@@ -3,7 +3,7 @@
  * Use this class to config metaboxes and its custom fields using CMB2 library
  * Please refer to CMB2 official documentation for further details
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  * @see     https://github.com/CMB2/CMB2/wiki

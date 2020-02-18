@@ -1,9 +1,10 @@
 <?php
 /**
- * Custom template to render venue section in event landing.
+ * Custom template to display location section.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

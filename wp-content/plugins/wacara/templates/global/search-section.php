@@ -2,7 +2,7 @@
 /**
  * Template for displaying search section.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

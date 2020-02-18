@@ -2,7 +2,7 @@
 /**
  * Custom template to displaying sponsors section.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 
