@@ -478,6 +478,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'speakers' => $speakers_arr,
 				];
 
+				/**
+				 * Wacara speakers section args filter hook.
+				 *
+				 * @param array $speakers_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$speakers_args = apply_filters( 'wacara_filter_speakers_section_args', $speakers_args, $event );
+
 				Template::render( 'event/speakers', $speakers_args, true );
 			}
 		}
@@ -510,6 +518,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'gallery' => $gallery,
 				];
 
+				/**
+				 * Wacara gallery section args filter hook.
+				 *
+				 * @param array $gallery_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$gallery_args = apply_filters( 'wacara_filter_gallery_section_args', $gallery_args, $event );
+
 				Template::render( 'event/gallery', $gallery_args, true );
 			}
 		}
@@ -541,6 +557,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$schedule_args = [
 					'schedules' => $schedules,
 				];
+
+				/**
+				 * Wacara schedule section args filter hook.
+				 *
+				 * @param array $schedule_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$schedule_args = apply_filters( 'wacara_filter_schedule_section_args', $schedule_args, $event );
 
 				Template::render( 'event/schedule', $schedule_args, true );
 			}
@@ -599,6 +623,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				// Alter the default template.
 				$default_template = 'event/pricing';
 			}
+
+			/**
+			 * Wacara pricing section args filter hook.
+			 *
+			 * @param array $pricing_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$pricing_args = apply_filters( 'wacara_filter_pricing_section_args', $pricing_args, $event );
 
 			Template::render( $default_template, $pricing_args, true );
 		}
