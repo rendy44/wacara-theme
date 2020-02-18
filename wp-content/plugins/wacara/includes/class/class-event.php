@@ -125,7 +125,10 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			$sections = $this->get_meta( 'section_order' );
 			if ( ! empty( $sections ) ) {
 				foreach ( $sections as $section ) {
-					$result[ $section ] = $this->get_meta( $section . '_title' );
+					$maybe_section_title = $this->get_meta( $section . '_title' );
+
+					// Save conditional nav title.
+					$result[ $section ] = $maybe_section_title ? $maybe_section_title : ucfirst( $section );
 				}
 			}
 

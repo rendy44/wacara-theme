@@ -440,6 +440,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'time'        => $event->get_event_date_time_paragraph(),
 			];
 
+			/**
+			 * Wacara about section args filter hook.
+			 *
+			 * @param array $about_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$about_args = apply_filters( 'wacara_filter_about_section_args', $about_args, $event );
+
 			Template::render( 'event/about', $about_args, true );
 		}
 
