@@ -3,15 +3,13 @@
  * Plugin Name: Wacara
  * Description: Ultimate Conference Ticket Organizer for WordPress
  * Author: WPerfekt
- * Author URI: http://fb.com/rendy.444444
+ * Author URI: http://wperfekt.com
  * Version: 0.0.1
  * Text Domain: wacara
  * Domain Path: /i18n
  *
  * @package Wacara
  */
-
-use Wacara\Wacara;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
