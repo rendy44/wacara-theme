@@ -8,12 +8,12 @@
 
 @font-face {
     font-family: "remixicon";
-    src: url('remixicon.eot?t=1581804021249'); /* IE9*/
-    src: url('remixicon.eot?t=1581804021249#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url("remixicon.woff2?t=1581804021249") format("woff2"),
-    url("remixicon.woff?t=1581804021249") format("woff"),
-    url('remixicon.ttf?t=1581804021249') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('remixicon.svg?t=1581804021249#remixicon') format('svg'); /* iOS 4.1- */
+    src: url('remixicon.eot?t=1582010802462'); /* IE9*/
+    src: url('remixicon.eot?t=1582010802462#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url("remixicon.woff2?t=1582010802462") format("woff2"),
+    url("remixicon.woff?t=1582010802462") format("woff"),
+    url('remixicon.ttf?t=1582010802462') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('remixicon.svg?t=1582010802462#remixicon') format('svg'); /* iOS 4.1- */
     font-display: swap;
 }
 
@@ -47,3 +47,10 @@
 .ri-map-pin-line:before { content: "\eea9"; }
 .ri-information-line:before { content: "\ee00"; }
 .ri-time-line:before { content: "\f14b"; }
+.ri-facebook-circle-line:before { content: "\ec85"; }
+.ri-instagram-line:before { content: "\ee05"; }
+.ri-linkedin-line:before { content: "\ee51"; }
+.ri-youtube-line:before { content: "\f1ff"; }
+.ri-earth-line:before { content: "\ec46"; }
+.ri-facebook-line:before { content: "\ec87"; }
+.ri-twitter-line:before { content: "\f177"; }

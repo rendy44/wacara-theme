@@ -1,0 +1,47 @@
+.wcr-section.wcr-event-section.wcr-section-speakers {
+  .wcr-section-content-wrapper {
+    .wcr-speaker-item-wrapper {
+      overflow: hidden;
+      @include border-radius(6px);
+
+      .wcr-speaker-detail-wrapper {
+        .wcr-speaker-socnet-wrapper {
+          ul.wcr-speaker-socnet {
+            li {
+              > a {
+                font-family: 'remixicon' !important;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+
+                &.wcr-speaker-facebook:before {
+                  content: "\ec87" !important;
+                }
+
+                &.wcr-speaker-twitter:before {
+                  content: "\f177" !important;
+                }
+
+                &.wcr-speaker-linkedin:before {
+                  content: "\ee51" !important;
+                }
+
+                &.wcr-speaker-instagram:before {
+                  content: "\ee05" !important;
+                }
+
+                &.wcr-speaker-youtube:before {
+                  content: "\f1ff" !important;
+                }
+
+                &.wcr-speaker-website:before {
+                  content: "\ec46" !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
