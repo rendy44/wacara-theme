@@ -396,6 +396,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'section'       => $section,
 			];
 
+			/**
+			 * Wacara event section args filter hook.
+			 *
+			 * @param array $section_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$section_args = apply_filters( "wacara_filter_event_opening_section_{$section}_args", $section_args, $event );
+
 			Template::render( 'global/section-open', $section_args, true );
 		}
 

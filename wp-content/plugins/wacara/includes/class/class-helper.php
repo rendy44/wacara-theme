@@ -946,5 +946,30 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 				}
 			);
 		}
+
+		/**
+		 * Convert properties into inline styles.
+		 *
+		 * @param array $properties list of properties.
+		 * @param bool  $style_attribute include style attribute or not.
+		 *
+		 * @return string
+		 */
+		public static function convert_properties_to_inline_styles( $properties, $style_attribute = true ) {
+			$result = '';
+			if ( ! empty( $properties ) ) {
+
+				foreach ( $properties as $property_name => $property_value ) {
+					$result .= "{$property_name}: {$property_value};";
+				}
+
+				// Maybe include style attribute.
+				if ( $style_attribute ) {
+					$result = "style='{$result}'";
+				}
+			}
+
+			return $result;
+		}
 	}
 }
