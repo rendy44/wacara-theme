@@ -462,7 +462,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			 * @param array $about_args current args.
 			 * @param Event $event object of the current event.
 			 */
-			$about_args = apply_filters( 'wacara_filter_about_section_args', $about_args, $event );
+			$about_args = apply_filters( 'wacara_filter_event_about_section_args', $about_args, $event );
 
 			Template::render( 'event/about', $about_args, true );
 		}
@@ -500,7 +500,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				 * @param array $speakers_args current args.
 				 * @param Event $event object of the current event.
 				 */
-				$speakers_args = apply_filters( 'wacara_filter_speakers_section_args', $speakers_args, $event );
+				$speakers_args = apply_filters( 'wacara_filter_event_speakers_section_args', $speakers_args, $event );
 
 				Template::render( 'event/speakers', $speakers_args, true );
 			}
@@ -512,12 +512,27 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of current event.
 		 */
 		public function event_location_section_callback( $event ) {
-			$location      = Helper::get_post_meta( 'location', $event->post_id );
+			$location          = Helper::get_post_meta( 'location', $event->post_id );
+			$location_image_id = Helper::get_post_meta( 'photo_id', $location );
+
 			$location_args = [
-				'location_sliders'     => Helper::get_post_meta( 'photo', $location ),
 				'location_name'        => Helper::get_post_meta( 'name', $location ),
 				'location_description' => Helper::get_post_meta( 'description', $location ),
+				'location_address'     => Helper::get_location_paragraph( $location, false ),
 			];
+
+			// Add image url.
+			if ( $location_image_id ) {
+				$location_args['location_image'] = wp_get_attachment_image_url( $location_image_id, 'wacara-location-image' );
+			}
+
+			/**
+			 * Wacara event location args filter hook.
+			 *
+			 * @param array $location_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$location_args = apply_filters( 'wacara_filter_event_location_section_args', $location_args, $event );
 
 			Template::render( 'event/location', $location_args, true );
 		}

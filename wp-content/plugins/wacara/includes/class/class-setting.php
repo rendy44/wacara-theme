@@ -48,6 +48,9 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 		private function __construct() {
 			// Override single post template.
 			add_filter( 'single_template', [ $this, 'override_single_post_callback' ], 10, 3 );
+
+			// Add custom image size.
+			add_image_size( 'wacara-location-image', 570, 300, true );
 		}
 
 		/**

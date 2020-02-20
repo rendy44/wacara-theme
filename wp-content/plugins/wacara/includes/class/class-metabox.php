@@ -942,16 +942,21 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name'         => __( 'Photo', 'wacara' ),
 								'desc'         => __( 'Add any pictures related to the location', 'wacara' ),
 								'id'           => $this->meta_prefix . 'photo',
-								'type'         => 'file_list',
-								'query_args'   => [ 'type' => 'image' ],
-								'preview_size' => [ 100, 100 ],
-								'text'         => [
-									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+								'type'         => 'file',
+								'options'      => [
+									'url' => false,
 								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/gif',
+										'image/jpeg',
+										'image/png',
+									],
+								],
+								'preview_size' => 'medium',
 							],
 							[
 								'name' => __( 'Description', 'wacara' ),
