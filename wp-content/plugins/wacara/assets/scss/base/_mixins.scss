@@ -83,6 +83,12 @@
   }
 }
 
+@mixin custom-box-shadow($args...) {
+  -webkit-box-shadow: $args !important;
+  -moz-box-shadow: $args !important;
+  box-shadow: $args !important;
+}
+
 @mixin opacity($opacity) {
   opacity: $opacity;
   $opacity-ie: $opacity * 100;

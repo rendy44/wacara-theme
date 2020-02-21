@@ -1,7 +1,14 @@
 $z_index: 9999;
 .wcr-event-nav {
-  background-color: $white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z_index;
+  border-top: 5px solid $base_color_primary;
+  background-color: rgba($white, .9);
   overflow: hidden;
+  @include custom-box-shadow(0 1px 0 0 rgba($black, .2));
 
   .wcr-nav-wrapper {
     position: relative;
@@ -21,9 +28,7 @@ $z_index: 9999;
       span.wcr-nav-toggle {
         height: 3px;
         width: 100%;
-        background-color: lighten($black, 10%);
-        border: 1px solid transparent;
-        //background-color: darken($white, 40%);
+        background-color: $base_color_primary;
         margin-bottom: 7px;
         @include transition(all .2s ease);
         @include border-radius(6px);
@@ -41,8 +46,6 @@ $z_index: 9999;
       img.wcr-nav-logo {
         max-width: 150px;
         max-height: 50px;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
       }
     }
 
@@ -55,9 +58,11 @@ $z_index: 9999;
 
         li.wcr-nav-menu-item-wrapper {
           text-align: center;
-          padding: .75rem;
+          padding: 1rem;
+          border-bottom: 1px solid darken($white, 10%);
 
           a {
+            font-weight: 600;
             color: $base_black_color;
             @include transition(all .2s ease);
           }
@@ -76,17 +81,16 @@ $z_index: 9999;
         span.wcr-nav-toggle {
           width: 6px;
           height: 6px;
-          background-color: lighten($black, 70%);
-          border-color: lighten($black, 50%);
+          //background-color: lighten($black, 70%);
+          //border-color: lighten($black, 50%);
           @include border-radius(50%);
-          @include box-shadow(1px, 1px, 2px);
+          //@include box-shadow(1px, 1px, 2px);
         }
       }
 
       .wcr-nav-menu-wrapper {
         background-color: $white;
         position: absolute;
-        top: 70px;
         left: -15px;
         right: -15px;
         z-index: $z_index;
@@ -99,12 +103,11 @@ $z_index: 9999;
   }
 
   @include breakpoint($size_laptop) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba($black, .2);
-    z-index: $z_index;
+    //position: fixed;
+    //top: 0;
+    //left: 0;
+    //width: 100%;
+    //z-index: $z_index;
 
     .wcr-nav-wrapper {
       display: flex;
@@ -116,9 +119,9 @@ $z_index: 9999;
 
       .wcr-nav-logo-wrapper {
         img.wcr-nav-logo {
-          filter: brightness(0) invert(1);
-          -ms-filter: brightness(0) invert(1);
-          -webkit-filter: brightness(0) invert(1);
+          //filter: brightness(0) invert(1);
+          //-ms-filter: brightness(0) invert(1);
+          //-webkit-filter: brightness(0) invert(1);
         }
       }
 
@@ -139,10 +142,9 @@ $z_index: 9999;
             align-items: center;
 
             a {
-              border: 2px solid transparent;
+              border: 1px solid transparent;
               padding: .6rem 1rem;
               text-transform: uppercase;
-              color: $white;
               font-size: 80%;
               font-weight: 500;
               @include transition(all .2s ease);
@@ -150,13 +152,15 @@ $z_index: 9999;
               &:hover,
               &:active,
               &:focus {
-                @include custom_text_shadow(2px 2px 1px rgb($black, .4));
+                color: $base_color_primary;
               }
             }
 
             &.pricing {
               a {
-                border-color: $white;
+                @include border-radius(4px);
+                background-color: $base_color_primary;
+                color: $white;
               }
             }
           }
