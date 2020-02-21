@@ -6,7 +6,7 @@ $z_index: 9999;
   width: 100%;
   z-index: $z_index;
   border-top: 5px solid $base_color_primary;
-  background-color: rgba($white, .9);
+  background-color: $white;
   overflow: hidden;
   @include custom-box-shadow(0 1px 0 0 rgba($black, .2));
 
@@ -103,11 +103,7 @@ $z_index: 9999;
   }
 
   @include breakpoint($size_laptop) {
-    //position: fixed;
-    //top: 0;
-    //left: 0;
-    //width: 100%;
-    //z-index: $z_index;
+    background-color: rgba($white, .9);
 
     .wcr-nav-wrapper {
       display: flex;
@@ -115,14 +111,6 @@ $z_index: 9999;
 
       .wcr-nav-toggle-wrapper {
         display: none;
-      }
-
-      .wcr-nav-logo-wrapper {
-        img.wcr-nav-logo {
-          //filter: brightness(0) invert(1);
-          //-ms-filter: brightness(0) invert(1);
-          //-webkit-filter: brightness(0) invert(1);
-        }
       }
 
       .wcr-nav-menu-wrapper {
@@ -142,8 +130,7 @@ $z_index: 9999;
             align-items: center;
 
             a {
-              border: 1px solid transparent;
-              padding: .6rem 1rem;
+              padding: .6rem .8rem;
               text-transform: uppercase;
               font-size: 80%;
               font-weight: 500;
