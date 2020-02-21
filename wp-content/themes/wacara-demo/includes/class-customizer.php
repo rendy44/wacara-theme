@@ -73,7 +73,11 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			add_action( 'wacara_event_expired', [ $this, 'event_expired_content_callback' ], 10 );
 
 			// Add args in about section.
-			add_filter( 'wacara_filter_about_section_args', [ $this, 'event_about_args_callback' ], 10, 2 );
+			add_filter( 'wacara_filter_event_about_section_args', [ $this, 'event_about_args_callback' ], 10, 2 );
+
+			// Add args in location section.
+			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
+
 		}
 
 		/**
@@ -102,6 +106,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 */
 		public function event_opening_masthead_args_callback( $args, $event ) {
 			$args['masthead_column'] = '4-5';
+
 			return $args;
 		}
 
@@ -130,6 +135,39 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 */
 		public function event_about_args_callback( $args, $event ) {
 			$args['title'] = $event->post_title;
+
+			return $args;
+		}
+
+		/**
+		 * Callback for modifying location opening section args.
+		 *
+		 * @param array $args current args.
+		 * @param Event $event object of the current event.
+		 *
+		 * @return array
+		 */
+		public function event_opening_location_args_callback( $args, $event ) {
+
+			// Fetch location detail.
+			$location = \Wacara\Helper::get_post_meta( 'location', $event->post_id );
+			$photo_id = \Wacara\Helper::get_post_meta( 'photo_id', $location );
+
+			// Validate the location photo.
+			if ( $photo_id ) {
+
+				$image_url = wp_get_attachment_image_url( $photo_id, 'large' );
+
+				$style_properties = [
+					'background-image' => "url({$image_url})",
+				];
+
+				$inline_styles = \Wacara\Helper::convert_properties_to_inline_styles( $style_properties, false );
+
+				$args['custom_attributes'] = [
+					'style' => $inline_styles,
+				];
+			}
 
 			return $args;
 		}

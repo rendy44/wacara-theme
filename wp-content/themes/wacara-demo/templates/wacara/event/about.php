@@ -1,9 +1,9 @@
 <?php
 /**
- * Custom template for displaying about section in event landing
+ * Custom template for overriding about section.
  *
  * @author  WPerfekt
- * @package Wacara
+ * @package Wacara_Theme
  * @version 0.0.1
  */
 
