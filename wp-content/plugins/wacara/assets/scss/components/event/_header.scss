@@ -2,9 +2,9 @@ header.wcr-event-header {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 400px;
+  min-height: 400px;
   @include breakpoint($size_laptop) {
-    height: 500px;
+    min-height: 500px;
   }
 
   .frow {
@@ -26,7 +26,10 @@ header.wcr-event-header {
     }
 
     .wcr-event-subtitle-wrapper {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+      @include breakpoint($size_laptop) {
+        margin-bottom: 2rem;
+      }
 
       h2.wcr-event-subtitle {
         margin: 0;

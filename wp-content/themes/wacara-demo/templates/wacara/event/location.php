@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template fot overriding location section.
+ * Custom template for overriding location section.
  *
  * @author WPerfekt
  * @package Wacara_Theme

@@ -150,6 +150,7 @@ $z_index: 9999;
                 @include border-radius(4px);
                 background-color: $base_color_primary;
                 color: $white;
+                border: 1px solid rgba($black, .2);
               }
             }
           }
