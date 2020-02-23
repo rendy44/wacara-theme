@@ -1,10 +1,25 @@
 .wcr-section.wcr-event-section.wcr-section-speakers {
   .wcr-section-content-wrapper {
     .wcr-speaker-item-wrapper {
+      border: 1px solid $base_color_primary;
       overflow: hidden;
-      @include border-radius(6px);
+      @include border-radius(4px);
 
       .wcr-speaker-detail-wrapper {
+        background-color: rgba($base_color_primary, .3);
+
+        .wcr-speaker-link-wrapper {
+          a.wcr-speaker-link {
+            @include text_shadow($base_black_color);
+          }
+        }
+
+        .wcr-speaker-desc-wrapper {
+          p.wcr-speaker-desc {
+            @include text_shadow($base_black_color);
+          }
+        }
+
         .wcr-speaker-socnet-wrapper {
           ul.wcr-speaker-socnet {
             li {
@@ -37,6 +52,12 @@
               }
             }
           }
+        }
+      }
+
+      &:hover {
+        .wcr-speaker-detail-wrapper {
+          background-color: rgba(darken($base_color_primary, 20%), .5);
         }
       }
     }

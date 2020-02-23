@@ -1,4 +1,12 @@
 .wcr-section.wcr-event-section {
+  background-color: transparent;
+
+  .wcr-section-title-wrapper {
+    h2.wcr-section-title {
+      color: $base_color_primary;
+    }
+  }
+
   .wcr-section-subtitle-wrapper {
     h3.wcr-section-subtitle {
       text-transform: capitalize;
