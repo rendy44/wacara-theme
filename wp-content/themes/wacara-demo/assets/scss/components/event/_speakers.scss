@@ -9,10 +9,7 @@
           ul.wcr-speaker-socnet {
             li {
               > a {
-                font-family: 'remixicon' !important;
-                font-style: normal;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
+                @include remixicon();
 
                 &.wcr-speaker-facebook:before {
                   content: "\ec87" !important;

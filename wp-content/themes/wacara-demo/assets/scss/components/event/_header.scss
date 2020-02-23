@@ -76,9 +76,32 @@ header.wcr-event-header {
   }
 
   &.wcr-header-darken {
+    .wcr-event-title-wrapper {
+      h1.wcr-event-title {
+        @include text-shadow($base_black_color);
+      }
+    }
+
+    .wcr-event-subtitle-wrapper {
+      h2.wcr-event-subtitle {
+        @include text_shadow($base_black_color);
+      }
+    }
+
+    .wcr-event-highlight-wrapper {
+      p.wcr-event-highlight {
+        @include text_shadow($base_black_color);
+      }
+    }
+
     .wcr-event-counter-wrapper {
       .wcr-event-counter-item {
-        background-color: rgba($black, .1);
+        background-color: rgba($white, .2);
+
+        span.wcr-event-count-value,
+        span.wcr-event-count-label {
+          @include text_shadow($base_black_color);
+        }
       }
     }
   }
