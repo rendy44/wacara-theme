@@ -483,6 +483,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara event detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_event_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'detail_event_tabs',
@@ -599,6 +607,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara header detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_header_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_header_tabs',
@@ -869,6 +885,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara event design metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_event_design_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'design_event_tabs',
@@ -968,6 +992,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara location detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_location_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_location_tabs',
@@ -1068,6 +1100,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara speaker detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_speaker_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_speaker_tabs',
@@ -1157,6 +1197,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara price detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_price_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_price_tabs',
