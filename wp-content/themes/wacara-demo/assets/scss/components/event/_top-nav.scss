@@ -152,12 +152,12 @@ $z_index: 9999;
                 color: $white;
                 border: 1px solid rgba($black, .2);
 
-                &:before {
-                  content: "\ea0e";
-                  margin-right: .5rem;
-                  font-size: 80%;
-                  @include remixicon();
-                }
+                //&:before {
+                //  content: "\ea0e";
+                //  margin-right: .5rem;
+                //  font-size: 80%;
+                //  @include remixicon();
+                //}
               }
             }
           }

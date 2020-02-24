@@ -1,8 +1,10 @@
 header.wcr-event-header {
   padding-top: 50px;
   height: 100vh;
+  min-height: 600px;
   @include breakpoint($size_laptop) {
-    min-height: 600px;
+    padding-bottom: 100px;
+    min-height: 700px;
   }
 
   .frow {

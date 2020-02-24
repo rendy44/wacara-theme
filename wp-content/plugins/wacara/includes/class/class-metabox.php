@@ -719,9 +719,8 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 							],
 							[
 								'name' => __( 'Description', 'wacara' ),
-								'id'   => $this->meta_prefix . 'description',
+								'id'   => $this->meta_prefix . 'about_description',
 								'type' => 'textarea_small',
-								'desc' => __( 'Describe the event in a paragraph', 'wacara' ),
 							],
 						],
 					],
