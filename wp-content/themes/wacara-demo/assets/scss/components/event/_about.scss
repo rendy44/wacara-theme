@@ -11,7 +11,7 @@ $about_item_size: 110px;
         .wcr-about-icon-wrapper {
           width: $about_item_size;
           height: $about_item_size;
-          border: 2px solid $base_color_primary;
+          border: 2px solid $base_color;
           text-align: center;
           margin: 0 auto 1rem;
           display: flex;
@@ -21,7 +21,7 @@ $about_item_size: 110px;
           i.wcr-about-icon {
             margin: auto;
             font-size: 4rem;
-            color: $base_color_primary;
+            color: $base_color;
             //@include transition(all .2s ease);
           }
         }
@@ -37,8 +37,8 @@ $about_item_size: 110px;
         &:hover {
           .wcr-about-icon-wrapper {
             border-color: transparent;
-            @include custom-box-shadow(0 0 .5rem 5px rgba($base_color_primary, .5));
-            background-color: lighten($base_color_primary, 60%);
+            @include custom-box-shadow(0 0 .5rem 5px rgba($base_color, .5));
+            background-color: lighten($base_color, 60%);
 
             //i.wcr-about-icon {
             //  color: $white;

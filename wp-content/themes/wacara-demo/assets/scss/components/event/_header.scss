@@ -36,7 +36,7 @@ header.wcr-event-header {
 
     .wcr-event-highlight-wrapper {
       p.wcr-event-highlight {
-        //color: $base_color_primary;
+        //color: $base_color;
         font-weight: 600;
         color: $white;
         @include display_accessibility(false);
@@ -48,7 +48,7 @@ header.wcr-event-header {
       .wcr-event-counter-item {
         padding: 0;
         background-color: rgba($white, .1);
-        border-color: $base_color_primary;
+        border-color: $base_color;
         @include border-radius(4px);
 
         span.wcr-event-count-value {
@@ -68,7 +68,7 @@ header.wcr-event-header {
           padding: .5rem;
           text-transform: uppercase;
           display: block;
-          background-color: $base_color_primary;
+          background-color: $base_color;
           color: $white;
           font-weight: 400;
           @include custom_text_shadow(2px 2px 1px rgba($black, .4));

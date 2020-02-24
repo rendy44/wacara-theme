@@ -5,7 +5,7 @@ $z_index: 9999;
   left: 0;
   width: 100%;
   z-index: $z_index;
-  border-top: 5px solid $base_color_primary;
+  border-top: 5px solid $base_color;
   background-color: $white;
   overflow: hidden;
   @include custom-box-shadow(0 1px 0 0 rgba($black, .2));
@@ -28,7 +28,7 @@ $z_index: 9999;
       span.wcr-nav-toggle {
         height: 3px;
         width: 100%;
-        background-color: $base_color_primary;
+        background-color: $base_color;
         margin-bottom: 7px;
         @include transition(all .2s ease);
         @include border-radius(6px);
@@ -141,23 +141,16 @@ $z_index: 9999;
               &:hover,
               &:active,
               &:focus {
-                color: $base_color_primary;
+                color: $base_color;
               }
             }
 
             &.pricing {
               a {
                 @include border-radius(4px);
-                background-color: $base_color_primary;
+                background-color: $base_color;
                 color: $white;
                 border: 1px solid rgba($black, .2);
-
-                //&:before {
-                //  content: "\ea0e";
-                //  margin-right: .5rem;
-                //  font-size: 80%;
-                //  @include remixicon();
-                //}
               }
             }
           }
