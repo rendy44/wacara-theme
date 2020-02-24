@@ -72,6 +72,9 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			// Replace expired content.
 			add_action( 'wacara_event_expired', [ $this, 'event_expired_content_callback' ], 10 );
 
+			// Add args in about section.
+			add_filter( 'wacara_filter_event_about_section_args', [ $this, 'event_about_args_callback' ], 10, 2 );
+
 			// Add args in location section.
 			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
 
@@ -120,6 +123,26 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			];
 
 			Helper::render_local_template( 'event/expired', $exp_args, true );
+		}
+
+		/**
+		 * Callback for modifying about section args.
+		 *
+		 * @param array $args current args.
+		 * @param Event $event object of the current event.
+		 *
+		 * @return array
+		 */
+		public function event_about_args_callback( $args, $event ) {
+			$location       = \Wacara\Helper::get_post_meta( 'location', $event->post_id );
+			$speakers       = (array) \Wacara\Helper::get_post_meta( 'speakers', $event->post_id, true );
+			$speakers_count = count( $speakers );
+			/* translators: %s : total speakers */
+			$args['about_user']     = sprintf( __( 'We have %s amazing and talented speaker(s)', 'wacara' ), $speakers_count );
+			$args['about_location'] = \Wacara\Helper::get_location_paragraph( $location );
+			$args['about_time']     = $event->get_event_date_time_paragraph();
+
+			return $args;
 		}
 
 		/**
