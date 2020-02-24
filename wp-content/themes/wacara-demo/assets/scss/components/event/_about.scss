@@ -1,8 +1,8 @@
 .wcr-section.wcr-event-section.wcr-section-about {
-  background-image: url("../img/shapes/8.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: right top;
+  //background-image: url("../img/shapes/8.svg");
+  //background-repeat: no-repeat;
+  //background-size: contain;
+  //background-position: right top;
 
   .wcr-section-content-wrapper {
     .wcr-section-content-inner-wrapper {
@@ -61,16 +61,16 @@
         }
       }
 
-      @include breakpoint($size_tablet) {
-        padding: 3rem 2rem;
-        background-color: $white;
-        @include box-shadow();
-        @include border-radius(4px);
-      }
-
-      @include breakpoint($size_laptop) {
-        padding: 4rem 2rem;
-      }
+      //@include breakpoint($size_tablet) {
+      //  padding: 3rem 2rem;
+      //  background-color: $white;
+      //  @include box-shadow();
+      //  @include border-radius(4px);
+      //}
+      //
+      //@include breakpoint($size_laptop) {
+      //  padding: 4rem 2rem;
+      //}
     }
   }
 }
