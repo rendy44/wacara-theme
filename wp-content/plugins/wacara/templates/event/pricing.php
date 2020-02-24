@@ -17,9 +17,17 @@ if ( ! empty( $price_lists ) ) {
 		<div class="frow">
 			<?php
 			foreach ( $price_lists as $list ) {
+				$maybe_recommended_class = 'on' === $list['recommended'] ? 'wcr-pricing-item-best-value' : '';
 				?>
 				<div class="col-sm-1-2 col-md-1-3">
-					<div class="wcr-pricing-item-wrapper">
+					<div class="wcr-pricing-item-wrapper <?php echo esc_attr( $maybe_recommended_class ); ?>">
+						<?php
+						if ( 'on' === $list['recommended'] ) {
+							?>
+						<div class="wcr-pricing-item-ribbon-wrapper">
+							<span class="wcr-pricing-item-ribbon"><?php esc_html_e( 'Best Value', 'wacara' ); ?></span>
+						</div>
+						<?php } ?>
 						<div class="wcr-pricing-title-wrapper">
 							<h4 class="wcr-pricing-title"><?php echo esc_html( $list['name'] ); ?></h4>
 						</div>

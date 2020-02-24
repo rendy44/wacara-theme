@@ -637,13 +637,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					foreach ( $pricing as $price ) {
 						$currency_code = Helper::get_post_meta( 'currency', $price );
 						$pricing_arr[] = [
-							'id'       => $price,
-							'name'     => get_the_title( $price ),
-							'price'    => Helper::get_post_meta( 'price', $price ),
-							'currency' => $currency_code,
-							'symbol'   => Helper::get_currency_symbol_by_code( $currency_code ),
-							'pros'     => Helper::get_post_meta( 'pros', $price ),
-							'cons'     => Helper::get_post_meta( 'cons', $price ),
+							'id'          => $price,
+							'name'        => get_the_title( $price ),
+							'price'       => Helper::get_post_meta( 'price', $price ),
+							'currency'    => $currency_code,
+							'symbol'      => Helper::get_currency_symbol_by_code( $currency_code ),
+							'recommended' => Helper::get_post_meta( 'recommended', $price ),
+							'pros'        => Helper::get_post_meta( 'pros', $price ),
+							'cons'        => Helper::get_post_meta( 'cons', $price ),
 						];
 					}
 				}

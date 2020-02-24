@@ -1148,10 +1148,10 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => __( 'Options', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Unique code', 'wacara' ),
-								'id'   => $this->meta_prefix . 'use_unique_code',
+								'name' => __( 'Recommended', 'wacara' ),
+								'id'   => $this->meta_prefix . 'recommended',
 								'type' => 'checkbox',
-								'desc' => __( 'Add unique code for payment using manual bank transfer', 'wacara' ),
+								'desc' => __( 'Set as recommended pricing', 'wacara' ),
 							],
 						],
 					],
