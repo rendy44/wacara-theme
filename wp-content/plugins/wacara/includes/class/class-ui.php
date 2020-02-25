@@ -85,7 +85,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
-			// add_action( 'wacara_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
+			add_action( 'wacara_event_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
 			add_action( 'wacara_event_schedule_section', [ $this, 'event_schedule_section_callback' ], 10, 1 );
@@ -223,9 +223,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_cta_opening_callback( $event ) {
 			?>
-			<div class="wcr-event-alert wcr-alert-with-cta">
-			<div class="frow-container">
-			<div class="wcr-event-alert-content-wrapper">
+            <div class="wcr-event-alert wcr-alert-with-cta">
+            <div class="frow-container">
+            <div class="wcr-event-alert-content-wrapper">
 			<?php
 		}
 
@@ -251,16 +251,16 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_cta_closing_callback( $event ) {
 			?>
-			</div>
-			</div>
-			</div>
+            </div>
+            </div>
+            </div>
 			<?php
 		}
 
 		/**
 		 * Callback for displaying masthead opening tag.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
@@ -313,7 +313,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead section.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_content_callback( $event, $header_template ) {
@@ -340,7 +340,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead countdown.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_countdown_callback( $event, $header_template ) {
@@ -358,7 +358,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead closing tag.
 		 *
-		 * @param Event  $event the object of the current event.
+		 * @param Event $event the object of the current event.
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_closing_callback( $event, $header_template ) {
@@ -370,7 +370,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 *
 		 * @param string $section_class current class of the section.
 		 * @param string $section the name of the current section.
-		 * @param int    $section_num ordering number of the current section.
+		 * @param int $section_num ordering number of the current section.
 		 *
 		 * @return string
 		 */
@@ -384,7 +384,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section opening tag.
 		 *
 		 * @param string $section name of the selected section.
-		 * @param Event  $event object of the current event.
+		 * @param Event $event object of the current event.
 		 * @param string $section_class css class of the selected section.
 		 * @param string $section_title title of the selected section.
 		 * @param string $section_subtitle subtitle of the selected section.
@@ -411,7 +411,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section title.
 		 *
 		 * @param string $section name of the selected section.
-		 * @param Event  $event object of the current event.
+		 * @param Event $event object of the current event.
 		 * @param string $section_class css class of the selected section.
 		 * @param string $section_title title of the selected section.
 		 * @param string $section_subtitle subtitle of the selected section.
@@ -433,7 +433,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying section closing tag.
 		 *
 		 * @param string $section name of the selected section.
-		 * @param Event  $event object of the current event.
+		 * @param Event $event object of the current event.
 		 * @param string $section_class css class of the selected section.
 		 * @param string $section_title title of the selected section.
 		 * @param string $section_subtitle subtitle of the selected section.
@@ -692,7 +692,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * Callback for displaying registrant masthead content.
 		 *
 		 * @param Registrant $registrant the object of the current registrant.
-		 * @param string     $registrant_status the status of the registrant.
+		 * @param string $registrant_status the status of the registrant.
 		 */
 		public function registrant_masthead_content_callback( $registrant, $registrant_status ) {
 
@@ -780,9 +780,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying hold registrant form opening tag.
 		 *
-		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Registrant $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-		 * @param string                    $reg_status status of the current registrant.
+		 * @param string $reg_status status of the current registrant.
 		 */
 		public function registrant_hold_opening_callback( $registrant, $payment_class, $reg_status ) {
 			$custom_checkout_class = $payment_class->custom_checkout ? "custom-checkout-{$payment_class->id}" : 'normal-checkout';
@@ -797,34 +797,34 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying opening field for hold registrant.
 		 *
-		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Registrant $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 		 */
 		public function registrant_hold_opening_field_callback( $registrant, $payment_class ) {
 			?>
-			<div class="wcr-field-payment wcr-form-field-wrapper">
-			<label><?php esc_html_e( 'Payment', 'wacara' ); ?></label>
+            <div class="wcr-field-payment wcr-form-field-wrapper">
+            <label><?php esc_html_e( 'Payment', 'wacara' ); ?></label>
 			<?php
 		}
 
 		/**
 		 * Callback for displaying closing field for hold registrant.
 		 *
-		 * @param Registrant                $registrant object of the current registrant..
+		 * @param Registrant $registrant object of the current registrant..
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 		 */
 		public function registrant_hold_closing_field_callback( $registrant, $payment_class ) {
 			?>
-			</div>
+            </div>
 			<?php
 		}
 
 		/**
 		 * Callback for displaying hidden fields for hold registrant.
 		 *
-		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Registrant $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-		 * @param string                    $reg_status status of the current registrant.
+		 * @param string $reg_status status of the current registrant.
 		 */
 		public function registrant_hold_hidden_field_callback( $registrant, $payment_class, $reg_status ) {
 
@@ -834,16 +834,16 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Render hidden fields.
 			foreach ( $used_fields as $field ) {
 				$maybe_value = $registrant->registrant_data[ $field ];
-	            echo apply_filters( 'wacara_input_field', $field, 'hidden', '', $maybe_value ); // phpcs:ignore
+				echo apply_filters( 'wacara_input_field', $field, 'hidden', '', $maybe_value ); // phpcs:ignore
 			}
 		}
 
 		/**
 		 * Callback for displaying hold registrant form submit.
 		 *
-		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Registrant $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class id of the selected payment.
-		 * @param string                    $reg_status status of the current registrant.
+		 * @param string $reg_status status of the current registrant.
 		 */
 		public function registrant_hold_submit_button_callback( $registrant, $payment_class, $reg_status ) {
 
@@ -855,7 +855,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			 *
 			 * @param string $submit_label current submit label.
 			 * @param Registrant $registrant object of the current registrant.
-			 * @param Payment_Method|bool|mixed     $payment_class object of the selected payment method.
+			 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 			 * @param string $reg_status status of the current registrant.
 			 */
 			$submit_label = apply_filters( 'wacara_filter_form_registrant_submit_label', $submit_label, $registrant, $payment_class, $reg_status );
@@ -870,9 +870,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying hold registrant form closing tag.
 		 *
-		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Registrant $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
-		 * @param string                    $reg_status status of the current registrant.
+		 * @param string $reg_status status of the current registrant.
 		 */
 		public function registrant_hold_closing_callback( $registrant, $payment_class, $reg_status ) {
 			$form_args = [
