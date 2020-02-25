@@ -79,15 +79,22 @@ if ( ! class_exists( 'Wacara_Theme\Assets' ) ) {
 		 */
 		private function map_front_assets() {
 			$this->front_css = [
-				'wacara_theme_main_style' => [
-					'url' => WACARA_MAYBE_THEME_URI . '/assets/css/wacara.css',
-				],
 				'remixicon'               => [
 					'url' => WACARA_MAYBE_THEME_URI . '/assets/lib/remixicon/remixicon.css',
+				],
+				'lity'                    => [
+					'url' => WACARA_MAYBE_THEME_URI . '/assets/lib/lity/lity.min.css',
+				],
+				'wacara_theme_main_style' => [
+					'url' => WACARA_MAYBE_THEME_URI . '/assets/css/wacara.css',
 				],
 			];
 
 			$this->front_js = [
+				'lity'                 => [
+					'url'    => WACARA_MAYBE_THEME_URI . '/assets/lib/lity/lity.min.js',
+					'module' => false,
+				],
 				'wacara_theme_main_js' => [
 					'url'   => WACARA_MAYBE_THEME_URI . '/assets/js/wacara.js',
 					'vars'  => [],
