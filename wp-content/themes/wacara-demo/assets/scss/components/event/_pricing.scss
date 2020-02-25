@@ -1,0 +1,30 @@
+.wcr-section.wcr-event-section.wcr-section-pricing {
+  .wcr-section-content-wrapper {
+    .wcr-pricing-item-wrapper {
+      .wcr-pricing-features-wrapper {
+        ul.wcr-pricing-features {
+          li.wcr-pricing-feature {
+            &:before {
+              @include remixicon();
+              margin-right: .5rem;
+            }
+
+            &.wcr-pricing-feature-pro:before {
+              content: "\eb63";
+            }
+
+            &.wcr-pricing-feature-con:before {
+              content: "\eb81";
+            }
+          }
+        }
+      }
+
+      .wcr-pricing-cta-wrapper {
+        button.wcr-pricing-cta {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
