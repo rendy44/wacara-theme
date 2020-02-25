@@ -573,6 +573,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'sponsors' => $sponsors,
 				];
 
+				/**
+				 * Wacara sponsors section args filter hook.
+				 *
+				 * @param array $sponsors_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$sponsors_args = apply_filters( 'wacara_filter_sponsors_section_args', $sponsors_args, $event );
+
 				Template::render( 'event/sponsors', $sponsors_args, true );
 			}
 		}
