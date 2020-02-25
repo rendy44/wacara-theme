@@ -2,9 +2,9 @@ header.wcr-event-header {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 400px;
+  height: 400px;
   @include breakpoint($size_laptop) {
-    min-height: 500px;
+    height: 500px;
   }
 
   .frow {

@@ -1,5 +1,5 @@
 .wcr-event-alert {
-  background-color: lighten($base_color, 35%);
+  background-color: lighten($base_color, 10%);
   color: $white;
 
   .wcr-event-alert-content-wrapper {
@@ -13,7 +13,7 @@
       text-align: center;
 
       &.wcr-event-alert-title-wrapper {
-        background-color: lighten($base_color, 45%);
+        background-color: lighten($base_color, 25%);
         color: darken($base_color, 15%);
         width: 100%;
 
