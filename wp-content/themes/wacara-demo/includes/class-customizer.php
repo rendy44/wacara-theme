@@ -50,6 +50,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 */
 		private function __construct() {
 			$this->customize_event();
+			$this->customize_metabox();
 		}
 
 		/**
@@ -78,6 +79,13 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			// Add args in location section.
 			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
 
+		}
+
+		/**
+		 * Customize metabox.
+		 */
+		private function customize_metabox() {
+			add_filter( 'wacara_filter_event_design_metabox_tabs_args', [ $this, 'event_design_args_callback' ], 10, 1 );
 		}
 
 		/**
@@ -174,6 +182,21 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 					'style' => $inline_styles,
 				];
 			}
+
+			return $args;
+		}
+
+		/**
+		 * Callback for modifying event design metabox args.
+		 *
+		 * @param array $args current args.
+		 *
+		 * @return array
+		 */
+		public function event_design_args_callback( $args ) {
+			unset( $args['tabs'][3]['fields'][0] ); // Remove section title.
+			unset( $args['tabs'][3]['fields'][1] ); // Remove section subtitle.
+			unset( $args['tabs'][3]['fields'][2] ); // Remove section description.
 
 			return $args;
 		}
