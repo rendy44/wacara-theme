@@ -1,4 +1,4 @@
-$line_width_desktop: 7px !default;
+$line_width_desktop: 4px !default;
 $bullet_width: 24px !default;
 $bubble_bg_color: darken($white, 7.5%) !default;
 $bubble_arrow_size: 30px !default;
@@ -38,7 +38,7 @@ $bubble_arrow_size: 30px !default;
           height: $bullet_width;
           left: (($bullet_width/2) - ($line_width_desktop/2)) * -1;
           background-color: $white;
-          border: 2px solid $base_color;
+          border: $line_width_desktop solid $base_color;
           top: $bullet_width;
           border-radius: 50%;
           z-index: 1;
@@ -59,6 +59,8 @@ $bubble_arrow_size: 30px !default;
         }
 
         @include breakpoint($size_tablet) {
+          padding-top: 0;
+          padding-bottom: 0;
           width: 50%;
 
           &:nth-child(even) {
