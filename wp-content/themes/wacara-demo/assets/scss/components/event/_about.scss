@@ -1,5 +1,7 @@
 $about_item_size: 110px;
 .wcr-section.wcr-event-section.wcr-section-about {
+  background-color: $white;
+
   .frow-container {
     .wcr-section-content-wrapper {
       .wcr-about-item-wrapper {
@@ -50,6 +52,7 @@ $about_item_size: 110px;
   }
 
   @include breakpoint($size_laptop) {
+    background-color: transparent;
     margin-top: -100px;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
