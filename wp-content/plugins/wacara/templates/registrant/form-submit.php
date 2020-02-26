@@ -2,16 +2,15 @@
 /**
  * Template for displaying registrant form submit.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<?php
 if ( $submit_label ) {
 	?>
 	<div class="wcr-form-submit-wrapper">

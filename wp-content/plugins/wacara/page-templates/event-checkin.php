@@ -3,7 +3,7 @@
  * Template Name: Checkin Page
  * Page template for displaying checkin page.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  */
 

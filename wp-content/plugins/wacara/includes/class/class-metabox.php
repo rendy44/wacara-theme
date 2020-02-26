@@ -3,8 +3,9 @@
  * Use this class to config metaboxes and its custom fields using CMB2 library
  * Please refer to CMB2 official documentation for further details
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  * @see     https://github.com/CMB2/CMB2/wiki
  */
 
@@ -482,6 +483,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara event detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_event_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'detail_event_tabs',
@@ -547,29 +556,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => __( 'Layout', 'wacara' ),
 						'fields' => [
 							[
-								'name'    => __( 'Width', 'wacara' ),
-								'id'      => $this->meta_prefix . 'content_width',
-								'type'    => 'select',
-								'desc'    => __( 'If you select half-width, please use transparent background image for the best result', 'wacara' ),
-								'options' => [
-									'center' => __( 'Full-width content', 'wacara' ),
-									'half'   => __( 'Half-width content', 'wacara' ),
-								],
-							],
-							[
-								'name'       => __( 'Scheme', 'wacara' ),
-								'id'         => $this->meta_prefix . 'color_scheme',
-								'type'       => 'select',
-								'options'    => [
-									'light' => __( 'Light color', 'wacara' ),
-									'dark'  => __( 'Dark color', 'wacara' ),
-								],
-								'attributes' => [
-									'data-conditional-id' => $this->meta_prefix . 'content_width',
-									'data-conditional-value' => 'center',
-								],
-							],
-							[
 								'name'    => __( 'Alignment', 'wacara' ),
 								'id'      => $this->meta_prefix . 'content_alignment',
 								'type'    => 'select',
@@ -603,7 +589,13 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 										'image/png',
 									],
 								],
-								'preview_size' => 'large',
+								'preview_size' => 'medium',
+							],
+							[
+								'name' => __( 'Darken', 'wacara' ),
+								'id'   => $this->meta_prefix . 'darken',
+								'type' => 'checkbox',
+								'desc' => __( 'Darken background image', 'wacara' ),
 							],
 							[
 								'name' => __( 'Countdown', 'wacara' ),
@@ -615,6 +607,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara header detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_header_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_header_tabs',
@@ -646,13 +646,19 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'General', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
+								'name' => __( 'Headline', 'wacara' ),
+								'id'   => $this->meta_prefix . 'headline',
+								'type' => 'text',
+								'desc' => __( 'Give a short and eye-catching headline', 'wacara' ),
+							],
+							[
 								'name'    => __( 'Section order', 'wacara' ),
 								'id'      => $this->meta_prefix . 'section_order',
 								'type'    => 'pw_multiselect',
 								'options' => [
 									'about'    => __( 'About section', 'wacara' ),
 									'speakers' => __( 'Speakers section', 'wacara' ),
-									'venue'    => __( 'Venue section', 'wacara' ),
+									'location' => __( 'Location section', 'wacara' ),
 									'gallery'  => __( 'Gallery section', 'wacara' ),
 									'sponsors' => __( 'Sponsors section', 'wacara' ),
 									'schedule' => __( 'Schedule section', 'wacara' ),
@@ -662,30 +668,12 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'default' => [
 									'about',
 									'speakers',
-									'venue',
+									'location',
 									'gallery',
 									'sponsors',
 									'schedule',
 									'pricing',
 								],
-							],
-							[
-								'name'         => __( 'Main logo', 'wacara' ),
-								'id'           => $this->meta_prefix . 'main_logo',
-								'type'         => 'file',
-								'desc'         => __( 'Only image with .png extension is allowed', 'wacara' ),
-								'options'      => [
-									'url' => false,
-								],
-								'text'         => [
-									'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-								],
-								'query_args'   => [
-									'type' => [
-										'image/png',
-									],
-								],
-								'preview_size' => 'medium',
 							],
 							[
 								'name'    => __( 'Header', 'wacara' ),
@@ -711,7 +699,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 										'image/png',
 									],
 								],
-								'preview_size' => 'large',
+								'preview_size' => 'medium',
 							],
 						],
 					],
@@ -719,12 +707,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'id'     => 'event_about_design',
 						'title'  => _x( 'About section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'about_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'about_title',
@@ -737,9 +719,8 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 							],
 							[
 								'name' => __( 'Description', 'wacara' ),
-								'id'   => $this->meta_prefix . 'description',
+								'id'   => $this->meta_prefix . 'about_description',
 								'type' => 'textarea_small',
-								'desc' => __( 'Describe the event in short sentence.', 'wacara' ),
 							],
 						],
 					],
@@ -747,12 +728,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'id'     => 'event_speakers_design',
 						'title'  => _x( 'Speakers section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'speakers_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'speakers_title',
@@ -764,6 +739,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type' => 'text',
 							],
 							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'speakers_description',
+								'type' => 'textarea_small',
+							],
+							[
 								'name'    => __( 'Speakers', 'wacara' ),
 								'id'      => $this->meta_prefix . 'speakers',
 								'type'    => 'pw_multiselect',
@@ -772,24 +752,23 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						],
 					],
 					[
-						'id'     => 'event_venue_design',
-						'title'  => _x( 'Venue section', 'Tab metabox title', 'wacara' ),
+						'id'     => 'event_location_design',
+						'title'  => _x( 'Location section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_title',
+								'id'   => $this->meta_prefix . 'location_title',
 								'type' => 'text',
 							],
 							[
 								'name' => __( 'Subtitle', 'wacara' ),
-								'id'   => $this->meta_prefix . 'venue_subtitle',
+								'id'   => $this->meta_prefix . 'location_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'location_description',
+								'type' => 'textarea_small',
 							],
 							[
 								'name'    => __( 'Location', 'wacara' ),
@@ -804,12 +783,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Gallery section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'gallery_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'gallery_title',
 								'type' => 'text',
@@ -818,6 +791,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'gallery_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'gallery_description',
+								'type' => 'textarea_small',
 							],
 							[
 								'name'         => __( 'Gallery', 'wacara' ),
@@ -833,12 +811,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Sponsors section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'sponsors_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'sponsors_title',
 								'type' => 'text',
@@ -847,6 +819,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Subtitle', 'wacara' ),
 								'id'   => $this->meta_prefix . 'sponsors_subtitle',
 								'type' => 'text',
+							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'sponsors_description',
+								'type' => 'textarea_small',
 							],
 							[
 								'name'         => __( 'Sponsors', 'wacara' ),
@@ -862,12 +839,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => _x( 'Schedule section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'schedule_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
-							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'schedule_title',
 								'type' => 'text',
@@ -877,18 +848,17 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'id'   => $this->meta_prefix . 'schedule_subtitle',
 								'type' => 'text',
 							],
+							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'schedule_description',
+								'type' => 'textarea_small',
+							],
 						],
 					],
 					[
 						'id'     => 'event_pricing_design',
 						'title'  => _x( 'Pricing section', 'Tab metabox title', 'wacara' ),
 						'fields' => [
-							[
-								'name' => __( 'Nav title', 'wacara' ),
-								'id'   => $this->meta_prefix . 'pricing_nav_title',
-								'type' => 'text',
-								'desc' => __( 'Label to display in nav bar, leave it empty to hide from the nav bar', 'wacara' ),
-							],
 							[
 								'name' => __( 'Title', 'wacara' ),
 								'id'   => $this->meta_prefix . 'pricing_title',
@@ -900,6 +870,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type' => 'text',
 							],
 							[
+								'name' => __( 'Description', 'wacara' ),
+								'id'   => $this->meta_prefix . 'pricing_description',
+								'type' => 'textarea_small',
+							],
+							[
 								'name'    => __( 'Pricing', 'wacara' ),
 								'id'      => $this->meta_prefix . 'pricing',
 								'type'    => 'pw_multiselect',
@@ -909,6 +884,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara event design metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_event_design_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'design_event_tabs',
@@ -982,16 +965,21 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name'         => __( 'Photo', 'wacara' ),
 								'desc'         => __( 'Add any pictures related to the location', 'wacara' ),
 								'id'           => $this->meta_prefix . 'photo',
-								'type'         => 'file_list',
-								'query_args'   => [ 'type' => 'image' ],
-								'preview_size' => [ 100, 100 ],
-								'text'         => [
-									'add_upload_files_text' => __( 'Add Images', 'wacara' ),
-									'remove_image_text'  => __( 'Remove Images', 'wacara' ),
-									'file_text'          => __( 'Image:', 'wacara' ),
-									'file_download_text' => __( 'Download', 'wacara' ),
-									'remove_text'        => __( 'Remove', 'wacara' ),
+								'type'         => 'file',
+								'options'      => [
+									'url' => false,
 								],
+								'text'         => [
+									'add_upload_file_text' => __( 'Select image', 'wacara' ),
+								],
+								'query_args'   => [
+									'type' => [
+										'image/gif',
+										'image/jpeg',
+										'image/png',
+									],
+								],
+								'preview_size' => 'medium',
 							],
 							[
 								'name' => __( 'Description', 'wacara' ),
@@ -1003,6 +991,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara location detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_location_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_location_tabs',
@@ -1103,6 +1099,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 				],
 			];
+
+			/**
+			 * Wacara speaker detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_speaker_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_speaker_tabs',
@@ -1183,15 +1187,23 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => __( 'Options', 'wacara' ),
 						'fields' => [
 							[
-								'name' => __( 'Unique code', 'wacara' ),
-								'id'   => $this->meta_prefix . 'use_unique_code',
+								'name' => __( 'Recommended', 'wacara' ),
+								'id'   => $this->meta_prefix . 'recommended',
 								'type' => 'checkbox',
-								'desc' => __( 'Add unique code for payment using manual bank transfer', 'wacara' ),
+								'desc' => __( 'Set as recommended pricing', 'wacara' ),
 							],
 						],
 					],
 				],
 			];
+
+			/**
+			 * Wacara price detail metabox tabs args filter hook.
+			 *
+			 * @param array $tabs current tab args.
+			 */
+			$tabs = apply_filters( 'wacara_filter_price_detail_metabox_tabs_args', $tabs );
+
 			$cmb2->add_field(
 				[
 					'id'   => 'information_price_tabs',

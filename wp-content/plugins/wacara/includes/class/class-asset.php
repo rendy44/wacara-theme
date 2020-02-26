@@ -2,13 +2,12 @@
 /**
  * Use this class to enqueuing assets both in front-end and back-end
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
-
-use Wacara\Payment\Stripe_Payment;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -125,7 +124,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			// CSS files.
 			$this->front_css = [
 				'google_font'       => [
-					'url' => 'https://fonts.googleapis.com/css?family=Exo:300,400,500&display=swap',
+					'url' => 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap',
 				],
 				'sweetalert2'       => [
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',

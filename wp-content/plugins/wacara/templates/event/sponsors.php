@@ -1,23 +1,28 @@
 <?php
 /**
- * Custom template to displaying sponsors section.
+ * Custom template to display sponsors section in landing event.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="row">
-	<div class="col">
-		<div class="sponsor-logos slider">
-			<?php
-			foreach ( $sponsors as $sponsor_id => $sponsor_url ) {
-				echo '<div class="slide d-flex align-items-center py-3 px-2"><img src="' . esc_attr( wp_get_attachment_image_url( $sponsor_id, 'medium' ) ) . '"></div>';
-			}
+<div class="wcr-section-content-wrapper">
+	<div class="wcr-sponsors-wrapper">
+		<?php
+		foreach ( $sponsors as $image_id => $image_url ) {
 			?>
-		</div>
+			<div class="wcr-sponsor-column-wrapper">
+				<div class="wcr-sponsor-wrapper">
+					<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'medium' ) ); ?>" class="wcr-sponsor" alt="">
+				</div>
+			</div>
+			<?php
+		}
+		?>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 .wcr-event-alert {
-  background-color: lighten($base_color, 15%);
+  background-color: lighten($base_color, 10%);
   color: $white;
 
   .wcr-event-alert-content-wrapper {
@@ -13,13 +13,14 @@
       text-align: center;
 
       &.wcr-event-alert-title-wrapper {
-        background-color: lighten($base_color, 45%);
+        background-color: lighten($base_color, 25%);
         color: darken($base_color, 15%);
         width: 100%;
 
         span.wcr-event-alert-title {
           text-transform: uppercase;
           letter-spacing: 1px;
+          //@include text_shadow(darken($base_color, 20%));
         }
       }
 
@@ -27,6 +28,7 @@
         span.wcr-event-alert-content {
           font-weight: 300;
           font-size: 16px;
+          @include text_shadow(darken($base_color, 20%));
         }
       }
 

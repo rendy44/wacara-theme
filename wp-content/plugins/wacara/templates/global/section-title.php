@@ -2,7 +2,7 @@
 /**
  * Template for displaying section title and subtitle.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
@@ -20,6 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wcr-section-subtitle-wrapper">
 				<h3 class="wcr-section-subtitle"><?php echo esc_html( $section_subtitle ); ?></h3>
 			</div>
+			<?php
+			if ( isset( $section_description ) && $section_description ) {
+				?>
+				<div class="wcr-section-desc-wrapper">
+					<p class="wcr-section-desc"><?php echo esc_html( $section_description ); ?></p>
+				</div>
+				<?php
+			}
+			?>
 		</div>
 	</div>
 </div>

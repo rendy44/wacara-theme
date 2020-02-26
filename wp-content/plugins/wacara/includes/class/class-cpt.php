@@ -2,8 +2,9 @@
 /**
  * Use this class to register custom post types.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
@@ -66,7 +67,9 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_header_post_type() {
 			Helper::register_post_type(
 				'header',
-				[],
+				[
+					'all_items' => __( 'Headers', 'wacara' ),
+				],
 				[
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
@@ -80,7 +83,9 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_location_post_type() {
 			Helper::register_post_type(
 				'location',
-				[],
+				[
+					'all_items' => __( 'Locations', 'wacara' ),
+				],
 				[
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
@@ -94,7 +99,9 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_speaker_post_type() {
 			Helper::register_post_type(
 				'speaker',
-				[],
+				[
+					'all_items' => __( 'Speakers', 'wacara' ),
+				],
 				[
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
@@ -108,7 +115,9 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_price_post_type() {
 			Helper::register_post_type(
 				'price',
-				[],
+				[
+					'all_items' => __( 'Prices', 'wacara' ),
+				],
 				[
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',

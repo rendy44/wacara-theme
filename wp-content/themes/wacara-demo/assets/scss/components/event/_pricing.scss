@@ -1,0 +1,41 @@
+.wcr-section.wcr-event-section.wcr-section-pricing {
+  .wcr-section-content-wrapper {
+    .wcr-pricing-item-wrapper {
+      border: none;
+      border-top: 5px solid $base_color;
+
+      .wcr-pricing-title-wrapper {
+        background-color: $white;
+        border-bottom: 1px solid $base_color;
+      }
+
+      .wcr-pricing-features-wrapper {
+        ul.wcr-pricing-features {
+          li.wcr-pricing-feature {
+            &:before {
+              @include remixicon();
+              margin-right: .5rem;
+            }
+
+            &.wcr-pricing-feature-pro:before {
+              content: "\eb63";
+            }
+
+            &.wcr-pricing-feature-con:before {
+              content: "\eb81";
+            }
+          }
+        }
+      }
+
+      .wcr-pricing-cta-wrapper {
+        button.wcr-pricing-cta {
+          text-transform: uppercase;
+        }
+      }
+
+      &.wcr-pricing-item-best-value {
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+.wcr-section.wcr-event-section.wcr-section-speakers {
+  .wcr-section-content-wrapper {
+    .wcr-speaker-item-wrapper {
+      //border: 1px solid $base_color;
+      border-top: 5px solid $base_color;
+      overflow: hidden;
+      //@include border-radius(4px);
+
+      .wcr-speaker-detail-wrapper {
+        background-color: rgba(darken($base_color, 35%), .5);
+
+        .wcr-speaker-link-wrapper {
+          a.wcr-speaker-link {
+            @include text_shadow($base_black_color);
+          }
+        }
+
+        .wcr-speaker-desc-wrapper {
+          p.wcr-speaker-desc {
+            @include text_shadow($base_black_color);
+          }
+        }
+
+        .wcr-speaker-socnet-wrapper {
+          ul.wcr-speaker-socnet {
+            li {
+              > a {
+                @include remixicon();
+
+                &.wcr-speaker-facebook:before {
+                  content: "\ec87" !important;
+                }
+
+                &.wcr-speaker-twitter:before {
+                  content: "\f177" !important;
+                }
+
+                &.wcr-speaker-linkedin:before {
+                  content: "\ee51" !important;
+                }
+
+                &.wcr-speaker-instagram:before {
+                  content: "\ee05" !important;
+                }
+
+                &.wcr-speaker-youtube:before {
+                  content: "\f1ff" !important;
+                }
+
+                &.wcr-speaker-website:before {
+                  content: "\ec46" !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &:hover {
+        .wcr-speaker-detail-wrapper {
+          background-color: rgba(darken($base_color, 40%), .7);
+        }
+      }
+    }
+  }
+}

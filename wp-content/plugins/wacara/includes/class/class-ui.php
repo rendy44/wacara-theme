@@ -2,7 +2,7 @@
 /**
  * Use this class to define default layout, such as header and footer
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
@@ -68,9 +68,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render the sections.
 			add_filter( 'wacara_event_section_class', [ $this, 'event_section_class_callback' ], 10, 3 );
-			add_action( 'wacara_before_event_section', [ $this, 'event_section_opening_callback' ], 10, 5 );
-			add_action( 'wacara_before_event_section', [ $this, 'maybe_event_section_title_callback' ], 20, 5 );
-			add_action( 'wacara_after_event_section', [ $this, 'event_section_closing_callback' ], 50, 5 );
+			add_action( 'wacara_before_event_section', [ $this, 'event_section_opening_callback' ], 10, 6 );
+			add_action( 'wacara_before_event_section', [ $this, 'maybe_event_section_title_callback' ], 20, 6 );
+			add_action( 'wacara_after_event_section', [ $this, 'event_section_closing_callback' ], 50, 6 );
 
 			// Render the about section.
 			add_action( 'wacara_event_about_section', [ $this, 'event_about_section_callback' ], 10, 1 );
@@ -78,14 +78,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Render the speakers section.
 			add_action( 'wacara_event_speakers_section', [ $this, 'event_speakers_section_callback' ], 10, 1 );
 
-			// Render the venue section.
-			// add_action( 'wacara_venue_section', [ $this, 'event_venue_section_callback' ], 10, 1 );
+			// Render the location section.
+			add_action( 'wacara_event_location_section', [ $this, 'event_location_section_callback' ], 10, 1 );
 
 			// Render the gallery section.
 			add_action( 'wacara_event_gallery_section', [ $this, 'event_gallery_section_callback' ], 10, 1 );
 
 			// Render the sponsors section.
-			// add_action( 'wacara_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
+			add_action( 'wacara_event_sponsors_section', [ $this, 'event_sponsors_section_callback' ], 10, 1 );
 
 			// Render the schedule section.
 			add_action( 'wacara_event_schedule_section', [ $this, 'event_schedule_section_callback' ], 10, 1 );
@@ -264,9 +264,48 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param string $header_template the id of selected header template of the current event.
 		 */
 		public function event_masthead_opening_callback( $event, $header_template ) {
+
+			// Fetch header detail.
+			$header             = Helper::get_post_meta( 'header', $event->post_id );
+			$header_alignment   = Helper::get_post_meta( 'content_alignment', $header );
+			$header_darken      = Helper::get_post_meta( 'darken', $header );
+			$maybe_bg_image_url = Helper::get_event_background_image_url( $event, $header );
+
+			// Adjust header class.
+			switch ( $header_alignment ) {
+				case 'left':
+					$masthead_alignment = 'wcr-justify-content-start';
+					$column_alignment   = 'wcr-text-left';
+					break;
+				case 'right':
+					$masthead_alignment = 'wcr-justify-content-end';
+					$column_alignment   = 'wcr-text-right';
+					break;
+				default:
+					$masthead_alignment = 'wcr-justify-content-center';
+					$column_alignment   = 'wcr-text-center';
+					break;
+			}
+
 			$masthead_args = [
-				'masthead_class' => 'wcr-event-header',
+				'masthead_class'           => 'wcr-event-header',
+				'masthead_bg_image_url'    => $maybe_bg_image_url,
+				'masthead_alignment_class' => $masthead_alignment,
+				'column_alignment'         => $column_alignment,
 			];
+
+			// Maybe header using darken mode.
+			if ( 'on' === $header_darken ) {
+				$masthead_args['masthead_class'] .= ' wcr-header-darken';
+			}
+
+			/**
+			 * Wacara event masthead args filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_event_opening_masthead_args', $masthead_args, $event );
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
 		}
@@ -279,13 +318,21 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_masthead_content_callback( $event, $header_template ) {
 			$date_start            = Helper::get_post_meta( 'date_start', $event->post_id );
+			$headline              = Helper::get_post_meta( 'headline', $event->post_id );
 			$location              = Helper::get_post_meta( 'location', $event->post_id );
 			$location_country_code = Helper::get_post_meta( 'country', $location );
 			$location_province     = Helper::get_post_meta( 'province', $location );
 			$masthead_args         = [
-				'title'   => $event->post_title,
-				'excerpt' => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
+				'header_title'    => $event->post_title,
+				'header_headline' => $headline,
+				'header_excerpt'  => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
 			];
+
+			// Use default content if headline is not defined.
+			if ( ! $headline ) {
+				$masthead_args['header_title']    = __( 'The Conference', 'wacara' );
+				$masthead_args['header_headline'] = $event->post_title;
+			}
 
 			Template::render( 'event/masthead', $masthead_args, true );
 		}
@@ -336,17 +383,26 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section opening tag.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function event_section_opening_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function event_section_opening_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			$section_args = [
 				'section_class' => $section_class,
 				'section'       => $section,
 			];
+
+			/**
+			 * Wacara event section args filter hook.
+			 *
+			 * @param array $section_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$section_args = apply_filters( "wacara_filter_event_opening_section_{$section}_args", $section_args, $event );
 
 			Template::render( 'global/section-open', $section_args, true );
 		}
@@ -354,17 +410,19 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section title.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function maybe_event_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function maybe_event_section_title_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			if ( $section_title || $section_subtitle ) {
 				$section_args = [
-					'section_title'    => $section_title,
-					'section_subtitle' => $section_subtitle,
+					'section_title'       => $section_title,
+					'section_subtitle'    => $section_subtitle,
+					'section_description' => $section_description,
 				];
 
 				Template::render( 'global/section-title', $section_args, true );
@@ -374,13 +432,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying section closing tag.
 		 *
-		 * @param string $section the name of the selected section.
-		 * @param Event  $event the object of the current event.
-		 * @param string $section_class the css class of the selected section.
-		 * @param string $section_title the title of the selected section.
-		 * @param string $section_subtitle the subtitle of the selected section.
+		 * @param string $section name of the selected section.
+		 * @param Event  $event object of the current event.
+		 * @param string $section_class css class of the selected section.
+		 * @param string $section_title title of the selected section.
+		 * @param string $section_subtitle subtitle of the selected section.
+		 * @param string $section_description description of the selected section.
 		 */
-		public function event_section_closing_callback( $section, $event, $section_class, $section_title, $section_subtitle ) {
+		public function event_section_closing_callback( $section, $event, $section_class, $section_title, $section_subtitle, $section_description ) {
 			Template::render( 'global/section-close', [], true );
 		}
 
@@ -396,6 +455,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'location'    => Helper::get_location_paragraph( $location ),
 				'time'        => $event->get_event_date_time_paragraph(),
 			];
+
+			/**
+			 * Wacara about section args filter hook.
+			 *
+			 * @param array $about_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$about_args = apply_filters( 'wacara_filter_event_about_section_args', $about_args, $event );
 
 			Template::render( 'event/about', $about_args, true );
 		}
@@ -427,24 +494,47 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'speakers' => $speakers_arr,
 				];
 
+				/**
+				 * Wacara speakers section args filter hook.
+				 *
+				 * @param array $speakers_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$speakers_args = apply_filters( 'wacara_filter_event_speakers_section_args', $speakers_args, $event );
+
 				Template::render( 'event/speakers', $speakers_args, true );
 			}
 		}
 
 		/**
-		 * Callback for displaying venue section.
+		 * Callback for displaying location section.
 		 *
 		 * @param Event $event the object of current event.
 		 */
-		public function event_venue_section_callback( $event ) {
-			$location   = Helper::get_post_meta( 'location', $event->post_id );
-			$venue_args = [
-				'sliders'              => Helper::get_post_meta( 'photo', $location ),
+		public function event_location_section_callback( $event ) {
+			$location          = Helper::get_post_meta( 'location', $event->post_id );
+			$location_image_id = Helper::get_post_meta( 'photo_id', $location );
+
+			$location_args = [
 				'location_name'        => Helper::get_post_meta( 'name', $location ),
 				'location_description' => Helper::get_post_meta( 'description', $location ),
+				'location_address'     => Helper::get_location_paragraph( $location, false ),
 			];
 
-			Template::render( 'event/venue', $venue_args, true );
+			// Add image url.
+			if ( $location_image_id ) {
+				$location_args['location_image'] = wp_get_attachment_image_url( $location_image_id, 'wacara-location-image' );
+			}
+
+			/**
+			 * Wacara event location args filter hook.
+			 *
+			 * @param array $location_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$location_args = apply_filters( 'wacara_filter_event_location_section_args', $location_args, $event );
+
+			Template::render( 'event/location', $location_args, true );
 		}
 
 		/**
@@ -458,6 +548,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$gallery_args = [
 					'gallery' => $gallery,
 				];
+
+				/**
+				 * Wacara gallery section args filter hook.
+				 *
+				 * @param array $gallery_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$gallery_args = apply_filters( 'wacara_filter_gallery_section_args', $gallery_args, $event );
 
 				Template::render( 'event/gallery', $gallery_args, true );
 			}
@@ -475,6 +573,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'sponsors' => $sponsors,
 				];
 
+				/**
+				 * Wacara sponsors section args filter hook.
+				 *
+				 * @param array $sponsors_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$sponsors_args = apply_filters( 'wacara_filter_sponsors_section_args', $sponsors_args, $event );
+
 				Template::render( 'event/sponsors', $sponsors_args, true );
 			}
 		}
@@ -491,6 +597,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'schedules' => $schedules,
 				];
 
+				/**
+				 * Wacara schedule section args filter hook.
+				 *
+				 * @param array $schedule_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$schedule_args = apply_filters( 'wacara_filter_schedule_section_args', $schedule_args, $event );
+
 				Template::render( 'event/schedule', $schedule_args, true );
 			}
 		}
@@ -506,9 +620,21 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Set default template name.
 			$default_template = 'event/directly';
 
+			// Set default message.
+			$direct_message = __( 'This event does not require any registration, you can attend the event immediately', 'wacara' );
+
+			/**
+			 * Wacara event direct registration message filter hook.
+			 *
+			 * @param string $direct_message default message.
+			 * @param Event $event object of the current message.
+			 */
+			$direct_message = apply_filters( 'wacara_filter_event_direct_registration_message', $direct_message, $event );
+
 			// Prepare the args.
 			$pricing_args = [
-				'event_id' => $event->post_id,
+				'event_id'       => $event->post_id,
+				'direct_message' => $direct_message,
 			];
 
 			// Only render the pricing section if registration is required to join the event.
@@ -519,13 +645,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					foreach ( $pricing as $price ) {
 						$currency_code = Helper::get_post_meta( 'currency', $price );
 						$pricing_arr[] = [
-							'id'       => $price,
-							'name'     => get_the_title( $price ),
-							'price'    => Helper::get_post_meta( 'price', $price ),
-							'currency' => $currency_code,
-							'symbol'   => Helper::get_currency_symbol_by_code( $currency_code ),
-							'pros'     => Helper::get_post_meta( 'pros', $price ),
-							'cons'     => Helper::get_post_meta( 'cons', $price ),
+							'id'          => $price,
+							'name'        => get_the_title( $price ),
+							'price'       => Helper::get_post_meta( 'price', $price ),
+							'currency'    => $currency_code,
+							'symbol'      => Helper::get_currency_symbol_by_code( $currency_code ),
+							'recommended' => Helper::get_post_meta( 'recommended', $price ),
+							'pros'        => Helper::get_post_meta( 'pros', $price ),
+							'cons'        => Helper::get_post_meta( 'cons', $price ),
 						];
 					}
 				}
@@ -536,6 +663,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				// Alter the default template.
 				$default_template = 'event/pricing';
 			}
+
+			/**
+			 * Wacara pricing section args filter hook.
+			 *
+			 * @param array $pricing_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$pricing_args = apply_filters( 'wacara_filter_pricing_section_args', $pricing_args, $event );
 
 			Template::render( $default_template, $pricing_args, true );
 		}
@@ -549,6 +684,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$masthead_args = [
 				'masthead_class' => 'wcr-header wcr-registrant-header',
 			];
+
+			/**
+			 * Wacara registrant masthead args filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Registrant object of the current registrant.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_registrant_opening_masthead_args', $masthead_args, $registrant );
 
 			Template::render( 'global/masthead-open', $masthead_args, true );
 		}
@@ -699,7 +842,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Render hidden fields.
 			foreach ( $used_fields as $field ) {
 				$maybe_value = $registrant->registrant_data[ $field ];
-	            echo apply_filters( 'wacara_input_field', $field, 'hidden', '', $maybe_value ); // phpcs:ignore
+				echo apply_filters( 'wacara_input_field', $field, 'hidden', '', $maybe_value ); // phpcs:ignore
 			}
 		}
 
@@ -720,7 +863,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			 *
 			 * @param string $submit_label current submit label.
 			 * @param Registrant $registrant object of the current registrant.
-			 * @param Payment_Method|bool|mixed     $payment_class object of the selected payment method.
+			 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 			 * @param string $reg_status status of the current registrant.
 			 */
 			$submit_label = apply_filters( 'wacara_filter_form_registrant_submit_label', $submit_label, $registrant, $payment_class, $reg_status );

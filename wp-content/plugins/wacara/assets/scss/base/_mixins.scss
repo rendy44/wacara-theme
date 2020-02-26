@@ -83,6 +83,12 @@
   }
 }
 
+@mixin custom-box-shadow($args...) {
+  -webkit-box-shadow: $args !important;
+  -moz-box-shadow: $args !important;
+  box-shadow: $args !important;
+}
+
 @mixin opacity($opacity) {
   opacity: $opacity;
   $opacity-ie: $opacity * 100;
@@ -150,4 +156,28 @@
   -moz-user-select: $mode;
   -ms-user-select: $mode;
   user-select: $mode;
+}
+
+@mixin display_accessibility($active: true) {
+  @if ($active) {
+    display: inline;
+    background-color: rgba($white, .3);
+  } @else {
+    display: inherit;
+    background-color: inherit;
+  }
+}
+
+@mixin text_shadow($color) {
+  text-shadow: 1px 1px $color;
+}
+
+@mixin custom_text_shadow($args...) {
+  text-shadow: $args;
+}
+
+@mixin filter($args) {
+  filter: $args;
+  -ms-filter: $args;
+  -webkit-filter: $args;
 }

@@ -9,25 +9,6 @@ a {
   }
 }
 
-button {
-  border: 1px solid $base_color;
-  cursor: pointer;
-  padding: .5rem 1.5rem;
-  @include transition(all .2s ease);
-
-  &.wcr-button-main {
-    background-color: $base_color;
-    border-color: darken($base_color, 5%);
-    color: $white;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    @include box-shadow();
-  }
-}
-
 .wcr-form {
   .wcr-form-field-wrapper {
     margin-bottom: 1rem;

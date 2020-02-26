@@ -84,11 +84,9 @@
         width: 100%;
 
         button.wcr-pricing-cta {
-          font-size: 16px;
           width: 100%;
-          padding: .75rem;
-          background-color: $white;
           border-color: $base_color;
+          background-color: transparent;
           color: $base_color;
         }
       }
@@ -145,8 +143,8 @@
         .wcr-pricing-cta-wrapper {
           button.wcr-pricing-cta {
             background-color: $base_color;
-            border-color: darken($base_color, 5%);
             color: $white;
+            border-color: rgba($black, .2);
           }
         }
       }

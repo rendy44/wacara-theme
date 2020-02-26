@@ -1,0 +1,26 @@
+.wcr-section.wcr-event-section.wcr-section-schedule {
+  .wcr-section-content-wrapper {
+    .wcr-schedule-items-wrapper {
+
+      .wcr-schedule-item-wrapper {
+        &:before {
+          background-color: $white;
+        }
+
+        .wcr-schedule-item-inner-wrapper {
+          background-color: $white;
+          border-top: 5px solid $base_color;
+          @include border-radius(0);
+        }
+      }
+
+      &:after {
+        border: none;
+        @include border-radius(0);
+        background-color: $base_color;
+        //width: 5px;
+        //background-color: lighten($base_color, 20%);
+      }
+    }
+  }
+}

@@ -2,8 +2,9 @@
 /**
  * Put all helpful functions that you may use for multiple times
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
@@ -12,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\Wacara\Helper' ) ) {
+if ( ! class_exists( 'Wacara\Helper' ) ) {
 
 	/**
 	 * Class Helper
@@ -586,16 +587,16 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		/**
 		 * Get site logo url.
 		 *
-		 * @return false|string
+		 * @return bool|false|string
 		 */
 		public static function get_site_logo_url() {
-			$static_logo = WACARA_URI . '/assets/img/sample-logo.png';
-			$site_logo   = Options::get_theme_option( 'logo_id' );
+			$result    = false;
+			$site_logo = Options::get_theme_option( 'logo_id' );
 			if ( $site_logo ) {
-				$static_logo = wp_get_attachment_image_url( $site_logo, 'medium' );
+				$result = wp_get_attachment_image_url( $site_logo, 'medium' );
 			}
 
-			return $static_logo;
+			return $result;
 		}
 
 		/**
@@ -838,6 +839,37 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 		}
 
 		/**
+		 * Get event background image url.
+		 *
+		 * @param Event    $event ofject of the event.
+		 * @param bool|int $header id of the event's header.
+		 *
+		 * @return bool|false|string
+		 */
+		public static function get_event_background_image_url( $event, $header = false ) {
+			$result = false;
+
+			// Fetch background image from event.
+			$event_bg = self::get_post_meta( 'background_image_id', $event->post_id );
+			if ( $event_bg ) {
+				$result = wp_get_attachment_image_url( $event_bg, 'large' );
+			} else {
+
+				// Fetch background image from header.
+				// Maybe re-fetch header.
+				if ( false === $header ) {
+					$header = self::get_post_meta( 'header', $event->post_id );
+				}
+				$header_bg = self::get_post_meta( 'default_image_id', $header );
+				if ( $header_bg ) {
+					$result = wp_get_attachment_image_url( $header_bg, 'large' );
+				}
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Register custom post type.
 		 *
 		 * @param string $name name of the custom post type.
@@ -913,6 +945,31 @@ if ( ! class_exists( '\Wacara\Helper' ) ) {
 					register_post_type( $name, $setting_args );
 				}
 			);
+		}
+
+		/**
+		 * Convert properties into inline styles.
+		 *
+		 * @param array $properties list of properties.
+		 * @param bool  $style_attribute include style attribute or not.
+		 *
+		 * @return string
+		 */
+		public static function convert_properties_to_inline_styles( $properties, $style_attribute = true ) {
+			$result = '';
+			if ( ! empty( $properties ) ) {
+
+				foreach ( $properties as $property_name => $property_value ) {
+					$result .= "{$property_name}: {$property_value};";
+				}
+
+				// Maybe include style attribute.
+				if ( $style_attribute ) {
+					$result = "style='{$result}'";
+				}
+			}
+
+			return $result;
 		}
 	}
 }

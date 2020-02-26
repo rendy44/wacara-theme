@@ -1,0 +1,110 @@
+header.wcr-event-header {
+  padding-top: 50px;
+  height: 100vh;
+  min-height: 600px;
+  @include breakpoint($size_laptop) {
+    padding-bottom: 100px;
+    min-height: 700px;
+  }
+
+  .frow {
+    .wcr-event-title-wrapper {
+      h1.wcr-event-title {
+        color: $white;
+        font-weight: 600;
+        @include display_accessibility(false);
+        @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+      }
+    }
+
+    .wcr-event-subtitle-wrapper {
+      h2.wcr-event-subtitle {
+        line-height: 1.3;
+        color: $white;
+        font-weight: 700;
+        font-size: 28px;
+        @include display_accessibility(false);
+        @include custom_text_shadow(4px 4px 1px rgba($black, .4));
+        @include breakpoint($size_tablet) {
+          font-size: 36px;
+        }
+        @include breakpoint($size_laptop) {
+          font-size: 60px;
+        }
+      }
+    }
+
+    .wcr-event-highlight-wrapper {
+      p.wcr-event-highlight {
+        //color: $base_color;
+        font-weight: 600;
+        color: $white;
+        @include display_accessibility(false);
+        @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+      }
+    }
+
+    .wcr-event-counter-wrapper {
+      .wcr-event-counter-item {
+        padding: 0;
+        background-color: rgba($white, .1);
+        border-color: $base_color;
+        @include border-radius(4px);
+
+        span.wcr-event-count-value {
+          display: block;
+          padding: .5rem;
+          margin-bottom: 0;
+          color: $white;
+          font-size: 30px;
+          @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+          @include breakpoint($size_laptop) {
+            font-size: 36px;
+            padding: 1rem;
+          }
+        }
+
+        span.wcr-event-count-label {
+          padding: .5rem;
+          text-transform: uppercase;
+          display: block;
+          background-color: $base_color;
+          color: $white;
+          font-weight: 400;
+          @include custom_text_shadow(2px 2px 1px rgba($black, .4));
+        }
+      }
+    }
+  }
+
+  &.wcr-header-darken {
+    .wcr-event-title-wrapper {
+      h1.wcr-event-title {
+        @include text-shadow($base_black_color);
+      }
+    }
+
+    .wcr-event-subtitle-wrapper {
+      h2.wcr-event-subtitle {
+        @include text_shadow($base_black_color);
+      }
+    }
+
+    .wcr-event-highlight-wrapper {
+      p.wcr-event-highlight {
+        @include text_shadow($base_black_color);
+      }
+    }
+
+    .wcr-event-counter-wrapper {
+      .wcr-event-counter-item {
+        background-color: rgba($white, .2);
+
+        span.wcr-event-count-value,
+        span.wcr-event-count-label {
+          @include text_shadow($base_black_color);
+        }
+      }
+    }
+  }
+}

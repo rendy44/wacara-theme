@@ -1,0 +1,24 @@
+.wcr-button {
+  text-align: center;
+  border: 1px solid rgba($black, .2);
+  color: $base_black_color;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  display: inline-block;
+  @include transition(all .2s ease);
+  @include border-radius(4px);
+  @include breakpoint($size_laptop) {
+    padding: .75rem 1.75rem;
+  }
+
+  &.wcr-button-main {
+    background-color: $base_color;
+    color: $white;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    @include box-shadow();
+  }
+}

@@ -33,6 +33,7 @@ $youtube_color: #ff0000 !default;
           margin-bottom: .7rem;
 
           a.wcr-speaker-link {
+            pointer-events: none;
             font-size: 16px;
             color: $white;
             font-weight: 500;

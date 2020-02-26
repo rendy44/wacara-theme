@@ -2,7 +2,7 @@
 /**
  * Template for displaying call to action.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
@@ -10,7 +10,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
 
 <div class="wcr-event-alert-block-wrapper wcr-event-alert-title-wrapper">
 	<span class="wcr-event-alert-title"><?php echo esc_html( $alert_title ); ?></span>

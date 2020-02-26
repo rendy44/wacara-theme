@@ -2,8 +2,9 @@
 /**
  * Custom template to displaying gallery section.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,8 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wcr-gallery-item">
 				<div class="wcr-gallery-image-wrapper">
 					<a href="<?php echo esc_url( $image_url ); ?>">
-						<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'medium' ) ); ?>"
-							 class="wcr-gallery-image" alt="Image Gallery">
+						<img src="<?php echo esc_attr( wp_get_attachment_image_url( $image_id, 'medium' ) ); ?>" class="wcr-gallery-image" alt="Image Gallery">
 					</a>
 				</div>
 			</div>

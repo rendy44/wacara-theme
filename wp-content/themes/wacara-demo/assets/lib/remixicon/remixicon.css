@@ -1,0 +1,63 @@
+
+/*
+* https://remixicon.com
+* https://github.com/Remix-Design/RemixIcon
+* Copyright RemixIcon.com
+* Released under the Apache License Version 2.0
+*/
+
+@font-face {
+    font-family: "remixicon";
+    src: url('remixicon.eot?t=1582618503268'); /* IE9*/
+    src: url('remixicon.eot?t=1582618503268#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url("remixicon.woff2?t=1582618503268") format("woff2"),
+    url("remixicon.woff?t=1582618503268") format("woff"),
+    url('remixicon.ttf?t=1582618503268') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('remixicon.svg?t=1582618503268#remixicon') format('svg'); /* iOS 4.1- */
+    font-display: swap;
+}
+
+[class^="ri-"], [class*="ri-"] {
+    font-family: 'remixicon' !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ri-lg { font-size: 1.3333em; line-height: 0.75em; vertical-align: -.0667em; }
+.ri-xl { font-size: 1.5em; line-height: 0.6666em; vertical-align: -.075em; }
+.ri-xxs { font-size: .5em; }
+.ri-xs { font-size: .75em; }
+.ri-sm { font-size: .875em }
+.ri-1x { font-size: 1em; }
+.ri-2x { font-size: 2em; }
+.ri-3x { font-size: 3em; }
+.ri-4x { font-size: 4em; }
+.ri-5x { font-size: 5em; }
+.ri-6x { font-size: 6em; }
+.ri-7x { font-size: 7em; }
+.ri-8x { font-size: 8em; }
+.ri-9x { font-size: 9em; }
+.ri-10x { font-size: 10em; }
+.ri-fw { text-align: center; width: 1.25em; }
+
+.ri-file-forbid-line:before { content: "\ecac"; }
+.ri-file-warning-line:before { content: "\ecdf"; }
+.ri-checkbox-circle-line:before { content: "\eb69"; }
+.ri-map-pin-line:before { content: "\eea9"; }
+.ri-information-line:before { content: "\ee00"; }
+.ri-time-line:before { content: "\f14b"; }
+.ri-facebook-circle-line:before { content: "\ec85"; }
+.ri-instagram-line:before { content: "\ee05"; }
+.ri-linkedin-line:before { content: "\ee51"; }
+.ri-youtube-line:before { content: "\f1ff"; }
+.ri-earth-line:before { content: "\ec46"; }
+.ri-facebook-line:before { content: "\ec87"; }
+.ri-twitter-line:before { content: "\f177"; }
+.ri-add-circle-fill:before { content: "\ea0e"; }
+.ri-user-follow-line:before { content: "\f199"; }
+.ri-user-follow-fill:before { content: "\f198"; }
+.ri-map-pin-fill:before { content: "\eea8"; }
+.ri-time-fill:before { content: "\f14a"; }
+.ri-check-line:before { content: "\eb63"; }
+.ri-close-line:before { content: "\eb81"; }

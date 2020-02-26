@@ -10,6 +10,7 @@
 
 // Useful elements.
 @import "components/form";
+@import "components/buttons";
 @import "components/alert";
 @import "components/tooltip";
 
@@ -18,9 +19,11 @@
 @import "components/event/header";
 @import "components/event/section-about";
 @import "components/event/section-speakers";
+@import "components/event/section-sponsors";
 @import "components/event/section-pricing";
 @import "components/event/section-schedule";
 @import "components/event/section-gallery";
+@import "components/event/section-location";
 
 // Registrant styling
 @import "components/registrant/header";

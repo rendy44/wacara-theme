@@ -2,7 +2,7 @@
 /**
  * Template for displaying waiting payment page in single registration.
  *
- * @author  Rendy
+ * @author  WPerfekt
  * @package Wacara
  * @version 0.0.1
  */

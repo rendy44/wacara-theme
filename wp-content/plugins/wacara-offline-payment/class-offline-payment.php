@@ -2,7 +2,7 @@
 /**
  * Main class file for offline payment.
  *
- * @author Rendy
+ * @author WPerfekt
  * @package Wacara\Payment
  * @version 0.0.1
  */
