@@ -95,7 +95,7 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 		 * @return mixed|string
 		 */
 		private function maybe_get_readable_status( $status ) {
-			$result      = __( 'Uncomplete registrant', 'wacara' );
+			$result      = __( 'Uncompleted registrant', 'wacara' );
 			$status_list = $this->get_admin_registrant_status_list();
 
 			if ( ! empty( $status_list[ $status ] ) ) {
