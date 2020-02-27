@@ -248,6 +248,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
 			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
+			add_filter( 'wacara_filter_registrant_status_list', [ $this, 'registrant_more_status_callback' ], 10, 1 );
 		}
 
 		/**
@@ -498,6 +499,20 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			$more_details['action'] = $action_content;
 
 			return $more_details;
+		}
+
+		/**
+		 * Callback for adding more registrant status.
+		 *
+		 * @param array $status list of status.
+		 *
+		 * @return array
+		 */
+		public function registrant_more_status_callback( $status ) {
+			$status['waiting-payment']      = __( 'Waiting payment', 'wacara' );
+			$status['waiting-verification'] = __( 'Waiting verification', 'wacara' );
+
+			return $status;
 		}
 
 		/**
