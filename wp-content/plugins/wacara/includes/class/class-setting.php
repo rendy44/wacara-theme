@@ -9,6 +9,8 @@
 
 namespace Wacara;
 
+use WP_Post;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -51,6 +53,9 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 
 			// Add custom image size.
 			add_image_size( 'wacara-location-image', 570, 300, true );
+
+			// Manage post row actions.
+			add_filter( 'post_row_actions', [ $this, 'manage_post_row_actions_callback' ], 10, 2 );
 		}
 
 		/**
@@ -73,6 +78,26 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 			}
 
 			return $template;
+		}
+
+		/**
+		 * Callback for modifying post row actions.
+		 *
+		 * @param string[] $actions An array of row action links.
+		 * @param WP_Post  $post The post object.
+		 *
+		 * @return string[]
+		 */
+		public function manage_post_row_actions_callback( $actions, $post ) {
+
+			// Only hide if registrant post type is being viewed.
+			if ( 'registrant' === $post->post_type ) {
+
+				// Hide all action rows.
+				$actions = [];
+			}
+
+			return $actions;
 		}
 	}
 
