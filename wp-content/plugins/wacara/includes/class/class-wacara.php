@@ -60,6 +60,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 			$this->load_libraries();
 			$this->load_classes();
 			$this->load_hooks();
+			$this->init_settings();
 		}
 
 		/**
@@ -68,6 +69,15 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		private function load_hooks() {
 			add_action( 'plugins_loaded', [ $this, 'trigger_hook_loader_callback' ], - 1 );
 			add_action( 'plugins_loaded', [ $this, 'load_language_callback' ] );
+		}
+
+		/**
+		 * Run the default settings.
+		 */
+		private function init_settings() {
+
+			// Register registrant default status.
+			Registrant_Status::init();
 		}
 
 		/**
@@ -105,6 +115,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-post',
 				'class-event',
 				'class-registrant',
+				'class-registrant-status',
 				'class-pricing',
 				'class-mailer',
 				'class-asset',

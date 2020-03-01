@@ -67,45 +67,6 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 		}
 
 		/**
-		 * Get list of registrant status.
-		 *
-		 * @return array
-		 */
-		private function get_admin_registrant_status_list() {
-			$status = [
-				'done' => __( 'Success', 'wacara' ),
-				'hold' => __( 'Waiting details', 'wacara' ),
-			];
-
-			/**
-			 * Wacara registrant status list filter hook.
-			 *
-			 * @param array $status status of the registrant.
-			 */
-			$status = apply_filters( 'wacara_filter_registrant_status_list', $status );
-
-			return $status;
-		}
-
-		/**
-		 * Get readable registrant status.
-		 *
-		 * @param string $status raw status from db.
-		 *
-		 * @return mixed|string
-		 */
-		private function maybe_get_readable_status( $status ) {
-			$result      = __( 'Uncompleted registrant', 'wacara' );
-			$status_list = $this->get_admin_registrant_status_list();
-
-			if ( ! empty( $status_list[ $status ] ) ) {
-				$result = $status_list[ $status ];
-			}
-
-			return $result;
-		}
-
-		/**
 		 * Callback for modifying registrant column content.
 		 *
 		 * @param string $column name of the column.
@@ -135,7 +96,7 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 					// Fetch registrant object.
 					$registrant = new Registrant( $post_id );
 					$status     = $registrant->get_registration_status();
-					$result     = $this->maybe_get_readable_status( $status );
+					$result     = Registrant_Status::get_status( $status );
 					break;
 			}
 

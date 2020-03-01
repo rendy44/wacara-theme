@@ -292,12 +292,15 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							// Update the callback.
 							$result->callback = $registrant->get_registrant_url();
 
-							// Update registration status.
-							$registrant->set_registration_status( $reg_status );
-
 							// Save payment method information.
 							$registrant->save_payment_method_info( $maybe_payment_method );
 
+							// Update registration status.
+							$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
+
+							// Validate the status.
+							$result->success = $set_status->success;
+							$result->message = $set_status->message;
 						} else {
 
 							// Update result.
@@ -402,8 +405,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							// Update the callback.
 							$result->callback = $registrant->get_registrant_url();
 
-							// Update the registrant status.
-							$registrant->set_registration_status( $reg_status );
+							// Update registration status.
+							$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
+
+							// Validate the status.
+							$result->success = $set_status->success;
+							$result->message = $set_status->message;
 
 							/**
 							 * Wacara after registrant payment process hook.
