@@ -428,7 +428,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					$result = __( 'I have made a payment', 'wacara' );
 					break;
 				case 'waiting-verification':
-				case 'fail':
+				case 'reject':
 					// Clean the submit button label, since we want to hide it.
 					$result = '';
 					break;
@@ -474,7 +474,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				case 'waiting-verification':
 					$temp_args['alert_message'] = __( 'We are verifying your payment, we\'ll get back to you once we have an update', 'wacara' );
 					break;
-				case 'fail':
+				case 'reject':
 					$temp_args['alert_message'] = __( 'We have declined your payment, if you think this is not supposed to be, please contact us.', 'wacara' );
 					break;
 			}
