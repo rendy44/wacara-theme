@@ -63,6 +63,9 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 
 			// Manage post filter before displayed.
 			add_action( 'pre_get_posts', [ $this, 'post_format_filter_to_posts_callback' ], 10, 1 );
+
+			// Remove metabox in registrant post types.
+			add_action( 'admin_menu', [ $this, 'remove_registrant_publish_metabox_callback' ], 10, 1 );
 		}
 
 		/**
@@ -183,6 +186,13 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Callback for removing registrant publish metabox.
+		 */
+		public function remove_registrant_publish_metabox_callback() {
+			remove_meta_box( 'submitdiv', 'registrant', 'side' );
 		}
 	}
 
