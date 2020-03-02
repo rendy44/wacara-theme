@@ -742,7 +742,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 			$depth     = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
 			$name      = $is_module ? $js_prefix . $name : $name;
 			wp_enqueue_script( $name, $obj_js['url'], $depth, WACARA_VERSION, true );
-			if ( isset( $obj_js['vars'] ) ) {
+			if ( ! empty( $obj_js['vars'] ) ) {
 				$vars = self::convert_script_vars( $obj_js['vars'] );
 				wp_localize_script( $name, 'obj', $vars );
 			}

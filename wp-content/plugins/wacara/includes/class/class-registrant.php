@@ -488,6 +488,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get pricing price in html that already attached into registrant..
+		 *
+		 * @return string
+		 */
+		public function get_pricing_price_in_html() {
+			$price           = $this->get_pricing_price();
+			$currency_code   = $this->get_pricing_currency();
+			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+
+			return $currency_symbol . number_format_i18n( $price, 2 );
+		}
+
+		/**
 		 * Find registrant by their booking code.
 		 *
 		 * @param string $booking_code booking code.

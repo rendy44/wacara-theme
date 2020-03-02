@@ -255,7 +255,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
-			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 3 );
+			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 2 );
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
@@ -532,9 +532,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param Event      $event object of the current registrant's event.
-		 * @param Pricing    $pricing object of the current registrant's pricing.
 		 */
-		public function registrant_admin_column_action_callback( $registrant, $event, $pricing ) {
+		public function registrant_admin_column_action_callback( $registrant, $event ) {
 			add_thickbox();
 			$reg_status = $registrant->get_registration_status();
 

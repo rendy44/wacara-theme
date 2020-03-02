@@ -9,14 +9,12 @@
 
 namespace Wacara\Payment;
 
-use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment\Stripe_Payment\Stripe_Wrapper;
 use Wacara\Payment\Stripe_Payment\Transaction;
 use Wacara\Payment_Method;
 use Wacara\Registrant;
 use Wacara\Result;
-use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

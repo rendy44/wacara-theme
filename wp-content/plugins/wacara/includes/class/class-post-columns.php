@@ -100,21 +100,13 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 			$registrant = new Registrant( $post_id );
 			$event_id   = Helper::get_post_meta( 'event_id', $registrant->post_id );
 			$event      = new Event( $event_id );
-			$pricing_id = Helper::get_post_meta( 'pricing_id', $registrant->post_id );
-			$pricing    = new Pricing( $pricing_id );
 
 			switch ( $column ) {
 				case 'event':
 					$result = $event->success ? "<a href='" . esc_url( get_edit_post_link( $event_id ) ) . "'>" . get_the_title( $event_id ) . '</a>' : __( 'Invalid event', 'wacara' );
 					break;
 				case 'pricing':
-					// Validate pricing.
-					if ( $pricing->success ) {
-						$result  = "<a href='" . esc_url( get_edit_post_link( $pricing_id ) ) . "'>" . $pricing->post_title . '</a>';
-						$result .= " ({$pricing->get_html_price()})";
-					} else {
-						$result = __( 'Invalid pricing', 'wacara' );
-					}
+					$result = $registrant->get_pricing_price_in_html();
 					break;
 				case 'status':
 					$status = $registrant->get_registration_status();
@@ -126,9 +118,8 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 					 *
 					 * @param Registrant $registrant object of the current registrant.
 					 * @param Event $event object of the current registrant's event
-					 * @param Pricing $pricing object of the current registrant's pricing.
 					 */
-					do_action( "wacara_registrant_admin_column_{$column}_content", $registrant, $event, $pricing );
+					do_action( "wacara_registrant_admin_column_{$column}_content", $registrant, $event );
 
 					break;
 			}
