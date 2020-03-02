@@ -89,7 +89,7 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_cons( $raw ) {
+		public function get_cons( $raw = false ) {
 			$result = $this->get_meta( 'cons' );
 
 			if ( ! $raw ) {
@@ -97,6 +97,24 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Get status whether using unique code or not.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function is_using_unique_code() {
+			return $this->get_meta( 'use_unique_code' );
+		}
+
+		/**
+		 * Get status whether set as recommended or not.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function is_recommended() {
+			return $this->get_meta( 'recommended' );
 		}
 
 		/**

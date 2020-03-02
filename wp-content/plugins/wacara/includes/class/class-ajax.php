@@ -153,12 +153,27 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				// Validate the event.
 				if ( $event->success ) {
 
+					// Instance the pricing and its details.
+					$pricing             = new Pricing( $pricing_id );
+					$pricing_currency    = $pricing->get_currency_code();
+					$pricing_price       = $pricing->get_price();
+					$pricing_pros        = $pricing->get_pros();
+					$pricing_cons        = $pricing->get_cons();
+					$pricing_unique_code = $pricing->is_using_unique_code();
+					$pricing_recommended = $pricing->is_recommended();
+
 					// create registrant.
 					$new_registrant = new Registrant(
 						false,
 						[
-							'event_id'   => $event_id,
-							'pricing_id' => $pricing_id,
+							'event_id'                  => $event_id,
+							'pricing_id'                => $pricing_id,
+							'pricing_cache_currency'    => $pricing_currency,
+							'pricing_cache_price'       => $pricing_price,
+							'pricing_cache_pros'        => $pricing_pros,
+							'pricing_cache_cons'        => $pricing_cons,
+							'pricing_cache_unique_code' => $pricing_unique_code,
+							'pricing_cache_recommended' => $pricing_recommended,
 						]
 					);
 
