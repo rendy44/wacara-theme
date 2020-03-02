@@ -4,6 +4,7 @@
  *
  * @author  WPerfekt
  * @package Wacara
+ * @version 0.0.1
  */
 
 namespace Wacara;
@@ -43,7 +44,7 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		/**
 		 * Post constructor.
 		 *
-		 * @param string $post_id   post id.
+		 * @param string $post_id post id.
 		 * @param string $post_type post type.
 		 */
 		public function __construct( $post_id, $post_type = 'post' ) {

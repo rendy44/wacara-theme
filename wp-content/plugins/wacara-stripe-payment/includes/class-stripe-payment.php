@@ -67,6 +67,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 
 			$this->load_dependencies();
 			$this->register_post_types();
+			$this->hooks();
 		}
 
 		/**
@@ -271,6 +272,26 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 */
 		public function ajax_endpoints() {
 			return [];
+		}
+
+		/**
+		 * Register custom hooks.
+		 */
+		private function hooks() {
+			add_filter( 'wacara_filter_registrant_status_list', [ $this, 'registrant_more_status_callback' ], 10, 1 );
+		}
+
+		/**
+		 * Callback for adding more registrant status.
+		 *
+		 * @param array $status list of status.
+		 *
+		 * @return array
+		 */
+		public function registrant_more_status_callback( $status ) {
+			$status['fail'] = __( 'Failed', 'wacara' );
+
+			return $status;
 		}
 
 		/**

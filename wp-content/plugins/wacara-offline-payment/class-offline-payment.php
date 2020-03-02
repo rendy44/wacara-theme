@@ -12,7 +12,9 @@ namespace Wacara\Payment;
 use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment_Method;
+use Wacara\Pricing;
 use Wacara\Registrant;
+use Wacara\Registrant_Status;
 use Wacara\Result;
 use Wacara\Template;
 
@@ -216,7 +218,11 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function admin_css() {
-			return [];
+			return [
+				'offline-payment' => [
+					'url' => WCR_OP_URI . '/css/admin-offline-payment.css',
+				],
+			];
 		}
 
 		/**
@@ -248,6 +254,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
 			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
+			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
+			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 3 );
+
+			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
+			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
+			Registrant_Status::register_new_status( 'reject', __( 'Rejected', 'wacara' ) );
 		}
 
 		/**
@@ -379,16 +391,16 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					// Validate the new status output.
 					$message_output = __( 'Verification is successful', 'wacara' );
 					if ( 'done' !== $new_status ) {
-						$new_status     = 'fail';
+						$new_status     = 'reject';
 						$message_output = __( 'Rejection is successful', 'wacara' );
 					}
 
-					// Update the status.
-					$registrant->set_registration_status( $new_status );
+					// Update registration status.
+					$set_status = Registrant_Status::set_registrant_status( $registrant, $new_status );
 
-					// Update the result.
-					$result->success = true;
-					$result->message = $message_output;
+					// Validate the status.
+					$result->success = $set_status->success;
+					$result->message = $set_status->success ? $message_output : $set_status->message;
 
 				} else {
 					$result->message = $registrant->message;
@@ -501,6 +513,40 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
+		 * Callback for adding more registrant admin columns.
+		 *
+		 * @param array $columns default columns.
+		 *
+		 * @return array
+		 */
+		public function registrant_admin_columns_callback( $columns ) {
+
+			// Add columns.
+			$columns['action'] = __( 'Action', 'wacara' );
+
+			return $columns;
+		}
+
+		/**
+		 * Callback for adding content to action column in registrant admin.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param Event      $event object of the current registrant's event.
+		 * @param Pricing    $pricing object of the current registrant's pricing.
+		 */
+		public function registrant_admin_column_action_callback( $registrant, $event, $pricing ) {
+			add_thickbox();
+			$reg_status = $registrant->get_registration_status();
+
+			// Only add action button on specific status.
+			if ( 'waiting-verification' === $reg_status ) {
+				?>
+				<button class="button dashicons-before dashicons-warning registrant_action" data-id="<?php echo esc_attr( $registrant->post_id ); ?>"></button>
+				<?php
+			}
+		}
+
+		/**
 		 * Update the registration status after confirming the transfer.
 		 *
 		 * @param Registrant $registrant object of the current registrant.
@@ -519,9 +565,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			// Validate the selected bank accounts.
 			if ( $selected_bank_account ) {
 
-				// Update the status.
-				$registrant->set_registration_status( 'waiting-verification' );
-
 				// Update the meta.
 				Helper::save_post_meta(
 					$registrant->post_id,
@@ -531,8 +574,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					]
 				);
 
-				// Update the result.
-				$result->success = true;
+				// Update registration status.
+				$set_status = Registrant_Status::set_registrant_status( $registrant, 'waiting-verification' );
+
+				// Validate the status.
+				$result->success = $set_status->success;
+				$result->message = $set_status->message;
 
 			} else {
 				$result->message = __( 'Invalid bank account selected', 'wacara' );

@@ -139,6 +139,8 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 					'capabilities' => [
 						'create_posts' => 'do_not_allow',
 					],
+					'map_meta_cap' => true,
+					'supports'     => [ 'none' ],
 				],
 				'dashicons-businessperson'
 			);

@@ -53,6 +53,19 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		}
 
 		/**
+		 * Get formatted html price.
+		 *
+		 * @return string
+		 */
+		public function get_html_price() {
+			$price           = $this->get_price();
+			$currency_code   = $this->get_currency_code();
+			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+
+			return $currency_symbol . number_format_i18n( $price, 2 );
+		}
+
+		/**
 		 * Get pricing pros.
 		 *
 		 * @param bool $raw whether display the result as raw or array.

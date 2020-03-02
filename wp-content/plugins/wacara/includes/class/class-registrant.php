@@ -387,7 +387,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @param string $status status of registration.
 		 */
-		public function set_registration_status( $status = 'done' ) {
+		public function set_registration_status( $status ) {
 
 			// Save old status into variable.
 			$old_status = $this->get_registration_status();

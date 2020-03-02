@@ -177,7 +177,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				);
 				?>
 				<p><?php esc_html_e( 'Click link below to download all registrants', 'wacara' ); ?></p>
-				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button button-primary"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
+				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
 				?>
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				?>
 				<div style="text-align: center">
 					<p><?php esc_html_e( 'Click the button below to load all registrants', 'wacara' ); ?></p>
-					<button type="button" class="button button-primary load_all_registrants"><?php esc_html_e( 'Load Registrants', 'wacara' ); ?></button>
+					<button type="button" class="button load_all_registrants"><?php esc_html_e( 'Load Registrants', 'wacara' ); ?></button>
 				</div>
 				<?php
 			} else {
