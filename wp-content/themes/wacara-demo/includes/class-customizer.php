@@ -10,6 +10,7 @@
 namespace Wacara_Theme;
 
 use Wacara\Event;
+use Wacara\Registrant;
 use Wacara\UI;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -79,6 +80,8 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			// Add args in location section.
 			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
 
+			// Add args in registrant masthead.
+			add_filter( 'wacara_filter_registrant_opening_masthead_args', [ $this, 'registrant_opening_masthead_args_callback' ], 10, 2 );
 		}
 
 		/**
@@ -182,6 +185,28 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 					'style' => $inline_styles,
 				];
 			}
+
+			return $args;
+		}
+
+		/**
+		 * Callback for modifying registrant masthead args.
+		 *
+		 * @param array      $args current args.
+		 * @param Registrant $registrant object of the current registrant.
+		 *
+		 * @return array
+		 */
+		public function registrant_opening_masthead_args_callback( $args, $registrant ) {
+
+			// Get registrant detail.
+			$event_id           = $registrant->get_event_info();
+			$event              = new Event( $event_id );
+			$header             = \Wacara\Helper::get_post_meta( 'header', $event->post_id );
+			$maybe_bg_image_url = \Wacara\Helper::get_event_background_image_url( $event, $header );
+
+			// Embed background image url.
+			$args['masthead_bg_image_url'] = $maybe_bg_image_url;
 
 			return $args;
 		}
