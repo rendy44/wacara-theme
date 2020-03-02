@@ -12,6 +12,7 @@ namespace Wacara\Payment;
 use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment_Method;
+use Wacara\Pricing;
 use Wacara\Registrant;
 use Wacara\Registrant_Status;
 use Wacara\Result;
@@ -217,7 +218,11 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return array
 		 */
 		public function admin_css() {
-			return [];
+			return [
+				'offline-payment' => [
+					'url' => WCR_OP_URI . '/css/admin-offline-payment.css',
+				],
+			];
 		}
 
 		/**
@@ -249,7 +254,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_registrant_custom_content_args', [ $this, 'custom_args_callback' ], 10, 4 );
 			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
-			add_filter( 'wacara_filter_registrant_status_list', [ $this, 'registrant_more_status_callback' ], 10, 1 );
+			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
+			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 3 );
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
@@ -507,17 +513,37 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		}
 
 		/**
-		 * Callback for adding more registrant status.
+		 * Callback for adding more registrant admin columns.
 		 *
-		 * @param array $status list of status.
+		 * @param array $columns default columns.
 		 *
 		 * @return array
 		 */
-		public function registrant_more_status_callback( $status ) {
-			$status['waiting-payment']      = __( 'Waiting payment', 'wacara' );
-			$status['waiting-verification'] = __( 'Waiting verification', 'wacara' );
+		public function registrant_admin_columns_callback( $columns ) {
 
-			return $status;
+			// Add columns.
+			$columns['action'] = __( 'Action', 'wacara' );
+
+			return $columns;
+		}
+
+		/**
+		 * Callback for adding content to action column in registrant admin.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param Event      $event object of the current registrant's event.
+		 * @param Pricing    $pricing object of the current registrant's pricing.
+		 */
+		public function registrant_admin_column_action_callback( $registrant, $event, $pricing ) {
+			add_thickbox();
+			$reg_status = $registrant->get_registration_status();
+
+			// Only add action button on specific status.
+			if ( 'waiting-verification' === $reg_status ) {
+				?>
+				<button class="button dashicons-before dashicons-warning registrant_action" data-id="<?php echo esc_attr( $registrant->post_id ); ?>"></button>
+				<?php
+			}
 		}
 
 		/**

@@ -94,7 +94,9 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 			if ( 'registrant' === $post->post_type ) {
 
 				// Hide all action rows.
-				$actions = [];
+				unset( $actions['trash'] );
+				unset( $actions['view'] );
+				unset( $actions['inline hide-if-no-js'] );
 			}
 
 			return $actions;

@@ -870,60 +870,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		}
 
 		/**
-		 * Modify post columns.
-		 *
-		 * @param string       $post_type name of the post type.
-		 * @param array        $new_columns new column that will be merged.
-		 * @param string|array $removed_columns column that should be removed from default columns.
-		 */
-		public static function modify_columns( $post_type, $new_columns = [], $removed_columns = '' ) {
-			add_filter(
-				"manage_{$post_type}_posts_columns",
-				function ( $default_columns ) use ( $new_columns, $removed_columns ) {
-
-					// Check maybe merge new columns.
-					if ( ! empty( $new_columns ) ) {
-
-						// Remove date column.
-						unset( $default_columns['date'] );
-
-						foreach ( $new_columns as $column_key => $column_label ) {
-							$default_columns[ $column_key ] = $column_label;
-						}
-
-						// Restore date column as the last column.
-						$default_columns['date'] = __( 'Date', 'wacara' );
-					}
-
-					// Check maybe remove columns.
-					if ( $removed_columns || ! empty( $removed_columns ) ) {
-
-						// Check maybe it's array.
-						if ( is_array( $removed_columns ) ) {
-							foreach ( $removed_columns as $column ) {
-								unset( $default_columns[ $column ] );
-							}
-						} else {
-							unset( $default_columns[ $removed_columns ] );
-						}
-					}
-
-					return $default_columns;
-				}
-			);
-		}
-
-		/**
-		 * Modify post column content.
-		 *
-		 * @param string   $post_type name of the post type.
-		 * @param callable $callback callback function.
-		 */
-		public static function modify_columns_content( $post_type, $callback ) {
-			add_action( "manage_{$post_type}_posts_custom_column", $callback, 10, 2 );
-		}
-
-		/**
 		 * Register custom post type.
 		 *
 		 * @param string $name name of the custom post type.
