@@ -73,6 +73,15 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 		}
 
 		/**
+		 * Get list of all available status.
+		 *
+		 * @return array
+		 */
+		public static function get_all_status() {
+			return self::$status;
+		}
+
+		/**
 		 * Set registrant status.
 		 *
 		 * @param Registrant $registrant object of the current registrant.
