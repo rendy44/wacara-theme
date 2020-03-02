@@ -347,7 +347,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
 						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
 						$template_args['maybe_price_in_cent_with_unique'] = $this->maybe_get_price_in_cent_with_unique( $registrant );
-						$template_args['selected_bank_account']           = Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
+						$template_args['selected_bank_account']           = $this->get_selected_bank_account( $registrant );
 
 						// Override the template first.
 						Template::override_folder( $this->path );
@@ -597,6 +597,17 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		private function maybe_get_price_in_cent_with_unique( $registrant ) {
 			return Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
+		}
+
+		/**
+		 * Get registrant selected bank account.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		private function get_selected_bank_account( $registrant ) {
+			return Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
 		}
 	}
 
