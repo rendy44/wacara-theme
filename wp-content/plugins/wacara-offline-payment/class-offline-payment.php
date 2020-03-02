@@ -342,8 +342,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					if ( 'waiting-verification' === $reg_status ) {
 
 						$confirmation_timestamp                           = Helper::get_post_meta( 'confirmation_timestamp', $registrant->post_id );
-						$template_args                                    = $registrant->get_invoicing_info();
 						$template_args['id']                              = $registrant->post_id;
+						$template_args['currency']                        = $registrant->get_pricing_currency();
 						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
 						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
 						$template_args['maybe_price_in_cent_with_unique'] = $this->maybe_get_price_in_cent_with_unique( $registrant );
@@ -454,8 +454,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			switch ( $reg_status ) {
 				case 'waiting-payment':
 					// Fetch invoice info of the registrant.
-					$invoice_info              = $registrant->get_invoicing_info();
 					$price_in_cent_with_unique = $this->maybe_get_price_in_cent_with_unique( $registrant );
+					$pricing_currency          = $registrant->get_pricing_currency();
 
 					// Fetch bank accounts from settings.
 					$bank_accounts = $this->get_bank_accounts();
@@ -463,8 +463,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					// Add new element to the default array.
 					$new_args = [
 						'bank_accounts'   => $bank_accounts,
-						'currency_code'   => $invoice_info['currency'],
-						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
+						'currency_code'   => $pricing_currency,
+						'currency_symbol' => Helper::get_currency_symbol_by_code( $pricing_currency ),
 						'amount'          => number_format_i18n( $price_in_cent_with_unique / 100, 2 ),
 					];
 

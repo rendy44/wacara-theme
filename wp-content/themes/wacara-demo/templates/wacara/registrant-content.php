@@ -26,12 +26,6 @@ $reg_status = $registrant->get_registration_status();
 // Fetch event detail.
 $event_id = $registrant->get_event_info();
 
-// Fetch invoice detail.
-$invoice = $registrant->get_invoicing_info();
-
-// Instance pricing.
-$pricing = new Pricing( $invoice['pricing_id'] );
-
 // Fetch payment method.
 $payment_id    = $registrant->get_payment_method_id();
 $payment_class = Register_Payment::get_payment_method_class( $payment_id );
