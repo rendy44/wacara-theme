@@ -55,6 +55,9 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 
 			// Log registrant each time the status being changed.
 			add_action( 'wacara_after_setting_registrant_status', [ $this, 'log_after_status_changed_callback' ], 10, 3 );
+
+			// Log registrant after making checking-out.
+			add_action( 'wacara_after_registrant_payment_process', [ $this, 'log_after_checking_out_callback' ], 10, 3 );
 		}
 
 		/**
@@ -77,12 +80,12 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $reg_status status of the registrant.
-		 * @param Result     $set_status object for changing status.
+		 * @param Result     $result object of the current process.
 		 */
-		public function log_after_filling_details_callback( $registrant, $reg_status, $set_status ) {
+		public function log_after_filling_details_callback( $registrant, $reg_status, $result ) {
 
 			// First of all, validate the status.
-			if ( $set_status->success ) {
+			if ( $result->success ) {
 				// Instance payment method.
 				$payment_method = $registrant->get_payment_method_object();
 
@@ -96,14 +99,14 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 				}
 			} else {
 				/* translators: %s further detail of the errors */
-				$log_content = sprintf( __( 'Failed filling details. %s', 'wacara' ), $set_status->message );
+				$log_content = sprintf( __( 'Failed filling details. %s', 'wacara' ), $result->message );
 			}
 
 			$registrant->add_logs( $log_content );
 		}
 
 		/**
-		 * Callback for logging registrnt
+		 * Callback for logging registrant each status being changed.
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $new_status new status of the registrant.
@@ -111,11 +114,30 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 		 */
 		public function log_after_status_changed_callback( $registrant, $new_status, $old_status ) {
 			/* translators: %s : new registrant status */
-			$log_content = sprintf( __( 'Status changed to %s', 'wacara' ), $new_status );
+			$log_content = sprintf( __( 'Status changed to %s', 'wacara' ), Registrant_Status::get_status( $new_status ) );
 
 			// Maybe add detail from the old status.
 			/* translators: %s : old registrant status */
-			$log_content .= $old_status ? ' ' . sprintf( __( 'from %s.', 'wacara' ), $old_status ) : '.';
+			$log_content .= $old_status ? ' ' . sprintf( __( 'from %s.', 'wacara' ), Registrant_Status::get_status( $old_status ) ) : '.';
+
+			$registrant->add_logs( $log_content );
+		}
+
+		/**
+		 * Callback for logging registrant after checking out.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $reg_status status of the current registrant.
+		 * @param Result     $result object of the current process.
+		 */
+		public function log_after_checking_out_callback( $registrant, $reg_status, $result ) {
+			// Validate the result.
+			if ( $result->success ) {
+				$log_content = __( 'Successfully checked-out', 'wacara' );
+			} else {
+				/* translators: %s further detail of the errors */
+				$log_content = sprintf( __( 'Failed checkout. %s', 'wacara' ), $result->message );
+			}
 
 			$registrant->add_logs( $log_content );
 		}

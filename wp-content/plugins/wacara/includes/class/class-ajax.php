@@ -291,20 +291,16 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$registrant->save_payment_method_info( $maybe_payment_method );
 
 						// Update registration status.
-						$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
-
-						// Validate the status.
-						$result->success = $set_status->success;
-						$result->message = $set_status->message;
+						Registrant_Status::set_registrant_status( $registrant, $reg_status );
 
 						/**
 						 * Wacara after filling registrant hook.
 						 *
 						 * @param Registrant $registrant object of the current registrant.
 						 * @param string $reg_status the status of registration.
-						 * @param Result $set_status object for changing status.
+						 * @param Result $result object of the current process.
 						 */
-						do_action( 'wacara_after_filling_registration', $registrant, $reg_status, $set_status );
+						do_action( 'wacara_after_filling_registration', $registrant, $reg_status, $result );
 
 					} else {
 
@@ -389,19 +385,16 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$result->callback = $registrant->get_registrant_url();
 
 						// Update registration status.
-						$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
-
-						// Validate the status.
-						$result->success = $set_status->success;
-						$result->message = $set_status->message;
+						Registrant_Status::set_registrant_status( $registrant, $reg_status );
 
 						/**
 						 * Wacara after registrant payment process hook.
 						 *
 						 * @param Registrant $registrant object of the current registrant.
 						 * @param string $reg_status status of the current registrant.
+						 * @param Result $result object of the current process.
 						 */
-						do_action( 'wacara_after_registrant_payment_process', $registrant, $reg_status );
+						do_action( 'wacara_after_registrant_payment_process', $registrant, $reg_status, $result );
 
 					} else {
 
