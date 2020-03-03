@@ -398,14 +398,17 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				if ( $registrant->success ) {
 
 					// Validate the new status output.
-					$message_output = __( 'Verification is successful', 'wacara' );
+					$message_output = __( 'Successfully verified', 'wacara' );
 					if ( 'done' !== $new_status ) {
 						$new_status     = 'reject';
-						$message_output = __( 'Rejection is successful', 'wacara' );
+						$message_output = __( 'Successfully rejected', 'wacara' );
 					}
 
 					// Update registration status.
 					Registrant_Status::set_registrant_status( $registrant, $new_status );
+
+					// Save logs.
+					$registrant->add_logs( $message_output );
 
 					// Validate the status.
 					$result->success = true;
