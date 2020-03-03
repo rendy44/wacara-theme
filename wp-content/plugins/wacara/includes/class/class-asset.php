@@ -177,7 +177,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'module' => false,
 				],
 				'app_be'            => [
-					'url'  => WACARA_URI . 'assets/admin/js/app.js',
+					'url' => WACARA_URI . 'assets/admin/js/app.js',
 				],
 			];
 

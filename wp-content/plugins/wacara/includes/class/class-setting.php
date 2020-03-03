@@ -61,6 +61,9 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 			// Manage post filters.
 			add_action( 'restrict_manage_posts', [ $this, 'manage_post_filters_callback' ], 10, 2 );
 
+			// Remove bulk actions in registrant.
+			add_filter( 'bulk_actions-edit-registrant', [ $this, 'bulk_actions_callback' ], 10, 1 );
+
 			// Manage post filter before displayed.
 			add_action( 'pre_get_posts', [ $this, 'post_format_filter_to_posts_callback' ], 10, 1 );
 
@@ -150,6 +153,22 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 			 * Wacara after post's custom admin filters.
 			 */
 			do_action( "wacara_after_{$post_type}_custom_admin_filters" );
+		}
+
+		/**
+		 * Callback for managing bulk actions in registrant.
+		 *
+		 * @param array $actions default actions.
+		 *
+		 * @return array
+		 */
+		public function bulk_actions_callback( $actions ) {
+
+			// Remove edit and delete action.
+			unset( $actions['edit'] );
+			unset( $actions['trash'] );
+
+			return $actions;
 		}
 
 		/**
