@@ -217,16 +217,14 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * @param Registrant                $registrant object of the current registrant.
 		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 		 * @param string                    $reg_status status of the registrant.
-		 * @param Pricing                   $pricing object of selected pricing.
 		 */
-		public function render_custom_content( $registrant, $payment_class, $reg_status, $pricing ) {
+		public function render_custom_content( $registrant, $payment_class, $reg_status ) {
 
 			// Override template folder.
 			Template::override_folder( $this->path );
 
 			$temp_args = [
 				'registrant' => $registrant,
-				'pricing'    => $pricing,
 				'reg_status' => $reg_status,
 			];
 

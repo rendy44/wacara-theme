@@ -418,30 +418,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Save invoice information
-		 *
-		 * @param int    $price_need_to_pay_in_cent the amount that should be paid in cent.
-		 * @param string $currency currency code of invoice.
-		 */
-		public function save_invoicing_info( $price_need_to_pay_in_cent, $currency ) {
-			$this->save_meta(
-				[
-					'price_in_cent' => $price_need_to_pay_in_cent,
-					'currency'      => $currency,
-				]
-			);
-		}
-
-		/**
-		 * Get invoice information.
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_invoicing_info() {
-			return $this->get_meta( [ 'pricing_id', 'price_in_cent', 'currency' ] );
-		}
-
-		/**
 		 * Get event id information.
 		 *
 		 * @return array|bool|mixed
@@ -456,7 +432,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param int $unique_number the unique number.
 		 */
 		public function maybe_save_unique_number( $unique_number ) {
-			$old_price_in_cent                    = $this->get_meta( 'price_in_cent' );
+			$old_price_in_cent                    = $this->get_pricing_price_in_cent();
 			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique_number;
 			$this->save_meta(
 				[
@@ -482,6 +458,46 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_payment_method_id() {
 			return $this->get_meta( 'payment_method' );
+		}
+
+		/**
+		 * Get pricing currency code that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_currency() {
+			return $this->get_meta( 'pricing_cache_currency' );
+		}
+
+		/**
+		 * Get pricing price that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_price() {
+			return $this->get_meta( 'pricing_cache_price' );
+		}
+
+		/**
+		 * Get pricing price in cent that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_price_in_cent() {
+			return $this->get_meta( 'pricing_cache_price_in_cent' );
+		}
+
+		/**
+		 * Get pricing price in html that already attached into registrant..
+		 *
+		 * @return string
+		 */
+		public function get_pricing_price_in_html() {
+			$price           = $this->get_pricing_price();
+			$currency_code   = $this->get_pricing_currency();
+			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+
+			return $currency_symbol . number_format_i18n( $price, 2 );
 		}
 
 		/**

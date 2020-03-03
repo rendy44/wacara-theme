@@ -255,7 +255,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_event_csv_columns', [ $this, 'custom_csv_columns_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
-			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 3 );
+			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 2 );
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
@@ -342,12 +342,12 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					if ( 'waiting-verification' === $reg_status ) {
 
 						$confirmation_timestamp                           = Helper::get_post_meta( 'confirmation_timestamp', $registrant->post_id );
-						$template_args                                    = $registrant->get_invoicing_info();
 						$template_args['id']                              = $registrant->post_id;
+						$template_args['currency']                        = $registrant->get_pricing_currency();
 						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
 						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
 						$template_args['maybe_price_in_cent_with_unique'] = $this->maybe_get_price_in_cent_with_unique( $registrant );
-						$template_args['selected_bank_account']           = Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
+						$template_args['selected_bank_account']           = $this->get_selected_bank_account( $registrant );
 
 						// Override the template first.
 						Template::override_folder( $this->path );
@@ -428,7 +428,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					$result = __( 'I have made a payment', 'wacara' );
 					break;
 				case 'waiting-verification':
-				case 'fail':
+				case 'reject':
 					// Clean the submit button label, since we want to hide it.
 					$result = '';
 					break;
@@ -454,8 +454,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			switch ( $reg_status ) {
 				case 'waiting-payment':
 					// Fetch invoice info of the registrant.
-					$invoice_info              = $registrant->get_invoicing_info();
 					$price_in_cent_with_unique = $this->maybe_get_price_in_cent_with_unique( $registrant );
+					$pricing_currency          = $registrant->get_pricing_currency();
 
 					// Fetch bank accounts from settings.
 					$bank_accounts = $this->get_bank_accounts();
@@ -463,8 +463,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					// Add new element to the default array.
 					$new_args = [
 						'bank_accounts'   => $bank_accounts,
-						'currency_code'   => $invoice_info['currency'],
-						'currency_symbol' => Helper::get_currency_symbol_by_code( $invoice_info['currency'] ),
+						'currency_code'   => $pricing_currency,
+						'currency_symbol' => Helper::get_currency_symbol_by_code( $pricing_currency ),
 						'amount'          => number_format_i18n( $price_in_cent_with_unique / 100, 2 ),
 					];
 
@@ -474,7 +474,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				case 'waiting-verification':
 					$temp_args['alert_message'] = __( 'We are verifying your payment, we\'ll get back to you once we have an update', 'wacara' );
 					break;
-				case 'fail':
+				case 'reject':
 					$temp_args['alert_message'] = __( 'We have declined your payment, if you think this is not supposed to be, please contact us.', 'wacara' );
 					break;
 			}
@@ -532,9 +532,8 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param Event      $event object of the current registrant's event.
-		 * @param Pricing    $pricing object of the current registrant's pricing.
 		 */
-		public function registrant_admin_column_action_callback( $registrant, $event, $pricing ) {
+		public function registrant_admin_column_action_callback( $registrant, $event ) {
 			add_thickbox();
 			$reg_status = $registrant->get_registration_status();
 
@@ -597,6 +596,17 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		private function maybe_get_price_in_cent_with_unique( $registrant ) {
 			return Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
+		}
+
+		/**
+		 * Get registrant selected bank account.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		private function get_selected_bank_account( $registrant ) {
+			return Helper::get_post_meta( 'selected_bank_account', $registrant->post_id );
 		}
 	}
 

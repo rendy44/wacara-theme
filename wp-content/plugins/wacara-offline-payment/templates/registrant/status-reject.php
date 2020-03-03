@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for displaying failed page in single registration.
+ * Template for displaying rejected registrant..
  *
  * @author  WPerfekt
  * @package Wacara

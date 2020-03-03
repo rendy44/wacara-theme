@@ -9,14 +9,12 @@
 
 namespace Wacara\Payment;
 
-use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment\Stripe_Payment\Stripe_Wrapper;
 use Wacara\Payment\Stripe_Payment\Transaction;
 use Wacara\Payment_Method;
 use Wacara\Registrant;
 use Wacara\Result;
-use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -163,6 +161,16 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 					$result->message  = $charge->message;
 				}
 
+				// Store stripe information into registrant..
+				Helper::save_post_meta(
+					$registrant->post_id,
+					[
+						'stripe_charge_id'   => $charge->callback,
+						'stripe_customer_id' => $used_stripe_customer_id,
+						'stripe_source_id'   => $maybe_stripe_source_id,
+					]
+				);
+
 				/**
 				 * Perform actions after making payment by stripe.
 				 *
@@ -170,8 +178,10 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 				 * @param int $pricing_price_in_cent the price of pricing in cent.
 				 * @param string $pricing_currency the currency of pricing.
 				 * @param Result $charge the object of payment.
+				 * @param string $used_stripe_customer_id customer id from stripe.
+				 * @param string $maybe_stripe_source_id source id from stripe.
 				 */
-				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price_in_cent, $pricing_currency, $charge );
+				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price_in_cent, $pricing_currency, $charge, $used_stripe_customer_id, $maybe_stripe_source_id );
 			}
 
 			return $result;
@@ -230,10 +240,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 					'module' => false,
 				],
 				'stripe-payment' => [
-					'url'  => WCR_STP_URI . 'js/stripe-payment.js',
-					'vars' => [
-						'stripe_key' => $this->get_publishable_key(),
-					],
+					'url' => WCR_STP_URI . 'js/stripe-payment.js',
 				],
 			];
 		}
@@ -278,20 +285,24 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 * Register custom hooks.
 		 */
 		private function hooks() {
-			add_filter( 'wacara_filter_registrant_status_list', [ $this, 'registrant_more_status_callback' ], 10, 1 );
+
+			// Add stripe publishable key as variable.
+			add_filter( 'wacara_filter_global_variables', [ $this, 'variable_stripe_publishable_key_callback' ], 10, 1 );
 		}
 
 		/**
-		 * Callback for adding more registrant status.
+		 * Callback for embedding stripe publishable key as variable.
 		 *
-		 * @param array $status list of status.
+		 * @param array $variables current variable.
 		 *
 		 * @return array
 		 */
-		public function registrant_more_status_callback( $status ) {
-			$status['fail'] = __( 'Failed', 'wacara' );
+		public function variable_stripe_publishable_key_callback( $variables ) {
 
-			return $status;
+			// Add stripe key into variables.
+			$variables['stripe_key'] = $this->get_publishable_key();
+
+			return $variables;
 		}
 
 		/**
@@ -333,6 +344,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( 'on' !== $sandbox_setting ) {
 				$result = false;
 			}
+
 			return $result;
 		}
 
@@ -346,6 +358,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $this->is_sandbox() ) {
 				$sb_key = 'sandbox_' . $sb_key;
 			}
+
 			return $this->get_admin_setting( $sb_key );
 		}
 
@@ -359,6 +372,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $this->is_sandbox() ) {
 				$sb_key = 'sandbox_' . $sb_key;
 			}
+
 			return $this->get_admin_setting( $sb_key );
 		}
 	}
