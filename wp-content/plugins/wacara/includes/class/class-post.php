@@ -70,11 +70,12 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		 * Get event meta data.
 		 *
 		 * @param string|array $key registrant meta key.
+		 * @param bool         $single whether get value as single or array.
 		 *
 		 * @return array|bool|mixed
 		 */
-		protected function get_meta( $key ) {
-			return Helper::get_post_meta( $key, $this->post_id );
+		protected function get_meta( $key, $single = true ) {
+			return Helper::get_post_meta( $key, $this->post_id, $single );
 		}
 
 		/**
@@ -84,6 +85,16 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		 */
 		protected function save_meta( array $meta_data ) {
 			Helper::save_post_meta( $this->post_id, $meta_data );
+		}
+
+		/**
+		 * Add a new single post meta.
+		 *
+		 * @param string       $meta_key meta key.
+		 * @param string|array $meta_value meta value.
+		 */
+		protected function add_meta( $meta_key, $meta_value ) {
+			Helper::add_post_meta( $this->post_id, $meta_key, $meta_value );
 		}
 	}
 }

@@ -427,6 +427,31 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Save registrant log.
+		 *
+		 * @param string $content log's details.
+		 */
+		public function add_logs( $content ) {
+
+			// Retrieve time of the submitted log.
+			$time = time();
+
+			// Convert content into array.
+			$log_content = [ $time => $content ];
+
+			$this->add_meta( 'logs', $log_content );
+		}
+
+		/**
+		 * Get registrant logs.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_logs() {
+			return $this->get_meta( 'logs', false );
+		}
+
+		/**
 		 * Maybe save unique number for easier payment confirmation.
 		 *
 		 * @param int $unique_number the unique number.

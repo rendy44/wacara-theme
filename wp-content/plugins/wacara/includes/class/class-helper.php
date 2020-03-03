@@ -112,6 +112,17 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		}
 
 		/**
+		 * Add a new single post meta.
+		 *
+		 * @param int          $post_id post id.
+		 * @param string       $meta_key meta key.
+		 * @param string|array $meta_value meta value.
+		 */
+		public static function add_post_meta( $post_id, $meta_key, $meta_value ) {
+			add_post_meta( $post_id, self::$meta_prefix . $meta_key, $meta_value );
+		}
+
+		/**
 		 * Save multiple user meta
 		 *
 		 * @param string $user_id user id.
