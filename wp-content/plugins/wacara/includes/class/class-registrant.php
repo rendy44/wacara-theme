@@ -449,7 +449,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$time = time();
 
 			// Convert content into array.
-			$log_content = [ $time => $content ];
+			$log_content = [
+				'time'    => $time,
+				'content' => $content,
+			];
 
 			$this->add_meta( 'logs', $log_content );
 		}

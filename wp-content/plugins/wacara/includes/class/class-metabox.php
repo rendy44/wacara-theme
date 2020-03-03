@@ -64,8 +64,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 			// Add event design metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'design_event_metabox_callback' ] );
 
-			// Add event registrants metabox.
+			// Add event custom metabox.
 			add_action( 'add_meta_boxes', [ $this, 'custom_event_metabox_callback' ] );
+
+			// Add registrant custom metabox.
+			add_action( 'add_meta_boxes', [ $this, 'custom_registrant_metabox_callback' ] );
 
 			// Add header detail metabox.
 			add_action( 'cmb2_admin_init', [ $this, 'detail_header_metabox_callback' ] );
@@ -134,7 +137,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Custome metabox configuration for event.
+		 * Callback for adding custome metabox in event.
 		 */
 		public function custom_event_metabox_callback() {
 			add_meta_box(
@@ -187,7 +190,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Callback for displaying metabox for displaying list of registrants in event.
+		 * Callback for displaying list of registrants metabox.
 		 */
 		public function event_registrant_list_metabox_callback() {
 			add_thickbox();
@@ -209,6 +212,51 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 			}
 			?>
 			<?php
+		}
+
+		/**
+		 * Callback for adding custom metabox in registrant.
+		 */
+		public function custom_registrant_metabox_callback() {
+			add_meta_box(
+				'registrant_logs_mb',
+				__( 'Logs', 'wacara' ),
+				[
+					$this,
+					'registrant_logs_metabox_callback',
+				],
+				'registrant',
+				'side'
+			);
+		}
+
+		/**
+		 * Callback for displaying registrant logs metabox.
+		 */
+		public function registrant_logs_metabox_callback() {
+			global $post;
+
+			// Instance registrant.
+			$registrant = new Registrant( $post->ID );
+
+			// Validate the registrant.
+			if ( $registrant->success ) {
+
+				// Fetch all logs.
+				$logs = $registrant->get_logs();
+				?>
+				<div class="wcr-registrant-logs-wrapper">
+					<ul class="wcr-registrant-logs">
+						<?php foreach ( $logs as $log ) { ?>
+							<li class="wcr-registrant-log">
+								<p class="wcr-registrant-log-content"><?php echo esc_html( $log['content'] ); ?></p>
+                                <span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'Added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
+							</li>
+						<?php } ?>
+					</ul>
+				</div>
+				<?php
+			}
 		}
 
 		/**
