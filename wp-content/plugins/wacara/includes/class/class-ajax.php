@@ -240,16 +240,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
 						$email                = Helper::get_serialized_val( $unserialize_obj, 'email' );
 						$name                 = Helper::get_serialized_val( $unserialize_obj, 'name' );
-						$company              = Helper::get_serialized_val( $unserialize_obj, 'company' );
-						$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
-						$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
-						$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
 
 						// Instance the registrant.
 						$registrant = new Registrant( $registrant_id );
 
 						// Save the details.
-						$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+						$registrant->save_more_details( $name, $email );
 
 						// Define some variables related to registration.
 						$reg_status = '';
@@ -288,14 +284,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							$reg_status = 'done';
 						}
 
-						/**
-						 * Wacara after filling registrant hook.
-						 *
-						 * @param Registrant $registrant object of the current registrant.
-						 * @param string $reg_status the status of registration.
-						 */
-						do_action( 'wacara_after_filling_registration', $registrant, $reg_status );
-
 						// Update the callback.
 						$result->callback = $registrant->get_registrant_url();
 
@@ -308,6 +296,15 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						// Validate the status.
 						$result->success = $set_status->success;
 						$result->message = $set_status->message;
+
+						/**
+						 * Wacara after filling registrant hook.
+						 *
+						 * @param Registrant $registrant object of the current registrant.
+						 * @param string $reg_status the status of registration.
+						 * @param Result $set_status object for changing status.
+						 */
+						do_action( 'wacara_after_filling_registration', $registrant, $reg_status, $set_status );
 
 					} else {
 
@@ -350,9 +347,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate the registrant.
 					if ( $registrant->success ) {
 
-						// Fetch payment method.
-						$payment_method = $registrant->get_payment_method_id();
-
 						// Save default registrant status.
 						$reg_status = $registrant->get_registration_status();
 
@@ -364,7 +358,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						do_action( 'wacara_before_registrant_payment_process', $registrant );
 
 						// Process the payment.
-						$selected_payment_method = Register_Payment::get_payment_method_class( $payment_method );
+						$selected_payment_method = $registrant->get_payment_method_object();
 
 						// Check if payment method is exist.
 						if ( $selected_payment_method ) {
