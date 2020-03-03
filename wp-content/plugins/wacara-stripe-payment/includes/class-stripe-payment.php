@@ -228,10 +228,10 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 					'module' => false,
 				],
 				'stripe-payment' => [
-					'url'  => WCR_STP_URI . 'js/stripe-payment.js',
-					'vars' => [
-						'stripe_key' => $this->get_publishable_key(),
-					],
+					'url' => WCR_STP_URI . 'js/stripe-payment.js',
+					// 'vars' => [
+					// 'stripe_key' => $this->get_publishable_key(),
+					// ],
 				],
 			];
 		}
@@ -276,20 +276,24 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 		 * Register custom hooks.
 		 */
 		private function hooks() {
-			add_filter( 'wacara_filter_registrant_status_list', [ $this, 'registrant_more_status_callback' ], 10, 1 );
+
+			// Add stripe publishable key as variable.
+			add_filter( 'wacara_filter_global_variables', [ $this, 'variable_stripe_publishable_key_callback' ], 10, 1 );
 		}
 
 		/**
-		 * Callback for adding more registrant status.
+		 * Callback for embedding stripe publishable key as variable.
 		 *
-		 * @param array $status list of status.
+		 * @param array $variables current variable.
 		 *
 		 * @return array
 		 */
-		public function registrant_more_status_callback( $status ) {
-			$status['fail'] = __( 'Failed', 'wacara' );
+		public function variable_stripe_publishable_key_callback( $variables ) {
 
-			return $status;
+			// Add stripe key into variables.
+			$variables['stripe_key'] = $this->get_publishable_key();
+
+			return $variables;
 		}
 
 		/**
@@ -331,6 +335,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( 'on' !== $sandbox_setting ) {
 				$result = false;
 			}
+
 			return $result;
 		}
 
@@ -344,6 +349,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $this->is_sandbox() ) {
 				$sb_key = 'sandbox_' . $sb_key;
 			}
+
 			return $this->get_admin_setting( $sb_key );
 		}
 
@@ -357,6 +363,7 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $this->is_sandbox() ) {
 				$sb_key = 'sandbox_' . $sb_key;
 			}
+
 			return $this->get_admin_setting( $sb_key );
 		}
 	}

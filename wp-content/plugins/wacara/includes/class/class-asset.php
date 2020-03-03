@@ -83,6 +83,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function __construct() {
 			$this->load_front_asset();
 			$this->load_admin_asset();
+			$this->global_vars();
 
 			add_filter( 'script_loader_tag', [ $this, 'load_as_module' ], 10, 3 );
 		}
@@ -203,6 +204,15 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		}
 
 		/**
+		 * Add global variable in head.
+		 */
+		private function global_vars() {
+
+			// Embed variable in head.
+			add_action( 'wp_head', [ $this, 'global_vars_callback' ], 10, 1 );
+		}
+
+		/**
 		 * Callback for loading front end assets
 		 */
 		public function front_asset_callback() {
@@ -234,6 +244,33 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			foreach ( $this->admin_css as $css_name => $css_obj ) {
 				Helper::load_css( $css_name, $css_obj );
 			}
+		}
+
+		/**
+		 * Callback for embedding global variables.
+		 */
+		public function global_vars_callback() {
+
+			// Prepare default variable.
+			$variables = [
+				'prefix'   => WACARA_PREFIX,
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			];
+
+			/**
+			 * Wacara global variable filter hook.
+			 *
+			 * @param array $variables current variables.
+			 */
+			$variables = apply_filters( 'wacara_filter_global_variables', $variables );
+
+			?>
+			<script type="text/javascript">
+				/* <![CDATA[ */
+				let obj = <?php echo wp_json_encode( $variables ); ?>;
+				/* ]]> */
+			</script>
+			<?php
 		}
 	}
 
