@@ -294,6 +294,9 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					// Process the payment confirmation.
 					$confirm = $this->update_confirmation( $registrant, $bank_account );
 
+					// Prepare log content variable.
+					$log_content = __( 'Successfully confirmed transfer', 'wacara' );
+
 					// Check the success status.
 					if ( $confirm->success ) {
 
@@ -302,9 +305,15 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						$result->callback = $registrant->get_registrant_url();
 					} else {
 
+						// Change log content.
+						$log_content = $confirm->message;
+
 						// Update the result.
 						$result->message = $confirm->message;
 					}
+
+					// Save log.
+					$registrant->add_logs( $log_content );
 				} else {
 
 					// Update the result.
@@ -396,11 +405,11 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 					}
 
 					// Update registration status.
-					$set_status = Registrant_Status::set_registrant_status( $registrant, $new_status );
+					Registrant_Status::set_registrant_status( $registrant, $new_status );
 
 					// Validate the status.
-					$result->success = $set_status->success;
-					$result->message = $set_status->success ? $message_output : $set_status->message;
+					$result->success = true;
+					$result->message = $message_output;
 
 				} else {
 					$result->message = $registrant->message;
@@ -574,11 +583,10 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				);
 
 				// Update registration status.
-				$set_status = Registrant_Status::set_registrant_status( $registrant, 'waiting-verification' );
+				Registrant_Status::set_registrant_status( $registrant, 'waiting-verification' );
 
-				// Validate the status.
-				$result->success = $set_status->success;
-				$result->message = $set_status->message;
+				// Update result.
+				$result->success = true;
 
 			} else {
 				$result->message = __( 'Invalid bank account selected', 'wacara' );

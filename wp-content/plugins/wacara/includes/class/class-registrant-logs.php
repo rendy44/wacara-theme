@@ -113,14 +113,18 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 		 * @param string     $old_status old status of the registrant.
 		 */
 		public function log_after_status_changed_callback( $registrant, $new_status, $old_status ) {
-			/* translators: %s : new registrant status */
-			$log_content = sprintf( __( 'Status changed to %s', 'wacara' ), Registrant_Status::get_status( $new_status ) );
 
-			// Maybe add detail from the old status.
-			/* translators: %s : old registrant status */
-			$log_content .= $old_status ? ' ' . sprintf( __( 'from %s.', 'wacara' ), Registrant_Status::get_status( $old_status ) ) : '.';
+			// Only process if new status is different from the old one.
+			if ( $new_status !== $old_status ) {
+				/* translators: %s : new registrant status */
+				$log_content = sprintf( __( 'Status changed to %s', 'wacara' ), Registrant_Status::get_status( $new_status ) );
 
-			$registrant->add_logs( $log_content );
+				// Maybe add detail from the old status.
+				/* translators: %s : old registrant status */
+				$log_content .= $old_status ? ' ' . sprintf( __( 'from %s.', 'wacara' ), Registrant_Status::get_status( $old_status ) ) : '.';
+
+				$registrant->add_logs( $log_content );
+			}
 		}
 
 		/**
