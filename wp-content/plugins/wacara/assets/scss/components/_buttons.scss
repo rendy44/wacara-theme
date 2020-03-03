@@ -21,4 +21,15 @@
   &:focus {
     @include box-shadow();
   }
+
+  &:disabled {
+    opacity: .5;
+    pointer-events: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
