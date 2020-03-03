@@ -97,7 +97,6 @@ if ( ! class_exists( 'Wacara_Theme\Assets' ) ) {
 				],
 				'wacara_theme_main_js' => [
 					'url'   => WACARA_MAYBE_THEME_URI . '/assets/js/wacara.js',
-					'vars'  => [],
 					'depth' => [ 'jquery' ],
 				],
 			];

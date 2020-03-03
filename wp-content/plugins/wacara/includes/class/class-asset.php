@@ -147,7 +147,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				],
 				'wacara_main_js'    => [
 					'url'   => WACARA_URI . 'assets/js/wacara.js',
-					'vars'  => [],
 					'depth' => [ 'jquery' ],
 				],
 			];
@@ -179,7 +178,6 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 				],
 				'app_be'            => [
 					'url'  => WACARA_URI . 'assets/admin/js/app.js',
-					'vars' => [],
 				],
 			];
 
