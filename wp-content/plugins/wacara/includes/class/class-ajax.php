@@ -162,20 +162,29 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					$pricing_cons          = $pricing->get_cons();
 					$pricing_recommended   = $pricing->is_recommended();
 
+					// Save cached data.
+					$cached_data = [
+						'event_id'                    => $event_id,
+						'pricing_id'                  => $pricing_id,
+						'pricing_cache_name'          => $pricing->post_title,
+						'pricing_cache_currency'      => $pricing_currency,
+						'pricing_cache_price'         => $pricing_price,
+						'pricing_cache_price_in_cent' => $pricing_price_in_cent,
+						'pricing_cache_pros'          => $pricing_pros,
+						'pricing_cache_cons'          => $pricing_cons,
+						'pricing_cache_recommended'   => $pricing_recommended,
+					];
+
 					// create registrant.
-					$new_registrant = new Registrant(
-						false,
-						[
-							'event_id'                    => $event_id,
-							'pricing_id'                  => $pricing_id,
-							'pricing_cache_currency'      => $pricing_currency,
-							'pricing_cache_price'         => $pricing_price,
-							'pricing_cache_price_in_cent' => $pricing_price_in_cent,
-							'pricing_cache_pros'          => $pricing_pros,
-							'pricing_cache_cons'          => $pricing_cons,
-							'pricing_cache_recommended'   => $pricing_recommended,
-						]
-					);
+					$new_registrant = new Registrant( false, $cached_data );
+
+					/**
+					 * Wacara after creating registrant ajax hook.
+					 *
+					 * @param Registrant $new_registrant newly created registrant.
+					 * @param array $cached_data data from pricing that stored in post meta.
+					 */
+					do_action( 'wacara_after_creating_registrant_ajax', $new_registrant, $cached_data );
 
 					// Validate the newly created event.
 					if ( $new_registrant->success ) {
@@ -231,16 +240,12 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$maybe_payment_method = Helper::get_serialized_val( $unserialize_obj, 'payment_method' );
 						$email                = Helper::get_serialized_val( $unserialize_obj, 'email' );
 						$name                 = Helper::get_serialized_val( $unserialize_obj, 'name' );
-						$company              = Helper::get_serialized_val( $unserialize_obj, 'company' );
-						$position             = Helper::get_serialized_val( $unserialize_obj, 'position' );
-						$phone                = Helper::get_serialized_val( $unserialize_obj, 'phone' );
-						$id_number            = Helper::get_serialized_val( $unserialize_obj, 'id_number' );
 
 						// Instance the registrant.
 						$registrant = new Registrant( $registrant_id );
 
 						// Save the details.
-						$registrant->save_more_details( $name, $email, $company, $position, $phone, $id_number );
+						$registrant->save_more_details( $name, $email );
 
 						// Define some variables related to registration.
 						$reg_status = '';
@@ -279,14 +284,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							$reg_status = 'done';
 						}
 
-						/**
-						 * Wacara after filling registrant hook.
-						 *
-						 * @param Registrant $registrant object of the current registrant.
-						 * @param string $reg_status the status of registration.
-						 */
-						do_action( 'wacara_after_filling_registration', $registrant, $reg_status );
-
 						// Update the callback.
 						$result->callback = $registrant->get_registrant_url();
 
@@ -294,11 +291,16 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$registrant->save_payment_method_info( $maybe_payment_method );
 
 						// Update registration status.
-						$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
+						Registrant_Status::set_registrant_status( $registrant, $reg_status );
 
-						// Validate the status.
-						$result->success = $set_status->success;
-						$result->message = $set_status->message;
+						/**
+						 * Wacara after filling registrant hook.
+						 *
+						 * @param Registrant $registrant object of the current registrant.
+						 * @param string $reg_status the status of registration.
+						 * @param Result $result object of the current process.
+						 */
+						do_action( 'wacara_after_filling_registration', $registrant, $reg_status, $result );
 
 					} else {
 
@@ -341,9 +343,6 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate the registrant.
 					if ( $registrant->success ) {
 
-						// Fetch payment method.
-						$payment_method = $registrant->get_payment_method_id();
-
 						// Save default registrant status.
 						$reg_status = $registrant->get_registration_status();
 
@@ -355,7 +354,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						do_action( 'wacara_before_registrant_payment_process', $registrant );
 
 						// Process the payment.
-						$selected_payment_method = Register_Payment::get_payment_method_class( $payment_method );
+						$selected_payment_method = $registrant->get_payment_method_object();
 
 						// Check if payment method is exist.
 						if ( $selected_payment_method ) {
@@ -386,19 +385,16 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$result->callback = $registrant->get_registrant_url();
 
 						// Update registration status.
-						$set_status = Registrant_Status::set_registrant_status( $registrant, $reg_status );
-
-						// Validate the status.
-						$result->success = $set_status->success;
-						$result->message = $set_status->message;
+						Registrant_Status::set_registrant_status( $registrant, $reg_status );
 
 						/**
 						 * Wacara after registrant payment process hook.
 						 *
 						 * @param Registrant $registrant object of the current registrant.
 						 * @param string $reg_status status of the current registrant.
+						 * @param Result $result object of the current process.
 						 */
-						do_action( 'wacara_after_registrant_payment_process', $registrant, $reg_status );
+						do_action( 'wacara_after_registrant_payment_process', $registrant, $reg_status, $result );
 
 					} else {
 

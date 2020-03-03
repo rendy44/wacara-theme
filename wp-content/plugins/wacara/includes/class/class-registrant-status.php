@@ -86,11 +86,8 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 * @param string     $status new status of the registrant.
-		 *
-		 * @return Result
 		 */
 		public static function set_registrant_status( $registrant, $status ) {
-			$result = new Result();
 
 			// Validate the new status.
 			$validate_status = self::get_status( $status );
@@ -98,15 +95,7 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 
 				// Save the status.
 				$registrant->set_registration_status( $status );
-
-				// Update the result.
-				$result->success = true;
-			} else {
-				/* translators: %s : a new registrant status */
-				$result->message = sprintf( __( 'The status `%s` is not a valid status', 'wacara' ), $status );
 			}
-
-			return $result;
 		}
 
 		/**

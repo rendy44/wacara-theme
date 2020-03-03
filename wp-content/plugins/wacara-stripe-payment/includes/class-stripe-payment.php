@@ -180,8 +180,9 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 				 * @param Result $charge the object of payment.
 				 * @param string $used_stripe_customer_id customer id from stripe.
 				 * @param string $maybe_stripe_source_id source id from stripe.
+				 * @param Result $result object of the current process.
 				 */
-				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price_in_cent, $pricing_currency, $charge, $used_stripe_customer_id, $maybe_stripe_source_id );
+				do_action( 'wacara_after_stripe_payment', $registrant, $pricing_price_in_cent, $pricing_currency, $charge, $used_stripe_customer_id, $maybe_stripe_source_id, $result );
 			}
 
 			return $result;

@@ -208,6 +208,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 
 			// Embed variable in head.
 			add_action( 'wp_head', [ $this, 'global_vars_callback' ], 10, 1 );
+			add_action( 'admin_head', [ $this, 'global_vars_callback' ], 10, 1 );
 		}
 
 		/**

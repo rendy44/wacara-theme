@@ -36,7 +36,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                 and assign with registrant id to fetch the registrant's detail.
+		 *                                   and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -257,20 +257,12 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @param string $name registrant name.
 		 * @param string $email registrant email.
-		 * @param string $company registrant company.
-		 * @param string $position registrant position.
-		 * @param string $phone registrant phone.
-		 * @param string $id_number registrant id number.
 		 */
-		public function save_more_details( $name = '', $email = '', $company = '', $position = '', $phone = '', $id_number = '' ) {
+		public function save_more_details( $name = '', $email = '' ) {
 			$this->save_meta(
 				[
-					'name'      => $name,
-					'email'     => $email,
-					'company'   => $company,
-					'position'  => $position,
-					'phone'     => $phone,
-					'id_number' => $id_number,
+					'name'  => $name,
+					'email' => $email,
 				]
 			);
 		}
@@ -318,9 +310,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						/**
 						 * Perform action after registrant checkin.
 						 *
-						 * @param string $registrant_id id of registrant that just checked-in.
+						 * @param Registrant $registrant object of the current registrant.
 						 */
-						do_action( 'wacara_after_registrant_checkin', $registrant_id );
+						do_action( 'wacara_after_registrant_checkin', $this );
 
 					} else {
 						$this->success = false;
@@ -392,20 +384,17 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			// Save old status into variable.
 			$old_status = $this->get_registration_status();
 
-			// Save registrant id into variable.
-			$registrant_id = $this->post_id;
-
 			// Change the status.
 			$this->save_meta( [ 'reg_status' => $status ] );
 
 			/**
 			 * Perform action when registrant status changed.
 			 *
-			 * @param string $registrant_id the registrant id.
+			 * @param Registrant $registrant object of the current registrant.
 			 * @param string $status the new status of registrant.
 			 * @param string $old_status the old status of registrant.
 			 */
-			do_action( 'wacara_after_setting_registrant_status', $registrant_id, $status, $old_status );
+			do_action( 'wacara_after_setting_registrant_status', $this, $status, $old_status );
 		}
 
 		/**
@@ -418,12 +407,63 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get payment method id.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_payment_method_id() {
+			return $this->get_meta( 'payment_method' );
+		}
+
+		/**
+		 * Maybe instance payment method class.
+		 *
+		 * @return bool|mixed|Payment_Method
+		 */
+		public function get_payment_method_object() {
+
+			// Retrieve payment method id.
+			$payment_method_id = $this->get_payment_method_id();
+
+			// Instance payment method class.
+			return Register_Payment::get_payment_method_class( $payment_method_id );
+		}
+
+		/**
 		 * Get event id information.
 		 *
 		 * @return array|bool|mixed
 		 */
 		public function get_event_info() {
 			return $this->get_meta( 'event_id' );
+		}
+
+		/**
+		 * Save registrant log.
+		 *
+		 * @param string $content log's details.
+		 */
+		public function add_logs( $content ) {
+
+			// Retrieve time of the submitted log.
+			$time = time();
+
+			// Convert content into array.
+			$log_content = [
+				'time'    => $time,
+				'content' => $content,
+			];
+
+			$this->add_meta( 'logs', $log_content );
+		}
+
+		/**
+		 * Get registrant logs.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_logs() {
+			return $this->get_meta( 'logs', false );
 		}
 
 		/**
@@ -449,15 +489,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_registration_status() {
 			return $this->get_meta( 'reg_status' );
-		}
-
-		/**
-		 * Get payment method id.
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_payment_method_id() {
-			return $this->get_meta( 'payment_method' );
 		}
 
 		/**

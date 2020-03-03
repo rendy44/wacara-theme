@@ -27,8 +27,7 @@ $reg_status = $registrant->get_registration_status();
 $event_id = $registrant->get_event_info();
 
 // Fetch payment method.
-$payment_id    = $registrant->get_payment_method_id();
-$payment_class = Register_Payment::get_payment_method_class( $payment_id );
+$payment_class = $registrant->get_payment_method_object();
 
 /**
  * Wacara before registrant masthead hook.

@@ -85,14 +85,13 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		/**
 		 * Callback for sending email after finishing registration.
 		 *
-		 * @param string $registrant_id registrant id.
-		 * @param string $new_status     the new status of registration.
-		 * @param string $old_status     the old status of registration.
+		 * @param Registrant $registrant object of the current registrant..
+		 * @param string     $new_status     the new status of registration.
+		 * @param string     $old_status     the old status of registration.
 		 */
-		public function send_email_based_on_status( $registrant_id, $new_status, $old_status ) {
+		public function send_email_based_on_status( $registrant, $new_status, $old_status ) {
 
 			// Fetch registrant detail.
-			$registrant      = new Registrant( $registrant_id );
 			$registrant_data = $registrant->get_data();
 			$event_name      = get_the_title( $registrant_data['event_id'] );
 
@@ -126,9 +125,9 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			 * Apply filters to modify email content after registrant making registration.
 			 *
 			 * @param string $email_content  the original email content.
-			 * @param string $registrant_id the id of registered registrant.
+			 * @param Registrant $registrant object of the current registrant.
 			 */
-			$email_content = apply_filters( 'wacara_filter_email_content_after_register', $email_content, $registrant_id );
+			$email_content = apply_filters( 'wacara_filter_email_content_after_register', $email_content, $registrant );
 
 			// Send the email.
 			$this->send_email( $registrant_data['email'], $registrant_data['name'], $email_subject, $email_content );
@@ -137,12 +136,11 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		/**
 		 * Callback for sending email after checking in.
 		 *
-		 * @param string $registrant_id registrant id.
+		 * @param Registrant $registrant object of the current registrant..
 		 */
-		public function send_email_after_checkin( $registrant_id ) {
+		public function send_email_after_checkin( $registrant ) {
 
 			// Fetch registrant detail.
-			$registrant      = new Registrant( $registrant_id );
 			$registrant_data = $registrant->get_data();
 			$event_name      = get_the_title( $registrant_data['event_id'] );
 
@@ -155,9 +153,9 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			 * Apply filters to modify email content after registrant checking in.
 			 *
 			 * @param string $email_content  the original email content.
-			 * @param string $registrant_id the id of registered registrant.
+			 * @param Registrant $registrant object of the current registrant.
 			 */
-			$email_content = apply_filters( 'wacara_filter_email_content_after_checkin', $email_content, $registrant_id );
+			$email_content = apply_filters( 'wacara_filter_email_content_after_checkin', $email_content, $registrant );
 
 			// Send the email.
 			$this->send_email( $registrant_data['email'], $registrant_data['name'], $email_subject, $email_content );
