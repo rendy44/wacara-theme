@@ -162,20 +162,29 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					$pricing_cons          = $pricing->get_cons();
 					$pricing_recommended   = $pricing->is_recommended();
 
+					// Save cached data.
+					$cached_data = [
+						'event_id'                    => $event_id,
+						'pricing_id'                  => $pricing_id,
+						'pricing_cache_name'          => $pricing->post_title,
+						'pricing_cache_currency'      => $pricing_currency,
+						'pricing_cache_price'         => $pricing_price,
+						'pricing_cache_price_in_cent' => $pricing_price_in_cent,
+						'pricing_cache_pros'          => $pricing_pros,
+						'pricing_cache_cons'          => $pricing_cons,
+						'pricing_cache_recommended'   => $pricing_recommended,
+					];
+
 					// create registrant.
-					$new_registrant = new Registrant(
-						false,
-						[
-							'event_id'                    => $event_id,
-							'pricing_id'                  => $pricing_id,
-							'pricing_cache_currency'      => $pricing_currency,
-							'pricing_cache_price'         => $pricing_price,
-							'pricing_cache_price_in_cent' => $pricing_price_in_cent,
-							'pricing_cache_pros'          => $pricing_pros,
-							'pricing_cache_cons'          => $pricing_cons,
-							'pricing_cache_recommended'   => $pricing_recommended,
-						]
-					);
+					$new_registrant = new Registrant( false, $cached_data );
+
+					/**
+					 * Wacara after creating registrant ajax hook.
+					 *
+					 * @param Registrant $new_registrant newly created registrant.
+					 * @param array $cached_data data from pricing that stored in post meta.
+					 */
+					do_action( 'wacara_after_creating_registrant_ajax', $new_registrant, $cached_data );
 
 					// Validate the newly created event.
 					if ( $new_registrant->success ) {
