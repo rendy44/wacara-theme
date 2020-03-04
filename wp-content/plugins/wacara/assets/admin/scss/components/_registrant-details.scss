@@ -1,0 +1,74 @@
+#registrant_detail_mb {
+  > button.handlediv {
+    display: none;
+  }
+
+  > h2.hndle.ui-sortable-handle {
+    display: none;
+  }
+
+  .wcr-registrant-highlight-wrapper {
+    margin-bottom: 1.25rem;
+
+    h3.wcr-registrant-highlight {
+      margin: 0 0 .5rem;
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    p.wcr-registrant-subhighlight {
+      margin: 0;
+      font-size: 16px;
+      color: lighten($black, 60%);
+      font-weight: 400;
+    }
+  }
+
+  .column-left {
+    margin-bottom: 1rem;
+  }
+
+  .wcr-registrant-detail-title-wrapper {
+    margin-bottom: .75rem;
+
+    h4.wcr-registrant-detail-title {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+
+  .wcr-registrant-detail-wrapper {
+    margin-bottom: .5rem;
+
+    > .frow {
+      justify-content: left;
+
+      label.wcr-registrant-detail-label {
+        color: lighten($black, 60%);
+        font-size: 13px;
+        position: relative;
+        display: block;
+        font-weight: 500;
+
+        &:after {
+          position: absolute;
+          content: ':';
+          right: 10px;
+        }
+      }
+
+      .wcr-registrant-detail-value {
+        margin: 0;
+        font-weight: 400;
+      }
+    }
+  }
+
+  @include breakpoint($size_tablet) {
+    margin-top: -20px;
+    .column-left {
+      margin-bottom: 0;
+    }
+  }
+}

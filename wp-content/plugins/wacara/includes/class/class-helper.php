@@ -398,11 +398,9 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @return false|string
 		 */
 		public static function convert_date( $timestamp, $include_time_in_result = false, $localize = false ) {
-			$date_format = self::get_date_format();
-			$time_format = self::get_time_format();
-			$used_format = $date_format . ( $include_time_in_result ? ' ' . $time_format : '' );
+			$used_format = $include_time_in_result ? self::get_date_time_format() : self::get_date_format();
 
-			return $localize ? date_i18n( $used_format, $timestamp ) : date_i18n( $used_format, $timestamp );
+			return $localize ? date_i18n( $used_format, $timestamp ) : date( $used_format, $timestamp );
 		}
 
 		/**
@@ -465,6 +463,15 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 */
 		public static function get_time_format() {
 			return get_option( 'time_format' );
+		}
+
+		/**
+		 * Get date and time format from option.
+		 *
+		 * @return string
+		 */
+		public static function get_date_time_format() {
+			return self::get_date_format() . ' ' . self::get_time_format();
 		}
 
 		/**

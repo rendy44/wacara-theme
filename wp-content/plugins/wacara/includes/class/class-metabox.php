@@ -218,15 +218,24 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		 * Callback for adding custom metabox in registrant.
 		 */
 		public function custom_registrant_metabox_callback() {
+
+			// Logs.
 			add_meta_box(
 				'registrant_logs_mb',
 				__( 'Logs', 'wacara' ),
-				[
-					$this,
-					'registrant_logs_metabox_callback',
-				],
+				[ $this, 'registrant_logs_metabox_callback' ],
 				'registrant',
 				'side'
+			);
+
+			// Detail.
+			add_meta_box(
+				'registrant_detail_mb',
+				__( 'Detail', 'wacara' ),
+				[ $this, 'registrant_detail_metabox_callback' ],
+				'registrant',
+				'normal',
+				'high'
 			);
 		}
 
@@ -263,6 +272,98 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				</div>
 				<?php
 			}
+		}
+
+		/**
+		 * Callback for displaying registrant detail metabox.
+		 */
+		public function registrant_detail_metabox_callback() {
+			global $post_id;
+
+			// Instance the registrant.
+			$registrant         = new Registrant( $post_id );
+			$registrant_contact = $registrant->get_more_details();
+
+			$general_details = [
+				[
+					'field' => __( 'Registered', 'wacara' ),
+					'value' => $registrant->get_created_date(),
+				],
+				[
+					'field' => __( 'Status', 'wacara' ),
+					'value' => $registrant->get_readable_registrant_status( true ),
+				],
+				[
+					'field' => __( 'Name', 'wacara' ),
+					'value' => Helper::array_val( $registrant_contact, 'name' ),
+				],
+				[
+					'field' => __( 'Email', 'wacara' ),
+					'value' => Helper::array_val( $registrant_contact, 'email' ),
+				],
+			];
+
+			$package_details = [
+				[
+					'field' => _x( 'Name', 'pricing name', 'wacara' ),
+					'value' => $registrant->get_pricing_name(),
+				],
+				[
+					'field' => __( 'Price', 'wacara' ),
+					'value' => $registrant->get_pricing_price_in_html(),
+				],
+				[
+					'field' => __( 'Pros', 'wacara' ),
+					'value' => $registrant->get_pricing_pros( false ),
+				],
+				[
+					'field' => __( 'Cons', 'wacara' ),
+					'value' => $registrant->get_pricing_cons( false ),
+				],
+			]
+			?>
+			<div class="wcr-registrant-highlight-wrapper">
+				<?php /* translators: %s : title of the registrant */ ?>
+				<h3 class="wcr-registrant-highlight"><?php echo esc_html( sprintf( __( 'Registrant #%s details', 'wacara' ), $registrant->post_title ) ); ?></h3>
+				<p class="wcr-registrant-subhighlight"><?php echo esc_html( $registrant->get_admin_highlight() ); ?></p>
+			</div>
+			<div class="frow">
+				<div class="col-xs-1-1 col-sm-1-2 column-left">
+					<div class="wcr-registrant-detail-title-wrapper">
+						<h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'General', 'wacara' ); ?></h4>
+					</div>
+					<?php foreach ( $general_details as $detail ) { ?>
+						<div class="wcr-registrant-detail-wrapper">
+							<div class="frow">
+								<div class="col-xs-1-3">
+									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
+								</div>
+								<div class="col-xs-2-3">
+									<p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
+				<div class="col-xs-1-1 col-sm-1-2">
+					<div class="wcr-registrant-detail-title-wrapper">
+						<h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'Pricing', 'wacara' ); ?></h4>
+					</div>
+					<?php foreach ( $package_details as $detail ) { ?>
+						<div class="wcr-registrant-detail-wrapper">
+							<div class="frow">
+								<div class="col-xs-1-3">
+									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
+								</div>
+								<div class="col-xs-2-3">
+									<p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php
 		}
 
 		/**

@@ -30,13 +30,13 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @var array
 		 */
-		public $registrant_data = [];
+		private $registrant_data = [];
 
 		/**
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                   and assign with registrant id to fetch the registrant's detail.
+		 *                                      and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -268,6 +268,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get registrant more details.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_more_details() {
+			return $this->get_meta( [ 'name', 'email' ] );
+		}
+
+		/**
 		 * Maybe perform checkin.
 		 */
 		public function maybe_do_checkin() {
@@ -363,6 +372,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_data() {
 			return $this->registrant_data;
+		}
+
+		/**
+		 * Get registrant created datetime.
+		 *
+		 * @param string $format datetime format.
+		 *
+		 * @return false|string
+		 */
+		public function get_created_date( $format = '' ) {
+			$date_format = $format ? $format : Helper::get_date_time_format();
+
+			return get_the_date( $date_format, $this->post_id );
 		}
 
 		/**
@@ -492,6 +514,35 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get reabable registrant status.
+		 *
+		 * @param bool $html whether return as html or plain text.
+		 *
+		 * @return string
+		 */
+		public function get_readable_registrant_status( $html = false ) {
+			$reg_status = $this->get_registration_status();
+			$result     = Registrant_Status::get_status( $reg_status );
+
+			// Maybe display in html.
+			if ( $html && $result ) {
+				/* translators: %1s : plain registrant status, %2s : readable registrant status */
+				$result = sprintf( "<span class='wcr-label wcr-label-%s'>%s</span>", $reg_status, $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get pricing name that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_name() {
+			return $this->get_meta( 'pricing_cache_name' );
+		}
+
+		/**
 		 * Get pricing currency code that already attached into registrant.
 		 *
 		 * @return array|bool|mixed
@@ -519,7 +570,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Get pricing price in html that already attached into registrant..
+		 * Get pricing price in html that already attached into registrant.
 		 *
 		 * @return string
 		 */
@@ -529,6 +580,80 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
 
 			return $currency_symbol . number_format_i18n( $price, 2 );
+		}
+
+		/**
+		 * Get pricing pros that already attached into registrant.
+		 *
+		 * @param bool $raw whether get result in raw array or convert it into string.
+		 *
+		 * @return array|bool|mixed|string
+		 */
+		public function get_pricing_pros( $raw = true ) {
+			$result = $this->get_meta( 'pricing_cache_pros' );
+
+			// Maybe convert into string.
+			if ( ! $raw ) {
+				$result = implode( ', ', $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get pricing cons that already attached into registrant.
+		 *
+		 * @param bool $raw whether get result in raw array or convert it into string.
+		 *
+		 * @return array|bool|mixed|string
+		 */
+		public function get_pricing_cons( $raw = true ) {
+			$result = $this->get_meta( 'pricing_cache_cons' );
+
+			// Maybe convert into string.
+			if ( ! $raw ) {
+				$result = implode( ', ', $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get admin highlight message.
+		 *
+		 * @return mixed|string|void
+		 */
+		public function get_admin_highlight() {
+
+			// Fetch details.
+			$reg_status     = $this->get_registration_status();
+			$payment_method = $this->get_payment_method_object()->name;
+
+			switch ( $reg_status ) {
+				case 'done':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is completed with %s', 'wacara' ), $payment_method );
+					break;
+				case 'fail':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is failed with %s', 'wacara' ), $payment_method );
+					break;
+				default:
+					$highlight = __( 'Registrant has not completed yet', 'wacara' );
+					break;
+			}
+
+			/**
+			 * Wacara registrant admin highlight filter hook.
+			 *
+			 * @param string $highlight default highlight content.
+			 * @param Registrant $registrant object of the current registrant.
+			 * @param string $payment_method name of the selected payment method.
+			 * @param string $reg_status status of the current register.
+			 */
+			$highlight = apply_filters( 'wacara_filter_registrant_admin_highlight', $highlight, $this, $payment_method, $reg_status );
+
+			return $highlight;
 		}
 
 		/**

@@ -1,3 +1,6 @@
+// Include frow.
+@import "../../scss/libs/frow/frow";
+
 @import "../../scss/base/variables";
 @import "../../scss/base/mixins";
 @import "components/cmb2-override";
@@ -5,3 +8,4 @@
 @import "components/event";
 @import "components/table-list";
 @import "components/logs";
+@import "components/registrant-details";

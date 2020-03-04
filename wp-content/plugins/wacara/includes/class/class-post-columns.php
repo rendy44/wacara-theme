@@ -109,8 +109,7 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 					$result = $registrant->get_pricing_price_in_html();
 					break;
 				case 'status':
-					$status = $registrant->get_registration_status();
-					$result = Registrant_Status::get_status( $status );
+					$result = $registrant->get_readable_registrant_status();
 					break;
 				default:
 					/**
