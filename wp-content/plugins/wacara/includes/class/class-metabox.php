@@ -244,13 +244,17 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 
 				// Fetch all logs.
 				$logs = $registrant->get_logs();
+
+				// Reverse the array.
+				$logs = array_reverse( $logs );
 				?>
 				<div class="wcr-registrant-logs-wrapper">
 					<ul class="wcr-registrant-logs">
 						<?php foreach ( $logs as $log ) { ?>
 							<li class="wcr-registrant-log">
 								<p class="wcr-registrant-log-content"><?php echo esc_html( $log['content'] ); ?></p>
-                                <span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'Added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
+								<?php /* translators: %s : readable date time */ ?>
+								<span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'Added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
 							</li>
 						<?php } ?>
 					</ul>
