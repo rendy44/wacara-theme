@@ -252,9 +252,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					<ul class="wcr-registrant-logs">
 						<?php foreach ( $logs as $log ) { ?>
 							<li class="wcr-registrant-log">
-								<p class="wcr-registrant-log-content"><?php echo esc_html( $log['content'] ); ?></p>
-								<?php /* translators: %s : readable date time */ ?>
-								<span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'Added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
+								<p class="wcr-registrant-log-content"><?php echo esc_html( strtolower( $log['content'] ) ); ?></p>
+								<div class="wcr-registrant-log-date-wrapper">
+									<?php /* translators: %s : readable date time */ ?>
+									<span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
+								</div>
 							</li>
 						<?php } ?>
 					</ul>
