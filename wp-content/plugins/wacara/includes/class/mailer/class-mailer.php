@@ -105,6 +105,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 				'recipient_name'  => $registrant->get_registrant_name(),
 				'recipient_email' => $registrant->get_registrant_email(),
 				'event_name'      => $registrant->get_event_name(),
+				'registrant'      => $registrant,
 			];
 			$plain_template_args   = wp_parse_args( $plain_template_args, $default_template_args );
 
