@@ -657,6 +657,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get the booking code.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_booking_code() {
+			return $this->get_meta( 'booking_code' );
+		}
+
+		/**
 		 * Find registrant by their booking code.
 		 *
 		 * @param string $booking_code booking code.

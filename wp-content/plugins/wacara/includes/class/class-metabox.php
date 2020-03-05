@@ -301,6 +301,10 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					'field' => __( 'Email', 'wacara' ),
 					'value' => Helper::array_val( $registrant_contact, 'email' ),
 				],
+				[
+					'field' => __( 'Booking code', 'wacara' ),
+					'value' => $registrant->get_booking_code(),
+				],
 			];
 
 			$package_details = [
@@ -339,7 +343,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
 								</div>
 								<div class="col-xs-2-3">
-									<p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
+                                    <p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
 								</div>
 							</div>
 						</div>
@@ -356,7 +360,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
 								</div>
 								<div class="col-xs-2-3">
-									<p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
+                                    <p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
 								</div>
 							</div>
 						</div>
