@@ -36,9 +36,10 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 
 			// Prepare default status.
 			$default_status = [
-				'hold' => __( 'Waiting details', 'wacara' ),
-				'done' => __( 'Done', 'wacara' ),
-				'fail' => __( 'Fail', 'wacara' ),
+				'hold'   => __( 'Waiting details', 'wacara' ),
+				'done'   => __( 'Done', 'wacara' ),
+				'fail'   => __( 'Fail', 'wacara' ),
+				'reject' => __( 'Rejected', 'wacara' ),
 			];
 
 			/**

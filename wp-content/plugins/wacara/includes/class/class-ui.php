@@ -841,7 +841,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render hidden fields.
 			foreach ( $used_fields as $field ) {
-				$maybe_value = $registrant->registrant_data[ $field ];
+				$maybe_value = $registrant->get_data( $field );
 				echo apply_filters( 'wacara_input_field', $field, 'hidden', '', $maybe_value ); // phpcs:ignore
 			}
 		}

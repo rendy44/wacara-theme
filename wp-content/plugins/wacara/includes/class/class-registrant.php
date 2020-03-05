@@ -30,13 +30,13 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @var array
 		 */
-		public $registrant_data = [];
+		private $registrant_data = [];
 
 		/**
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                   and assign with registrant id to fetch the registrant's detail.
+		 *                                        and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -268,6 +268,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get registrant more details.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_more_details() {
+			return $this->get_meta( [ 'name', 'email' ] );
+		}
+
+		/**
 		 * Maybe perform checkin.
 		 */
 		public function maybe_do_checkin() {
@@ -359,10 +368,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		/**
 		 * Get registrant data.
 		 *
+		 * @param string $field specific field of the data.
+		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_data() {
-			return $this->registrant_data;
+		public function get_data( $field = '' ) {
+			$result = $this->registrant_data;
+
+			// Maybe filter.
+			if ( $field ) {
+				$result = Helper::array_val( $result, $field );
+			}
+
+			return $result;
 		}
 
 		/**
@@ -477,7 +495,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$this->save_meta(
 				[
 					'maybe_unique_number'             => $unique_number,
-					'maybe_price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
+					'maybe_price_with_unique'         => $new_price_with_unique_number_in_cent / 100,
+					'maybe_price_with_unique_in_cent' => $new_price_with_unique_number_in_cent,
 				]
 			);
 		}
@@ -489,6 +508,44 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_registration_status() {
 			return $this->get_meta( 'reg_status' );
+		}
+
+		/**
+		 * Get reabable registrant status.
+		 *
+		 * @param bool $html whether return as html or plain text.
+		 *
+		 * @return string
+		 */
+		public function get_readable_registrant_status( $html = false ) {
+			$reg_status = $this->get_registration_status();
+			$result     = Registrant_Status::get_status( $reg_status );
+
+			// Maybe display in html.
+			if ( $html && $result ) {
+				/* translators: %1s : plain registrant status, %2s : readable registrant status */
+				$result = sprintf( "<span class='wcr-label wcr-label-%s'>%s</span>", $reg_status, $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get pricing id that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_id() {
+			return $this->get_meta( 'pricing_id' );
+		}
+
+		/**
+		 * Get pricing name that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_name() {
+			return $this->get_meta( 'pricing_cache_name' );
 		}
 
 		/**
@@ -519,16 +576,147 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Get pricing price in html that already attached into registrant..
+		 * Get pricing price in html that already attached into registrant.
 		 *
 		 * @return string
 		 */
 		public function get_pricing_price_in_html() {
-			$price           = $this->get_pricing_price();
 			$currency_code   = $this->get_pricing_currency();
 			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+			$price           = $this->get_pricing_price();
 
-			return $currency_symbol . number_format_i18n( $price, 2 );
+			/* translators: %1s : currency symbol : %2s : formatted amount */
+			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
+		}
+
+		/**
+		 * Maybe get pricing unique number that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_unique_number() {
+			return $this->get_meta( 'maybe_unique_number' );
+		}
+
+		/**
+		 * Maybe get total pricing price include unique number that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_total_pricing_price() {
+			$maybe_price_with_unique = $this->get_meta( 'maybe_price_with_unique' );
+
+			return $maybe_price_with_unique ? $maybe_price_with_unique : $this->get_pricing_price();
+		}
+
+		/**
+		 * Maybe get total pricing price include unique number in cent that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_total_pricing_price_in_cent() {
+			return $this->get_meta( 'maybe_price_with_unique_in_cent' );
+		}
+
+		/**
+		 * Get total pricing price include unique number in html that already attached into registrant.
+		 *
+		 * @return string
+		 */
+		public function get_total_pricing_in_html() {
+			$currency_code   = $this->get_pricing_currency();
+			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+			$price           = $this->get_total_pricing_price();
+
+			/* translators: %1s : currency symbol : %2s : formatted amount */
+			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
+		}
+
+		/**
+		 * Get pricing pros that already attached into registrant.
+		 *
+		 * @param bool $raw whether get result in raw array or convert it into string.
+		 *
+		 * @return array|bool|mixed|string
+		 */
+		public function get_pricing_pros( $raw = true ) {
+			$result = $this->get_meta( 'pricing_cache_pros' );
+
+			// Maybe convert into string.
+			if ( ! $raw ) {
+				$result = implode( ', ', $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get pricing cons that already attached into registrant.
+		 *
+		 * @param bool $raw whether get result in raw array or convert it into string.
+		 *
+		 * @return array|bool|mixed|string
+		 */
+		public function get_pricing_cons( $raw = true ) {
+			$result = $this->get_meta( 'pricing_cache_cons' );
+
+			// Maybe convert into string.
+			if ( ! $raw ) {
+				$result = implode( ', ', $result );
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Get admin highlight message.
+		 *
+		 * @return mixed|string|void
+		 */
+		public function get_admin_highlight() {
+
+			// Fetch details.
+			$reg_status     = $this->get_registration_status();
+			$payment_method = $this->get_payment_method_object()->name;
+
+			switch ( $reg_status ) {
+				case 'done':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is completed with %s', 'wacara' ), $payment_method );
+					break;
+				case 'fail':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is failed with %s', 'wacara' ), $payment_method );
+					break;
+				case 'reject':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is rejected with %s', 'wacara' ), $payment_method );
+					break;
+				default:
+					$highlight = __( 'Registrant has not completed yet', 'wacara' );
+					break;
+			}
+
+			/**
+			 * Wacara registrant admin highlight filter hook.
+			 *
+			 * @param string $highlight default highlight content.
+			 * @param Registrant $registrant object of the current registrant.
+			 * @param string $payment_method name of the selected payment method.
+			 * @param string $reg_status status of the current register.
+			 */
+			$highlight = apply_filters( 'wacara_filter_registrant_admin_highlight', $highlight, $this, $payment_method, $reg_status );
+
+			return $highlight;
+		}
+
+		/**
+		 * Get the booking code.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_booking_code() {
+			return $this->get_meta( 'booking_code' );
 		}
 
 		/**

@@ -9,6 +9,11 @@
     margin: 0;
     font-size: 14px;
     color: darken($base_color, 30%);
+
+    > strong {
+      display: block;
+      margin-bottom: .25rem;
+    }
   }
 
   &.wcr-alert-info {

@@ -77,59 +77,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				'checkin'          => [
 					'callback' => [ $this, 'registrant_checkin_callback' ],
 				],
-				'list_registrants' => [
-					'callback' => [ $this, 'list_registrants_callback' ],
-				],
 			];
-		}
-
-		/**
-		 * Callback for listing registrants
-		 */
-		public function list_registrants_callback() {
-			$result   = new Result();
-			$data     = Helper::get( 'data' );
-			$event_id = Helper::array_val( $data, 'id' );
-			$page     = Helper::array_val( $data, 'page' );
-
-			// Maybe validate the page.
-			if ( ! $page ) {
-				$page = 1;
-			}
-
-			// Validate the inputs.
-			if ( $event_id ) {
-
-				// Override the result with event instance.
-				$event = new Event( $event_id );
-
-				// Run the method to fetch all registrants.
-				$event->get_all_registrants_by_registration_status( $page );
-
-				// Override the result object.
-				$result = $event;
-
-				// Get column name for csv.
-				$csv_columns = [
-					'booking_code'        => __( 'Booking Code', 'wacara' ),
-					'name'                => __( 'Name', 'wacara' ),
-					'email'               => __( 'Email', 'wacara' ),
-					'readable_reg_status' => __( 'Status', 'wacara' ),
-				];
-
-				/**
-				 * Wacara csv column filter hook.
-				 *
-				 * @param array $csv_columns current csv column.
-				 * @param Event $event current selected event.
-				 */
-				$result->callback = apply_filters( 'wacara_filter_event_csv_columns', $csv_columns, $event );
-
-			} else {
-				$result->message = __( 'Please try again later', 'wacara' );
-			}
-
-			wp_send_json( $result );
 		}
 
 		/**
