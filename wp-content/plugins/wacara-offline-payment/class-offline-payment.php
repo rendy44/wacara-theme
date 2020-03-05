@@ -93,15 +93,15 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return Result
 		 */
 		public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency ) {
-			$result      = new Result();
-			$settings    = $this->get_admin_setting();
-			$unique_code = $settings['unique_code'];
+			$result        = new Result();
+			$settings      = $this->get_admin_setting();
+			$unique_number = $settings['unique_number'];
 
 			// Set default unique number.
 			$unique = 0;
 
 			// Check maybe requires unique code.
-			if ( 'on' === $unique_code ) {
+			if ( 'on' === $unique_number ) {
 
 				// Set default unique number range to maximal 100 cent.
 				$unique = wp_rand( 0, 100 );
@@ -133,10 +133,10 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		public function admin_setting() {
 			return [
 				[
-					'name' => __( 'Unique code', 'wacara' ),
-					'id'   => 'unique_code',
+					'name' => __( 'Unique number', 'wacara' ),
+					'id'   => 'unique_number',
 					'type' => 'checkbox',
-					'desc' => __( 'Enable unique code?', 'wacara' ),
+					'desc' => __( 'Enable unique number?', 'wacara' ),
 				],
 				[
 					'id'      => 'bank_accounts',
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 						$template_args['currency']                        = $registrant->get_pricing_currency();
 						$template_args['currency_symbol']                 = Helper::get_currency_symbol_by_code( $template_args['currency'] );
 						$template_args['confirmation_date_time']          = Helper::convert_date( $confirmation_timestamp, true, true );
-						$template_args['maybe_price_in_cent_with_unique'] = $this->maybe_get_price_in_cent_with_unique( $registrant );
+						$template_args['maybe_price_in_cent_with_unique'] = $registrant->get_total_pricing_price_in_cent();
 						$template_args['selected_bank_account']           = $this->get_selected_bank_account( $registrant );
 
 						// Override the template first.
@@ -462,20 +462,15 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		public function custom_args_callback( $temp_args, $reg_status, $registrant, $payment_class ) {
 			switch ( $reg_status ) {
-				case 'waiting-payment':
-					// Fetch invoice info of the registrant.
-					$price_in_cent_with_unique = $this->maybe_get_price_in_cent_with_unique( $registrant );
-					$pricing_currency          = $registrant->get_pricing_currency();
 
+				case 'waiting-payment':
 					// Fetch bank accounts from settings.
 					$bank_accounts = $this->get_bank_accounts();
 
 					// Add new element to the default array.
 					$new_args = [
-						'bank_accounts'   => $bank_accounts,
-						'currency_code'   => $pricing_currency,
-						'currency_symbol' => Helper::get_currency_symbol_by_code( $pricing_currency ),
-						'amount'          => number_format_i18n( $price_in_cent_with_unique / 100, 2 ),
+						'bank_accounts'    => $bank_accounts,
+						'formatted_amount' => $registrant->get_total_pricing_in_html(),
 					];
 
 					// Merge the array.
@@ -580,17 +575,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $result;
-		}
-
-		/**
-		 * Maybe get price in cent with unique key.
-		 *
-		 * @param Registrant $registrant object of the registrant.
-		 *
-		 * @return array|bool|mixed
-		 */
-		private function maybe_get_price_in_cent_with_unique( $registrant ) {
-			return Helper::get_post_meta( 'maybe_price_in_cent_with_unique', $registrant->post_id );
 		}
 
 		/**

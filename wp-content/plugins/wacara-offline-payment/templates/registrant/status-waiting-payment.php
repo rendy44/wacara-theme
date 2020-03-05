@@ -15,11 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p class="wcr-command"><?php esc_html_e( 'In order to save your seat, please make a payment as detailed below:', 'wacara' ); ?></p>
 </div>
 <div class="wcr-amount-wrapper wcr-text-center">
-    <h1 class="wcr-amount"><?php echo sprintf( '<span class="wcr-currency">%s</span><span class="wcr-value">%s</span>', $currency_symbol, $amount ); // phpcs:ignore ?></h1>
+	<?php echo $formatted_amount; // phpcs:ignore ?>
 </div>
 <div class="wcr-alert wcr-alert-warning">
-	<strong><?php esc_html_e( 'Important!', 'wacara' ); ?></strong>
-	<?php esc_html_e( 'The transfer amount must be exactly same as above, including the coma if any', 'wacara' ); ?>
+	<p><strong><?php esc_html_e( 'Important!', 'wacara' ); ?></strong>
+		<?php esc_html_e( 'The transfer amount must be exactly same as above, including the coma if any', 'wacara' ); ?>
+	</p>
 </div>
 <div class="wcr-command-wrapper">
 	<p class="wcr-command"><?php esc_html_e( 'Select one of the following bank accounts you want to transfer to', 'wacara' ); ?></p>

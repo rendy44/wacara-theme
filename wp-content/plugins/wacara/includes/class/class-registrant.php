@@ -36,7 +36,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                      and assign with registrant id to fetch the registrant's detail.
+		 *                                        and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -368,23 +368,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		/**
 		 * Get registrant data.
 		 *
+		 * @param string $field specific field of the data.
+		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_data() {
-			return $this->registrant_data;
-		}
+		public function get_data( $field = '' ) {
+			$result = $this->registrant_data;
 
-		/**
-		 * Get registrant created datetime.
-		 *
-		 * @param string $format datetime format.
-		 *
-		 * @return false|string
-		 */
-		public function get_created_date( $format = '' ) {
-			$date_format = $format ? $format : Helper::get_date_time_format();
+			// Maybe filter.
+			if ( $field ) {
+				$result = Helper::array_val( $result, $field );
+			}
 
-			return get_the_date( $date_format, $this->post_id );
+			return $result;
 		}
 
 		/**
@@ -499,7 +495,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$this->save_meta(
 				[
 					'maybe_unique_number'             => $unique_number,
-					'maybe_price_in_cent_with_unique' => $new_price_with_unique_number_in_cent,
+					'maybe_price_with_unique'         => $new_price_with_unique_number_in_cent / 100,
+					'maybe_price_with_unique_in_cent' => $new_price_with_unique_number_in_cent,
 				]
 			);
 		}
@@ -531,6 +528,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Get pricing id that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_id() {
+			return $this->get_meta( 'pricing_id' );
 		}
 
 		/**
@@ -575,11 +581,53 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @return string
 		 */
 		public function get_pricing_price_in_html() {
-			$price           = $this->get_pricing_price();
 			$currency_code   = $this->get_pricing_currency();
 			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+			$price           = $this->get_pricing_price();
 
-			return $currency_symbol . number_format_i18n( $price, 2 );
+			/* translators: %1s : currency symbol : %2s : formatted amount */
+			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
+		}
+
+		/**
+		 * Maybe get pricing unique number that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_unique_number() {
+			return $this->get_meta( 'maybe_unique_number' );
+		}
+
+		/**
+		 * Maybe get total pricing price include unique number that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_total_pricing_price() {
+			return $this->get_meta( 'maybe_price_with_unique' );
+		}
+
+		/**
+		 * Maybe get total pricing price include unique number in cent that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_total_pricing_price_in_cent() {
+			return $this->get_meta( 'maybe_price_with_unique_in_cent' );
+		}
+
+		/**
+		 * Get total pricing price include unique number in html that already attached into registrant.
+		 *
+		 * @return string
+		 */
+		public function get_total_pricing_in_html() {
+			$currency_code   = $this->get_pricing_currency();
+			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
+			$price           = $this->get_total_pricing_price();
+
+			/* translators: %1s : currency symbol : %2s : formatted amount */
+			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
 		/**

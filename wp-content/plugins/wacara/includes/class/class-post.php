@@ -67,6 +67,19 @@ if ( ! class_exists( 'Wacara\Post' ) ) {
 		}
 
 		/**
+		 * Get registrant created datetime.
+		 *
+		 * @param string $format datetime format.
+		 *
+		 * @return false|string
+		 */
+		public function get_created_date( $format = '' ) {
+			$date_format = $format ? $format : Helper::get_date_time_format();
+
+			return get_the_date( $date_format, $this->post_id );
+		}
+
+		/**
 		 * Get event meta data.
 		 *
 		 * @param string|array $key registrant meta key.

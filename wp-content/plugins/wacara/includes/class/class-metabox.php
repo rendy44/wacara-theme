@@ -167,12 +167,12 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					$base_url
 				);
 				?>
-				<p><?php esc_html_e( 'Click link below to download all registrants who already completed the registration', 'wacara' ); ?></p>
-				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
+                <p><?php esc_html_e( 'Click link below to download all registrants who already completed the registration', 'wacara' ); ?></p>
+                <a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
 				?>
-				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
+                <p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
 				<?php
 			}
 		}
@@ -220,19 +220,19 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				// Reverse the array.
 				$logs = array_reverse( $logs );
 				?>
-				<div class="wcr-registrant-logs-wrapper">
-					<ul class="wcr-registrant-logs">
+                <div class="wcr-registrant-logs-wrapper">
+                    <ul class="wcr-registrant-logs">
 						<?php foreach ( $logs as $log ) { ?>
-							<li class="wcr-registrant-log">
-								<p class="wcr-registrant-log-content"><?php echo esc_html( strtolower( $log['content'] ) ); ?></p>
-								<div class="wcr-registrant-log-date-wrapper">
+                            <li class="wcr-registrant-log">
+                                <p class="wcr-registrant-log-content"><?php echo esc_html( strtolower( $log['content'] ) ); ?></p>
+                                <div class="wcr-registrant-log-date-wrapper">
 									<?php /* translators: %s : readable date time */ ?>
-									<span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
-								</div>
-							</li>
+                                    <span class="wcr-registrant-log-date"><?php echo esc_html( sprintf( __( 'added on %s', 'wacara' ), Helper::convert_date( $log['time'], true ) ) ); ?></span>
+                                </div>
+                            </li>
 						<?php } ?>
-					</ul>
-				</div>
+                    </ul>
+                </div>
 				<?php
 			}
 		}
@@ -270,66 +270,78 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				],
 			];
 
+			// Content for invoice.
 			$package_details = [
 				[
-					'field' => _x( 'Name', 'pricing name', 'wacara' ),
-					'value' => $registrant->get_pricing_name(),
+					/* translators: %1s : admin edit url of the pricing, %2s : name of the pricing */
+					'field' => sprintf( "<a href='%s'>%s</a>", get_edit_post_link( $registrant->get_pricing_id() ), $registrant->get_pricing_name() ),
+					'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
 				],
-				[
-					'field' => __( 'Price', 'wacara' ),
-					'value' => $registrant->get_pricing_price_in_html(),
-				],
-				[
-					'field' => __( 'Pros', 'wacara' ),
-					'value' => $registrant->get_pricing_pros( false ),
-				],
-				[
-					'field' => __( 'Cons', 'wacara' ),
-					'value' => $registrant->get_pricing_cons( false ),
-				],
-			]
+			];
+
+			// Maybe add unique number.
+			if ( $registrant->get_pricing_unique_number() ) {
+				$package_details[] = [
+					'field' => __( 'Unique number', 'wacara' ),
+					'value' => number_format_i18n( $registrant->get_pricing_unique_number() / 100, 2 ),
+				];
+			}
+
+			// Calculate total.
+			$package_details[] = [
+				'field' => __( 'Total', 'wacara' ),
+				'value' => $registrant->get_total_pricing_in_html(),
+			];
+
 			?>
-			<div class="wcr-registrant-highlight-wrapper">
+            <div class="wcr-registrant-highlight-wrapper">
 				<?php /* translators: %s : title of the registrant */ ?>
-				<h3 class="wcr-registrant-highlight"><?php echo esc_html( sprintf( __( 'Registrant #%s details', 'wacara' ), $registrant->post_title ) ); ?></h3>
-				<p class="wcr-registrant-subhighlight"><?php echo esc_html( $registrant->get_admin_highlight() ); ?></p>
-			</div>
-			<div class="frow">
-				<div class="col-xs-1-1 col-sm-1-2 column-left">
-					<div class="wcr-registrant-detail-title-wrapper">
-						<h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'General', 'wacara' ); ?></h4>
-					</div>
-					<?php foreach ( $general_details as $detail ) { ?>
-						<div class="wcr-registrant-detail-wrapper">
-							<div class="frow">
-								<div class="col-xs-1-3">
-									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
-								</div>
-								<div class="col-xs-2-3">
-                                    <p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
-								</div>
-							</div>
-						</div>
-					<?php } ?>
-				</div>
-				<div class="col-xs-1-1 col-sm-1-2">
-					<div class="wcr-registrant-detail-title-wrapper">
-						<h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'Pricing', 'wacara' ); ?></h4>
-					</div>
-					<?php foreach ( $package_details as $detail ) { ?>
-						<div class="wcr-registrant-detail-wrapper">
-							<div class="frow">
-								<div class="col-xs-1-3">
-									<label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
-								</div>
-								<div class="col-xs-2-3">
-                                    <p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
-								</div>
-							</div>
-						</div>
-					<?php } ?>
-				</div>
-			</div>
+                <h3 class="wcr-registrant-highlight"><?php echo esc_html( sprintf( __( 'Registrant #%s details', 'wacara' ), $registrant->post_title ) ); ?></h3>
+                <p class="wcr-registrant-subhighlight"><?php echo esc_html( $registrant->get_admin_highlight() ); ?></p>
+            </div>
+            <div class="frow">
+                <div class="col-xs-1-1 col-sm-1-2 column-left">
+                    <div class="wcr-registrant-detail-title-wrapper">
+                        <h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'General', 'wacara' ); ?></h4>
+                    </div>
+                    <div class="wcr-registrant-info-wrapper">
+						<?php foreach ( $general_details as $detail ) { ?>
+                            <div class="wcr-registrant-info-detail-wrapper">
+                                <div class="frow">
+                                    <div class="col-xs-1-3">
+                                        <label class="wcr-registrant-detail-label"><?php echo esc_html( $detail['field'] ); ?></label>
+                                    </div>
+                                    <div class="col-xs-2-3">
+                                        <p class="wcr-registrant-detail-value"><?php echo $detail['value']; // phpcs:ignore ?></p>
+                                    </div>
+                                </div>
+                            </div>
+						<?php } ?>
+                    </div>
+                </div>
+                <div class="col-xs-1-1 col-sm-1-2">
+                    <div class="wcr-registrant-detail-title-wrapper">
+                        <h4 class="wcr-registrant-detail-title"><?php esc_html_e( 'Invoice', 'wacara' ); ?></h4>
+                    </div>
+                    <div class="wcr-registrant-invoice-wrapper">
+						<?php foreach ( $package_details as $detail ) { ?>
+                            <div class="wcr-registrant-invoice-detail-wrapper">
+                                <div class="frow">
+                                    <div class="col-xs-2-3">
+										<?php echo $detail['field']; // phpcs:ignore ?>
+                                    </div>
+                                    <div class="col-xs-1-3">
+										<?php echo $detail['value']; // phpcs:ignore ?>
+                                    </div>
+                                </div>
+                            </div>
+						<?php } ?>
+                    </div>
+                    <div class="wcr-registrant-invoice-alert-wrapper">
+                        <p class="wcr-registrant-invoice-alert"><?php esc_html_e( 'This is cached detail of the pricing, the live version may vary.', 'wacara' ); ?></p>
+                    </div>
+                </div>
+            </div>
 			<?php
 		}
 
@@ -381,7 +393,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'type'        => 'text_datetime_timestamp',
 								'time_format' => Helper::get_time_format(),
 								'attributes'  => [
-									'data-conditional-id' => $this->meta_prefix . 'single_day',
+									'data-conditional-id'    => $this->meta_prefix . 'single_day',
 									'data-conditional-value' => 'off',
 								],
 							],
