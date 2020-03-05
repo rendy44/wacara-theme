@@ -1,8 +1,8 @@
 <?php
 /**
- * Handle class to manage emails
+ * Class to manage the mailer.
  *
- * @author  WPerfekt
+ * @author WPerfekt
  * @package Wacara
  * @version 0.0.1
  */
@@ -23,144 +23,191 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 	class Mailer {
 
 		/**
-		 * Instance variable.
+		 * Email id variable.
 		 *
-		 * @var null
+		 * @var string
 		 */
-		private static $instance = null;
+		private $id = '';
 
 		/**
-		 * Singleton function
+		 * Email title variable.
 		 *
-		 * @return Mailer|null
+		 * @var string
 		 */
-		public static function init() {
-			if ( null === self::$instance ) {
-				self::$instance = new self();
-			}
+		private $title = '';
 
-			return self::$instance;
-		}
+		/**
+		 * Email enable status variable.
+		 *
+		 * @var bool
+		 */
+		private $enabled = false;
+
+		/**
+		 * Email recipients variable.
+		 *
+		 * @var array|string
+		 */
+		private $recipients = [];
+
+		/**
+		 * Email subject variable.
+		 *
+		 * @var string
+		 */
+		private $subject = '';
+
+		/**
+		 * Email basic content.
+		 *
+		 * @var string
+		 */
+		private $basic_content = '';
 
 		/**
 		 * Mailer constructor.
+		 *
+		 * @param string       $id mailer unique id.
+		 * @param string       $title mailer title.
+		 * @param bool         $enabled whether enable or disable mailer.
+		 * @param array|string $recipients mailer recipients.
+		 * @param string       $subject mailer subject.
+		 * @param Registrant   $registrant object of the current registrant.
+		 * @param array        $plain_template_args default template args.
 		 */
-		private function __construct() {
-			// Send email after registrant status changed.
-			add_action( 'wacara_after_setting_registrant_status', [ $this, 'send_email_based_on_status' ], 10, 3 );
+		public function __construct( $id, $title, $enabled, $recipients, $subject, $registrant, $plain_template_args = [] ) {
 
-			// Send email after checking in.
-			add_action( 'wacara_after_registrant_checkin', [ $this, 'send_email_after_checkin' ], 10 );
+			// Save the properties.
+			$this->id      = $id;
+			$this->title   = $title;
+			$this->enabled = $enabled;
+
+			/**
+			 * Wacara mailer recipient filter hook.
+			 *
+			 * @param array|string $recipients default recipient.
+			 * @param string $id id of the current mailer.
+			 * @param Registrant $registrant object of the current registrant.
+			 */
+			$this->recipients = apply_filters( 'wacara_filter_mailer_recipients', $recipients, $id, $registrant );
+
+			/**
+			 * Wacara mailer recipient filter hook.
+			 *
+			 * @param array|string $subject default subject.
+			 * @param string $id id of the current mailer.
+			 * @param Registrant $registrant object of the current registrant.
+			 */
+			$this->subject = apply_filters( 'wacara_filter_mailer_subject', $subject, $id, $registrant );
+
+			/**
+			 * Wacara mailer recipient filter hook.
+			 *
+			 * @param array|string $plain_template_args default args.
+			 * @param string $id id of the current mailer.
+			 * @param Registrant $registrant object of the current registrant.
+			 */
+			$plain_template_args = apply_filters( 'wacara_filter_mailer_plain_template_args', $plain_template_args, $id, $registrant );
+
+			$this->basic_content = Template::render( "email/plain/{$id}-template", $plain_template_args );
 		}
 
 		/**
-		 * Perform send email.
+		 * Get status whether the email is enabled or not.
 		 *
-		 * @param string $recipient_email the email recipients.
-		 * @param string $recipient_name  the name of recipient.
-		 * @param string $subject         email subject.
-		 * @param string $content         email body content.
-		 * @param array  $headers         email headers.
+		 * @return bool
 		 */
-		private function send_email( $recipient_email, $recipient_name, $subject, $content, $headers = [] ) {
-			$recipient_format = "{$recipient_name} <{$recipient_email}>";
-
-			/**
-			 * Perform filter to modify email content.
-			 *
-			 * @param string $content the plain email content.
-			 */
-			$content = apply_filters( 'wacara_filter_email_body', $content );
-
-			/**
-			 * Perform filter to modify email headers.
-			 *
-			 * @param array $headers email headers.
-			 */
-			$headers = apply_filters( 'wacara_filter_email_headers', $headers );
-
-			wp_mail( $recipient_format, $subject, $content, $headers );
+		public function is_enabled() {
+			return $this->enabled;
 		}
 
 		/**
-		 * Callback for sending email after finishing registration.
+		 * Do send email.
 		 *
-		 * @param Registrant $registrant object of the current registrant..
-		 * @param string     $new_status     the new status of registration.
-		 * @param string     $old_status     the old status of registration.
+		 * @return bool
 		 */
-		public function send_email_based_on_status( $registrant, $new_status, $old_status ) {
+		public function send() {
+			return wp_mail( $this->get_formatted_recipients(), $this->subject, $this->get_formatted_content() );
+		}
 
-			// Fetch registrant detail.
-			$registrant_data = $registrant->get_data();
-			$event_name      = get_the_title( $registrant_data['event_id'] );
+		/**
+		 * Get formatted template
+		 *
+		 * @return string|void
+		 */
+		private function get_formatted_content() {
 
-			$site_name = get_bloginfo( 'name' );
-			/* translators: 1: the site name */
-			$email_subject = sprintf( __( 'Welcome To %s', 'wacara' ), $site_name );
-			/* translators: 1: registrant name, 2: event name, 3: booking code*/
-			$email_content = sprintf( __( 'Hello %1$s, thank you for registering to %2$s. This is your booking code: %3$s', 'wacara' ), $registrant_data['name'], $event_name, $registrant_data['booking_code'] );
+			// Prepare template args.
+			$template_args = [
+				'plain_content' => $this->basic_content,
+			];
 
-			switch ( $new_status ) {
-				case 'wait_payment':
-					/* translators: 1: registrant name, 2: event name */
-					$email_content = sprintf( __( 'Hello %1$s, thank you for registering to %2$s. Please do a payment to save your seat', 'wacara' ), $registrant_data['name'], $event_name );
-					break;
-				case 'wait_verification':
-					$email_subject = __( 'Thank You For Confirmation', 'wacara' );
-					/* translators: 1: registrant name, 2: event name */
-					$email_content = sprintf( __( 'Hello %1$s, thank you for the confirmation. We are verifying your payment. And we will get back to you once we have an update', 'wacara' ), $registrant_data['name'] );
-					break;
-				case 'done':
-					// Check whether registrant previously from other status or directly to done status.
-					if ( 'wait_verification' === $old_status ) {
-						$email_subject = __( 'Congratulation', 'wacara' );
-						/* translators: 1: registrant name, 2: event name, 3: booking code*/
-						$email_content = sprintf( __( 'Hello %1$s, we have verified your payment. You are ready to join the %2$s. This is your booking code: %3$s ', 'wacara' ), $registrant_data['name'], $event_name, $registrant_data['booking_code'] );
-					}
-					break;
+			/**
+			 * Wacara mailer template args filter hook.
+			 *
+			 * @param array $template_args default args.
+			 * @param Mailer $mailer object of the current mailer.
+			 */
+			$template_args = apply_filters( 'wacara_filter_mailer_template_args', $template_args, $this );
+
+			return Template::render( 'email/template', $template_args );
+		}
+
+		/**
+		 * Get formatted recipients.
+		 *
+		 * @return array|string
+		 */
+		private function get_formatted_recipients() {
+			if ( is_array( $this->recipients ) ) {
+				$result = array_map( [ $this, 'get_formatted_single_recipient' ], $this->recipients );
+			} else {
+				$result = $this->get_formatted_single_recipient( $this->recipients );
 			}
 
-			/**
-			 * Apply filters to modify email content after registrant making registration.
-			 *
-			 * @param string $email_content  the original email content.
-			 * @param Registrant $registrant object of the current registrant.
-			 */
-			$email_content = apply_filters( 'wacara_filter_email_content_after_register', $email_content, $registrant );
-
-			// Send the email.
-			$this->send_email( $registrant_data['email'], $registrant_data['name'], $email_subject, $email_content );
+			return $result;
 		}
 
 		/**
-		 * Callback for sending email after checking in.
+		 * Format single recipient block.
 		 *
-		 * @param Registrant $registrant object of the current registrant..
+		 * @param array|string $single_recipient single block recipient.
+		 *
+		 * @return string
 		 */
-		public function send_email_after_checkin( $registrant ) {
+		private function get_formatted_single_recipient( $single_recipient ) {
+			$result = '';
+			if ( is_array( $single_recipient ) ) {
+				$maybe_name  = Helper::array_val( $single_recipient, 'name' );
+				$maybe_email = Helper::array_val( $single_recipient, 'email' );
+				if ( is_email( $maybe_email ) ) {
+					$result = "{$maybe_name} <{$maybe_email}>";
+				}
+			} elseif ( is_email( $single_recipient ) ) {
+				$result = $single_recipient;
+			} else {
+				$result = $this->maybe_formatted_with_symbol( $single_recipient );
+			}
 
-			// Fetch registrant detail.
-			$registrant_data = $registrant->get_data();
-			$event_name      = get_the_title( $registrant_data['event_id'] );
+			return $result;
+		}
 
-			/* translators: 1: the event name */
-			$email_subject = sprintf( __( 'Thank you for checking in to %s', 'wacara' ), $event_name );
-			/* translators: 1: registrant name, 2: event name*/
-			$email_content = sprintf( __( 'Hello %1$s, thank you for checking in to %2$s', 'wacara' ), $registrant_data['name'], $event_name );
+		/**
+		 * Maybe recipient already formatted beautifully.
+		 *
+		 * @param string $single_recipient single string recipient.
+		 *
+		 * @return string
+		 */
+		private function maybe_formatted_with_symbol( $single_recipient ) {
+			$result = '';
 
-			/**
-			 * Apply filters to modify email content after registrant checking in.
-			 *
-			 * @param string $email_content  the original email content.
-			 * @param Registrant $registrant object of the current registrant.
-			 */
-			$email_content = apply_filters( 'wacara_filter_email_content_after_checkin', $email_content, $registrant );
+			// We are assuming this is formatted like this `name <email@random.domain>.
+			if ( strpos( $single_recipient, '>' ) ) { // TODO: get a better validation.
+				$result = $single_recipient;
+			}
 
-			// Send the email.
-			$this->send_email( $registrant_data['email'], $registrant_data['name'], $email_subject, $email_content );
+			return $result;
 		}
 	}
-
-	Mailer::init();
 }

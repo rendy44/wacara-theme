@@ -130,7 +130,9 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 			// Fetch all payment methods.
 			$payment_methods = Register_Payment::get_registered( false );
 
-			if ( $payment_methods ) {
+			// Validate options.
+			if ( ! empty( $payment_methods ) ) {
+
 				foreach ( $payment_methods as $payment_method ) {
 					$payment_method_fields = $payment_method->admin_setting();
 

@@ -119,6 +119,8 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-registrant-logs',
 				'class-pricing',
 				'class-mailer',
+				'class-mailer-event',
+				'mailer/class-mailer-after-register',
 				'class-asset',
 				'class-post-columns',
 				'abstract/class-payment-method',
