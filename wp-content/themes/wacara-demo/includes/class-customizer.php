@@ -200,7 +200,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		public function registrant_opening_masthead_args_callback( $args, $registrant ) {
 
 			// Get registrant detail.
-			$event_id           = $registrant->get_event_info();
+			$event_id           = $registrant->get_event_id();
 			$event              = new Event( $event_id );
 			$header             = \Wacara\Helper::get_post_meta( 'header', $event->post_id );
 			$maybe_bg_image_url = \Wacara\Helper::get_event_background_image_url( $event, $header );

@@ -24,7 +24,7 @@ $registrant = new Registrant( get_the_ID() );
 $reg_status = $registrant->get_registration_status();
 
 // Fetch event detail.
-$event_id = $registrant->get_event_info();
+$event_id = $registrant->get_event_id();
 
 // Fetch payment method.
 $payment_class = $registrant->get_payment_method_object();

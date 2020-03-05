@@ -705,8 +705,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		public function registrant_masthead_content_callback( $registrant, $registrant_status ) {
 
 			// Get event info.
-			$event_id    = $registrant->get_event_info();
-			$event_title = get_the_title( $event_id );
+			$event_title = $registrant->get_event_name();
 
 			/* translators: %s: event name */
 			$masthead_desc = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );

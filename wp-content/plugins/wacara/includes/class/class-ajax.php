@@ -247,6 +247,8 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						 * @param Registrant $registrant object of the current registrant.
 						 * @param string $reg_status the status of registration.
 						 * @param Result $result object of the current process.
+						 *
+						 * @hooked Mailer_Event::send_email_after_register_callback - 10
 						 */
 						do_action( 'wacara_after_filling_registration', $registrant, $reg_status, $result );
 

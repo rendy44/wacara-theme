@@ -142,9 +142,8 @@ if ( ! class_exists( 'Wacara\Payment\Stripe_Payment' ) ) {
 			if ( $used_stripe_customer_id ) {
 
 				// Charge the customer.
-				$event_id = $registrant->get_event_info();
 				/* translators: 1: the event name */
-				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), get_the_title( $event_id ) );
+				$charge_name = sprintf( __( 'Payment for registering to %s', 'wacara' ), $registrant->get_event_name() );
 				$charge      = $stripe_wrapper->charge_customer( $used_stripe_customer_id, $maybe_stripe_source_id, $pricing_price_in_cent, $pricing_currency, $charge_name );
 
 				// Validate charge status.

@@ -244,8 +244,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 			global $post_id;
 
 			// Instance the registrant.
-			$registrant         = new Registrant( $post_id );
-			$registrant_contact = $registrant->get_more_details();
+			$registrant = new Registrant( $post_id );
 
 			?>
 			<div class="wcr-registrant-highlight-wrapper">
@@ -270,11 +269,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					],
 					[
 						'field' => __( 'Name', 'wacara' ),
-						'value' => Helper::array_val( $registrant_contact, 'name' ),
+						'value' => $registrant->get_registrant_name(),
 					],
 					[
 						'field' => __( 'Email', 'wacara' ),
-						'value' => Helper::array_val( $registrant_contact, 'email' ),
+						'value' => $registrant->get_registrant_email(),
 					],
 					[
 						'field' => __( 'Booking code', 'wacara' ),

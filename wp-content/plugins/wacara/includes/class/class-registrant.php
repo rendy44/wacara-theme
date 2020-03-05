@@ -36,7 +36,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                        and assign with registrant id to fetch the registrant's detail.
+		 *                                         and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -59,6 +59,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 					// Save event id to variable.
 					$event_id = $args['event_id'];
+
+					// Save cache event name.
+					$args['event_cache_name'] = get_the_title( $event_id );
 
 					// Generate unique key.
 					$registrant_key = wp_generate_password( 12, false );
@@ -162,28 +165,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					// Fetch registrant detail.
 					$this->registrant_data = $this->get_meta( $used_args );
 
-					// Get readable status.
-					$readable_status = '';
-					$status          = $this->get_registration_status();
-					switch ( $status ) {
-						case 'waiting-payment':
-							$readable_status = __( 'Waiting Payment', 'wacara' );
-							break;
-						case 'waiting-verification':
-							$readable_status = __( 'Waiting Verification', 'wacara' );
-							break;
-						case 'fail':
-							$readable_status = __( 'Failed', 'wacara' );
-							break;
-						case 'done':
-							$readable_status = __( 'Success', 'wacara' );
-							break;
-					}
-
 					// Add more fields to be displayed.
 					$more_data = [
-						'reg_status'          => $status,
-						'readable_reg_status' => $readable_status,
+						'reg_status'          => $this->get_registration_status(),
+						'readable_reg_status' => $this->get_readable_registrant_status(),
 					];
 
 					/**
@@ -268,12 +253,21 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Get registrant more details.
+		 * Get registrant name.
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_more_details() {
-			return $this->get_meta( [ 'name', 'email' ] );
+		public function get_registrant_name() {
+			return $this->get_meta( 'name' );
+		}
+
+		/**
+		 * Get registrant email.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_registrant_email() {
+			return $this->get_meta( 'email' );
 		}
 
 		/**
@@ -411,6 +405,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			 * @param Registrant $registrant object of the current registrant.
 			 * @param string $status the new status of registrant.
 			 * @param string $old_status the old status of registrant.
+			 *
+			 * @hooked Mailer_Event::send_email_each_status_changed_callback - 10
 			 */
 			do_action( 'wacara_after_setting_registrant_status', $this, $status, $old_status );
 		}
@@ -452,8 +448,17 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_event_info() {
+		public function get_event_id() {
 			return $this->get_meta( 'event_id' );
+		}
+
+		/**
+		 * Get event name.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_event_name() {
+			return $this->get_meta( 'event_cache_name' );
 		}
 
 		/**
@@ -586,6 +591,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_pricing_price();
 
 			/* translators: %1s : currency symbol : %2s : formatted amount */
+
 			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
@@ -629,6 +635,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_total_pricing_price();
 
 			/* translators: %1s : currency symbol : %2s : formatted amount */
+
 			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
