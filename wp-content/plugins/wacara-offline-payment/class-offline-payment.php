@@ -259,7 +259,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
-			Registrant_Status::register_new_status( 'reject', __( 'Rejected', 'wacara' ) );
 		}
 
 		/**
