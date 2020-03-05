@@ -137,29 +137,17 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		}
 
 		/**
-		 * Callback for adding custome metabox in event.
+		 * Callback for adding custom metabox in event.
 		 */
 		public function custom_event_metabox_callback() {
+
+			// Download registrants.
 			add_meta_box(
 				'event_registrant_mb',
 				__( 'Registrant', 'wacara' ),
-				[
-					$this,
-					'event_registrant_metabox_callback',
-				],
+				[ $this, 'event_registrant_metabox_callback' ],
 				'event',
 				'side'
-			);
-
-			add_meta_box(
-				'event_registrant_list_mb',
-				__( 'Registrant List', 'wacara' ),
-				[
-					$this,
-					'event_registrant_list_metabox_callback',
-				],
-				'event',
-				'advanced'
 			);
 		}
 
@@ -179,7 +167,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					$base_url
 				);
 				?>
-				<p><?php esc_html_e( 'Click link below to download all registrants', 'wacara' ); ?></p>
+				<p><?php esc_html_e( 'Click link below to download all registrants who already completed the registration', 'wacara' ); ?></p>
 				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
 				<?php
 			} else {
@@ -187,31 +175,6 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
 				<?php
 			}
-		}
-
-		/**
-		 * Callback for displaying list of registrants metabox.
-		 */
-		public function event_registrant_list_metabox_callback() {
-			add_thickbox();
-			global $post;
-			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
-			if ( 'on' === $allow_register ) {
-				?>
-				<div style="text-align: center">
-					<p><?php esc_html_e( 'Click the button below to load all registrants', 'wacara' ); ?></p>
-					<button type="button" class="button load_all_registrants"><?php esc_html_e( 'Load Registrants', 'wacara' ); ?></button>
-				</div>
-				<?php
-			} else {
-				?>
-				<div style="text-align: center">
-					<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
-				</div>
-				<?php
-			}
-			?>
-			<?php
 		}
 
 		/**

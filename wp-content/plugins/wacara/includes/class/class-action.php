@@ -79,29 +79,26 @@ if ( ! class_exists( 'Wacara\Action' ) ) {
 								__( 'Booking Code', 'wacara' ),
 								__( 'Name', 'wacara' ),
 								__( 'Email', 'wacara' ),
-								__( 'Company', 'wacara' ),
-								__( 'Position', 'wacara' ),
-								__( 'Phone', 'wacara' ),
-								__( 'Id Number', 'wacara' ),
 								__( 'Status', 'wacara' ),
+								__( 'Registered', 'wacara' ),
 							]
 						);
 
 						// Start looping.
 						foreach ( $event->items as $item ) {
+							$item_data = $item->get_data();
 							$used_item = [
-								$item->registrant_data['booking_code'],
-								$item->registrant_data['name'],
-								$item->registrant_data['email'],
-								$item->registrant_data['company'],
-								$item->registrant_data['position'],
-								$item->registrant_data['phone'],
-								$item->registrant_data['id_number'],
-								$item->registrant_data['readable_reg_status'],
+								$item_data['booking_code'],
+								$item_data['name'],
+								$item_data['email'],
+								$item->get_readable_registrant_status(),
+								$item->get_created_date(),
 							];
 							fputcsv( $fp, $used_item );
 						}
 					}
+				} else {
+					wp_die( esc_html( $event->message ) );
 				}
 				fclose( $fp ); // phpcs:ignore
 			} else {
