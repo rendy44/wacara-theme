@@ -27,12 +27,14 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 * @var null
 		 */
 		private static $instance = null;
+
 		/**
 		 * Classes variable
 		 *
 		 * @var array
 		 */
 		private $classes = [];
+
 		/**
 		 * Libraries variable
 		 *
@@ -121,6 +123,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'mailer/class-mailer',
 				'mailer/class-mailer-event',
 				'mailer/class-mailer-after-register',
+				'mailer/class-mailer-after-done',
 				'class-asset',
 				'class-post-columns',
 				'abstract/class-payment-method',
