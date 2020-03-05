@@ -268,12 +268,21 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Get registrant more details.
+		 * Get registrant name.
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_more_details() {
-			return $this->get_meta( [ 'name', 'email' ] );
+		public function get_registrant_name() {
+			return $this->get_meta( 'name' );
+		}
+
+		/**
+		 * Get registrant email.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_registrant_email() {
+			return $this->get_meta( 'email' );
 		}
 
 		/**

@@ -100,6 +100,13 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			 */
 			$this->subject = apply_filters( 'wacara_filter_mailer_subject', $subject, $id, $registrant );
 
+			// Add default plain template args.
+			$default_template_args = [
+				'recipient_name'  => $registrant->get_registrant_name(),
+				'recipient_email' => $registrant->get_registrant_email(),
+			];
+			$plain_template_args   = wp_parse_args( $plain_template_args, $default_template_args );
+
 			/**
 			 * Wacara mailer recipient filter hook.
 			 *
