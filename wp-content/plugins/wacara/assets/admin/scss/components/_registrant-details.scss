@@ -25,6 +25,17 @@
     }
   }
 
+  .wcr-registrant-empty {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > p {
+      text-align: center;
+    }
+  }
+
   .column-left {
     margin-bottom: 1rem;
   }

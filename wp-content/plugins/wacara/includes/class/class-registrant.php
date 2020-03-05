@@ -604,7 +604,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_total_pricing_price() {
-			return $this->get_meta( 'maybe_price_with_unique' );
+			$maybe_price_with_unique = $this->get_meta( 'maybe_price_with_unique' );
+
+			return $maybe_price_with_unique ? $maybe_price_with_unique : $this->get_pricing_price();
 		}
 
 		/**
