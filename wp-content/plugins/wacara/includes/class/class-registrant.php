@@ -688,6 +688,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					/* translators: %s : name of the selected payment method */
 					$highlight = sprintf( __( 'Registrant is failed with %s', 'wacara' ), $payment_method );
 					break;
+				case 'reject':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant is rejected with %s', 'wacara' ), $payment_method );
+					break;
 				default:
 					$highlight = __( 'Registrant has not completed yet', 'wacara' );
 					break;

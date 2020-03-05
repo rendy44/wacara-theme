@@ -255,6 +255,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_registrant_more_details', [ $this, 'registrant_more_details_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
 			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 2 );
+			add_filter( 'wacara_filter_registrant_admin_highlight', [ $this, 'registrant_highlight_callback' ], 10, 4 );
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
@@ -534,6 +535,32 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 				<button class="button dashicons-before dashicons-warning registrant_action" data-id="<?php echo esc_attr( $registrant->post_id ); ?>"></button>
 				<?php
 			}
+		}
+
+		/**
+		 * Wacara registrant admin highlight filter hook.
+		 *
+		 * @param string     $highlight default highlight content.
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $payment_method name of the selected payment method.
+		 * @param string     $reg_status status of the current register.
+		 *
+		 * @return string
+		 */
+		public function registrant_highlight_callback( $highlight, $registrant, $payment_method, $reg_status ) {
+
+			switch ( $reg_status ) {
+				case 'waiting-payment':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant has not made payment yet with %s', 'wacara' ), $payment_method );
+					break;
+				case 'waiting-verification':
+					/* translators: %s : name of the selected payment method */
+					$highlight = sprintf( __( 'Registrant already made a payment yet with %s', 'wacara' ), $payment_method );
+					break;
+			}
+
+			return $highlight;
 		}
 
 		/**
