@@ -102,7 +102,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_registrant_form_content', [ $this, 'registrant_form_opening_callback' ], 10, 1 );
 			add_action( 'wacara_after_registrant_form_content', [ $this, 'registrant_form_closing_callback' ], 50, 1 );
 			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 3 );
-			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 3 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_invoice_callback' ], 20, 3 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 30, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_hidden_field_callback' ], 50, 3 );
@@ -802,6 +803,46 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			Template::render( 'registrant/form-open', $hold_args, true );
+		}
+
+		/**
+		 * Callback for displaying registrant invoice.
+		 *
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
+		 */
+		public function registrant_invoice_callback( $registrant, $payment_class, $reg_status ) {
+
+			// Prepare the args.
+			$invoice_args = [
+				'event_logo_url'  => Helper::get_event_logo_url( $registrant->get_event_id() ),
+				'event_name'      => $registrant->get_event_name(),
+				'pricing_name'    => $registrant->get_pricing_name(),
+				'invoice_details' => [
+					[
+						/* translators: %1$s : name of the selected event, %2$s : name of the selected pricing */
+						'field' => sprintf( '%1$s<span>%2$s</span>', $registrant->get_event_name(), $registrant->get_pricing_name() ),
+						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
+					],
+				],
+			];
+
+			// Maybe add unique number.
+			if ( $registrant->get_pricing_unique_number() ) {
+				$invoice_args['invoice_details'][] = [
+					'field' => __( 'Unique number', 'wacara' ),
+					'value' => number_format_i18n( $registrant->get_pricing_unique_number() / 100, 2 ),
+				];
+			}
+
+			// Calculate total.
+			$invoice_args['invoice_details'][] = [
+				'field' => __( 'Total', 'wacara' ),
+				'value' => $registrant->get_total_pricing_in_html(),
+			];
+
+			Template::render( 'registrant/invoice', $invoice_args, true );
 		}
 
 		/**

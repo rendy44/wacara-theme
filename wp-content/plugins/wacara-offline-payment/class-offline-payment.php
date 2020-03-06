@@ -93,29 +93,28 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return Result
 		 */
 		public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency ) {
-			$result        = new Result();
-			$settings      = $this->get_admin_setting();
-			$unique_number = $settings['unique_number'];
-
+			$result = new Result();
+			// $unique_number = $this->get_admin_setting( 'unique_number' );
+			//
 			// Set default unique number.
-			$unique = 0;
-
+			// $unique = 0;
+			//
 			// Check maybe requires unique code.
-			if ( 'on' === $unique_number ) {
-
-				// Set default unique number range to maximal 100 cent.
-				$unique = wp_rand( 0, 100 );
-
-				// Determine the amount of unique number.
-				// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
-				// So we will multiple the unique number by 100.
-				if ( 1000000 < $pricing_price_in_cent ) {
-					$unique *= 100;
-				}
-			}
-
+			// if ( 'on' === $unique_number ) {
+			//
+			// Set default unique number range to maximal 100 cent.
+			// $unique = wp_rand( 0, 100 );
+			//
+			// Determine the amount of unique number.
+			// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
+			// So we will multiple the unique number by 100.
+			// if ( 1000000 < $pricing_price_in_cent ) {
+			// $unique *= 100;
+			// }
+			// }
+			//
 			// Save the unique number.
-			$registrant->maybe_save_unique_number( $unique );
+			// $registrant->maybe_save_unique_number( $unique );
 
 			// There is nothing to do here, just finish the process and wait for the payment :).
 			$result->success  = true;
@@ -256,6 +255,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			add_filter( 'wacara_filter_registrant_admin_columns', [ $this, 'registrant_admin_columns_callback' ], 10, 1 );
 			add_action( 'wacara_registrant_admin_column_action_content', [ $this, 'registrant_admin_column_action_callback' ], 10, 2 );
 			add_filter( 'wacara_filter_registrant_admin_highlight', [ $this, 'registrant_highlight_callback' ], 10, 4 );
+			add_action( 'wacara_after_filling_registration', [ $this, 'maybe_registrant_unique_number_callback' ], 10, 3 );
 
 			Registrant_Status::register_new_status( 'waiting-payment', __( 'Waiting payment', 'wacara' ) );
 			Registrant_Status::register_new_status( 'waiting-verification', __( 'Waiting verification', 'wacara' ) );
@@ -561,6 +561,40 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 			}
 
 			return $highlight;
+		}
+
+		/**
+		 * Callback for maybe adding registrant unique number.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 * @param string     $reg_status status of the current registrant.
+		 * @param Result     $result result of the current process.
+		 */
+		public function maybe_registrant_unique_number_callback( $registrant, $reg_status, $result ) {
+
+			// Only send email if result is success.
+			if ( ! $result->success || 'done' === $reg_status ) {
+				return;
+			}
+
+			// Check maybe requires unique code.
+			$unique_number = $this->get_admin_setting( 'unique_number' );
+			if ( 'on' !== $unique_number ) {
+				return;
+			}
+
+			// Set default unique number range to maximal 100 cent.
+			$unique = wp_rand( 0, 100 );
+
+			// Determine the amount of unique number.
+			// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
+			// So we will multiple the unique number by 100.
+			if ( 1000000 < $registrant->get_pricing_price_in_cent() ) {
+				$unique *= 100;
+			}
+
+			// Save the unique number.
+			$registrant->maybe_save_unique_number( $unique );
 		}
 
 		/**

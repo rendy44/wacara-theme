@@ -205,7 +205,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 
 			// Filter the result by key.
 			if ( $key ) {
-				$result = ! empty( $payment_options[ $key ] ) ? $payment_options[ $key ] : false;
+				$result = Helper::array_val( $payment_options, $key );
 			}
 
 			return $result;
