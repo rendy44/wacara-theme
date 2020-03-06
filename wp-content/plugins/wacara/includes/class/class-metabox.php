@@ -268,24 +268,26 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'value' => $registrant->get_readable_registrant_status( true ),
 					],
 					[
-						'field' => __( 'Name', 'wacara' ),
-						'value' => $registrant->get_registrant_name(),
-					],
-					[
-						'field' => __( 'Email', 'wacara' ),
-						'value' => $registrant->get_registrant_email(),
+						'field' => __( 'Registrant', 'wacara' ),
+						/* translators: %1$s : registrant name, %2$s : registrant email */
+						'value' => sprintf( '%1$s (<a href="mailto:%2$s">%2$s</a>)', $registrant->get_registrant_name(), $registrant->get_registrant_email() ),
 					],
 					[
 						'field' => __( 'Booking code', 'wacara' ),
 						'value' => $registrant->get_booking_code(),
+					],
+					[
+						'field' => __( 'Event', 'wacara' ),
+						/* translators: %1$s : event edit post link, %2$s : event name, %3$s : event landing page url */
+						'value' => sprintf( '<a href="%1$s">%2$s</a> <a href="%3$s" target="_blank"><sup>[?]</sup></a>', get_edit_post_link( $registrant->get_event_id() ), $registrant->get_event_name(), get_permalink( $registrant->get_event_id() ) ),
 					],
 				];
 
 				// Content for invoice.
 				$package_details = [
 					[
-						/* translators: %1s : admin edit url of the pricing, %2s : name of the pricing */
-						'field' => sprintf( "<a href='%s'>%s</a>", get_edit_post_link( $registrant->get_pricing_id() ), $registrant->get_pricing_name() ),
+						/* translators: %1$s : admin edit url of the pricing, %2$s : name of the pricing */
+						'field' => sprintf( '<a href="%1$s">%2$s</a>', get_edit_post_link( $registrant->get_pricing_id() ), $registrant->get_pricing_name() ),
 						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
 					],
 				];
