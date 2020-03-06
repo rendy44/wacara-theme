@@ -923,7 +923,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			<tr>
 				<td class="wrapper" style="text-align: center">
 					<?php /* translators: %s : event name */ ?>
-					<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo sprintf( esc_html__( '%s logo', 'wacara' ), $registrant->get_event_name() ); ?>" style="max-width: 150px; max-height: 50px; margin-bottom: 15px">
+					<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $registrant->get_event_name() ) ); ?>" style="max-width: 150px; max-height: 50px; margin-bottom: 15px">
 				</td>
 			</tr>
 			<?php
