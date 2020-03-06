@@ -33,7 +33,8 @@ if ( ! class_exists( 'Wacara\Mailer_After_Done' ) ) {
 			$mailer_id        = 'after-done';
 			$mailer_title     = __( 'After completing', 'wacara' );
 			$mailer_recipient = "{$registrant->get_registrant_name()} <{$registrant->get_registrant_email()}>";
-			$mailer_subject   = __( 'Congratulation, your seat is secured', 'wacara' );
+			/* translators: %1$s : name of the event, %2$s : id of the invoice */
+			$mailer_subject = sprintf( __( '%1$s - Booking Code For #%2$s', 'wacara' ), $registrant->get_event_name(), $registrant->get_invoice_id() );
 
 			// Construct the parent.
 			parent::__construct( $mailer_id, $mailer_title, true, $mailer_recipient, $mailer_subject, $registrant );
