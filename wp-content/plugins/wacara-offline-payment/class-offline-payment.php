@@ -132,12 +132,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		public function admin_setting() {
 			return [
 				[
-					'name' => __( 'Unique number', 'wacara' ),
-					'id'   => 'unique_number',
-					'type' => 'checkbox',
-					'desc' => __( 'Enable unique number?', 'wacara' ),
-				],
-				[
 					'id'      => 'bank_accounts',
 					'type'    => 'group',
 					'options' => [

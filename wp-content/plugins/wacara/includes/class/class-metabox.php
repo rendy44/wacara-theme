@@ -1336,6 +1336,12 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'title'  => __( 'Options', 'wacara' ),
 						'fields' => [
 							[
+								'name' => __( 'Unique number', 'wacara' ),
+								'id'   => 'unique_number',
+								'type' => 'checkbox',
+								'desc' => __( 'Enable unique number?', 'wacara' ),
+							],
+							[
 								'name' => __( 'Recommended', 'wacara' ),
 								'id'   => $this->meta_prefix . 'recommended',
 								'type' => 'checkbox',
