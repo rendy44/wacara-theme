@@ -134,6 +134,9 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate the newly created event.
 					if ( $new_registrant->success ) {
 
+						// Calculate the registrant unique code.
+						$new_registrant->maybe_save_unique_number();
+
 						// Recount the event.
 						$event->maybe_recount_limitation();
 

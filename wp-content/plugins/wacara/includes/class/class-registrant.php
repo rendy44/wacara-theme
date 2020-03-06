@@ -36,7 +36,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                         and assign with registrant id to fetch the registrant's detail.
+		 *                                          and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -491,15 +491,33 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 		/**
 		 * Maybe save unique number for easier payment confirmation.
-		 *
-		 * @param int $unique_number the unique number.
 		 */
-		public function maybe_save_unique_number( $unique_number ) {
-			$old_price_in_cent                    = $this->get_pricing_price_in_cent();
-			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique_number;
+		public function maybe_save_unique_number() {
+
+			// Make sure pricing is supporting unique number.
+			if ( 'on' !== $this->is_pricing_unique_number() ) {
+				return;
+			}
+
+			// Get old price in cent.
+			$old_price_in_cent = $this->get_pricing_price_in_cent();
+
+			// Set default unique number range to maximal 100 cent.
+			$unique = wp_rand( 0, 100 );
+
+			// Determine the amount of unique number.
+			// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
+			// So we will multiple the unique number by 100.
+			if ( 1000000 < $old_price_in_cent ) {
+				$unique *= 100;
+			}
+
+			// Calculate new price.
+			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique;
+
 			$this->save_meta(
 				[
-					'maybe_unique_number'             => $unique_number,
+					'maybe_unique_number'             => $unique,
 					'maybe_price_with_unique'         => $new_price_with_unique_number_in_cent / 100,
 					'maybe_price_with_unique_in_cent' => $new_price_with_unique_number_in_cent,
 				]
@@ -551,6 +569,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_pricing_name() {
 			return $this->get_meta( 'pricing_cache_name' );
+		}
+
+		/**
+		 * Get pricing unique number status that already attached into registrant.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function is_pricing_unique_number() {
+			return $this->get_meta( 'pricing_cache_unique_number' );
 		}
 
 		/**

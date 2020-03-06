@@ -113,8 +113,8 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function is_unique_number(){
-			return $this->get_meta('unique_number');
+		public function is_unique_number() {
+			return $this->get_meta( 'unique_number' );
 		}
 
 		/**
