@@ -141,8 +141,8 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 
 						// Maybe current value is selected.
 						$maybe_selected = $current_selected && $status_key === $current_selected ? ' selected' : '';
-						/* translators: %1a : status key, %2a : selected attribute, %3a : status label */
-						echo sprintf( '<option value="%s" %s>%s</option>', $status_key, $maybe_selected, $status_label ); // phpcs:ignore
+						/* translators: %1$s : status key, %2$s : selected attribute, %3$s : status label */
+						echo sprintf( '<option value="%1$s" %2$s>%3$s</option>', $status_key, $maybe_selected, $status_label ); // phpcs:ignore
 					}
 					?>
 				</select>

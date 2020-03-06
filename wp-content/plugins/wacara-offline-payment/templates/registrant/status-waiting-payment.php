@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="wcr-bank-account">
 						<input type="radio" name="selected_bank" id="bank_<?php echo esc_attr( $row_num ); ?>" value="<?php echo esc_attr( $row_num ); ?>">
 						<label for="bank_<?php echo esc_attr( $row_num ); ?>">
-							<?php /* translators: %1: bank name &2: branch name */ ?>
+							<?php /* translators: %1$s: bank name %2$s: branch name */ ?>
 							<p class="wcr-bank-account-name"><?php echo esc_html( sprintf( _x( '%1$s, %2$s', 'Displaying bank information', 'wacara' ), $account['name'], $account['branch'] ) ); ?></p>
 							<p class="wcr-bank-account-number"><?php echo esc_html( $account['number'] ); ?></p>
 							<p class="wcr-bank-account-holder"><?php echo esc_html( $account['holder'] ); ?></p>

@@ -268,12 +268,9 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'value' => $registrant->get_readable_registrant_status( true ),
 					],
 					[
-						'field' => __( 'Name', 'wacara' ),
-						'value' => $registrant->get_registrant_name(),
-					],
-					[
-						'field' => __( 'Email', 'wacara' ),
-						'value' => $registrant->get_registrant_email(),
+						'field' => __( 'Registrant', 'wacara' ),
+						/* translators: %1$s : registrant name, %2$s : registrant email */
+						'value' => sprintf( '%1$s (<a href="mailto:%2$s">%2$s</a>)', $registrant->get_registrant_name(), $registrant->get_registrant_email() ),
 					],
 					[
 						'field' => __( 'Booking code', 'wacara' ),
@@ -284,8 +281,8 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 				// Content for invoice.
 				$package_details = [
 					[
-						/* translators: %1s : admin edit url of the pricing, %2s : name of the pricing */
-						'field' => sprintf( "<a href='%s'>%s</a>", get_edit_post_link( $registrant->get_pricing_id() ), $registrant->get_pricing_name() ),
+						/* translators: %1$s : admin edit url of the pricing, %2$s : name of the pricing */
+						'field' => sprintf( '<a href="%1$s">%2$s</a>', get_edit_post_link( $registrant->get_pricing_id() ), $registrant->get_pricing_name() ),
 						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
 					],
 				];

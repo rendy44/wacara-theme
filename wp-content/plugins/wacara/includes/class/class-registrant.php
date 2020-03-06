@@ -528,8 +528,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 			// Maybe display in html.
 			if ( $html && $result ) {
-				/* translators: %1s : plain registrant status, %2s : readable registrant status */
-				$result = sprintf( "<span class='wcr-label wcr-label-%s'>%s</span>", $reg_status, $result );
+				/* translators: %1$s : plain registrant status, %2$s : readable registrant status */
+				$result = sprintf( '<span class="wcr-label wcr-label-%1$s">%2$s</span>', $reg_status, $result );
 			}
 
 			return $result;
@@ -590,9 +590,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
 			$price           = $this->get_pricing_price();
 
-			/* translators: %1s : currency symbol : %2s : formatted amount */
-
-			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
+			/* translators: %1$s : currency symbol : %2$s : formatted amount */
+			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
 		/**
@@ -634,9 +633,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
 			$price           = $this->get_total_pricing_price();
 
-			/* translators: %1s : currency symbol : %2s : formatted amount */
-
-			return sprintf( "<span class='wcr-amount'><span class='wcr-currency'>%s</span><span class='wcr-value'>%s</span></span>", $currency_symbol, number_format_i18n( $price, 2 ) );
+			/* translators: %1$s : currency symbol : %2$s : formatted amount */
+			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
 		/**
