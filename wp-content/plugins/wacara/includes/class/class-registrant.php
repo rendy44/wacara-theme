@@ -387,6 +387,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Get registrant invoice id.
+		 *
+		 * @return string
+		 */
+		public function get_invoice_id() {
+			return $this->post_title;
+		}
+
+		/**
 		 * Set registrant registration status.
 		 *
 		 * @param string $status status of registration.
