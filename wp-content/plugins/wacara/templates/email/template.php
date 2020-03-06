@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		body {
-			background-color: #f4f4f4;
+			background-color: #f1f1f1;
 			font-family: sans-serif;
 			-webkit-font-smoothing: antialiased;
 			font-size: 14px;
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			BODY & CONTAINER
 		------------------------------------- */
 		.body {
-			background-color: #f6f6f6;
+			background-color: #f1f1f1;
 			width: 100%;
 		}
 
@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		.footer p,
 		.footer span,
 		.footer a {
-			color: #999999;
+			color: #777777;
 			font-size: 12px;
 			text-align: center;
 		}
@@ -363,6 +363,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td class="container">
 			<div class="content">
 
+				<?php
+				/**
+				 * Wacara header global email template hook.
+				 *
+				 * @param Registrant $registrant object of the current registrnt.
+				 */
+				do_action( 'wacara_header_global_email_template', $registrant );
+				?>
 				<!-- START CENTERED WHITE CONTAINER -->
 				<table role="presentation" class="main">
 

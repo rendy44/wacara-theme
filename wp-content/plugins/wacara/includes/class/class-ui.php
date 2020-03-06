@@ -114,7 +114,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
 
 			// Render email template.
-			add_action( 'wacara_before_global_email_template', [ $this, 'before_global_email_template' ], 10, 1 );
+			add_action( 'wacara_header_global_email_template', [ $this, 'header_global_email_template' ], 10, 1 );
 		}
 
 		/**
@@ -911,21 +911,29 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
-		 * Callback for rendering content before global email template.
+		 * Callback for rendering header in global email template.
 		 *
 		 * @param Registrant $registrant object of the current registrant.
 		 */
-		public function before_global_email_template( $registrant ) {
+		public function header_global_email_template( $registrant ) {
 
 			// Fetch event logo url.
 			$logo_url = Helper::get_event_logo_url( $registrant->get_event_id() );
 			?>
-			<tr>
-				<td class="wrapper" style="text-align: center">
-					<?php /* translators: %s : event name */ ?>
-					<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $registrant->get_event_name() ) ); ?>" style="max-width: 150px; max-height: 50px; margin-bottom: 15px">
-				</td>
-			</tr>
+			<table role="presentation" class="main" style="margin-bottom: 20px">
+				<tr>
+					<td class="wrapper">
+						<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td style="text-align: center;">
+									<?php /* translators: %s : event name */ ?>
+									<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $registrant->get_event_name() ) ); ?>" style="max-width: 150px; max-height: 50px;">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 			<?php
 		}
 	}
