@@ -144,7 +144,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		 * @return bool
 		 */
 		public function send() {
-			return wp_mail( $this->get_formatted_recipients(), $this->subject, $this->get_formatted_content() );
+			return wp_mail( $this->get_formatted_recipients(), $this->subject, $this->get_formatted_content(), [ 'Content-Type: text/html; charset=UTF-8' ] );
 		}
 
 		/**
