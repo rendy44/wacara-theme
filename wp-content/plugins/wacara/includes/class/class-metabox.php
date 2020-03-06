@@ -276,6 +276,11 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 						'field' => __( 'Booking code', 'wacara' ),
 						'value' => $registrant->get_booking_code(),
 					],
+					[
+						'field' => __( 'Event', 'wacara' ),
+						/* translators: %1$s : event edit post link, %2$s : event name, %3$s : event landing page url */
+						'value' => sprintf( '<a href="%1$s">%2$s</a> <a href="%3$s" target="_blank"><sup>[?]</sup></a>', get_edit_post_link( $registrant->get_event_id() ), $registrant->get_event_name(), get_permalink( $registrant->get_event_id() ) ),
+					],
 				];
 
 				// Content for invoice.
