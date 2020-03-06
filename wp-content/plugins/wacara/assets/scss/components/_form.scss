@@ -86,4 +86,15 @@ a {
       }
     }
   }
+
+  .wcr-form-submit-wrapper {
+    .wcr-form-submit {
+      display: block;
+      width: 100%;
+      @include breakpoint($size_tablet) {
+        display: inline;
+        width: auto;
+      }
+    }
+  }
 }
