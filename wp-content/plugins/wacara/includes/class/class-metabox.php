@@ -1339,7 +1339,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'name' => __( 'Unique number', 'wacara' ),
 								'id'   => 'unique_number',
 								'type' => 'checkbox',
-								'desc' => __( 'Enable unique number?', 'wacara' ),
+								'desc' => __( 'Enable unique number', 'wacara' ),
 							],
 							[
 								'name' => __( 'Recommended', 'wacara' ),
