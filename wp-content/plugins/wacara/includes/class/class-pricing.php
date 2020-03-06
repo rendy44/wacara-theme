@@ -109,6 +109,15 @@ if ( ! class_exists( 'Wacara\Pricing' ) ) {
 		}
 
 		/**
+		 * Get status whether requires unique number or not.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function is_unique_number() {
+			return $this->get_meta( 'unique_number' );
+		}
+
+		/**
 		 * Validate the pricing.
 		 */
 		private function validate() {

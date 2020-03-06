@@ -102,7 +102,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_before_registrant_form_content', [ $this, 'registrant_form_opening_callback' ], 10, 1 );
 			add_action( 'wacara_after_registrant_form_content', [ $this, 'registrant_form_closing_callback' ], 50, 1 );
 			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_callback' ], 10, 3 );
-			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 20, 3 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_invoice_callback' ], 20, 3 );
+			add_action( 'wacara_before_registrant_hold_content', [ $this, 'registrant_hold_opening_field_callback' ], 30, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_closing_field_callback' ], 30, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_submit_button_callback' ], 40, 3 );
 			add_action( 'wacara_after_registrant_hold_content', [ $this, 'registrant_hold_hidden_field_callback' ], 50, 3 );
@@ -112,6 +113,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_registrant_custom_content', [ $this, 'registrant_hold_closing_callback' ], 50, 3 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
+
+			// Render email template.
+			add_action( 'wacara_header_global_email_template', [ $this, 'header_global_email_template' ], 10, 1 );
 		}
 
 		/**
@@ -802,6 +806,46 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
+		 * Callback for displaying registrant invoice.
+		 *
+		 * @param Registrant                $registrant object of the current registrant.
+		 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
+		 * @param string                    $reg_status status of the current registrant.
+		 */
+		public function registrant_invoice_callback( $registrant, $payment_class, $reg_status ) {
+
+			// Prepare the args.
+			$invoice_args = [
+				'event_logo_url'  => Helper::get_event_logo_url( $registrant->get_event_id() ),
+				'event_name'      => $registrant->get_event_name(),
+				'pricing_name'    => $registrant->get_pricing_name(),
+				'invoice_details' => [
+					[
+						/* translators: %1$s : name of the selected event, %2$s : name of the selected pricing */
+						'field' => sprintf( '%1$s<span>%2$s</span>', $registrant->get_event_name(), $registrant->get_pricing_name() ),
+						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
+					],
+				],
+			];
+
+			// Maybe add unique number.
+			if ( $registrant->get_pricing_unique_number() ) {
+				$invoice_args['invoice_details'][] = [
+					'field' => __( 'Unique number', 'wacara' ),
+					'value' => number_format_i18n( $registrant->get_pricing_unique_number() / 100, 2 ),
+				];
+			}
+
+			// Calculate total.
+			$invoice_args['invoice_details'][] = [
+				'field' => __( 'Total', 'wacara' ),
+				'value' => $registrant->get_total_pricing_in_html(),
+			];
+
+			Template::render( 'registrant/invoice', $invoice_args, true );
+		}
+
+		/**
 		 * Callback for displaying opening field for hold registrant.
 		 *
 		 * @param Registrant                $registrant object of the current registrant.
@@ -905,6 +949,33 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function registrant_section_closing_callback( $registrant ) {
 			Template::render( 'global/section-close', [], true );
+		}
+
+		/**
+		 * Callback for rendering header in global email template.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 */
+		public function header_global_email_template( $registrant ) {
+
+			// Fetch event logo url.
+			$logo_url = Helper::get_event_logo_url( $registrant->get_event_id() );
+			?>
+			<table role="presentation" class="main" style="margin-bottom: 20px">
+				<tr>
+					<td class="wrapper">
+						<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td style="text-align: center;">
+									<?php /* translators: %s : event name */ ?>
+									<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $registrant->get_event_name() ) ); ?>" style="max-width: 150px; max-height: 50px;">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<?php
 		}
 	}
 

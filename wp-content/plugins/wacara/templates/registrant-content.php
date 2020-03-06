@@ -34,7 +34,7 @@ $payment_class = $registrant->get_payment_method_object();
  *
  * @param Registrant $registrant the object of the current registrant.
  *
- * @hooked registrant_masthead_opening_callback - 10
+ * @hooked UI::registrant_masthead_opening_callback - 10
  */
 do_action( 'wacara_before_registrant_masthead', $registrant );
 
@@ -44,7 +44,7 @@ do_action( 'wacara_before_registrant_masthead', $registrant );
  * @param Registrant $registrant the object of the current registrant.
  * @param string $reg_status the status of the registrant.
  *
- * @hooked registrant_masthead_content_callback - 10
+ * @hooked UI::registrant_masthead_content_callback - 10
  */
 do_action( 'wacara_registrant_masthead', $registrant, $reg_status );
 
@@ -53,7 +53,7 @@ do_action( 'wacara_registrant_masthead', $registrant, $reg_status );
  *
  * @param Registrant $registrant the object of the current registrant.
  *
- * @hooked registrant_masthead_closing_callback - 50
+ * @hooked UI::registrant_masthead_closing_callback - 50
  */
 do_action( 'wacara_after_registrant_masthead', $registrant );
 
@@ -62,7 +62,7 @@ do_action( 'wacara_after_registrant_masthead', $registrant );
  *
  * @param Registrant $registrant the object of the current registrant.
  *
- * @hooked registrant_section_opening_callback - 10
+ * @hooked UI::registrant_section_opening_callback - 10
  */
 do_action( 'wacara_before_registrant_content', $registrant );
 
@@ -74,7 +74,7 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
 	 *
-	 * @hooked registrant_form_opening_callback - 10
+	 * @hooked UI::registrant_form_opening_callback - 10
 	 */
 	do_action( 'wacara_before_registrant_form_content', $registrant );
 
@@ -82,6 +82,13 @@ if ( '' === $reg_status ) {
 
 	// Render all the fields.
 	foreach ( $used_fields as $field ) {
+
+		/**
+		 * Wacara input field for event filter hook.
+		 *
+		 * @param int $event_id id of the selected event.
+		 * @param string $field id of the field.
+		 */
 		echo apply_filters( 'wacara_input_field_event', $event_id, $field ); // phpcs:ignore
 	}
 
@@ -189,8 +196,8 @@ if ( '' === $reg_status ) {
 	 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 	 * @param string $reg_status status of the current registrant.
 	 *
-	 * @hooked registrant_hold_opening_callback - 10
-	 * @hooked registrant_hold_opening_field_callback - 20
+	 * @hooked UI::registrant_hold_opening_callback - 10
+	 * @hooked UI::registrant_hold_opening_field_callback - 20
 	 */
 	do_action( 'wacara_before_registrant_hold_content', $registrant, $payment_class, $reg_status );
 
@@ -208,9 +215,9 @@ if ( '' === $reg_status ) {
 	 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 	 * @param string $reg_status status of the current registrant.
 	 *
-	 * @hooked registrant_hold_closing_field_callback - 30
-	 * @hooked registrant_hold_submit_button_callback - 40
-	 * @hooked registrant_hold_closing_callback - 50
+	 * @hooked UI::registrant_hold_closing_field_callback - 30
+	 * @hooked UI::registrant_hold_submit_button_callback - 40
+	 * @hooked UI::registrant_hold_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_hold_content', $registrant, $payment_class, $reg_status );
 
@@ -257,7 +264,7 @@ if ( '' === $reg_status ) {
 	 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 	 * @param string $reg_status status of the current registrant.
 	 *
-	 * @hooked registrant_hold_opening_callback - 10
+	 * @hooked UI::registrant_hold_opening_callback - 10
 	 */
 	do_action( 'wacara_before_registrant_custom_content', $registrant, $payment_class, $reg_status );
 
@@ -273,8 +280,8 @@ if ( '' === $reg_status ) {
 	 * @param Payment_Method|bool|mixed $payment_class object of the selected payment method.
 	 * @param string $reg_status status of the current registrant.
 	 *
-	 * @hooked registrant_hold_submit_button_callback - 40
-	 * @hooked registrant_hold_closing_callback - 50
+	 * @hooked UI::registrant_hold_submit_button_callback - 40
+	 * @hooked UI::registrant_hold_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_custom_content', $registrant, $payment_class, $reg_status );
 }
@@ -284,6 +291,6 @@ if ( '' === $reg_status ) {
  *
  * @param Registrant $registrant the object of the current registrant.
  *
- * @hooked registrant_section_closing_callback - 50
+ * @hooked UI::registrant_section_closing_callback - 50
  */
 do_action( 'wacara_after_registrant_content', $registrant );

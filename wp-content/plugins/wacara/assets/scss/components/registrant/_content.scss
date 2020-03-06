@@ -1,5 +1,5 @@
 .wcr-registrant-section {
-  background-color: transparent;
+  background-color: $white;
   //margin-top: -4rem;
   padding-top: 0;
 
@@ -24,6 +24,7 @@
   }
 
   @include breakpoint($size_tablet) {
+    background-color: transparent;
     margin-top: -3rem;
     .wcr-section-content-wrapper {
       .wcr-section-content-inner-wrapper {

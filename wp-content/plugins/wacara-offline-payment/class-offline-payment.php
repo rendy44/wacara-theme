@@ -93,29 +93,7 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 * @return Result
 		 */
 		public function process( $registrant, $fields, $pricing_price_in_cent, $pricing_currency ) {
-			$result        = new Result();
-			$settings      = $this->get_admin_setting();
-			$unique_number = $settings['unique_number'];
-
-			// Set default unique number.
-			$unique = 0;
-
-			// Check maybe requires unique code.
-			if ( 'on' === $unique_number ) {
-
-				// Set default unique number range to maximal 100 cent.
-				$unique = wp_rand( 0, 100 );
-
-				// Determine the amount of unique number.
-				// If the pricing price is greater than 1000000 it's probably weak currency such a Rupiah which does not use cent.
-				// So we will multiple the unique number by 100.
-				if ( 1000000 < $pricing_price_in_cent ) {
-					$unique *= 100;
-				}
-			}
-
-			// Save the unique number.
-			$registrant->maybe_save_unique_number( $unique );
+			$result = new Result();
 
 			// There is nothing to do here, just finish the process and wait for the payment :).
 			$result->success  = true;
@@ -132,12 +110,6 @@ if ( ! class_exists( 'Wacara\Payment\Offline_Payment' ) ) {
 		 */
 		public function admin_setting() {
 			return [
-				[
-					'name' => __( 'Unique number', 'wacara' ),
-					'id'   => 'unique_number',
-					'type' => 'checkbox',
-					'desc' => __( 'Enable unique number?', 'wacara' ),
-				],
 				[
 					'id'      => 'bank_accounts',
 					'type'    => 'group',

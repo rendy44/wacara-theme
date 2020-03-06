@@ -1,0 +1,55 @@
+.wcr-registrant-invoice-wrapper {
+  .wcr-registrant-invoice-product-wrapper {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .wcr-registrant-invoice-product-image-wrapper {
+      padding-right: .5rem;
+
+      img.wcr-registrant-invoice-product-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+    }
+
+    .wcr-registrant-invoice-product-detail-wrapper {
+      padding-left: .5rem;
+      display: flex;
+      align-items: center;
+
+      p.wcr-registrant-invoice-product-detail {
+        margin: 0;
+
+        span.wcr-registrant-invoice-product-subinfo {
+          display: block;
+          font-size: 80%;
+          color: lighten($black, 60%);
+        }
+      }
+    }
+  }
+
+  .wcr-registrant-invoice-detail-wrapper {
+    margin-bottom: 1.5rem;
+
+    .wcr-registrant-invoice-detail {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: .5rem;
+      padding-bottom: .25rem;
+      font-size: 14px;
+      border-bottom: 1px dotted lighten($black, 70%);
+
+      span.wcr-registrant-invoice-value {
+        font-weight: 600;
+      }
+
+      &:last-child {
+        span.wcr-registrant-invoice-value {
+          background-color: lighten($warning_color, 40%);
+        }
+      }
+    }
+  }
+}
