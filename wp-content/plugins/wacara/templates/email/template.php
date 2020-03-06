@@ -7,6 +7,8 @@
  * @version 0.0.1
  */
 
+use Wacara\Registrant;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
@@ -364,6 +366,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<!-- START CENTERED WHITE CONTAINER -->
 				<table role="presentation" class="main">
 
+					<?php
+					/**
+					 * Wacara before global email template hook.
+					 *
+					 * @param Registrant $registrant object of the current registrant.
+					 */
+					do_action( 'wacara_before_global_email_template', $registrant );
+					?>
+
 					<!-- START MAIN CONTENT AREA -->
 					<tr>
 						<td class="wrapper">
@@ -376,6 +387,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</table>
 						</td>
 					</tr>
+
+					<?php
+					/**
+					 * Wacara after global email template hook.
+					 *
+					 * @param Registrant $registrant object of the current registrant.
+					 */
+					do_action( 'wacara_after_global_email_template', $registrant );
+					?>
 
 					<!-- END MAIN CONTENT AREA -->
 				</table>

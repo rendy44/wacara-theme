@@ -112,6 +112,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_after_registrant_custom_content', [ $this, 'registrant_hold_closing_callback' ], 50, 3 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_after_content_wrapper_callback' ], 40, 1 );
 			add_action( 'wacara_after_registrant_content', [ $this, 'registrant_section_closing_callback' ], 50, 1 );
+
+			// Render email template.
+			add_action( 'wacara_before_global_email_template', [ $this, 'before_global_email_template' ], 10, 1 );
 		}
 
 		/**
@@ -905,6 +908,25 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function registrant_section_closing_callback( $registrant ) {
 			Template::render( 'global/section-close', [], true );
+		}
+
+		/**
+		 * Callback for rendering content before global email template.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 */
+		public function before_global_email_template( $registrant ) {
+
+			// Fetch event logo url.
+			$logo_url = Helper::get_event_logo_url( $registrant->get_event_id() );
+			?>
+			<tr>
+				<td class="wrapper" style="text-align: center">
+					<?php /* translators: %s : event name */ ?>
+					<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo sprintf( esc_html__( '%s logo', 'wacara' ), $registrant->get_event_name() ); ?>" style="max-width: 150px; max-height: 50px; margin-bottom: 15px">
+				</td>
+			</tr>
+			<?php
 		}
 	}
 

@@ -44,6 +44,13 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		private $enabled = false;
 
 		/**
+		 * Email registrant object variable.
+		 *
+		 * @var Registrant
+		 */
+		private $registrant;
+
+		/**
 		 * Email recipients variable.
 		 *
 		 * @var array|string
@@ -78,9 +85,10 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		public function __construct( $id, $title, $enabled, $recipients, $subject, $registrant, $plain_template_args = [] ) {
 
 			// Save the properties.
-			$this->id      = $id;
-			$this->title   = $title;
-			$this->enabled = $enabled;
+			$this->id         = $id;
+			$this->title      = $title;
+			$this->enabled    = $enabled;
+			$this->registrant = $registrant;
 
 			/**
 			 * Wacara mailer recipient filter hook.
@@ -149,6 +157,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			// Prepare template args.
 			$template_args = [
 				'plain_content' => $this->basic_content,
+				'registrant'    => $this->registrant,
 			];
 
 			/**
