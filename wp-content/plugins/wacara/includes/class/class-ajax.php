@@ -103,24 +103,21 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 					// Instance the pricing and its details.
 					$pricing               = new Pricing( $pricing_id );
-					$pricing_currency      = $pricing->get_currency_code();
 					$pricing_price         = $pricing->get_price();
 					$pricing_price_in_cent = (float) $pricing_price * 100;
-					$pricing_pros          = $pricing->get_pros();
-					$pricing_cons          = $pricing->get_cons();
-					$pricing_recommended   = $pricing->is_recommended();
 
 					// Save cached data.
 					$cached_data = [
 						'event_id'                    => $event_id,
 						'pricing_id'                  => $pricing_id,
 						'pricing_cache_name'          => $pricing->post_title,
-						'pricing_cache_currency'      => $pricing_currency,
+						'pricing_cache_currency'      => $pricing->get_currency_code(),
 						'pricing_cache_price'         => $pricing_price,
 						'pricing_cache_price_in_cent' => $pricing_price_in_cent,
-						'pricing_cache_pros'          => $pricing_pros,
-						'pricing_cache_cons'          => $pricing_cons,
-						'pricing_cache_recommended'   => $pricing_recommended,
+						'pricing_cache_pros'          => $pricing->get_pros(),
+						'pricing_cache_cons'          => $pricing->get_cons(),
+						'pricing_cache_recommended'   => $pricing->is_recommended(),
+						'pricing_cache_unique_number' => $pricing->is_unique_number(),
 					];
 
 					// create registrant.
