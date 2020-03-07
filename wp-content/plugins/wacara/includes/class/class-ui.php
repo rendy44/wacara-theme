@@ -818,7 +818,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Prepare the args.
 			$invoice_args = [
-				'event_logo_url'  => Helper::get_event_logo_url( $registrant->get_event_id() ),
+				'event_logo_url'  => $event->get_logo_url(),
 				'event_name'      => $event->post_title,
 				'pricing_name'    => $registrant->get_pricing_name(),
 				'invoice_details' => [

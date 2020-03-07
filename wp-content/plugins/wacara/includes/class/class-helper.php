@@ -514,19 +514,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		}
 
 		/**
-		 * Get event main logo url.
-		 *
-		 * @param string $event_id event id.
-		 *
-		 * @return false|string
-		 */
-		public static function get_event_logo_url( $event_id ) {
-			$event = new Event( $event_id );
-
-			return $event->get_logo_url();
-		}
-
-		/**
 		 * Get site logo url.
 		 *
 		 * @return bool|false|string
