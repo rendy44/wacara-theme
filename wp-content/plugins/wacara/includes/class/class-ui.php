@@ -708,7 +708,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		public function registrant_masthead_content_callback( $registrant, $registrant_status ) {
 
 			// Get event info.
-			$event_title = $registrant->get_event_name();
+			$event_title = $registrant->get_event_object()->post_title;
 
 			/* translators: %s: event name */
 			$masthead_desc = sprintf( __( 'You are about to register to %s', 'wacara' ), $event_title );
@@ -813,15 +813,18 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function registrant_invoice_callback( $registrant, $payment_class, $reg_status ) {
 
+			// Instance event.
+			$event = $registrant->get_event_object();
+
 			// Prepare the args.
 			$invoice_args = [
 				'event_logo_url'  => Helper::get_event_logo_url( $registrant->get_event_id() ),
-				'event_name'      => $registrant->get_event_name(),
+				'event_name'      => $event->post_title,
 				'pricing_name'    => $registrant->get_pricing_name(),
 				'invoice_details' => [
 					[
 						/* translators: %1$s : name of the selected event, %2$s : name of the selected pricing */
-						'field' => sprintf( '%1$s<span>%2$s</span>', $registrant->get_event_name(), $registrant->get_pricing_name() ),
+						'field' => sprintf( '%1$s<span>%2$s</span>', $event->post_title, $registrant->get_pricing_name() ),
 						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
 					],
 				],
@@ -957,8 +960,8 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function header_global_email_template( $registrant ) {
 
-			// Fetch event logo url.
-			$logo_url = Helper::get_event_logo_url( $registrant->get_event_id() );
+			// Instance event.
+			$event = $registrant->get_event_object();
 			?>
 			<table role="presentation" class="main" style="margin-bottom: 20px">
 				<tr>
@@ -967,7 +970,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 							<tr>
 								<td style="text-align: center;">
 									<?php /* translators: %s : event name */ ?>
-									<img src="<?php echo esc_attr( $logo_url ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $registrant->get_event_name() ) ); ?>" style="max-width: 150px; max-height: 50px;">
+									<img src="<?php echo esc_attr( $event->get_logo_url() ); ?>" alt="<?php echo esc_html( sprintf( __( '%s logo', 'wacara' ), $event->post_title ) ); ?>" style="max-width: 150px; max-height: 50px;">
 								</td>
 							</tr>
 						</table>
