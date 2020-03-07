@@ -197,7 +197,9 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 * @param Registrant $registrant object of the current registrant.
 		 */
 		public function registrant_top_nav_callback( $registrant ) {
-			$event = new Event( $registrant->get_event_id() );
+
+			// Instance event.
+			$event = $registrant->get_event_object();
 
 			$nav_args = [
 				'nav_logo_url' => $event->get_logo_url(),
@@ -219,7 +221,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 
 			// Get registrant detail.
 			$event_id           = $registrant->get_event_id();
-			$event              = new Event( $event_id );
+			$event              = new Event( $event_id ); // TODO: fetch from function.
 			$header             = \Wacara\Helper::get_post_meta( 'header', $event->post_id );
 			$maybe_bg_image_url = \Wacara\Helper::get_event_background_image_url( $event, $header );
 

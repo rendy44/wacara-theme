@@ -738,7 +738,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		/**
 		 * Get event background image url.
 		 *
-		 * @param Event    $event ofject of the event.
+		 * @param Event    $event object of the event.
 		 * @param bool|int $header id of the event's header.
 		 *
 		 * @return bool|false|string

@@ -280,14 +280,8 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			// Validate registrant status.
 			if ( 'done' === $reg_status ) {
 
-				// Save event id into variable.
-				$event_id = $this->get_meta( 'event_id' );
-
-				// Instance event obj.
-				$event = new Event( $event_id, true );
-
 				// Check is in checkin period.
-				$is_in_checkin_period = $event->is_in_checkin_period();
+				$is_in_checkin_period = $this->get_event_object()->is_in_checkin_period();
 				if ( $is_in_checkin_period ) {
 
 					// Check whether registrant already checkin today.
@@ -461,10 +455,12 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		/**
 		 * Get event object.
 		 *
+		 * @param bool $get_detail whether get event details or not.
+		 *
 		 * @return Event
 		 */
-		public function get_event_object() {
-			return new Event( $this->get_event_id(), true );
+		public function get_event_object( $get_detail = false ) {
+			return new Event( $this->get_event_id(), $get_detail );
 		}
 
 		/**

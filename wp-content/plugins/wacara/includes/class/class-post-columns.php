@@ -98,12 +98,11 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 		public function modify_registrant_column_content( $column, $post_id ) {
 			$result     = '';
 			$registrant = new Registrant( $post_id );
-			$event_id   = Helper::get_post_meta( 'event_id', $registrant->post_id );
-			$event      = new Event( $event_id );
+			$event      = $registrant->get_event_object();
 
 			switch ( $column ) {
 				case 'event':
-					$result = $event->success ? "<a href='" . esc_url( get_edit_post_link( $event_id ) ) . "'>" . get_the_title( $event_id ) . '</a>' : __( 'Invalid event', 'wacara' );
+					$result = $event->success ? "<a href='" . esc_url( get_edit_post_link( $event->post_id ) ) . "'>" . $event->post_title . '</a>' : __( 'Invalid event', 'wacara' );
 					break;
 				case 'pricing':
 					$result = $registrant->get_pricing_price_in_html();
