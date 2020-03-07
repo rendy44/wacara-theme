@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<nav class="wcr-event-nav">
+<nav class="wcr-nav">
 	<div class="frow-container">
 		<div class="wcr-nav-wrapper">
 			<div class="wcr-nav-toggle-wrapper">

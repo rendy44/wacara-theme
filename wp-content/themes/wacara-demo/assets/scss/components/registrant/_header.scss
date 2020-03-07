@@ -1,17 +1,23 @@
 header.wcr-header.wcr-registrant-header {
+  padding-top: 70px;
+  height: 300px;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   color: $white;
 
   .wcr-masthead-title-wrapper {
+    margin-bottom: 1rem;
+
     h1.wcr-masthead-title {
+      margin: 0;
       @include custom_text_shadow(2px 2px 1px rgba($black, .4));
     }
   }
 
   .wcr-masthead-desc-wrapper {
     p.wcr-masthead-desc {
+      margin: 0;
       @include custom_text_shadow(2px 2px 1px rgba($black, .4));
     }
   }
