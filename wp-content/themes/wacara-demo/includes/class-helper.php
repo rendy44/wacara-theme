@@ -9,6 +9,7 @@
 
 namespace Wacara_Theme;
 
+use Wacara\Event;
 use Wacara\Template;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -49,6 +50,27 @@ if ( ! class_exists( 'Wacara_Theme\Helper' ) ) {
 			} else {
 				return $result;
 			}
+		}
+
+		/**
+		 * Get event add to google calendar url.
+		 *
+		 * @param Event $event object of the current event.
+		 *
+		 * @return string
+		 */
+		public static function build_event_add_to_calendar_url( $event ) {
+			$base_url = 'https://calendar.google.com/calendar/r/eventedit';
+
+			// Add attributes based on event details.
+			return add_query_arg(
+				[
+					'text'    => $event->post_title,
+					'details' => $event->get_headline(),
+				// 'dates'   => $event->get_date_start( 'c' ) . '/' . $event->get_date_end( 'c' ),
+				],
+				$base_url
+			);
 		}
 	}
 }

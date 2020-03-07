@@ -10,6 +10,7 @@
 namespace Wacara_Theme;
 
 use Wacara\Event;
+use Wacara\Event_Location;
 use Wacara\Registrant;
 use Wacara\UI;
 
@@ -147,13 +148,15 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 * @return array
 		 */
 		public function event_about_args_callback( $args, $event ) {
-			$location       = \Wacara\Helper::get_post_meta( 'location', $event->post_id );
+
+			// Fetch details.
 			$speakers       = (array) \Wacara\Helper::get_post_meta( 'speakers', $event->post_id, true );
 			$speakers_count = count( $speakers );
 			/* translators: %s : total speakers */
 			$args['about_user']     = sprintf( __( 'We have %s amazing and talented speaker(s)', 'wacara' ), $speakers_count );
-			$args['about_location'] = \Wacara\Helper::get_location_paragraph( $location );
+			$args['about_location'] = $event->get_location_object()->get_location_paragraph();
 			$args['about_time']     = $event->get_event_date_time_paragraph();
+			$args['about_cta_url']  = Helper::build_event_add_to_calendar_url( $event );
 
 			return $args;
 		}
@@ -168,17 +171,14 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 */
 		public function event_opening_location_args_callback( $args, $event ) {
 
-			// Fetch location detail.
-			$location = \Wacara\Helper::get_post_meta( 'location', $event->post_id );
-			$photo_id = \Wacara\Helper::get_post_meta( 'photo_id', $location );
+			// Instance location.
+			$location = $event->get_location_object();
 
 			// Validate the location photo.
-			if ( $photo_id ) {
-
-				$image_url = wp_get_attachment_image_url( $photo_id, 'large' );
+			if ( $location->get_location_photo() ) {
 
 				$style_properties = [
-					'background-image' => "url({$image_url})",
+					'background-image' => "url({$location->get_location_photo_url('large')})",
 				];
 
 				$inline_styles = \Wacara\Helper::convert_properties_to_inline_styles( $style_properties, false );

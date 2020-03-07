@@ -453,10 +453,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of current event.
 		 */
 		public function event_about_section_callback( $event ) {
-			$location   = Helper::get_post_meta( 'location', $event->post_id );
 			$about_args = [
-				'description' => Helper::get_post_meta( 'description', $event->post_id ),
-				'location'    => Helper::get_location_paragraph( $location ),
+				'description' => Helper::get_post_meta( 'about_description', $event->post_id ),
+				'location'    => $event->get_location_object()->get_location_paragraph(),
 				'time'        => $event->get_event_date_time_paragraph(),
 			];
 
@@ -516,18 +515,18 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of current event.
 		 */
 		public function event_location_section_callback( $event ) {
-			$location          = Helper::get_post_meta( 'location', $event->post_id );
-			$location_image_id = Helper::get_post_meta( 'photo_id', $location );
+			// Instance location.
+			$location = $event->get_location_object();
 
 			$location_args = [
-				'location_name'        => Helper::get_post_meta( 'name', $location ),
-				'location_description' => Helper::get_post_meta( 'description', $location ),
-				'location_address'     => Helper::get_location_paragraph( $location, false ),
+				'location_name'        => $location->get_location_name(),
+				'location_description' => $location->get_location_description(),
+				'location_address'     => $location->get_location_paragraph( false ),
 			];
 
 			// Add image url.
-			if ( $location_image_id ) {
-				$location_args['location_image'] = wp_get_attachment_image_url( $location_image_id, 'wacara-location-image' );
+			if ( $location->get_location_photo() ) {
+				$location_args['location_image'] = $location->get_location_photo_url( 'wacara-location-image' );
 			}
 
 			/**

@@ -13,17 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Wacara\Pricing' ) ) {
+if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 
 	/**
-	 * Class Pricing
+	 * Class Event_Pricing
 	 *
 	 * @package Wacara
 	 */
-	class Pricing extends Post {
+	class Event_Pricing extends Post {
 
 		/**
-		 * Pricing constructor.
+		 * Event_Pricing constructor.
 		 *
 		 * @param string $pricing_id pricing id.
 		 */

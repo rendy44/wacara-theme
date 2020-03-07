@@ -44,4 +44,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
+    <div class="frow">
+        <div class="col-sm-1-3 wcr-text-center">
+            <div class="wcr-section-about-cta-wrapper">
+                <a href="<?php echo esc_attr($about_cta_url); ?>" target="_blank" class="wcr-button wcr-button-main wcr-section-about-cta"><?php esc_attr_e('Add To My Calendar','wacara'); ?></a>
+            </div>
+        </div>
+    </div>
 </div>

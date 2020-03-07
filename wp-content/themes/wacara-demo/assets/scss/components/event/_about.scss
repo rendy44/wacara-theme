@@ -48,6 +48,13 @@ $about_item_size: 110px;
           }
         }
       }
+
+      .wcr-section-about-cta-wrapper {
+        margin-top: 2rem;
+        @include breakpoint($size_tablet) {
+          margin-top: 4rem;
+        }
+      }
     }
   }
 

@@ -8,7 +8,7 @@
  */
 
 use Wacara\Payment_Method;
-use Wacara\Pricing;
+use Wacara\Event_Pricing;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
 use Wacara\Template;

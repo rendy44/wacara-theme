@@ -101,52 +101,62 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 				// Validate the event.
 				if ( $event->success ) {
 
-					// Instance the pricing and its details.
-					$pricing               = new Pricing( $pricing_id );
-					$pricing_price         = $pricing->get_price();
-					$pricing_price_in_cent = (float) $pricing_price * 100;
+					// Instance the pricing.
+					$pricing = new Event_Pricing( $pricing_id );
 
-					// Save cached data.
-					$cached_data = [
-						'event_id'                    => $event_id,
-						'pricing_id'                  => $pricing_id,
-						'pricing_cache_name'          => $pricing->post_title,
-						'pricing_cache_currency'      => $pricing->get_currency_code(),
-						'pricing_cache_price'         => $pricing_price,
-						'pricing_cache_price_in_cent' => $pricing_price_in_cent,
-						'pricing_cache_pros'          => $pricing->get_pros(),
-						'pricing_cache_cons'          => $pricing->get_cons(),
-						'pricing_cache_recommended'   => $pricing->is_recommended(),
-						'pricing_cache_unique_number' => $pricing->is_unique_number(),
-					];
+					// Validate the pricing.
+					if ( $pricing->success ) {
 
-					// create registrant.
-					$new_registrant = new Registrant( false, $cached_data );
+						// get pricing details.
+						$pricing_price         = $pricing->get_price();
+						$pricing_price_in_cent = (float) $pricing_price * 100;
 
-					/**
-					 * Wacara after creating registrant ajax hook.
-					 *
-					 * @param Registrant $new_registrant newly created registrant.
-					 * @param array $cached_data data from pricing that stored in post meta.
-					 */
-					do_action( 'wacara_after_creating_registrant_ajax', $new_registrant, $cached_data );
+						// Save cached data.
+						$cached_data = [
+							'event_id'                    => $event_id,
+							'pricing_id'                  => $pricing_id,
+							'pricing_cache_name'          => $pricing->post_title,
+							'pricing_cache_currency'      => $pricing->get_currency_code(),
+							'pricing_cache_price'         => $pricing_price,
+							'pricing_cache_price_in_cent' => $pricing_price_in_cent,
+							'pricing_cache_pros'          => $pricing->get_pros(),
+							'pricing_cache_cons'          => $pricing->get_cons(),
+							'pricing_cache_recommended'   => $pricing->is_recommended(),
+							'pricing_cache_unique_number' => $pricing->is_unique_number(),
+						];
 
-					// Validate the newly created event.
-					if ( $new_registrant->success ) {
+						// create registrant.
+						$new_registrant = new Registrant( false, $cached_data );
 
-						// Calculate the registrant unique code.
-						$new_registrant->maybe_save_unique_number();
+						/**
+						 * Wacara after creating registrant ajax hook.
+						 *
+						 * @param Registrant $new_registrant newly created registrant.
+						 * @param array $cached_data data from pricing that stored in post meta.
+						 */
+						do_action( 'wacara_after_creating_registrant_ajax', $new_registrant, $cached_data );
 
-						// Recount the event.
-						$event->maybe_recount_limitation();
+						// Validate the newly created event.
+						if ( $new_registrant->success ) {
 
-						// Update the result.
-						$result->success  = true;
-						$result->callback = $new_registrant->get_registrant_url();
+							// Calculate the registrant unique code.
+							$new_registrant->maybe_save_unique_number();
+
+							// Recount the event.
+							$event->maybe_recount_limitation();
+
+							// Update the result.
+							$result->success  = true;
+							$result->callback = $new_registrant->get_registrant_url();
+						} else {
+
+							// Update the result.
+							$result->message = $new_registrant->message;
+						}
 					} else {
 
 						// Update the result.
-						$result->message = $new_registrant->message;
+						$result->message = $pricing->message;
 					}
 				} else {
 

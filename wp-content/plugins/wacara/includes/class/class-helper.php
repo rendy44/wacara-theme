@@ -391,14 +391,20 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		/**
 		 * Format timestamp into readable date;
 		 *
-		 * @param int  $timestamp unformulated timestamp.
-		 * @param bool $include_time_in_result whether include time in result or not.
-		 * @param bool $localize whether convert date into localize result or not.
+		 * @param int    $timestamp unformulated timestamp.
+		 * @param bool   $include_time_in_result whether include time in result or not.
+		 * @param bool   $localize whether convert date into localize result or not.
+		 * @param string $override_format completely override date format.
 		 *
 		 * @return false|string
 		 */
-		public static function convert_date( $timestamp, $include_time_in_result = false, $localize = false ) {
+		public static function convert_date( $timestamp, $include_time_in_result = false, $localize = false, $override_format = '' ) {
 			$used_format = $include_time_in_result ? self::get_date_time_format() : self::get_date_format();
+
+			// Just in case override all the date format.
+			if ( $override_format ) {
+				$used_format = $override_format;
+			}
 
 			return $localize ? date_i18n( $used_format, $timestamp ) : date( $used_format, $timestamp );
 		}
@@ -425,26 +431,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 			$counties = self::get_list_of_countries();
 
 			return ! empty( $counties[ $country_code ] ) ? $counties[ $country_code ] : '';
-		}
-
-		/**
-		 * Get full location info
-		 *
-		 * @param string $location_id location id.
-		 * @param bool   $include_name whether include location name or not.
-		 *
-		 * @return string
-		 */
-		public static function get_location_paragraph( $location_id, $include_name = true ) {
-			$name         = self::get_post_meta( 'name', $location_id );
-			$address      = self::get_post_meta( 'address', $location_id );
-			$city         = self::get_post_meta( 'city', $location_id );
-			$province     = self::get_post_meta( 'province', $location_id );
-			$country_code = self::get_post_meta( 'country', $location_id );
-			$country_name = self::translate_country_code( $country_code );
-			$postal       = self::get_post_meta( 'postal', $location_id );
-
-			return ( $include_name ? $name . ', ' : '' ) . $address . ', ' . $city . ', ' . $province . ' ' . $postal . ' ' . $country_name;
 		}
 
 		/**
@@ -487,68 +473,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 					$result .= '+';
 				}
 				$result .= $utc;
-			}
-
-			return $result;
-		}
-
-		/**
-		 * Check whether the location is valid or not.
-		 *
-		 * @param string $location_id location id.
-		 *
-		 * @return Result
-		 */
-		public static function is_location_valid( $location_id ) {
-			$result = new Result();
-			// Is name assigned.
-			$name = self::get_post_meta( 'name', $location_id );
-			if ( $name ) {
-				// Is country assigned.
-				$country = self::get_post_meta( 'country', $location_id );
-				if ( $country ) {
-					// Is province assigned.
-					$province = self::get_post_meta( 'province', $location_id );
-					if ( $province ) {
-						// Is city assigned.
-						$city = self::get_post_meta( 'city', $location_id );
-						if ( $city ) {
-							// Is address assigned.
-							$address = self::get_post_meta( 'address', $location_id );
-							if ( $address ) {
-								// Is postal_code assigned.
-								$postal = self::get_post_meta( 'postal', $location_id );
-								if ( $postal ) {
-									// Is photo assigned.
-									$photo = self::get_post_meta( 'photo', $location_id );
-									if ( $photo ) {
-										// Is description assigned.
-										$description = self::get_post_meta( 'description', $location_id );
-										if ( $description ) {
-											$result->success = true;
-										} else {
-											$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid description', 'wacara' );
-										}
-									} else {
-										$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid photo', 'wacara' );
-									}
-								} else {
-									$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid postal code', 'wacara' );
-								}
-							} else {
-								$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid address', 'wacara' );
-							}
-						} else {
-							$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid city', 'wacara' );
-						}
-					} else {
-						$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid province', 'wacara' );
-					}
-				} else {
-					$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid country', 'wacara' );
-				}
-			} else {
-				$result->message = __( 'This event is not completed yet, it uses invalid location which does not have valid name', 'wacara' );
 			}
 
 			return $result;

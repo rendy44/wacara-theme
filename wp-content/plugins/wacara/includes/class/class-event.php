@@ -80,18 +80,26 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 
 				// Parse more detail.
 				if ( $get_detail ) {
-					$is_single_day              = $this->get_meta( 'single_day' );
-					$this->date_start_timestamp = $this->get_meta( 'date_start' );
-					$this->date_start           = Helper::convert_date( $this->date_start_timestamp, true );
-					$this->is_single_day        = 'on' === $is_single_day ? true : false;
 
+					// Set object properties.
+					$this->set_date_start();
 					$this->set_date_end();
 				}
 			}
 		}
 
 		/**
-		 * Get event date end.
+		 * Set event date start.
+		 */
+		private function set_date_start() {
+			$is_single_day              = $this->get_meta( 'single_day' );
+			$this->date_start_timestamp = $this->get_meta( 'date_start' );
+			$this->date_start           = Helper::convert_date( $this->date_start_timestamp, true );
+			$this->is_single_day        = 'on' === $is_single_day ? true : false;
+		}
+
+		/**
+		 * Set event date end.
 		 */
 		private function set_date_end() {
 			$maybe_multi_date_end_timestamp = $this->get_meta( 'date_end' );
@@ -109,6 +117,46 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			$main_logo = $this->get_meta( 'main_logo_id' );
 
 			return $main_logo ? wp_get_attachment_image_url( $main_logo, 'medium' ) : Helper::get_site_logo_url();
+		}
+
+		/**
+		 * Get event headline.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_headline() {
+			return $this->get_meta( 'headline' );
+		}
+
+		/**
+		 * Get status whether event is held in a single or multiple days.
+		 *
+		 * @return bool
+		 */
+		public function is_single_day() {
+			return $this->is_single_day;
+		}
+
+		/**
+		 * Get event date start.
+		 *
+		 * @param string $date_format date format.
+		 *
+		 * @return false|string
+		 */
+		public function get_date_start( $date_format = '' ) {
+			return $date_format ? date( $date_format, $this->date_start_timestamp ) : $this->date_start;
+		}
+
+		/**
+		 * Get event date end.
+		 *
+		 * @param string $date_format date format.
+		 *
+		 * @return false|string
+		 */
+		public function get_date_end( $date_format = '' ) {
+			return $date_format ? date( $date_format, $this->date_end_timestamp ) : $this->date_end;
 		}
 
 		/**
@@ -208,6 +256,24 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
+		 * Get event location id.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_location_id() {
+			return $this->get_meta( 'location' );
+		}
+
+		/**
+		 * Get event location object.
+		 *
+		 * @return Event_Location
+		 */
+		public function get_location_object() {
+			return new Event_Location( $this->get_location_id() );
+		}
+
+		/**
 		 * Check whether the event already exceeded the registration.
 		 */
 		private function check_exceeding_registration() {
@@ -258,32 +324,26 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 				if ( $allow_register ) {
 
 					// Is date_start assigned.
-					if ( $this->date_start ) {
+					if ( $this->get_date_start() ) {
 
 						// Is date end or time end assigned.
-						$event_end = $this->is_single_day ? $this->maybe_time_end : $this->date_end;
-						if ( $event_end ) {
+						if ( $this->get_date_end() ) {
 
-							// Is location assigned.
-							$location = $this->get_meta( 'location' );
-							if ( $location ) {
+							// Instance location.
+							$location = $this->get_location_object();
 
-								// Validate location.
-								$validate_location = Helper::is_location_valid( $location );
+							// Validate the location.
+							if ( $location->success ) {
 
-								if ( $validate_location->success ) {
-									$this->success = true;
+								// Everything seems ok.
+								$this->success = true;
 
-									// Maybe check limitation.
-									$this->check_exceeding_registration();
+								// Maybe check limitation.
+								$this->check_exceeding_registration();
 
-								} else {
-									$this->success = false;
-									$this->message = $validate_location->message;
-								}
 							} else {
 								$this->success = false;
-								$this->message = __( 'This event is not completed yet, the event location has not been assigned yet', 'wacara' );
+								$this->message = $location->message;
 							}
 						} else {
 							$this->success = false;
@@ -319,7 +379,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			$key = WACARA_PREFIX;
 			$this->get_all_registrants(
 				[
-					'meta_query' => [ // phpcs:ignore
+					'meta_query' => [
 						[
 							'key'   => $key . 'reg_status',
 							'value' => 'done',
@@ -365,10 +425,10 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 				'order'          => 'desc',
 				'fields'         => 'ids',
 				'meta_query'     => [ // phpcs:ignore
-					[
-						'key'   => $key . 'event_id',
-						'value' => $this->post_id,
-					],
+									  [
+										  'key'   => $key . 'event_id',
+										  'value' => $this->post_id,
+									  ],
 				],
 			];
 

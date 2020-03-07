@@ -12,7 +12,7 @@ namespace Wacara\Payment;
 use Wacara\Event;
 use Wacara\Helper;
 use Wacara\Payment_Method;
-use Wacara\Pricing;
+use Wacara\Event_Pricing;
 use Wacara\Registrant;
 use Wacara\Registrant_Status;
 use Wacara\Result;
