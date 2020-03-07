@@ -80,6 +80,8 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			// Add args in location section.
 			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
 
+			// Add top nav in registrant.
+			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_top_nav_callback' ], 5, 1 );
 			// Add args in registrant masthead.
 			add_filter( 'wacara_filter_registrant_opening_masthead_args', [ $this, 'registrant_opening_masthead_args_callback' ], 10, 2 );
 		}
@@ -187,6 +189,22 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			}
 
 			return $args;
+		}
+
+		/**
+		 * Callback for adding top nav in registrant page.
+		 *
+		 * @param Registrant $registrant object of the current registrant.
+		 */
+		public function registrant_top_nav_callback( $registrant ) {
+			$event = new Event( $registrant->get_event_id() );
+
+			$nav_args = [
+				'nav_logo_url' => $event->get_logo_url(),
+				'nav_home_url' => $event->post_url,
+			];
+
+			Helper::render_local_template( 'registrant/top-nav', $nav_args, true );
 		}
 
 		/**
