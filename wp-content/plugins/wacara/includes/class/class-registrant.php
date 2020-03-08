@@ -196,6 +196,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Save qrcode information into registrant.
 		 */
 		private function save_qrcode_to_registrant() {
+
 			// Generate qrcode locally.
 			$this->generate_qrcode_locally();
 

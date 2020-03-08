@@ -522,19 +522,25 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function event_speakers_section_callback( $event ) {
 			$speakers_arr = [];
-			$speakers     = Helper::get_post_meta( 'speakers', $event->post_id );
+			$speakers     = $event->get_speaker_ids();
+
+			// Loop speaker.
 			if ( ! empty( $speakers ) ) {
-				foreach ( $speakers as $speaker ) {
+				foreach ( $speakers as $speaker_id ) {
+
+					// Instance speaker.
+					$speaker = new Event_Speaker( $speaker_id );
+
 					$speakers_arr[] = [
-						'image'     => has_post_thumbnail( $speaker ) ? get_the_post_thumbnail_url( $speaker ) : WACARA_URI . '/assets/img/user-placeholder.jpg',
-						'name'      => get_the_title( $speaker ),
-						'position'  => Helper::get_post_meta( 'position', $speaker ),
-						'facebook'  => Helper::get_post_meta( 'facebook', $speaker ),
-						'twitter'   => Helper::get_post_meta( 'twitter', $speaker ),
-						'website'   => Helper::get_post_meta( 'website', $speaker ),
-						'linkedin'  => Helper::get_post_meta( 'linkedin', $speaker ),
-						'instagram' => Helper::get_post_meta( 'instagram', $speaker ),
-						'youtube'   => Helper::get_post_meta( 'youtube', $speaker ),
+						'image'     => has_post_thumbnail( $speaker_id ) ? get_the_post_thumbnail_url( $speaker_id ) : WACARA_URI . '/assets/img/user-placeholder.jpg',
+						'name'      => $speaker->post_title,
+						'position'  => $speaker->get_position(),
+						'facebook'  => $speaker->get_facebook_url(),
+						'twitter'   => $speaker->get_twitter_url(),
+						'website'   => $speaker->get_website_url(),
+						'linkedin'  => $speaker->get_linkedin_url(),
+						'instagram' => $speaker->get_instagram_url(),
+						'youtube'   => $speaker->get_youtube_url(),
 					];
 				}
 
@@ -687,22 +693,27 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Only render the pricing section if registration is required to join the event.
 			if ( $event->is_event_allows_register() ) {
 
-				// Loop all pricing ids.
+				// Get pricing ids.
 				$pricing_arr = [];
-				foreach ( $event->get_pricing_ids() as $pricing_id ) {
+				$pricing_ids = $event->get_pricing_ids();
 
-					// Instance pricing.
-					$pricing = new Event_Pricing( $pricing_id );
+				// Loop all pricing ids.
+				if ( ! empty( $pricing_ids ) ) {
+					foreach ( $pricing_ids as $pricing_id ) {
 
-					$pricing_arr[] = [
-						'id'          => $pricing->post_id,
-						'name'        => $pricing->post_title,
-						'price'       => $pricing->get_price(),
-						'symbol'      => $pricing->get_currency_symbol(),
-						'recommended' => $pricing->is_recommended(),
-						'pros'        => $pricing->get_pros(),
-						'cons'        => $pricing->get_cons(),
-					];
+						// Instance pricing.
+						$pricing = new Event_Pricing( $pricing_id );
+
+						$pricing_arr[] = [
+							'id'          => $pricing->post_id,
+							'name'        => $pricing->post_title,
+							'price'       => $pricing->get_price(),
+							'symbol'      => $pricing->get_currency_symbol(),
+							'recommended' => $pricing->is_recommended(),
+							'pros'        => $pricing->get_pros(),
+							'cons'        => $pricing->get_cons(),
+						];
+					}
 				}
 
 				// Add more args.

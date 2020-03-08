@@ -297,6 +297,15 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
+		 * Get event speaker ids.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_speaker_ids() {
+			return $this->get_meta( 'speakers' );
+		}
+
+		/**
 		 * Check whether the event already exceeded the registration.
 		 */
 		private function check_exceeding_registration() {

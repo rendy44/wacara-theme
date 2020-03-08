@@ -119,6 +119,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-event-pricing',
 				'class-event-location',
 				'class-event-header',
+				'class-event-speaker',
 				'class-registrant',
 				'class-registrant-status',
 				'class-registrant-logs',
