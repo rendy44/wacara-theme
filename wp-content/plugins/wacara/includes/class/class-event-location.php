@@ -23,12 +23,78 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 	class Event_Location extends Post {
 
 		/**
+		 * Location name variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_name;
+
+		/**
+		 * Location country variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_country;
+
+		/**
+		 * Location province variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_province;
+
+		/**
+		 * Location city variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_city;
+
+		/**
+		 * Location address variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_address;
+
+		/**
+		 * Location postal variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_postal;
+
+		/**
+		 * Location phtoto id variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_photo_id;
+
+		/**
+		 * Location description.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $location_description;
+
+		/**
 		 * Event_Location constructor.
 		 *
 		 * @param string $location_id location id.
 		 */
 		public function __construct( $location_id ) {
 			parent::__construct( $location_id, 'location' );
+
+			// Fetch details.
+			$this->location_name        = $this->get_meta( 'name' );
+			$this->location_country     = $this->get_meta( 'country' );
+			$this->location_province    = $this->get_meta( 'province' );
+			$this->location_city        = $this->get_meta( 'city' );
+			$this->location_address     = $this->get_meta( 'address' );
+			$this->location_postal      = $this->get_meta( 'postal' );
+			$this->location_photo_id    = $this->get_meta( 'photo_id' );
+			$this->location_description = $this->get_meta( 'description' );
 
 			// Self validate the location.
 			$this->validate();
@@ -88,7 +154,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 			}
 
 			// Is photo assigned.
-			if ( ! $this->get_location_photo() ) {
+			if ( ! $this->get_location_photo_id() ) {
 				$this->success = false;
 				$this->message = __( 'This event is not completed yet, it uses invalid location which does not have valid photo', 'wacara' );
 
@@ -113,7 +179,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_name() {
-			return $this->get_meta( 'name' );
+			return $this->location_name;
 		}
 
 		/**
@@ -122,7 +188,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_country() {
-			return $this->get_meta( 'country' );
+			return $this->location_country;
 		}
 
 		/**
@@ -131,7 +197,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_province() {
-			return $this->get_meta( 'province' );
+			return $this->location_province;
 		}
 
 		/**
@@ -140,7 +206,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_city() {
-			return $this->get_meta( 'city' );
+			return $this->location_city;
 		}
 
 		/**
@@ -149,7 +215,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_address() {
-			return $this->get_meta( 'address' );
+			return $this->location_address;
 		}
 
 		/**
@@ -158,7 +224,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_postal() {
-			return $this->get_meta( 'postal' );
+			return $this->location_postal;
 		}
 
 		/**
@@ -166,8 +232,8 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_location_photo() {
-			return $this->get_meta( 'photo' );
+		public function get_location_photo_id() {
+			return $this->location_photo_id;
 		}
 
 		/**
@@ -178,7 +244,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return false|string
 		 */
 		public function get_location_photo_url( $size = 'medium' ) {
-			return wp_get_attachment_image_url( $this->get_location_photo(), $size );
+			return wp_get_attachment_image_url( $this->get_location_photo_id(), $size );
 		}
 
 		/**
@@ -187,7 +253,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_location_description() {
-			return $this->get_meta( 'description' );
+			return $this->location_description;
 		}
 
 		/**

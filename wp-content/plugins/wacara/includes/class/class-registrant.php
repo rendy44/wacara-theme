@@ -611,7 +611,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_pricing_price();
 
 			/* translators: %1$s : currency symbol : %2$s : formatted amount */
-
 			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
@@ -655,7 +654,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_total_pricing_price();
 
 			/* translators: %1$s : currency symbol : %2$s : formatted amount */
-
 			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 

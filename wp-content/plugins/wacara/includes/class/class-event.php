@@ -266,13 +266,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @return bool
 		 */
 		public function is_registration_limited() {
-			$result = false;
-			$limit  = $this->get_meta( 'limit_register' );
-			if ( 'on' === $limit ) {
-				$result = true;
-			}
-
-			return $result;
+			return 'on' === $this->get_meta( 'limit_register' );
 		}
 
 		/**

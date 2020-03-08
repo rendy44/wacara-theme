@@ -56,14 +56,13 @@ if ( ! class_exists( 'Wacara\Event_Header' ) ) {
 		 * @param string $header_id header id.
 		 */
 		public function __construct( $header_id ) {
+			parent::__construct( $header_id, 'header' );
 
 			// Fetch details.
 			$this->content_alignment    = $this->get_meta( 'content_alignment' );
 			$this->default_image_id     = $this->get_meta( 'default_image_id' );
 			$this->is_darken            = $this->get_meta( 'darken' );
 			$this->is_countdown_content = $this->get_meta( 'countdown_content' );
-
-			parent::__construct( $header_id, 'header' );
 		}
 
 		/**

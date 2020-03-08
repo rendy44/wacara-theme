@@ -175,7 +175,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			$location = $event->get_location_object();
 
 			// Validate the location photo.
-			if ( $location->get_location_photo() ) {
+			if ( $location->get_location_photo_id() ) {
 
 				$style_properties = [
 					'background-image' => "url({$location->get_location_photo_url('large')})",

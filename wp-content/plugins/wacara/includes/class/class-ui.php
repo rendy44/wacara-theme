@@ -570,7 +570,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			// Add image url.
-			if ( $location->get_location_photo() ) {
+			if ( $location->get_location_photo_id() ) {
 				$location_args['location_image'] = $location->get_location_photo_url( 'wacara-location-image' );
 			}
 
