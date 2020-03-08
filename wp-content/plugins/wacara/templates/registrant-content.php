@@ -7,6 +7,7 @@
  * @version 0.0.1
  */
 
+use Wacara\Event;
 use Wacara\Payment_Method;
 use Wacara\Event_Pricing;
 use Wacara\Register_Payment;
@@ -24,7 +25,7 @@ $registrant = new Registrant( get_the_ID() );
 $reg_status = $registrant->get_registration_status();
 
 // Fetch event detail.
-$event_id = $registrant->get_event_id();
+$event = $registrant->get_event_object();
 
 // Fetch payment method.
 $payment_class = $registrant->get_payment_method_object();
@@ -86,10 +87,10 @@ if ( '' === $reg_status ) {
 		/**
 		 * Wacara input field for event filter hook.
 		 *
-		 * @param int $event_id id of the selected event.
+		 * @param Event $event object of the selected event.
 		 * @param string $field id of the field.
 		 */
-		echo apply_filters( 'wacara_input_field_event', $event_id, $field ); // phpcs:ignore
+		echo apply_filters( 'wacara_input_field_event', $event, $field ); // phpcs:ignore
 	}
 
 	/**

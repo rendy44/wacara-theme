@@ -246,6 +246,14 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 			// Instance the registrant.
 			$registrant = new Registrant( $post_id );
 
+			// Validate the registrant.
+			if ( ! $registrant->success ) {
+				return;
+			}
+
+			// Instance the event.
+			$event = $registrant->get_event_object();
+
 			?>
 			<div class="wcr-registrant-highlight-wrapper">
 				<?php /* translators: %s : title of the registrant */ ?>
@@ -279,7 +287,7 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 					[
 						'field' => __( 'Event', 'wacara' ),
 						/* translators: %1$s : event edit post link, %2$s : event name, %3$s : event landing page url */
-						'value' => sprintf( '<a href="%1$s">%2$s</a> <a href="%3$s" target="_blank"><sup>[?]</sup></a>', get_edit_post_link( $registrant->get_event_id() ), $registrant->get_event_object()->post_title, get_permalink( $registrant->get_event_id() ) ),
+						'value' => sprintf( '<a href="%1$s">%2$s</a> <a href="%3$s" target="_blank"><sup>[?]</sup></a>', get_edit_post_link( $event->post_id ), $event->post_title, $event->post_url ),
 					],
 				];
 

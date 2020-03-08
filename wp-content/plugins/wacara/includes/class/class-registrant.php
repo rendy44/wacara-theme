@@ -444,15 +444,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
-		 * Get event id information.
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_event_id() {
-			return $this->get_meta( 'event_id' );
-		}
-
-		/**
 		 * Get event object.
 		 *
 		 * @param bool $get_detail whether get event details or not.
@@ -460,7 +451,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @return Event
 		 */
 		public function get_event_object( $get_detail = false ) {
-			return new Event( $this->get_event_id(), $get_detail );
+			return new Event( $this->get_meta( 'event_id' ), $get_detail );
 		}
 
 		/**

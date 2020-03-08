@@ -143,16 +143,16 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying event field.
 		 *
-		 * @param string $event_id event id.
+		 * @param Event  $event object of the selected event.
 		 * @param string $key field key.
 		 *
 		 * @return string
 		 */
-		public function input_field_event_callback( $event_id, $key ) {
+		public function input_field_event_callback( $event, $key ) {
 			$result         = '';
-			$use_field      = Helper::get_post_meta( $key, $event_id );
-			$field_label    = Helper::get_post_meta( $key . '_field_name', $event_id );
-			$field_required = Helper::get_post_meta( $key . '_required', $event_id );
+			$use_field      = Helper::get_post_meta( $key, $event->post_id );
+			$field_label    = Helper::get_post_meta( $key . '_field_name', $event->post_id );
+			$field_required = Helper::get_post_meta( $key . '_required', $event->post_id );
 
 			if ( $use_field ) {
 				$result .= "<div class='wcr-field-{$key} wcr-form-field-wrapper'>";
