@@ -120,6 +120,26 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
+		 * Get event background image url.
+		 *
+		 * @param string $size size of the image.
+		 *
+		 * @return bool|false|string
+		 */
+		public function get_background_image_url( $size = 'large' ) {
+			$backgorund_image_id = $this->get_meta( 'background_image_id' );
+
+			// Validate background image.
+			if ( $backgorund_image_id ) {
+				$result = wp_get_attachment_image_url( $backgorund_image_id, $size );
+			} else {
+				$result = $this->get_header_object()->get_default_image_url( $size );
+			}
+
+			return $result;
+		}
+
+		/**
 		 * Get event headline.
 		 *
 		 * @return array|bool|mixed
@@ -271,6 +291,24 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 */
 		public function get_location_object() {
 			return new Event_Location( $this->get_location_id() );
+		}
+
+		/**
+		 * Get event header id.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_header_id() {
+			return $this->get_meta( 'header' );
+		}
+
+		/**
+		 * Get event header object.
+		 *
+		 * @return Event_Header
+		 */
+		public function get_header_object() {
+			return new Event_Header( $this->get_header_id() );
 		}
 
 		/**

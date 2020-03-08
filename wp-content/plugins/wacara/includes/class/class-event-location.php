@@ -28,7 +28,7 @@ if ( ! class_exists( 'Wacara\Event_Location' ) ) {
 		 * @param string $location_id location id.
 		 */
 		public function __construct( $location_id ) {
-			parent::__construct( $location_id, 'price' );
+			parent::__construct( $location_id, 'location' );
 
 			// Self validate the location.
 			$this->validate();
