@@ -8,6 +8,7 @@
  */
 
 use Wacara\Event;
+use Wacara\Event_Header;
 use Wacara\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,9 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Fetch event object.
 $event = new Event( get_the_ID(), true );
 
+// Instance header.
+$header = $event->get_header_object();
+
 // Define event's variables based on its properties.
-$is_event_past   = $event->is_event_past();
-$header_template = Helper::get_post_meta( 'header' );
+$is_event_past = $event->is_event_past();
 
 // Check the event's validity.
 if ( ! $is_event_past ) {
@@ -38,15 +41,15 @@ if ( ! $is_event_past ) {
 	/**
 	 * Wacara event masthead hook.
 	 *
-	 * @param Event $event the object of the current event.
-	 * @param string $header_template the id of selected header template of the current event.
+	 * @param Event $event object of the current event.
+	 * @param Event_Header $header object of the selected header template of the current event.
 	 *
-	 * @hooked event_masthead_opening_callback - 10
-	 * @hooked event_masthead_content_callback - 20
-	 * @hooked event_masthead_countdown_callback - 30
-	 * @hooked event_masthead_closing_callback - 40
+	 * @hooked UI::event_masthead_opening_callback - 10
+	 * @hooked UI::event_masthead_content_callback - 20
+	 * @hooked UI::event_masthead_countdown_callback - 30
+	 * @hooked UI::event_masthead_closing_callback - 40
 	 */
-	do_action( 'wacara_event_masthead', $event, $header_template );
+	do_action( 'wacara_event_masthead', $event, $header );
 
 	/**
 	 * Wacara after event masthead hook.

@@ -285,21 +285,12 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
-		 * Get event header id.
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_header_id() {
-			return $this->get_meta( 'header' );
-		}
-
-		/**
 		 * Get event header object.
 		 *
 		 * @return Event_Header
 		 */
 		public function get_header_object() {
-			return new Event_Header( $this->get_header_id() );
+			return new Event_Header( $this->get_meta( 'header' ) );
 		}
 
 		/**

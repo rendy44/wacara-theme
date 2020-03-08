@@ -264,13 +264,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead opening tag.
 		 *
-		 * @param Event  $event the object of the current event.
-		 * @param string $header_template the id of selected header template of the current event.
+		 * @param Event        $event the object of the current event.
+		 * @param Event_Header $header object of the selected header template of the current event.
 		 */
-		public function event_masthead_opening_callback( $event, $header_template ) {
+		public function event_masthead_opening_callback( $event, $header ) {
 
-			// Instance header.
-			$header             = $event->get_header_object();
+			// Get background image url of the event.
 			$maybe_bg_image_url = $event->get_background_image_url( 'large' );
 
 			// Adjust header class.
@@ -315,19 +314,20 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead section.
 		 *
-		 * @param Event  $event the object of the current event.
-		 * @param string $header_template the id of selected header template of the current event.
+		 * @param Event        $event object of the current event.
+		 * @param Event_Header $header object of the selected header template of the current event.
 		 */
-		public function event_masthead_content_callback( $event, $header_template ) {
-			$date_start            = Helper::get_post_meta( 'date_start', $event->post_id );
-			$headline              = Helper::get_post_meta( 'headline', $event->post_id );
-			$location              = Helper::get_post_meta( 'location', $event->post_id );
-			$location_country_code = Helper::get_post_meta( 'country', $location );
-			$location_province     = Helper::get_post_meta( 'province', $location );
-			$masthead_args         = [
+		public function event_masthead_content_callback( $event, $header ) {
+			// Instance location.
+			$location = $event->get_location_object();
+
+			// Get details.
+			$headline = $event->get_headline();
+
+			$masthead_args = [
 				'header_title'    => $event->post_title,
 				'header_headline' => $headline,
-				'header_excerpt'  => Helper::convert_date( $date_start, false, true ) . ' - ' . $location_province . ', ' . $location_country_code,
+				'header_excerpt'  => $event->get_date_start() . ' - ' . $location->get_location_province() . ', ' . $location->get_location_country(),
 			];
 
 			// Use default content if headline is not defined.
@@ -342,15 +342,13 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead countdown.
 		 *
-		 * @param Event  $event the object of the current event.
-		 * @param string $header_template the id of selected header template of the current event.
+		 * @param Event        $event object of the current event.
+		 * @param Event_Header $header object of selected header template of the current event.
 		 */
-		public function event_masthead_countdown_callback( $event, $header_template ) {
-			$enable_countdown = Helper::get_post_meta( 'countdown_content', $header_template );
-			if ( 'on' === $enable_countdown ) {
-				$date_start    = Helper::get_post_meta( 'date_start', $event->post_id );
+		public function event_masthead_countdown_callback( $event, $header ) {
+			if ( $header->is_countdown_content() ) {
 				$masthead_args = [
-					'date_start' => date( 'M j, Y H:i:s', $date_start ),
+					'date_start' => $event->get_date_start( 'M j, Y H:i:s' ),
 				];
 
 				Template::render( 'event/masthead-countdown', $masthead_args, true );
@@ -360,10 +358,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying masthead closing tag.
 		 *
-		 * @param Event  $event the object of the current event.
-		 * @param string $header_template the id of selected header template of the current event.
+		 * @param Event        $event object of the current event.
+		 * @param Event_Header $header object of selected header template of the current event.
 		 */
-		public function event_masthead_closing_callback( $event, $header_template ) {
+		public function event_masthead_closing_callback( $event, $header ) {
 			Template::render( 'global/masthead-close', [], true );
 		}
 
