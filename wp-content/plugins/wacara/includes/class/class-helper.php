@@ -30,74 +30,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		private static $meta_prefix = WACARA_PREFIX;
 
 		/**
-		 * Get main column bootstrap css class width
-		 *
-		 * @return int
-		 */
-		public static function get_main_column_width() {
-			return is_active_sidebar( 'sk_sidebar' ) ? 'col-md-8' : 'col-md-12';
-		}
-
-		/**
-		 * Custom pagination
-		 *
-		 * @param int $number_pages max number page.
-		 * @param int $paged current page.
-		 *
-		 * @return string
-		 */
-		public static function custom_pagination( $number_pages, $paged ) {
-
-			/**
-			 * This first part of our function is a fallback
-			 * for custom pagination inside a regular loop that
-			 * uses the global $paged and global $wp_query variables.
-			 *
-			 * It's good because we can now override default pagination
-			 * in our theme, and use this function in default quries
-			 * and custom queries.
-			 */
-			$paged = empty( $paged ) ? 1 : $paged;
-			if ( '' === $number_pages ) {
-				global $wp_query;
-				$number_pages = $wp_query->max_num_pages;
-				if ( ! $number_pages ) {
-					$number_pages = 1;
-				}
-			}
-
-			/**
-			 * We construct the pagination arguments to enter into our paginate_links
-			 * function.
-			 */
-			$pagination_args = [
-				'base'         => add_query_arg( 'paged', '%#%' ),
-				'total'        => $number_pages,
-				'current'      => $paged,
-				'show_all'     => false,
-				'end_size'     => 1,
-				'mid_size'     => 2,
-				'prev_next'    => true,
-				'prev_text'    => __( '<i class="remixicon-arrow-left-s-line"></i>' ),
-				'next_text'    => __( '<i class="remixicon-arrow-right-s-line"></i>' ),
-				'type'         => 'array',
-				'add_args'     => true,
-				'add_fragment' => '',
-			];
-			$result          = '';
-			$paginate_links  = paginate_links( $pagination_args );
-			if ( $paginate_links ) {
-				$result .= '<div class="pagination"><ul class="pagination">';
-				foreach ( $paginate_links as $page ) {
-					$result .= '<li class="page-item ' . ( strpos( $page, 'current' ) !== false ? 'active' : '' ) . '"> ' . str_replace( 'page-numbers', 'page-link', $page ) . '</li>';
-				}
-				$result .= '</ul></div>';
-			}
-
-			return $result;
-		}
-
-		/**
 		 * Save multiple post meta
 		 *
 		 * @param int   $post_id post id.
@@ -359,36 +291,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		}
 
 		/**
-		 * Split title into theme format
-		 *
-		 * @param string $original_title original title that will be split.
-		 *
-		 * @return string
-		 */
-		public static function split_title( $original_title ) {
-			$title_array     = explode( ' ', $original_title );
-			$number_array    = count( $title_array );
-			$formatted_title = '';
-			$split_number    = 0;
-			if ( $number_array > 2 ) {
-				$split_number = $number_array - 2;
-			}
-			$num_arr = 0;
-			foreach ( $title_array as $item ) {
-				if ( $split_number === $num_arr ) {
-					$formatted_title .= '<span>';
-				}
-				$formatted_title .= $item . ' ';
-				if ( $number_array === $num_arr ) {
-					$formatted_title .= '</span>';
-				}
-				$num_arr ++;
-			}
-
-			return $formatted_title;
-		}
-
-		/**
 		 * Format timestamp into readable date;
 		 *
 		 * @param int    $timestamp unformulated timestamp.
@@ -570,52 +472,6 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 				// Update the result.
 				/* translators: 1: the post type name */
 				$result->message = sprintf( __( '%s not found', 'wacara' ), ucfirst( $post_type ) );
-			}
-
-			return $result;
-		}
-
-		/**
-		 * Dirty way to get current post id.
-		 *
-		 * @return bool|int
-		 */
-		public static function get_dirty_current_post_id() {
-			$result = false;
-
-			$request_uri = $_SERVER['REQUEST_URI']; // phpcs:ignore
-			$event_obj   = get_page_by_path( $request_uri, OBJECT, [ 'event', 'registrant' ] ); // phpcs:ignore
-
-			// Maybe remove trailing slash.
-			if ( ! $event_obj ) {
-				$event_obj = get_page_by_path( untrailingslashit( $request_uri ), OBJECT, [ 'event', 'registrant' ] );
-			}
-
-			// Maybe remove the first slash.
-			if ( ! $event_obj ) {
-				$event_obj = get_page_by_path(
-					substr( untrailingslashit( $request_uri ), 1 ),
-					OBJECT,
-					[
-						'event',
-						'registrant',
-					]
-				);
-			}
-
-			// Convert into array.
-			$path_arr     = explode( '/', substr( untrailingslashit( $request_uri ), 1 ) );
-			$path_arr_num = count( $path_arr );
-			if ( ! empty( $path_arr ) ) {
-				for ( $i = 0; $i < $path_arr_num; $i ++ ) {
-					unset( $path_arr[ $i ] );
-					$new_path  = implode( '/', $path_arr );
-					$event_obj = get_page_by_path( $new_path, OBJECT, [ 'event', 'registrant' ] );
-					if ( $event_obj ) {
-						$result = $event_obj->ID;
-						break;
-					}
-				}
 			}
 
 			return $result;
