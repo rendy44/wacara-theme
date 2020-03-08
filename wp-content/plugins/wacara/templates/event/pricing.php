@@ -17,31 +17,28 @@ if ( ! empty( $price_lists ) ) {
 		<div class="frow">
 			<?php
 			foreach ( $price_lists as $list ) {
-				$maybe_recommended_class = 'on' === $list['recommended'] ? 'wcr-pricing-item-best-value' : '';
+				$maybe_recommended_class = $list['recommended'] ? 'wcr-pricing-item-best-value' : '';
 				?>
 				<div class="col-sm-1-2 col-md-1-3">
 					<div class="wcr-pricing-item-wrapper <?php echo esc_attr( $maybe_recommended_class ); ?>">
-						<?php
-						if ( 'on' === $list['recommended'] ) {
-							?>
-						<div class="wcr-pricing-item-ribbon-wrapper">
-							<span class="wcr-pricing-item-ribbon"><?php esc_html_e( 'Best Value', 'wacara' ); ?></span>
-						</div>
+						<?php if ( 'on' === $list['recommended'] ) { ?>
+							<div class="wcr-pricing-item-ribbon-wrapper">
+								<span class="wcr-pricing-item-ribbon"><?php esc_html_e( 'Best Value', 'wacara' ); ?></span>
+							</div>
 						<?php } ?>
 						<div class="wcr-pricing-title-wrapper">
 							<h4 class="wcr-pricing-title"><?php echo esc_html( $list['name'] ); ?></h4>
 						</div>
 						<div class="wcr-pricing-price-wrapper">
 							<span class="wcr-pricing-price-currency"><?php echo esc_html( $list['symbol'] ); ?></span>
-							<span class="wcr-pricing-price-value"><?php echo esc_html( number_format_i18n( (int) $list['price'] ) ); ?></span>
+							<span class="wcr-pricing-price-value"><?php echo esc_html( number_format_i18n( $list['price'] ) ); ?></span>
 						</div>
 						<div class="wcr-pricing-features-wrapper">
 							<ul class="wcr-pricing-features">
 								<?php
 								// Render the price's pros.
-								if ( $list['pros'] ) {
-									$pros_arr = explode( ',', $list['pros'] );
-									foreach ( $pros_arr as $pro ) {
+								if ( ! empty( $list['pros'] ) ) {
+									foreach ( $list['pros'] as $pro ) {
 										?>
 										<li class="wcr-pricing-feature wcr-pricing-feature-pro"><?php echo esc_html( $pro ); ?></li>
 										<?php
@@ -49,9 +46,8 @@ if ( ! empty( $price_lists ) ) {
 								}
 
 								// Render the price's cons.
-								if ( $list['cons'] ) {
-									$cons_arr = explode( ',', $list['cons'] );
-									foreach ( $cons_arr as $con ) {
+								if ( ! empty( $list['cons'] ) ) {
+									foreach ( $list['cons'] as $con ) {
 										?>
 										<li class="wcr-pricing-feature wcr-pricing-feature-con"><?php echo esc_html( $con ); ?></li>
 										<?php

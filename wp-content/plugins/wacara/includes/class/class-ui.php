@@ -663,7 +663,6 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event $event the object of current event.
 		 */
 		public function event_pricing_section_callback( $event ) {
-			$allow_registration = Helper::get_post_meta( 'allow_register', $event->post_id );
 
 			// Set default template name.
 			$default_template = 'event/directly';
@@ -686,23 +685,24 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			// Only render the pricing section if registration is required to join the event.
-			if ( 'on' === $allow_registration ) {
+			if ( $event->is_event_allows_register() ) {
+
+				// Loop all pricing ids.
 				$pricing_arr = [];
-				$pricing     = Helper::get_post_meta( 'pricing', $event->post_id );
-				if ( ! empty( $pricing ) ) {
-					foreach ( $pricing as $price ) {
-						$currency_code = Helper::get_post_meta( 'currency', $price );
-						$pricing_arr[] = [
-							'id'          => $price,
-							'name'        => get_the_title( $price ),
-							'price'       => Helper::get_post_meta( 'price', $price ),
-							'currency'    => $currency_code,
-							'symbol'      => Helper::get_currency_symbol_by_code( $currency_code ),
-							'recommended' => Helper::get_post_meta( 'recommended', $price ),
-							'pros'        => Helper::get_post_meta( 'pros', $price ),
-							'cons'        => Helper::get_post_meta( 'cons', $price ),
-						];
-					}
+				foreach ( $event->get_pricing_ids() as $pricing_id ) {
+
+					// Instance pricing.
+					$pricing = new Event_Pricing( $pricing_id );
+
+					$pricing_arr[] = [
+						'id'          => $pricing->post_id,
+						'name'        => $pricing->post_title,
+						'price'       => $pricing->get_price(),
+						'symbol'      => $pricing->get_currency_symbol(),
+						'recommended' => $pricing->is_recommended(),
+						'pros'        => $pricing->get_pros(),
+						'cons'        => $pricing->get_cons(),
+					];
 				}
 
 				// Add more args.

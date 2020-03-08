@@ -23,6 +23,48 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 	class Event_Pricing extends Post {
 
 		/**
+		 * Currency code variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $currency_code;
+
+		/**
+		 * Price variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $price;
+
+		/**
+		 * Pros variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $pros;
+
+		/**
+		 * Cons variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $cons;
+
+		/**
+		 * Is unique variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $is_unique;
+
+		/**
+		 * Is recommended variable.
+		 *
+		 * @var array|bool|mixed
+		 */
+		private $is_recommended;
+
+		/**
 		 * Event_Pricing constructor.
 		 *
 		 * @param string $pricing_id pricing id.
@@ -30,8 +72,13 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		public function __construct( $pricing_id ) {
 			parent::__construct( $pricing_id, 'price' );
 
-			// Self validate the pricing.
-			$this->validate();
+			// Fetch details.
+			$this->currency_code  = $this->get_meta( 'currency' );
+			$this->price          = $this->get_meta( 'price' );
+			$this->pros           = $this->get_meta( 'pros' );
+			$this->cons           = $this->get_meta( 'cons' );
+			$this->is_unique      = $this->get_meta( 'unique_number' );
+			$this->is_recommended = $this->get_meta( 'recommended' );
 		}
 
 		/**
@@ -40,16 +87,25 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_currency_code() {
-			return $this->get_meta( 'currency' );
+			return $this->currency_code;
+		}
+
+		/**
+		 * Get pricing currency symbol.
+		 *
+		 * @return mixed|void
+		 */
+		public function get_currency_symbol() {
+			return Helper::get_currency_symbol_by_code( $this->get_currency_code() );
 		}
 
 		/**
 		 * Get pricing price.
 		 *
-		 * @return array|bool|mixed
+		 * @return int
 		 */
 		public function get_price() {
-			return $this->get_meta( 'price' );
+			return (int) $this->price;
 		}
 
 		/**
@@ -58,11 +114,7 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		 * @return string
 		 */
 		public function get_html_price() {
-			$price           = $this->get_price();
-			$currency_code   = $this->get_currency_code();
-			$currency_symbol = Helper::get_currency_symbol_by_code( $currency_code );
-
-			return $currency_symbol . number_format_i18n( $price, 2 );
+			return $this->get_currency_symbol() . number_format_i18n( $this->get_price(), 2 );
 		}
 
 		/**
@@ -73,7 +125,7 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_pros( $raw = false ) {
-			$result = $this->get_meta( 'pros' );
+			$result = $this->pros;
 
 			if ( ! $raw ) {
 				$result = explode( ',', $result );
@@ -90,7 +142,7 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_cons( $raw = false ) {
-			$result = $this->get_meta( 'cons' );
+			$result = $this->cons;
 
 			if ( ! $raw ) {
 				$result = explode( ',', $result );
@@ -102,42 +154,19 @@ if ( ! class_exists( 'Wacara\Event_Pricing' ) ) {
 		/**
 		 * Get status whether set as recommended or not.
 		 *
-		 * @return array|bool|mixed
+		 * @return bool
 		 */
 		public function is_recommended() {
-			return $this->get_meta( 'recommended' );
+			return 'on' === $this->is_recommended;
 		}
 
 		/**
 		 * Get status whether requires unique number or not.
 		 *
-		 * @return array|bool|mixed
+		 * @return bool
 		 */
 		public function is_unique_number() {
-			return $this->get_meta( 'unique_number' );
-		}
-
-		/**
-		 * Validate the pricing.
-		 */
-		private function validate() {
-
-			// Validate the price.
-			$price = $this->get_price();
-			if ( '' !== $price || 0 === $price ) {
-
-				// Validate the currency.
-				$currency = $this->get_currency_code();
-				if ( $currency ) {
-					$this->success = true;
-				} else {
-					$this->success = false;
-					$this->message = __( 'The pricing is invalid, the currency has not been assigned yet', 'wacara' ) . $currency;
-				}
-			} else {
-				$this->success = false;
-				$this->message = __( 'The pricing is invalid, the price amount has not been assigned yet', 'wacara' );
-			}
+			return 'on' === $this->is_unique;
 		}
 	}
 }

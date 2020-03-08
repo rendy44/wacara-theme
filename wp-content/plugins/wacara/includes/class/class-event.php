@@ -288,6 +288,15 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
+		 * Get event pricing ids.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_pricing_ids() {
+			return $this->get_meta( 'pricing' );
+		}
+
+		/**
 		 * Check whether the event already exceeded the registration.
 		 */
 		private function check_exceeding_registration() {

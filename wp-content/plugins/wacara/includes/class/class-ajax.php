@@ -109,7 +109,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 
 						// get pricing details.
 						$pricing_price         = $pricing->get_price();
-						$pricing_price_in_cent = (float) $pricing_price * 100;
+						$pricing_price_in_cent = $pricing_price * 100;
 
 						// Save cached data.
 						$cached_data = [
