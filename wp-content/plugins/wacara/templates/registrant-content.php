@@ -9,7 +9,6 @@
 
 use Wacara\Event;
 use Wacara\Payment_Method;
-use Wacara\Event_Pricing;
 use Wacara\Register_Payment;
 use Wacara\Registrant;
 use Wacara\Template;
@@ -24,7 +23,7 @@ $registrant = new Registrant( get_the_ID() );
 // Fetch registration status.
 $reg_status = $registrant->get_registration_status();
 
-// Fetch event detail.
+// Instance event.
 $event = $registrant->get_event_object();
 
 // Fetch payment method.
@@ -184,7 +183,7 @@ if ( '' === $reg_status ) {
 	 *
 	 * @param Registrant $registrant the object of the current registrant.
 	 *
-	 * @hooked registrant_form_closing_callback - 50
+	 * @hooked UI::registrant_form_closing_callback - 50
 	 */
 	do_action( 'wacara_after_registrant_form_content', $registrant );
 
