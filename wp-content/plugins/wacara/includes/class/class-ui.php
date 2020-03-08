@@ -175,6 +175,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'section'       => 'expired',
 			];
 
+			/**
+			 * Wacara filter opening event expired.
+			 *
+			 * @param array $section_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$section_args = apply_filters( 'wacara_filter_event_opening_expired_args', $section_args, $event );
+
 			Template::render( 'global/section-open', $section_args, true );
 		}
 
@@ -208,6 +216,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'section_subtitle' => $expired_content,
 			];
 
+			/**
+			 * Wacara filter event expired args.
+			 *
+			 * @param array $expired_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$expired_args = apply_filters( 'wacara_filter_event_content_expired_args', $expired_args, $event );
+
 			Template::render( 'global/section-title', $expired_args, true );
 		}
 
@@ -223,7 +239,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying call to action opening tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event $event object of the current event.
 		 */
 		public function event_cta_opening_callback( $event ) {
 			?>
@@ -236,7 +252,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for displaying call to action.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event $event object of the current event.
 		 */
 		public function event_cta_content_callback( $event ) {
 			$cta_args = [
@@ -245,13 +261,21 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'alert_button'  => __( 'Join Now', 'wacara' ),
 			];
 
+			/**
+			 * Wacara filter event cta expired.
+			 *
+			 * @param array $cta_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$cta_args = apply_filters( 'wacara_filter_event_cta_args', $cta_args, $event );
+
 			Template::render( 'event/call-to-action', $cta_args, true );
 		}
 
 		/**
 		 * Callback for displaying call to action closing tag.
 		 *
-		 * @param Event $event the object of the current event.
+		 * @param Event $event object of the current event.
 		 */
 		public function event_cta_closing_callback( $event ) {
 			?>
@@ -301,7 +325,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			}
 
 			/**
-			 * Wacara event masthead args filter hook.
+			 * Wacara event masthead opening args filter hook.
 			 *
 			 * @param array $masthead_args current args.
 			 * @param Event $event object of the current event.
@@ -318,6 +342,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 * @param Event_Header $header object of the selected header template of the current event.
 		 */
 		public function event_masthead_content_callback( $event, $header ) {
+
 			// Instance location.
 			$location = $event->get_location_object();
 
@@ -336,6 +361,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$masthead_args['header_headline'] = $event->post_title;
 			}
 
+			/**
+			 * Wacara event masthead content args filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Event $event object of the current event.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_event_content_masthead_args', $masthead_args, $event );
+
 			Template::render( 'event/masthead', $masthead_args, true );
 		}
 
@@ -350,6 +383,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				$masthead_args = [
 					'date_start' => $event->get_date_start( 'M j, Y H:i:s' ),
 				];
+
+				/**
+				 * Wacara event countdown masthead args.
+				 *
+				 * @param array $masthead_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$masthead_args = apply_filters( 'wacara_filter_event_countdown_masthead_args', $masthead_args, $event );
 
 				Template::render( 'event/masthead-countdown', $masthead_args, true );
 			}
@@ -424,6 +465,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 					'section_subtitle'    => $section_subtitle,
 					'section_description' => $section_description,
 				];
+
+				/**
+				 * Wacara event title args filter hook.
+				 *
+				 * @param array $section_args current args.
+				 * @param Event $event object of the current event.
+				 */
+				$section_args = apply_filters( "wacara_filter_event_title_section_{$section}_args", $section_args, $event );
 
 				Template::render( 'global/section-title', $section_args, true );
 			}
@@ -720,6 +769,14 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'masthead_title' => $registrant->post_title,
 				'masthead_desc'  => $masthead_desc,
 			];
+
+			/**
+			 * Wacara registrant masthead filter hook.
+			 *
+			 * @param array $masthead_args current args.
+			 * @param Registrant $registrant object of the current registrant.
+			 */
+			$masthead_args = apply_filters( 'wacara_filter_registrant_masthead_args', $masthead_args, $registrant );
 
 			Template::render( 'global/masthead-content', $masthead_args, true );
 		}

@@ -32,9 +32,9 @@ if ( ! $is_event_past ) {
 	 *
 	 * @param Event $event the object of the current event.
 	 *
-	 * @hooked event_cta_opening_callback - 10
-	 * @hooked event_cta_content_callback - 20
-	 * @hooked event_cta_closing_callback - 50
+	 * @hooked UI::event_cta_opening_callback - 10
+	 * @hooked UI::event_cta_content_callback - 20
+	 * @hooked UI::event_cta_closing_callback - 50
 	 */
 	do_action( 'wacara_before_event_masthead', $event );
 
@@ -90,8 +90,8 @@ if ( ! $is_event_past ) {
 		 * @param string $section_subtitle subtitle of the selected section.
 		 * @param string $section_description description of the selected section.
 		 *
-		 * @hooked event_section_opening_callback - 10
-		 * @hooked maybe_event_section_title_callback - 20
+		 * @hooked UI::event_section_opening_callback - 10
+		 * @hooked UI::maybe_event_section_title_callback - 20
 		 */
 		do_action( 'wacara_before_event_section', $section, $event, $section_class, $section_title, $section_subtitle, $section_description );
 
@@ -112,7 +112,7 @@ if ( ! $is_event_past ) {
 		 * @param string $section_subtitle subtitle of the selected section.
 		 * @param string $section_description description of the selected section.
 		 *
-		 * @hooked event_section_closing_callback - 50;
+		 * @hooked UI::event_section_closing_callback - 50;
 		 */
 		do_action( 'wacara_after_event_section', $section, $event, $section_class, $section_title, $section_subtitle, $section_description );
 
@@ -125,7 +125,7 @@ if ( ! $is_event_past ) {
 	 *
 	 * @param Event $event the object of the current event.
 	 *
-	 * @hooked event_expired_opening_callback - 10
+	 * @hooked UI::event_expired_opening_callback - 10
 	 */
 	do_action( 'wacara_before_event_expired', $event );
 
@@ -134,7 +134,7 @@ if ( ! $is_event_past ) {
 	 *
 	 * @param Event $event the object of the current event.
 	 *
-	 * @hooked event_expired_content_callback - 10
+	 * @hooked UI::event_expired_content_callback - 10
 	 */
 	do_action( 'wacara_event_expired', $event );
 
@@ -143,7 +143,7 @@ if ( ! $is_event_past ) {
 	 *
 	 * @param Event $event the object of the current event.
 	 *
-	 * @hooked event_expired_closing_callback - 50
+	 * @hooked UI::event_expired_closing_callback - 50
 	 */
 	do_action( 'wacara_after_event_expired', $event );
 }
