@@ -876,8 +876,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				'pricing_name'    => $registrant->get_pricing_name(),
 				'invoice_details' => [
 					[
-						/* translators: %1$s : name of the selected event, %2$s : name of the selected pricing */
-						'field' => sprintf( '%1$s<span>%2$s</span>', $event->post_title, $registrant->get_pricing_name() ),
+						'field' => __( 'Amount', 'wacara' ),
 						'value' => number_format_i18n( $registrant->get_pricing_price_in_cent() / 100, 2 ),
 					],
 				],
