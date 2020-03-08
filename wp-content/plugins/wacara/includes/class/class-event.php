@@ -127,11 +127,11 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @return bool|false|string
 		 */
 		public function get_background_image_url( $size = 'large' ) {
-			$backgorund_image_id = $this->get_meta( 'background_image_id' );
+			$background_image_id = $this->get_meta( 'background_image_id' );
 
 			// Validate background image.
-			if ( $backgorund_image_id ) {
-				$result = wp_get_attachment_image_url( $backgorund_image_id, $size );
+			if ( $background_image_id ) {
+				$result = wp_get_attachment_image_url( $background_image_id, $size );
 			} else {
 				$result = $this->get_header_object()->get_default_image_url( $size );
 			}
