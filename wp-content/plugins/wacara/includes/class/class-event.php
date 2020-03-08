@@ -276,21 +276,12 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
-		 * Get event location id.
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_location_id() {
-			return $this->get_meta( 'location' );
-		}
-
-		/**
 		 * Get event location object.
 		 *
 		 * @return Event_Location
 		 */
 		public function get_location_object() {
-			return new Event_Location( $this->get_location_id() );
+			return new Event_Location( $this->get_meta( 'location' ) );
 		}
 
 		/**
