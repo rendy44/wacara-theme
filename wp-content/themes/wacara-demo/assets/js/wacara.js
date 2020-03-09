@@ -2,7 +2,7 @@
 
 (function ($) {
     new class {
-        navbarElm = $('nav.wcr-event-nav');
+        navbarElm = $('nav.wcr-nav');
 
         constructor() {
             this.eventNavbarClicked();
