@@ -51,6 +51,15 @@ $about_item_size: 110px;
 
       .wcr-section-about-cta-wrapper {
         margin-top: 2rem;
+
+        a.wcr-section-about-cta {
+          &:before {
+            @include remixicon;
+            content: "\ea0e";
+            margin-right: .5rem;
+          }
+        }
+
         @include breakpoint($size_tablet) {
           margin-top: 4rem;
         }
