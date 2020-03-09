@@ -62,12 +62,22 @@ if ( ! class_exists( 'Wacara_Theme\Helper' ) ) {
 		public static function build_event_add_to_calendar_url( $event ) {
 			$base_url = 'https://calendar.google.com/calendar/r/eventedit';
 
+			// Prepare iso dates.
+			$date_format    = 'Ymd';
+			$time_format    = 'His';
+			$date_start_iso = $event->get_date_start( $date_format );
+			$time_start_iso = $event->get_date_start( $time_format );
+			$date_end_iso   = $event->get_date_end( $date_format );
+			$time_end_iso   = $event->get_date_end( $time_format );
+			// TODO: fetch date and time iso correctly.
+
 			// Add attributes based on event details.
 			return add_query_arg(
 				[
-					'text'    => $event->post_title,
-					'details' => $event->get_headline(),
-				// 'dates'   => $event->get_date_start( 'c' ) . '/' . $event->get_date_end( 'c' ),
+					'text'     => $event->post_title,
+					'details'  => $event->get_headline(),
+					'dates'    => $date_start_iso . 'T' . $time_start_iso . '/' . $date_end_iso . 'T' . $time_end_iso,
+					'location' => $event->get_location_object()->get_location_name(),
 				],
 				$base_url
 			);
