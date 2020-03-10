@@ -303,26 +303,12 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		public static function get_currency_symbol_by_code( $currency_code ) {
 			// Use USD as default symbol.
 			$currency_symbol = '$';
-			$symbols         = [
-				'USD' => '$',
-				'AUD' => 'AU$',
-				'SGD' => 'SG$',
-				'IDR' => 'Rp',
-				'MYR' => 'RM',
-				'JPY' => '¥',
-				'EUR' => '€',
-				'GBP' => '£',
-			];
+			$currencies      = Master::get_list_of_currency_codes();
+			$filter          = self::array_val( $currencies, $currency_code, false );
 
-			/**
-			 * Wacara currency symbol filter hook.
-			 *
-			 * @param array $symbols default available symbols.
-			 */
-			$symbols = apply_filters( 'wacara_currency_symbols', $symbols );
-
-			if ( ! empty( $symbols[ $currency_code ] ) ) {
-				$currency_symbol = $symbols[ $currency_code ];
+			// If filter has result then use it.
+			if ( $filter ) {
+				$currency_symbol = $filter;
 			}
 
 			return $currency_symbol;

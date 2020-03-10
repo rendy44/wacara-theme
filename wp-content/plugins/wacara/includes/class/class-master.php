@@ -127,5 +127,32 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 
 			return Helper::convert_wpdb_into_array( $speakers );
 		}
+
+		/**
+		 * Get list of currency codes.
+		 *
+		 * @return mixed|void
+		 */
+		public static function get_list_of_currency_codes() {
+			$currencies = [
+				'USD' => '$',
+				'AUD' => 'AU$',
+				'SGD' => 'SG$',
+				'IDR' => 'Rp',
+				'MYR' => 'RM',
+				'JPY' => '¥',
+				'EUR' => '€',
+				'GBP' => '£',
+			];
+
+			/**
+			 * Wacara currency symbol filter hook.
+			 *
+			 * @param array $symbols default available symbols.
+			 */
+			$currencies = apply_filters( 'wacara_filter_currencies', $currencies );
+
+			return $currencies;
+		}
 	}
 }
