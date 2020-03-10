@@ -1,0 +1,18 @@
+.wcr-footer {
+  padding: 1.5rem;
+
+  p.wcr-footer-content {
+    line-height: 1.4;
+    font-size: 85%;
+    margin: 0;
+  }
+
+  &.wcr-footer-dark {
+    background-color: lighten($black, 30%);
+    color: $white;
+  }
+
+  @include breakpoint($size_laptop) {
+    padding: 3rem;
+  }
+}
