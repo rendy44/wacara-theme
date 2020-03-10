@@ -177,99 +177,12 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 *
 		 * @param array  $array array object.
 		 * @param string $key array key.
+		 * @param mixed  $return_false return on false.
 		 *
 		 * @return bool|mixed will be returned false once aray does not have key.
 		 */
-		public static function array_val( array $array, $key ) {
-			return ! empty( $array[ $key ] ) ? $array[ $key ] : false;
-		}
-
-		/**
-		 * Get country list.
-		 *
-		 * @param bool $use_blank Whether include empty lists or not.
-		 *
-		 * @return array
-		 */
-		public static function get_list_of_countries( $use_blank = false ) {
-			$countries = include WACARA_PATH . '/i18n/country.php';
-			if ( $use_blank ) {
-				$countries = array_merge( [ '' => __( 'Select country', 'wacara' ) ], $countries );
-			}
-
-			return $countries;
-		}
-
-		/**
-		 * Get location list.
-		 *
-		 * @return array
-		 */
-		public static function get_list_of_locations() {
-			$cache_key = WACARA_PREFIX . 'locations_cache';
-			$locations = wp_cache_get( $cache_key );
-			if ( false === $locations ) {
-				global $wpdb;
-				$locations_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'location' ORDER BY ID DESC";
-				$locations       = $wpdb->get_results( $locations_query, OBJECT_K ); // phpcs:ignore
-				wp_cache_set( $cache_key, $locations );
-			}
-
-			return self::convert_wpdb_into_array( $locations );
-		}
-
-		/**
-		 * Get speaker list.
-		 *
-		 * @return array
-		 */
-		public static function get_list_of_speakers() {
-			$cache_key = WACARA_PREFIX . 'speakers_cache';
-			$speakers  = wp_cache_get( $cache_key );
-			if ( false === $speakers ) {
-				global $wpdb;
-				$speakers_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'speaker' ORDER BY ID DESC";
-				$speakers       = $wpdb->get_results( $speakers_query, OBJECT_K ); // phpcs:ignore
-				wp_cache_set( $cache_key, $speakers );
-			}
-
-			return self::convert_wpdb_into_array( $speakers );
-		}
-
-		/**
-		 * Get price list.
-		 *
-		 * @return array
-		 */
-		public static function get_list_of_prices() {
-			$cache_key = WACARA_PREFIX . 'prices_cache';
-			$prices    = wp_cache_get( $cache_key );
-			if ( false === $prices ) {
-				global $wpdb;
-				$prices_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'price' ORDER BY ID DESC";
-				$prices       = $wpdb->get_results( $prices_query, OBJECT_K ); // phpcs:ignore
-				wp_cache_set( $cache_key, $prices );
-			}
-
-			return self::convert_wpdb_into_array( $prices );
-		}
-
-		/**
-		 * Get header list.
-		 *
-		 * @return array
-		 */
-		public static function get_list_of_headers() {
-			$cache_key = WACARA_PREFIX . 'headers_cache';
-			$headers   = wp_cache_get( $cache_key );
-			if ( false === $headers ) {
-				global $wpdb;
-				$headers_query = "SELECT `ID`,`post_title` FROM `{$wpdb->prefix}posts` WHERE `post_status` = 'publish' AND `post_type` = 'header' ORDER BY ID DESC";
-				$headers       = $wpdb->get_results( $headers_query, OBJECT_K ); // phpcs:ignore
-				wp_cache_set( $cache_key, $headers );
-			}
-
-			return self::convert_wpdb_into_array( $headers );
+		public static function array_val( array $array, $key, $return_false = [] ) {
+			return ! empty( $array[ $key ] ) ? $array[ $key ] : $return_false;
 		}
 
 		/**
@@ -279,7 +192,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 *
 		 * @return array
 		 */
-		private static function convert_wpdb_into_array( array $data ) {
+		public static function convert_wpdb_into_array( array $data ) {
 			$result = [];
 			if ( ! empty( $data ) ) {
 				foreach ( $data as $id => $obj ) {
@@ -330,9 +243,9 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @return mixed|string
 		 */
 		public static function translate_country_code( $country_code ) {
-			$counties = self::get_list_of_countries();
+			$counties = Master::get_list_of_countries();
 
-			return ! empty( $counties[ $country_code ] ) ? $counties[ $country_code ] : '';
+			return self::array_val( $counties, $country_code, '' );
 		}
 
 		/**
@@ -422,7 +335,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 */
 		public static function get_site_logo_url() {
 			$result    = false;
-			$site_logo = Options::get_theme_option( 'logo_id' );
+			$site_logo = Master::get_options( 'logo_id' );
 			if ( $site_logo ) {
 				$result = wp_get_attachment_image_url( $site_logo, 'medium' );
 			}

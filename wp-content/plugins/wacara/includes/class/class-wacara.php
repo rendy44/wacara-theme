@@ -103,10 +103,12 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 			$this->classes = [
 				'class-result',
 				'class-helper',
+				'class-master',
 				'class-register-payment',
 				'class-template',
 				'class-ui',
 				'class-setting',
+				'class-page-template',
 				'class-options',
 				'class-metabox',
 				'class-cpt',

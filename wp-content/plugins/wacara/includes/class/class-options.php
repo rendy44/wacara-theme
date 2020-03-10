@@ -30,18 +30,11 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Prefix for metabox's fields
+		 * Global option key variable.
 		 *
 		 * @var string
 		 */
-		private static $meta_prefix = WACARA_PREFIX;
-
-		/**
-		 * Theme options variable.
-		 *
-		 * @var array
-		 */
-		private static $theme_options = [];
+		private $global_option_key;
 
 		/**
 		 * Variable to map options field.
@@ -68,42 +61,14 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 */
 		private function __construct() {
 
+			// Set global variable.
+			$this->global_option_key = 'options';
+
 			// Add options page.
 			add_action( 'cmb2_admin_init', [ $this, 'options_page_callback' ] );
 
 			// Maybe add options from payment methods.
 			add_action( 'cmb2_admin_init', [ $this, 'maybe_payment_methods_options_page_callback' ] );
-		}
-
-		/**
-		 * Get options from db.
-		 *
-		 * @param string $key the options key.
-		 *
-		 * @return mixed|void
-		 */
-		public static function get_the_options( $key ) {
-			return get_option( self::$meta_prefix . $key );
-		}
-
-		/**
-		 * Get theme options.
-		 *
-		 * @return array
-		 */
-		private static function get_theme_options() {
-			return self::$theme_options;
-		}
-
-		/**
-		 * Get theme option setting.
-		 *
-		 * @param string $key theme key.
-		 *
-		 * @return bool|mixed
-		 */
-		public static function get_theme_option( $key ) {
-			return ! empty( self::get_theme_options()[ $key ] ) ? self::get_theme_options()[ $key ] : false;
 		}
 
 		/**
@@ -153,7 +118,7 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 */
 		private function map_options_page() {
 			$this->options_fields = [
-				'theme_options' => [
+				$this->global_option_key => [
 					'title'  => esc_html__( 'Wacara Options', 'wacara' ),
 					'fields' => [
 						[
@@ -182,13 +147,13 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		/**
 		 * Create options page using cmb2 fields.
 		 *
-		 * @param string $option_id the page id.
-		 * @param string $option_name the page title.
-		 * @param array  $option_fields fields of page.
-		 * @param string $parent_slug parent slug.
-		 * @param string $prefix prefix key for option name.
+		 * @param string       $option_id the page id.
+		 * @param string       $option_name the page title.
+		 * @param array        $option_fields fields of page.
+		 * @param string|false $parent_slug parent slug.
+		 * @param string       $prefix prefix key for option name.
 		 */
-		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = 'theme_options', $prefix = WACARA_PREFIX ) {
+		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = false, $prefix = WACARA_PREFIX ) {
 			// Register custom option page.
 			$option_args = [
 				'id'           => $prefix . $option_id,
@@ -196,6 +161,11 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 				'object_types' => [ 'options-page' ],
 				'option_key'   => $prefix . $option_id,
 			];
+
+			// Maybe set default parent slug.
+			if ( false === $parent_slug ) {
+				$parent_slug = $this->global_option_key;
+			}
 
 			// Check whether uses parent slug or not.
 			if ( $parent_slug ) {
