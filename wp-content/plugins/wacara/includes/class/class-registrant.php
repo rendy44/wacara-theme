@@ -185,11 +185,16 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 		/**
 		 * Save qrcode image locally.
+		 *
+		 * @return string
 		 */
 		private function generate_qrcode_locally() {
-			$qrcode_name = $this->post_id;
-			$file_name   = WACARA_PATH . "/assets/qrcode/{$qrcode_name}.png";
-			QRcode::png( $qrcode_name, $file_name, QR_ECLEVEL_H, 5 );
+			$booking_code = $this->get_booking_code();
+			$file_name    = "/assets/qrcode/{$booking_code}.png";
+			$file_path    = WACARA_PATH . $file_name;
+			QRcode::png( $booking_code, $file_path, QR_ECLEVEL_H, 5 );
+
+			return $file_name;
 		}
 
 		/**
@@ -198,16 +203,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		private function save_qrcode_to_registrant() {
 
 			// Generate qrcode locally.
-			$this->generate_qrcode_locally();
+			$created_qrcode = $this->generate_qrcode_locally();
 
 			// Save qrcode data.
-			$qrcode_name = $this->post_id . '.png';
-			$qrcode_uri  = WACARA_URI . '/assets/qrcode/' . $qrcode_name;
+			$qrcode_uri = WACARA_URI . $created_qrcode;
 
 			// Save qrcode into registrant.
 			$this->save_meta(
 				[
-					'qrcode_name' => $qrcode_name,
+					'qrcode_name' => $created_qrcode,
 					'qrcode_url'  => $qrcode_uri,
 				]
 			);
