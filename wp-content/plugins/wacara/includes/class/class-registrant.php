@@ -748,16 +748,5 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		public function get_booking_code() {
 			return $this->get_meta( 'booking_code' );
 		}
-
-		/**
-		 * Find registrant by their booking code.
-		 *
-		 * @param string $booking_code booking code.
-		 *
-		 * @return Result
-		 */
-		public static function find_registrant_by_booking_code( $booking_code ) {
-			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'registrant' );
-		}
 	}
 }

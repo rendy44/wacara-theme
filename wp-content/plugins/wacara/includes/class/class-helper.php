@@ -336,11 +336,10 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param string $meta_value meta value.
 		 * @param string $post_type post type.
 		 *
-		 * @return Result
+		 * @return bool|mixed|string|null
 		 */
 		public static function get_post_id_by_meta_key( $meta_key, $meta_value, $post_type = 'post' ) {
 			global $wpdb;
-			$result     = new Result();
 			$table_meta = $wpdb->prefix . 'postmeta';
 			$table_post = $wpdb->prefix . 'posts';
 			$post_meta  = WACARA_PREFIX . $meta_key;
@@ -356,24 +355,10 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 				$post_id = $wpdb->get_var( "SELECT {$table_meta}.post_id FROM {$table_meta} INNER JOIN {$table_post} ON {$table_meta}.post_id = {$table_post}.ID WHERE {$table_post}.post_type = '{$post_type}' AND {$table_meta}.meta_key = '{$post_meta}' AND {$table_meta}.meta_value = '{$meta_value}' ORDER BY meta_id DESC LIMIT 1" ); // phpcs:ignore
 
 				// Save post id to cache.
-				wp_cache_set( $cache_key, $post_id );
+				wp_cache_set( $cache_key, $post_id, '', 3600 );
 			}
 
-			// Re-validate the post id.
-			if ( $post_id ) {
-
-				// Update the result.
-				$result->success  = true;
-				$result->callback = $post_id;
-			} else {
-				$wpdb->hide_errors();
-
-				// Update the result.
-				/* translators: 1: the post type name */
-				$result->message = sprintf( __( '%s not found', 'wacara' ), ucfirst( $post_type ) );
-			}
-
-			return $result;
+			return $post_id;
 		}
 
 		/**

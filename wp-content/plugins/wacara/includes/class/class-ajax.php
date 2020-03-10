@@ -386,13 +386,10 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 			if ( $booking_code ) {
 
 				// Find the registrant by booking code.
-				$find_registrant = Registrant::find_registrant_by_booking_code( $booking_code );
+				$registrant_id = Master::find_registrant_by_booking_code( $booking_code );
 
 				// Validate the find registrant.
-				if ( $find_registrant->success ) {
-
-					// Save registrant id into variable.
-					$registrant_id = $find_registrant->callback;
+				if ( $registrant_id ) {
 
 					// Instance the registrant.
 					$registrant = new Registrant( $registrant_id );
@@ -404,8 +401,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$result->message = $registrant->message;
 					}
 				} else {
-					$result->message  = $find_registrant->message;
-					$result->callback = $find_registrant->callback;
+					$result->message = __( 'Booking code not found', 'wacara' );
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );

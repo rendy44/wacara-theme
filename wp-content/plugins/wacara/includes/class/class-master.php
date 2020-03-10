@@ -154,5 +154,16 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 
 			return $currencies;
 		}
+
+		/**
+		 * Find registrant by their booking code.
+		 *
+		 * @param string $booking_code booking code.
+		 *
+		 * @return bool|mixed|string|null
+		 */
+		public static function find_registrant_by_booking_code( $booking_code ) {
+			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'registrant' );
+		}
 	}
 }

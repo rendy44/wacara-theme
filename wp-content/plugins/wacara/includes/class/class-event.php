@@ -456,11 +456,11 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 				'orderby'        => 'date',
 				'order'          => 'desc',
 				'fields'         => 'ids',
-				'meta_query'     => [ // phpcs:ignore
-									  [
-										  'key'   => $key . 'event_id',
-										  'value' => $this->post_id,
-									  ],
+				'meta_query'     => [
+					[
+						'key'   => $key . 'event_id',
+						'value' => $this->post_id,
+					],
 				],
 			];
 
