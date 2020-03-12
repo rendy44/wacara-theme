@@ -1,5 +1,6 @@
 // Style from library
-@import "libs/frow/frow";
+@import "../libs/frow/frow";
+@import "../libs/sweetalert2/src/sweetalert2";
 
 // Base styling
 @import "base/variables";
@@ -13,6 +14,7 @@
 @import "components/buttons";
 @import "components/alert";
 @import "components/tooltip";
+@import "components/modal";
 
 // Event styling
 @import "components/event/alert";

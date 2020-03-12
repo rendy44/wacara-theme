@@ -577,5 +577,31 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Add and render modal.
+		 *
+		 * @param string $id id of the modal.
+		 * @param string $body html content of the body.
+		 * @param string $title title of the modal.
+		 * @param string $footer footer content of the modal.
+		 */
+		public static function add_modal( $id, $body, $title = '', $footer = '' ) {
+			$modal_args = [
+				'modal_id'     => $id,
+				'modal_title'  => $title,
+				'modal_body'   => $body,
+				'modal_footer' => $footer,
+			];
+
+			/**
+			 * Wacara modal args filter hook.
+			 *
+			 * @param array $modal_args default args.
+			 */
+			$modal_args = apply_filters( 'wacara_filter_modal_args', $modal_args );
+
+			Template::render( 'modal/wrapper', $modal_args, true );
+		}
 	}
 }

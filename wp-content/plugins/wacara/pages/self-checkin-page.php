@@ -14,7 +14,7 @@ get_header( 'wacara' );
  */
 do_action( 'wacara_before_self_checkin_form' ); ?>
 
-	<form id="wcr-form-self-checkin" class="wcr-form">
+	<form id="wcr-form-self-checkin" class="wcr-form" method="post">
 		<div class="wcr-login-field-wrapper">
 			<input type="text" name="booking_code" class="wcr-login-field" placeholder="<?php esc_attr_e( 'Your booking code', 'wacara' ); ?>">
 		</div>
@@ -26,6 +26,8 @@ do_action( 'wacara_before_self_checkin_form' ); ?>
 <?php
 /**
  * Wacara after self checkin form hook.
+ *
+ * @hooked UI::modal_checkin_callback - 10
  */
 do_action( 'wacara_after_self_checkin_form' );
 

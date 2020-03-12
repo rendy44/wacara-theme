@@ -40,4 +40,16 @@ export default class Action {
     static doCheckout(inputs) {
         return new Ajax('checkout', true, inputs);
     }
+
+    /**
+     * Find registrant by booking code.
+     *
+     * @param booking_code
+     * @return {Ajax}
+     */
+    static doFindRegistrant(booking_code) {
+        return new Ajax('find_registrant', true, {
+            booking_code: booking_code,
+        });
+    }
 }

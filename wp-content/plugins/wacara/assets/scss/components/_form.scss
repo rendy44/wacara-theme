@@ -34,11 +34,14 @@ a {
       width: 100%;
       border: 1px solid darken($white, 20%);
       font-size: 14px;
+      line-height: 1;
     }
 
     .wcr-form-field-multi-radio-wrapper {
-      margin-bottom: .25rem;
+      margin-bottom: .5rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
       @include user_select();
 
       > input {
@@ -79,10 +82,13 @@ a {
       }
 
       > label {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         cursor: pointer;
         font-size: 14px;
         margin-left: 5px;
+        margin-bottom: 0;
+        line-height: 1;
       }
     }
   }

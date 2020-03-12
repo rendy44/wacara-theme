@@ -116,6 +116,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 
 			// Render email template.
 			add_action( 'wacara_header_global_email_template', [ $this, 'header_global_email_template' ], 10, 1 );
+
+			// Render self-checkin page.
+			add_action( 'wacara_after_self_checkin_form', [ $this, 'modal_checkin_callback' ], 10, 1 );
 		}
 
 		/**
@@ -1041,6 +1044,29 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 				</tr>
 			</table>
 			<?php
+		}
+
+		/**
+		 * Callback for rendering checkin modal.
+		 */
+		public function modal_checkin_callback() {
+
+			// Prepare default args.
+			$checkin_content_args = [
+				'registrant_text' => __( 'Are you going to check-in as registrant below?', 'wacara' ),
+			];
+
+			/**
+			 * Wacara modal checkin content args filter hook.
+			 *
+			 * @param array $checkin_content_args default args.
+			 */
+			$checkin_content_args = apply_filters( 'wacara_filter_modal_checkin_content_args', $checkin_content_args );
+
+			// Load template for detail content.
+			$checkin_content = Template::render( 'modal/self-checkin', $checkin_content_args );
+
+			Helper::add_modal( 'checkin', $checkin_content, __( 'Checkin', 'wacara' ) );
 		}
 	}
 

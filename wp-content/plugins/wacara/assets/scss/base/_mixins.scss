@@ -181,3 +181,20 @@
   -ms-filter: $args;
   -webkit-filter: $args;
 }
+
+@mixin animate($name, $duration) {
+  animation-name: $name;
+  -moz-animation-name: $name;
+  -webkit-animation-name: $name;
+  -o-animation-name: $name;
+  animation-duration: $duration;
+  -moz-animation-duration: $duration;
+  -webkit-animation-duration: $duration;
+  -o-animation-duration: $duration;
+}
+
+@mixin animation($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}

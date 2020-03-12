@@ -62,19 +62,19 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		private function get_default_endpoints() {
 			return [
-				'select_price'     => [
+				'select_price'    => [
 					'callback' => [ $this, 'register_callback' ],
 				],
-				'fill_detail'      => [
+				'fill_detail'     => [
 					'callback' => [ $this, 'payment_callback' ],
 				],
-				'checkout'         => [
+				'checkout'        => [
 					'callback' => [ $this, 'checkout_callback' ],
 				],
-				'find_reg_by_code' => [
+				'find_registrant' => [
 					'callback' => [ $this, 'find_by_booking_code_callback' ],
 				],
-				'checkin'          => [
+				'checkin'         => [
 					'callback' => [ $this, 'registrant_checkin_callback' ],
 				],
 			];
@@ -380,7 +380,8 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function find_by_booking_code_callback() {
 			$result       = new Result();
-			$booking_code = Helper::post( 'booking_code' );
+			$data         = Helper::post( 'data' );
+			$booking_code = Helper::array_val( $data, 'booking_code' );
 
 			// Validate the input.
 			if ( $booking_code ) {
