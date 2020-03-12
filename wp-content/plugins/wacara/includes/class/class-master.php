@@ -29,8 +29,8 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public static function get_options( $key = '' ) {
-			$result = get_option( WACARA_PREFIX . 'options' );
+		public static function get_wacara_options( $key = '' ) {
+			$result = self::get_option( 'options' );
 
 			// Maybe filter by key.
 			if ( $key ) {
@@ -38,6 +38,17 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Get option value.
+		 *
+		 * @param string $key option key.
+		 *
+		 * @return mixed|void
+		 */
+		public static function get_option( $key ) {
+			return get_option( WACARA_PREFIX . $key );
 		}
 
 		/**

@@ -321,7 +321,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 */
 		public static function get_site_logo_url() {
 			$result    = false;
-			$site_logo = Master::get_options( 'logo_id' );
+			$site_logo = Master::get_wacara_options( 'logo_id' );
 			if ( $site_logo ) {
 				$result = wp_get_attachment_image_url( $site_logo, 'medium' );
 			}

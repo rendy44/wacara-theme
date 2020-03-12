@@ -200,7 +200,7 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * @return bool|mixed|void
 		 */
 		public function get_admin_setting( $key = '' ) {
-			$result = Master::get_options( $this->id );
+			$result = Master::get_option( $this->id );
 
 			// Filter the result by key.
 			if ( $key ) {
