@@ -36,13 +36,20 @@
     .wcr-registrant-invoice-detail {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: .5rem;
-      padding-bottom: .25rem;
+      padding-bottom: .5rem;
       font-size: 14px;
       border-bottom: 1px dotted lighten($black, 70%);
 
+      label.wcr-registrant-invoice-field {
+        line-height: 1;
+        margin: 0;
+      }
+
       span.wcr-registrant-invoice-value {
         font-weight: 600;
+        line-height: 1;
       }
 
       &:last-child {
