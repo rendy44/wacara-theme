@@ -167,14 +167,25 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 		}
 
 		/**
-		 * Find registrant by their booking code.
+		 * Get registrant id by its booking code.
 		 *
 		 * @param string $booking_code booking code.
 		 *
 		 * @return bool|mixed|string|null
 		 */
-		public static function find_registrant_by_booking_code( $booking_code ) {
+		public static function get_registrant_id_by_booking_code( $booking_code ) {
 			return Helper::get_post_id_by_meta_key( 'booking_code', $booking_code, 'registrant' );
+		}
+
+		/**
+		 * Get registrant id by its public key.
+		 *
+		 * @param string $public_key public key.
+		 *
+		 * @return bool|mixed|string|null
+		 */
+		public static function get_registrant_id_by_public_key( $public_key ) {
+			return Helper::get_post_id_by_meta_key( 'public_key', $public_key, 'registrant' );
 		}
 	}
 }

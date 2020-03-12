@@ -251,13 +251,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @return bool
 		 */
 		public function is_in_checkin_period() {
-			$result        = false;
-			$now_timestamp = current_time( 'timestamp' );
-			if ( $now_timestamp < $this->date_end_timestamp ) {
-				$result = true;
-			}
-
-			return $result;
+			return current_time( 'timestamp' ) < $this->date_end_timestamp;
 		}
 
 		/**

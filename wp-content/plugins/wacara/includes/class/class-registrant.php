@@ -57,11 +57,12 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 				// Validate inputs.
 				if ( $args['event_id'] && $args['pricing_id'] ) {
 
-					// Save event id to variable.
-					$event_id = $args['event_id'];
+					// Save details into variable.
+					$event_id   = $args['event_id'];
+					$pricing_id = $args['pricing_id'];
 
-					// Generate unique key.
-					$registrant_key = wp_generate_password( 12, false );
+					// Generate unique key based on timestamp and random string..
+					$registrant_key = current_time( 'timestamp' ) . wp_generate_password( 6, false );
 
 					/**
 					 * Perform the filter to modify registrant key.
@@ -103,31 +104,20 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						$this->message = $new_registrant->get_error_messages();
 					} else {
 
-						// Create registrant booking code.
-						$event_and_id_length = strlen( $event_id . $new_registrant );
-						$unique_length       = 8 - $event_and_id_length;
-						$booking_code        = strtoupper( $event_id . wp_generate_password( $unique_length, false ) . $new_registrant );
-
-						/**
-						 * Perform filter to modify registrant publishable key.
-						 *
-						 * @param string $booking_code the original publishable key.
-						 * @param string $event_id event id of the registrant.
-						 * @param int $new_registrant id number of newly created registrant.
-						 */
-						$booking_code = apply_filters( 'wacara_filter_registrant_booking_code', $booking_code, $event_id, $new_registrant );
-
-						// Add booking code to registrant meta.
-						$args['booking_code'] = $booking_code;
-
 						// Update class object.
 						$this->success         = true;
 						$this->post_id         = $new_registrant;
 						$this->post_url        = get_permalink( $new_registrant );
 						$this->registrant_data = $args;
 
+						// Create registrant booking code.
+						$this->save_registrant_booking_code( $event_id, $pricing_id, $new_registrant );
+
 						// Create qrcode for registrant.
 						$this->save_qrcode_to_registrant();
+
+						// Create registrant key.
+						$this->save_registrant_key();
 
 						// Update registrant meta after successfully being created.
 						$this->save_meta( $args );
@@ -229,6 +219,63 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		}
 
 		/**
+		 * Save registrant booking code.
+		 *
+		 * @param string $event_id id of the selected event.
+		 * @param int    $registrant_id id of the newly created registrant.
+		 */
+		private function save_registrant_booking_code( $event_id, $registrant_id ) {
+
+			// Create registrant booking code.
+			$event_and_id_length = strlen( $registrant_id );
+			$unique_length       = 8 - $event_and_id_length;
+			$booking_code        = strtoupper( wp_generate_password( $unique_length, false ) . $registrant_id );
+
+			/**
+			 * Perform filter to modify registrant publishable key.
+			 *
+			 * @param string $booking_code default booking code.
+			 * @param string $event_id id of the selected event.
+			 * @param int $registrant_id id of the newly created registrant.
+			 */
+			$booking_code = apply_filters( 'wacara_filter_registrant_booking_code', $booking_code, $event_id, $registrant_id );
+
+			$this->save_meta(
+				[
+					'booking_code' => $booking_code,
+				]
+			);
+		}
+
+		/**
+		 * Save registrant public and secret key.
+		 */
+		private function save_registrant_key() {
+
+			// Create a public key based on registrant booking code.
+			$public_key = Helper::encryption( $this->get_booking_code() );
+
+			// Create a secret key based on registrant id.
+			$secret_key = Helper::encryption( $this->post_id );
+
+			$this->save_meta(
+				[
+					'secret_key' => $secret_key,
+					'public_key' => $public_key,
+				]
+			);
+		}
+
+		/**
+		 * Get registrant public key.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_public_key() {
+			return $this->get_meta( 'public_key' );
+		}
+
+		/**
 		 * Get checkin date lists.
 		 *
 		 * @return array
@@ -276,29 +323,22 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Maybe perform checkin.
 		 */
 		public function maybe_do_checkin() {
-			// Save registrant id into variable.
-			$registrant_id = $this->post_id;
-
-			// Get registrant status.
-			$reg_status = $this->get_meta( 'reg_status' );
 
 			// Validate registrant status.
-			if ( 'done' === $reg_status ) {
+			if ( 'done' === $this->get_registration_status() ) {
 
 				// Check is in checkin period.
-				$is_in_checkin_period = $this->get_event_object()->is_in_checkin_period();
-				if ( $is_in_checkin_period ) {
+				if ( $this->get_event_object( true )->is_in_checkin_period() ) {
 
 					// Check whether registrant already checkin today.
-					$is_checkin_today = $this->is_today_checkin();
+					if ( ! $this->is_today_checked_in() ) {
 
-					if ( ! $is_checkin_today ) {
 						/**
 						 * Perform action before registrant checkin.
 						 *
-						 * @param string $registrant_id id of registrant that will be check-in.
+						 * @param Registrant $registrant object of the selected registrant.
 						 */
-						do_action( 'wacara_before_registrant_checkin', $registrant_id );
+						do_action( 'wacara_before_registrant_checkin', $this );
 
 						// Finally, do the checkin.
 						$this->do_checkin();
@@ -316,6 +356,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					} else {
 						$this->success = false;
 						$this->message = __( 'You have already checked in for today', 'wacara' );
+						$this->callback = [Helper::get_today_timestamp(),$this->get_checkin_lists()];
 					}
 				} else {
 					$this->success = false;
@@ -344,15 +385,11 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @return bool
 		 */
-		private function is_today_checkin() {
-			$result          = false;
+		private function is_today_checked_in() {
 			$today_timestamp = Helper::get_today_timestamp();
 			$checkin_dates   = $this->get_checkin_lists();
-			if ( in_array( $today_timestamp, $checkin_dates, false ) ) { // phpcs:ignore
-				$result = true;
-			}
 
-			return $result;
+			return in_array( $today_timestamp, $checkin_dates, true );
 		}
 
 		/**

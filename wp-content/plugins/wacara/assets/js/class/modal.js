@@ -6,7 +6,11 @@
 export default class Modal {
     modalId;
     useFooter;
+    modalSelector;
     modalElement;
+    confirmButtonSelector;
+    confirmButtonElement;
+    confirmButtonText;
     toggleClass = 'wcr-modal-visible';
 
     /**
@@ -20,6 +24,9 @@ export default class Modal {
         this.useFooter = useFooter;
         this.modalSelector = '#wcr-modal-' + this.modalId;
         this.modalElement = jQuery(this.modalSelector);
+        this.confirmButtonSelector = this.modalSelector + '  button.wcr-modal-confirm';
+        this.confirmButtonElement = jQuery(this.confirmButtonSelector);
+        this.confirmButtonText = this.confirmButtonElement.text();
         this.eventClickClose();
     }
 
@@ -38,20 +45,25 @@ export default class Modal {
     }
 
     /**
-     * Method to add hidden input.
+     * Method when confirm button clicked
      *
-     * @param variables
+     * @param callback_function
      */
-    addData(variables) {
+    confirm(callback_function) {
         const instance = this;
-        let modalBody = instance.modalElement.find('.wcr-modal-body');
-        jQuery.each(variables, function (v_key, v_value) {
-            modalBody.append('<input class="wcr-modal-field" type="hidden" name="' + v_key + '" value="' + v_value + '"/>');
+        jQuery('body').on('click', this.confirmButtonSelector, function () {
+
+            instance.confirmButtonElement.prop('disabled', true).text('Loading...');
+
+            callback_function();
         })
     }
 
-    confirm() {
-
+    /**
+     * Normalize confirm button.
+     */
+    normalize() {
+        this.confirmButtonElement.prop('disabled', false).text(this.confirmButtonText);
     }
 
     /**

@@ -32,16 +32,27 @@ import Swal from "../libs/sweetalert2/src/sweetalert2.js"
 
                     // Validate the booking code.
                     if (bookingCodeElm.val()) {
+
+                        // Trigger finding registrant.
                         Action.doFindRegistrant(bookingCodeElm.val())
                             .done(function (data) {
                                 if (data.success) {
                                     instance.modalCheckin.show();
-                                    instance.modalCheckin.addData({
-                                        registrant_id: 1000,
-                                        registrant_hash: 'asdsadasda'
-                                    });
+
+                                    // Start check-in.
                                     instance.modalCheckin.confirm(function () {
-                                        console.log('diconfirm');
+
+                                        // Process the checkin.
+                                        Action.doCheckin(data.callback)
+                                            .done(function (checkinData) {
+                                                let alert_type = checkinData.success ? 'success' : 'error';
+                                                Swal.fire({
+                                                    text: checkinData.message,
+                                                    icon: alert_type
+                                                });
+
+                                                instance.modalCheckin.normalize()
+                                            })
                                     })
                                 } else {
                                     Swal.fire({

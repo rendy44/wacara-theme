@@ -52,4 +52,16 @@ export default class Action {
             booking_code: booking_code,
         });
     }
+
+    /**
+     * Perform registrant checkin
+     *
+     * @param public_key
+     * @return {Ajax}
+     */
+    static doCheckin(public_key) {
+        return new Ajax('checkin', true, {
+            public_key: public_key,
+        });
+    }
 }

@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="wcr-modal-footer">
-			<button class="wcr-button wcr-button-main wcr-modal-button"><?php esc_html_e( 'Confirm', 'wacara' ); ?></button>
+			<button class="wcr-button wcr-button-main wcr-modal-confirm"><?php esc_html_e( 'Confirm', 'wacara' ); ?></button>
 		</div>
 	</div>
 </div>

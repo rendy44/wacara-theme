@@ -603,5 +603,36 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 
 			Template::render( 'modal/wrapper', $modal_args, true );
 		}
+
+		/**
+		 * Simple encrypt and decrypt function.
+		 *
+		 * @param string $string string to be encrypted/decrypted.
+		 * @param string $action what to do with this? e for encrypt, d for decrypt.
+		 *
+		 * @return bool|false|string
+		 * @link http://nazmulahsan.me/simple-two-way-function-encrypt-decrypt-string/
+		 *
+		 * @author Nazmul Ahsan <n.mukto@gmail.com>
+		 */
+		public static function encryption( $string, $action = 'e' ) {
+
+			// Define key.
+			$secret_key = WACARA_PREFIX;
+			$secret_iv  = WACARA_PREFIX . WACARA_PREFIX; // TODO: Add a secure key.
+
+			$output         = false;
+			$encrypt_method = 'AES-256-CBC';
+			$key            = hash( 'sha256', $secret_key );
+			$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
+			if ( 'e' === $action ) {
+				$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+			} elseif ( 'd' === $action ) {
+				$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+			}
+
+			return $output;
+		}
 	}
 }

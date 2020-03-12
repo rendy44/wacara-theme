@@ -56,6 +56,15 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		}
 
 		/**
+		 * Get posted data.
+		 *
+		 * @return bool|mixed
+		 */
+		private function get_posted_data() {
+			return Helper::post( 'data' );
+		}
+
+		/**
 		 * Map ajax endpoint and its callback
 		 *
 		 * @return array
@@ -85,7 +94,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function register_callback() {
 			$result     = new Result();
-			$data       = Helper::post( 'data' );
+			$data       = $this->get_posted_data();
 			$event_id   = Helper::array_val( $data, 'event_id' );
 			$pricing_id = Helper::array_val( $data, 'pricing_id' );
 
@@ -177,7 +186,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function payment_callback() {
 			$result          = new Result();
-			$data            = Helper::post( 'data' );
+			$data            = $this->get_posted_data();
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
@@ -286,7 +295,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function checkout_callback() {
 			$result          = new Result();
-			$data            = Helper::post( 'data' );
+			$data            = $this->get_posted_data();
 			$unserialize_obj = maybe_unserialize( $data );
 			$registrant_id   = Helper::get_serialized_val( $unserialize_obj, 'registrant_id' );
 			$nonce           = Helper::get_serialized_val( $unserialize_obj, '_wpnonce' );
@@ -380,24 +389,26 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 */
 		public function find_by_booking_code_callback() {
 			$result       = new Result();
-			$data         = Helper::post( 'data' );
+			$data         = $this->get_posted_data();
 			$booking_code = Helper::array_val( $data, 'booking_code' );
 
 			// Validate the input.
 			if ( $booking_code ) {
 
 				// Find the registrant by booking code.
-				$registrant_id = Master::find_registrant_by_booking_code( $booking_code );
+				$registrant_id = Master::get_registrant_id_by_booking_code( $booking_code );
 
 				// Validate the find registrant.
 				if ( $registrant_id ) {
 
 					// Instance the registrant.
 					$registrant = new Registrant( $registrant_id );
+
+					// Validate registrant.
 					if ( $registrant->success ) {
 						$result->success  = true;
 						$result->items    = $registrant->get_data();
-						$result->callback = $registrant_id;
+						$result->callback = $registrant->get_public_key();
 					} else {
 						$result->message = $registrant->message;
 					}
@@ -415,24 +426,35 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * Callback for processing checkin.
 		 */
 		public function registrant_checkin_callback() {
-			$result        = new Result();
-			$registrant_id = Helper::post( 'registrant_id' );
+			$result     = new Result();
+			$data       = $this->get_posted_data();
+			$public_key = Helper::array_val( $data, 'public_key' );
 
 			// Validate the input.
-			if ( $registrant_id ) {
+			if ( $public_key ) {
 
-				// Instance registrant.
-				$registrant = new Registrant( $registrant_id );
+				// Find registrant.
+				$registrant_id = Master::get_registrant_id_by_public_key( $public_key );
 
-				// Perform checkin.
-				$registrant->maybe_do_checkin();
+				// Validate registrant id.
+				if ( $registrant_id ) {
 
-				// Validate checkin status.
-				if ( $registrant->success ) {
-					$result->success = true;
-					$result->message = __( 'Thank you for checking in', 'wacara' );
+					// Instance registrant.
+					$registrant = new Registrant( $registrant_id );
+
+					// Perform checkin.
+					$registrant->maybe_do_checkin();
+
+					// Validate checkin status.
+					if ( $registrant->success ) {
+						$result->success = true;
+						$result->message = __( 'Thank you for checking in', 'wacara' );
+					} else {
+						$result->message = $registrant->message;
+						$result->callback = $registrant->callback;
+					}
 				} else {
-					$result->message = $registrant->message;
+					$result->message = __( 'Invalid booking code', 'wacara' );
 				}
 			} else {
 				$result->message = __( 'Please try again later', 'wacara' );
