@@ -21,7 +21,7 @@ if ( ! empty( $price_lists ) ) {
 				?>
 				<div class="col-sm-1-2 col-md-1-3">
 					<div class="wcr-pricing-item-wrapper <?php echo esc_attr( $maybe_recommended_class ); ?>">
-						<?php if ( 'on' === $list['recommended'] ) { ?>
+						<?php if ( $list['recommended'] ) { ?>
 							<div class="wcr-pricing-item-ribbon-wrapper">
 								<span class="wcr-pricing-item-ribbon"><?php esc_html_e( 'Best Value', 'wacara' ); ?></span>
 							</div>
