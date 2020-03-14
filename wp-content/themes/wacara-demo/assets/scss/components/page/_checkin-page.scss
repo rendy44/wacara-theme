@@ -1,10 +1,9 @@
 body.page-template.page-template-self-checkin-page.page {
-  height: 100vh;
-  min-height: 350px;
   background-color: $white;
 
   > .frow-container {
-    height: calc(100% - 80px);
+    min-height: 350px;
+    height: calc(100vh - 80px);
 
     .wcr-form-self-checkin-wrapper {
       display: flex;
