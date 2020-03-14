@@ -15,8 +15,7 @@ import Swal from "../libs/sweetalert2/src/sweetalert2.js"
          * Class constructor.
          */
         constructor() {
-            // this.find_registrant_before_checkin_event();
-            this.eventCheckinFormSubmitted()
+            this.eventCheckinFormSubmitted();
         }
 
         /**
@@ -29,31 +28,42 @@ import Swal from "../libs/sweetalert2/src/sweetalert2.js"
                 submitHandler: function (form, e) {
                     e.preventDefault();
                     let bookingCodeElm = $(form).find('input[name=booking_code]');
+                    let buttonElm = $(form).find('.wcr-login-button'),
+                        buttonTxt = buttonElm.text();
 
                     // Validate the booking code.
                     if (bookingCodeElm.val()) {
 
+                        // Disable the button.
+                        buttonElm.prop('disabled', true).text('Loading...');
+
                         // Trigger finding registrant.
                         Action.doFindRegistrant(bookingCodeElm.val())
                             .done(function (data) {
+
+                                // Normalize the button.
+                                buttonElm.prop('disabled', false).text(buttonTxt);
+
+                                // Validate the result.
                                 if (data.success) {
+
+                                    // Show modal.
                                     instance.modalCheckin.show();
 
-                                    // Start check-in.
+                                    // Add function if modal being confirmed.
                                     instance.modalCheckin.confirm(function () {
 
-                                        // Process the checkin.
+                                        //Process the checkin.
                                         Action.doCheckin(data.callback)
                                             .done(function (checkinData) {
-                                                let alert_type = checkinData.success ? 'success' : 'error';
-                                                Swal.fire({
-                                                    text: checkinData.message,
-                                                    icon: alert_type
-                                                });
 
-                                                instance.modalCheckin.normalize()
+                                                // Normalize the modal.
+                                                instance.modalCheckin.normalize(checkinData);
                                             })
-                                    })
+                                            .fail(function (qwe) {
+                                                // TODO: validate on failed ajax.
+                                            })
+                                    });
                                 } else {
                                     Swal.fire({
                                         text: data.message,
@@ -62,7 +72,7 @@ import Swal from "../libs/sweetalert2/src/sweetalert2.js"
                                 }
                             })
                             .fail(function (xyz) {
-
+                                // TODO: validate on failed ajax.
                             })
                     }
                 }

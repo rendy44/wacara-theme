@@ -1,5 +1,7 @@
 'use strict';
 
+import Helper from "./helper.js";
+
 /**
  * Modal class.
  */
@@ -11,6 +13,7 @@ export default class Modal {
     confirmButtonSelector;
     confirmButtonElement;
     confirmButtonText;
+    confirmCallback;
     toggleClass = 'wcr-modal-visible';
 
     /**
@@ -28,6 +31,7 @@ export default class Modal {
         this.confirmButtonElement = jQuery(this.confirmButtonSelector);
         this.confirmButtonText = this.confirmButtonElement.text();
         this.eventClickClose();
+        this.eventClickConfirm();
     }
 
     /**
@@ -45,25 +49,32 @@ export default class Modal {
     }
 
     /**
-     * Method when confirm button clicked
+     * Normalize confirm button.
      *
-     * @param callback_function
+     * @param data
+     * @param isHideModalOnSuccess
      */
-    confirm(callback_function) {
-        const instance = this;
-        jQuery('body').on('click', this.confirmButtonSelector, function () {
+    normalize(data, isHideModalOnSuccess) {
 
-            instance.confirmButtonElement.prop('disabled', true).text('Loading...');
+        // Set default value.
+        if ('undefined' === typeof isHideModalOnSuccess) {
+            isHideModalOnSuccess = true;
+        }
 
-            callback_function();
-        })
+        if (isHideModalOnSuccess) {
+            this.hide();
+        }
+
+        Helper.doNormalizeError(data, this.confirmButtonElement, this.confirmButtonText, false);
     }
 
     /**
-     * Normalize confirm button.
+     * Save callback
+     *
+     * @param callback
      */
-    normalize() {
-        this.confirmButtonElement.prop('disabled', false).text(this.confirmButtonText);
+    confirm(callback) {
+        this.confirmCallback = callback;
     }
 
     /**
@@ -73,6 +84,17 @@ export default class Modal {
         const instance = this;
         jQuery('body').on('click', this.modalSelector + '  span.wcr-modal-close', function () {
             instance.hide();
+        })
+    }
+
+    /**
+     * Event when confirm button being clicked.
+     */
+    eventClickConfirm() {
+        const instance = this;
+        this.confirmButtonElement.click(function (e) {
+            jQuery(this).prop('disabled', true).text('Loading...');
+            instance.confirmCallback();
         })
     }
 }

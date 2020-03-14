@@ -34,12 +34,16 @@ import Action from "./class/action.js";
                 if (!dataTarget) {
                     return;
                 }
+
                 // Define the date target.
                 let targetObj = new Date(dataTarget).getTime();
+
                 // Update the timer every one second.
                 let wcrTimer = setInterval(function () {
+
                     // Get today's date and time
                     let todayOnj = new Date().getTime();
+
                     // Find the distance between now and the count down date
                     let distance = targetObj - todayOnj;
 
@@ -81,8 +85,10 @@ import Action from "./class/action.js";
                     event_id = $(this).data('event'),
                     pricing_id = $(this).data('pricing'),
                     original_caption = $(this).html();
+
                 // Disable the button.
                 submit_button.prop('disabled', true).html('Loading...');
+
                 // Perform the registration.
                 Action.doRegister(event_id, pricing_id)
                     .done(function (data) {
@@ -129,6 +135,7 @@ import Action from "./class/action.js";
                 focusInvalid: true,
                 submitHandler: function (form, e) {
                     e.preventDefault();
+
                     // Define variables.
                     const submit_button = $(form).find('.wcr-form-submit'),
                         btn_original_text = submit_button.html(),

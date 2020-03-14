@@ -19,7 +19,7 @@
     max-width: 600px;
     @include border-radius(4px);
     @include box-shadow();
-    @include animate(animatop, .5s);
+    @include animate(animatop, .4s);
     @include animation(animatop) {
       from {
         top: -300px;
