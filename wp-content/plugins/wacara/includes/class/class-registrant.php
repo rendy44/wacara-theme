@@ -539,7 +539,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		public function maybe_save_unique_number() {
 
 			// Make sure pricing is supporting unique number.
-			if ( 'on' !== $this->is_pricing_unique_number() ) {
+			if ( ! $this->is_pricing_unique_number() ) {
 				return;
 			}
 

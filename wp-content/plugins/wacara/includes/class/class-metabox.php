@@ -156,24 +156,31 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 		 */
 		public function event_registrant_metabox_callback() {
 			global $post;
-			$allow_register = Helper::get_post_meta( 'allow_register', $post->ID );
-			if ( 'on' === $allow_register ) {
-				$base_url         = admin_url( 'admin-post.php' );
-				$download_csv_url = add_query_arg(
-					[
-						'action'   => 'download_csv',
-						'event_id' => $post->ID,
-					],
-					$base_url
-				);
-				?>
-				<p><?php esc_html_e( 'Click link below to download all registrants who already completed the registration', 'wacara' ); ?></p>
-				<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
-				<?php
-			} else {
-				?>
-				<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
-				<?php
+
+			// Instance event.
+			$event = new Event( $post->ID );
+
+			// Validate the event.
+			if ( $event->success ) {
+
+				if ( $event->is_event_allows_register() ) {
+					$base_url         = admin_url( 'admin-post.php' );
+					$download_csv_url = add_query_arg(
+						[
+							'action'   => 'download_csv',
+							'event_id' => $event->post_id,
+						],
+						$base_url
+					);
+					?>
+					<p><?php esc_html_e( 'Click link below to download all registrants who already completed the registration', 'wacara' ); ?></p>
+					<a href="<?php echo esc_attr( $download_csv_url ); ?>" class="button"><?php esc_html_e( 'Download', 'wacara' ); ?></a>
+					<?php
+				} else {
+					?>
+					<p><?php esc_html_e( 'This event does not require registration, so you can not collect any registrant data', 'wacara' ); ?></p>
+					<?php
+				}
 			}
 		}
 

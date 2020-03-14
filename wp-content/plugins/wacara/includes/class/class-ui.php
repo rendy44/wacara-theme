@@ -323,7 +323,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			];
 
 			// Maybe header using darken mode.
-			if ( 'on' === $header->is_darken() ) {
+			if ( $header->is_darken() ) {
 				$masthead_args['masthead_class'] .= ' wcr-header-darken';
 			}
 

@@ -95,7 +95,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 			$is_single_day              = $this->get_meta( 'single_day' );
 			$this->date_start_timestamp = $this->get_meta( 'date_start' );
 			$this->date_start           = Helper::convert_date( $this->date_start_timestamp, true );
-			$this->is_single_day        = 'on' === $is_single_day ? true : false;
+			$this->is_single_day        = 'on' === $is_single_day;
 		}
 
 		/**
@@ -236,13 +236,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 * @return bool
 		 */
 		public function is_event_allows_register() {
-			$result         = false;
-			$allow_register = $this->get_meta( 'allow_register' );
-			if ( 'on' === $allow_register ) {
-				$result = true;
-			}
-
-			return $result;
+			return 'on' === $this->get_meta( 'allow_register' );
 		}
 
 		/**
