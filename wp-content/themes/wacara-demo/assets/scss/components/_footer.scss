@@ -1,5 +1,7 @@
 .wcr-footer {
   height: 80px;
+  background-color: darken($white, 5%);
+  border-top: 1px solid darken($white, 10%);
 
   > .frow-container {
     height: 100%;
