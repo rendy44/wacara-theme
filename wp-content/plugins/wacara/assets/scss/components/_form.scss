@@ -35,6 +35,12 @@ a {
       border: 1px solid darken($white, 20%);
       font-size: 14px;
       line-height: 1;
+
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none;
+      }
     }
 
     .wcr-form-field-multi-radio-wrapper {

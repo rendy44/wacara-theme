@@ -21,6 +21,7 @@
   &:active,
   &:focus {
     @include box-shadow();
+    outline: none;
   }
 
   &:disabled {
