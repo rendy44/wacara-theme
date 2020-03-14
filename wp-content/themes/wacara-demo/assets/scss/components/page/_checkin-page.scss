@@ -9,7 +9,25 @@ body.page-template.page-template-self-checkin-page.page {
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       height: 100%;
+
+      .wcr-checkin-logo-wrapper {
+        margin-bottom: 2rem;
+
+        img.wcr-checkin-logo {
+          max-height: 50px;
+          max-width: 210px;
+          @include breakpoint($size_tablet) {
+            max-height: 75px;
+            max-width: 240px;
+          }
+          @include breakpoint($size_laptop) {
+            max-height: 90px;
+            max-width: 270px;
+          }
+        }
+      }
 
       .wcr-form {
         width: 100%;

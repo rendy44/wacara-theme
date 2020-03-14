@@ -102,10 +102,11 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		private function customize_other() {
 
 			// Add opening container before self checkin.
-			add_action( 'wacara_before_self_checkin_form', [ $this, 'checkin_form_opening_container_callback' ], 10 );
+			add_action( 'wacara_before_self_checkin_content', [ $this, 'checkin_form_opening_container_callback' ], 10 );
+			add_action( 'wacara_before_self_checkin_form', [ $this, 'site_logo_callback' ], 10 );
 
 			// Add closing container after self checkin.
-			add_action( 'wacara_after_self_checkin_form', [ $this, 'checkin_form_closing_container_callback' ], 50 );
+			add_action( 'wacara_after_self_checkin_content', [ $this, 'checkin_form_closing_container_callback' ], 50 );
 		}
 
 		/**
@@ -256,6 +257,17 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		public function checkin_form_opening_container_callback() {
 			?>
 			<div class="frow-container">
+			<?php
+		}
+
+		public function site_logo_callback() {
+			?>
+			<div class="wcr-checkin-logo-wrapper">
+				<?php
+				/* translators: %1$s : site logo url, %2$s : site name */
+				echo sprintf( '<img src="%1$s" class="wcr-image wcr-checkin-logo" alt="%2$s">', \Wacara\Helper::get_site_logo_url(), get_bloginfo( 'name' ) );
+				?>
+			</div>
 			<?php
 		}
 

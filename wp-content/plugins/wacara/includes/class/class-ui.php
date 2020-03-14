@@ -118,7 +118,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_header_global_email_template', [ $this, 'header_global_email_template' ], 10, 1 );
 
 			// Render self-checkin page.
-			add_action( 'wacara_after_self_checkin_form', [ $this, 'modal_checkin_callback' ], 10, 1 );
+			add_action( 'wacara_after_self_checkin_content', [ $this, 'modal_checkin_callback' ], 10, 1 );
 		}
 
 		/**
