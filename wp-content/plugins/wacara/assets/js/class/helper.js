@@ -12,28 +12,36 @@ export default class Helper {
      * @param button_element
      * @param button_caption
      * @param isRedirect
+     * @param isShowSuccessAlert
      */
-    static doNormalizeError(data, button_element, button_caption, isRedirect) {
+    static doNormalizeError(data, button_element, button_caption, isRedirect, isShowSuccessAlert) {
 
-        // Set default value.
-        if ('undefined' === typeof isRedirect) {
-            isRedirect = true;
-        }
+        return new Promise(function (resolve, reject) {
+            // Set default value.
+            if ('undefined' === typeof isRedirect) {
+                isRedirect = true;
+            }
+            if ('undefined' === typeof isShowSuccessAlert) {
+                isShowSuccessAlert = true;
+            }
 
-        // Default alert type.
-        let alertType = data.success ? 'success' : 'error';
+            // Default alert type.
+            let alertType = data.success ? 'success' : 'error';
 
-        // Maybe normalize button.
-        button_element.prop('disabled', false).text(button_caption);
+            // Maybe normalize button.
+            button_element.prop('disabled', false).text(button_caption);
 
-        // Maybe redirect.
-        if (true === isRedirect && data.success) {
-            location.href = data.callback;
-        } else {
-            Swal.fire({
-                html: data.message,
-                type: alertType,
-            })
-        }
+            // Maybe redirect.
+            if (true === isRedirect && data.success) {
+                location.href = data.callback;
+            } else if ((isShowSuccessAlert && data.success) || !data.success) {
+                Swal.fire({
+                    html: data.message,
+                    type: alertType,
+                })
+            }
+
+            resolve(data.success);
+        });
     }
 }

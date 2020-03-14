@@ -53,6 +53,7 @@ export default class Modal {
      *
      * @param data
      * @param isHideModalOnSuccess
+     * @return {Promise<unknown> | Promise | Promise | Promise}
      */
     normalize(data, isHideModalOnSuccess) {
 
@@ -65,7 +66,7 @@ export default class Modal {
             this.hide();
         }
 
-        Helper.doNormalizeError(data, this.confirmButtonElement, this.confirmButtonText, false);
+        return Helper.doNormalizeError(data, this.confirmButtonElement, this.confirmButtonText, false);
     }
 
     /**
