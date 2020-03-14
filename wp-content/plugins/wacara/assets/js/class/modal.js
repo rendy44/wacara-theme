@@ -10,6 +10,7 @@ export default class Modal {
     useFooter;
     modalSelector;
     modalElement;
+    modalBodyElement;
     confirmButtonSelector;
     confirmButtonElement;
     confirmButtonText;
@@ -27,6 +28,7 @@ export default class Modal {
         this.useFooter = useFooter;
         this.modalSelector = '#wcr-modal-' + this.modalId;
         this.modalElement = jQuery(this.modalSelector);
+        this.modalBodyElement = this.modalElement.find('.wcr-modal-body');
         this.confirmButtonSelector = this.modalSelector + '  button.wcr-modal-confirm';
         this.confirmButtonElement = jQuery(this.confirmButtonSelector);
         this.confirmButtonText = this.confirmButtonElement.text();

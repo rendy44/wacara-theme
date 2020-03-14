@@ -1,0 +1,27 @@
+.wcr-registrant-detail-wrapper {
+  text-align: center;
+
+  > p {
+    margin: 0 0 1rem;
+  }
+
+  .wcr-registrant-name-wrapper {
+    margin-bottom: .5rem;
+
+    p.wcr-registrant-name {
+      font-size: 18px;
+      font-weight: 300;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
+  .wcr-registrant-email-wrapper {
+    p.wcr-registrant-email {
+      font-size: 18px;
+      font-weight: 300;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+}

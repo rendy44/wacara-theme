@@ -634,5 +634,20 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 
 			return $output;
 		}
+
+		/**
+		 * Censor email.
+		 *
+		 * @param string $email plain email address.
+		 *
+		 * @return string
+		 */
+		public static function censor_email( $email ) {
+			$em   = explode( '@', $email );
+			$name = implode( array_slice( $em, 0, count( $em ) - 1 ), '@' );
+			$len  = floor( strlen( $name ) / 2 );
+
+			return substr( $name, 0, $len ) . str_repeat( '*', $len ) . '@' . end( $em );
+		}
 	}
 }

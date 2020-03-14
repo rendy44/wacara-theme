@@ -36,7 +36,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                           and assign with registrant id to fetch the registrant's detail.
+		 *                                            and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
@@ -313,10 +313,19 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		/**
 		 * Get registrant email.
 		 *
+		 * @param bool $censor whether display email in censored or not.
+		 *
 		 * @return array|bool|mixed
 		 */
-		public function get_registrant_email() {
-			return $this->get_meta( 'email' );
+		public function get_registrant_email( $censor = false ) {
+			$email = $this->get_meta( 'email' );
+
+			// Maybe censor.
+			if ( $censor ) {
+				$email = Helper::censor_email( $email );
+			}
+
+			return $email;
 		}
 
 		/**
@@ -354,9 +363,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						do_action( 'wacara_after_registrant_checkin', $this );
 
 					} else {
-						$this->success = false;
-						$this->message = __( 'You have already checked in for today', 'wacara' );
-						$this->callback = [Helper::get_today_timestamp(),$this->get_checkin_lists()];
+						$this->success  = false;
+						$this->message  = __( 'You have already checked in for today', 'wacara' );
+						$this->callback = [ Helper::get_today_timestamp(), $this->get_checkin_lists() ];
 					}
 				} else {
 					$this->success = false;
@@ -653,6 +662,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_pricing_price();
 
 			/* translators: %1$s : currency symbol : %2$s : formatted amount */
+
 			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 
@@ -696,6 +706,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$price           = $this->get_total_pricing_price();
 
 			/* translators: %1$s : currency symbol : %2$s : formatted amount */
+
 			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
 		}
 

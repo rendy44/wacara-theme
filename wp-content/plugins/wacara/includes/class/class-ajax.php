@@ -407,7 +407,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate registrant.
 					if ( $registrant->success ) {
 						$result->success  = true;
-						$result->items    = $registrant->get_data();
+						$result->items    = [ $registrant->get_registrant_name(), $registrant->get_registrant_email( true ) ];
 						$result->callback = $registrant->get_public_key();
 					} else {
 						$result->message = $registrant->message;
@@ -450,7 +450,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$result->success = true;
 						$result->message = __( 'Thank you for checking in', 'wacara' );
 					} else {
-						$result->message = $registrant->message;
+						$result->message  = $registrant->message;
 						$result->callback = $registrant->callback;
 					}
 				} else {

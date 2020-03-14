@@ -44,6 +44,11 @@ import Helper from "./class/helper.js";
                                 Helper.doNormalizeError(data, buttonElm, buttonTxt, false, false)
                                     .then(function (result) {
                                         if (result) {
+
+                                            // Display result in modal.
+                                            instance.modalCheckin.modalBodyElement.find('p.wcr-registrant-name').text(data.items[0]);
+                                            instance.modalCheckin.modalBodyElement.find('p.wcr-registrant-email').text(data.items[1]);
+
                                             // Show modal.
                                             instance.modalCheckin.show();
 

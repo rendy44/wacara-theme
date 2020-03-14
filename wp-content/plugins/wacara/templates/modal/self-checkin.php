@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wcr-registrant-detail-wrapper">
 	<p><?php echo esc_html( $registrant_text ); ?></p>
 	<div class="wcr-registrant-name-wrapper">
-		<h3 class="wcr-registrant-name"><?php echo esc_html( $registrant_name ); ?></h3>
+		<p class="wcr-registrant-name"><?php echo esc_html( $registrant_name ); ?></p>
 	</div>
 	<div class="wcr-registrant-email-wrapper">
-		<h4 class="wcr-registrant-email"><?php echo esc_html( $registrant_email ); ?></h4>
+		<p class="wcr-registrant-email"><?php echo esc_html( $registrant_email ); ?></p>
 	</div>
 </div>
