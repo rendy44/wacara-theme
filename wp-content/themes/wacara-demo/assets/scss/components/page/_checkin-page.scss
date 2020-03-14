@@ -1,7 +1,28 @@
 body.page-template.page-template-self-checkin-page.page {
   height: 100vh;
+  min-height: 350px;
 
   > .frow-container {
     height: calc(100% - 80px);
+
+    .wcr-form-self-checkin-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      .wcr-form {
+        width: 100%;
+
+        .wcr-form-submit-wrapper {
+          .wcr-login-button {
+            width: 100%;
+            @include breakpoint($size_tablet) {
+              width: unset;
+            }
+          }
+        }
+      }
+    }
   }
 }

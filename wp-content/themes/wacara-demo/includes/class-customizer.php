@@ -91,6 +91,7 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 
 			// Add top nav in registrant.
 			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_top_nav_callback' ], 5, 1 );
+
 			// Add args in registrant masthead.
 			add_filter( 'wacara_filter_registrant_opening_masthead_args', [ $this, 'registrant_opening_masthead_args_callback' ], 10, 2 );
 		}
