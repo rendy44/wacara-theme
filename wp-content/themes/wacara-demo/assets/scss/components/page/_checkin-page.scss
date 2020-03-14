@@ -1,0 +1,7 @@
+body.page-template.page-template-self-checkin-page.page {
+  height: 100vh;
+
+  > .frow-container {
+    height: calc(100% - 80px);
+  }
+}

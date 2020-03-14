@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </body>
 <footer class="wcr-footer wcr-footer-dark">
 	<div class="frow-container">
-		<div class="frow">
+		<div class="frow wcr-height-100-p wcr-align-items-center">
 			<div class="col-sm-2-3 wcr-text-center">
 				<?php
 				/* translators: %1$s : site name, %2$s : site description, %3$s : current year */

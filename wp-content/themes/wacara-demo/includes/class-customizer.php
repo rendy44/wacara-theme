@@ -52,6 +52,8 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 		 */
 		private function __construct() {
 			$this->customize_event();
+			$this->customize_registrant();
+			$this->customize_other();
 			$this->customize_metabox();
 		}
 
@@ -80,11 +82,29 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 
 			// Add args in location section.
 			add_filter( 'wacara_filter_event_opening_section_location_args', [ $this, 'event_opening_location_args_callback' ], 10, 2 );
+		}
+
+		/**
+		 * Customize registrant.
+		 */
+		private function customize_registrant() {
 
 			// Add top nav in registrant.
 			add_action( 'wacara_before_registrant_masthead', [ $this, 'registrant_top_nav_callback' ], 5, 1 );
 			// Add args in registrant masthead.
 			add_filter( 'wacara_filter_registrant_opening_masthead_args', [ $this, 'registrant_opening_masthead_args_callback' ], 10, 2 );
+		}
+
+		/**
+		 * Other customization.
+		 */
+		private function customize_other() {
+
+			// Add opening container before self checkin.
+			add_action( 'wacara_before_self_checkin_form', [ $this, 'checkin_form_opening_container_callback' ], 10 );
+
+			// Add closing container after self checkin.
+			add_action( 'wacara_after_self_checkin_form', [ $this, 'checkin_form_closing_container_callback' ], 50 );
 		}
 
 		/**
@@ -227,6 +247,24 @@ if ( ! class_exists( 'Wacara_Theme\Customizer' ) ) {
 			$args['masthead_bg_image_url'] = $maybe_bg_image_url;
 
 			return $args;
+		}
+
+		/**
+		 * Callback for adding opening container in checkin form.
+		 */
+		public function checkin_form_opening_container_callback() {
+			?>
+			<div class="frow-container">
+			<?php
+		}
+
+		/**
+		 * Callback for adding closing container in checkin form.
+		 */
+		public function checkin_form_closing_container_callback() {
+			?>
+			</div>
+			<?php
 		}
 
 		/**

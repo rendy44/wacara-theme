@@ -1,18 +1,19 @@
 .wcr-footer {
-  padding: 1.5rem;
+  height: 80px;
 
-  p.wcr-footer-content {
-    line-height: 1.4;
-    font-size: 85%;
-    margin: 0;
+  > .frow-container {
+    height: 100%;
+    align-items: center;
+
+    p.wcr-footer-content {
+      line-height: 1.4;
+      font-size: 85%;
+      margin: 0;
+    }
   }
 
   &.wcr-footer-dark {
     background-color: lighten($black, 30%);
     color: $white;
-  }
-
-  @include breakpoint($size_laptop) {
-    padding: 3rem;
   }
 }
