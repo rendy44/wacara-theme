@@ -28,13 +28,15 @@ export default class Helper {
             // Default alert type.
             let alertType = data.success ? 'success' : 'error';
 
-            // Maybe normalize button.
-            button_element.prop('disabled', false).text(button_caption);
-
             // Maybe redirect.
             if (true === isRedirect && data.success) {
                 location.href = data.callback;
             } else if ((isShowSuccessAlert && data.success) || !data.success) {
+
+                // Maybe normalize button.
+                button_element.prop('disabled', false).text(button_caption);
+
+                // Show alert.
                 Swal.fire({
                     html: data.message,
                     type: alertType,
