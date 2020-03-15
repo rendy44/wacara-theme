@@ -1,0 +1,196 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Wacara - Offline Payment\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-15 04:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.3.2"
+
+#: class-offline-payment.php:489
+msgid "Action"
+msgstr ""
+
+#: class-offline-payment.php:118
+msgid "Add Bank"
+msgstr ""
+
+#. Description of the plugin
+msgid "An add-on for Wacara to enable offline payment method."
+msgstr ""
+
+#. $s: message for offline payment
+#: class-offline-payment.php:79
+msgid "Bank detail will be informed after checking out"
+msgstr ""
+
+#: class-offline-payment.php:124
+msgid "Bank Name"
+msgstr ""
+
+#: class-offline-payment.php:117
+msgid "Bank {#}"
+msgstr ""
+
+#: class-offline-payment.php:134
+msgid "Branch"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:19
+msgid "Confirmation date"
+msgstr ""
+
+#. %1$s: bank name %2$s: branch name
+#: templates/registrant/status-waiting-payment.php:40
+#, php-format
+msgctxt "Displaying bank information"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: class-offline-payment.php:139
+msgid "Holder"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://wperfekt.com"
+msgstr ""
+
+#: class-offline-payment.php:411
+msgid "I have made a payment"
+msgstr ""
+
+#: templates/registrant/status-waiting-payment.php:21
+msgid "Important!"
+msgstr ""
+
+#: templates/registrant/status-waiting-payment.php:15
+msgid "In order to save your seat, please make a payment as detailed below:"
+msgstr ""
+
+#: class-offline-payment.php:573
+msgid "Invalid bank account selected"
+msgstr ""
+
+#: class-offline-payment.php:342
+msgid "Invalid registrant"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:14
+msgid "Invoice"
+msgstr ""
+
+#: class-offline-payment.php:61
+msgid "Manual payment using bank transfer"
+msgstr ""
+
+#: class-offline-payment.php:129
+msgid "Number"
+msgstr ""
+
+#: class-offline-payment.php:60
+msgid "Offline Payment"
+msgstr ""
+
+#: templates/registrant/status-waiting-payment.php:54
+msgid "Once you made a transfer, please click button below to confirm"
+msgstr ""
+
+#: class-offline-payment.php:291
+msgid "Please reload the page and try again"
+msgstr ""
+
+#: class-offline-payment.php:296
+msgid "Please select the bank account"
+msgstr ""
+
+#: class-offline-payment.php:307 class-offline-payment.php:392
+msgid "Please try again later"
+msgstr ""
+
+#. %s : name of the selected payment method
+#: class-offline-payment.php:531
+#, php-format
+msgid "Registrant already made a payment yet with %s"
+msgstr ""
+
+#. %s : name of the selected payment method
+#: class-offline-payment.php:527
+#, php-format
+msgid "Registrant has not made payment yet with %s"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:33
+msgid "Reject"
+msgstr ""
+
+#: class-offline-payment.php:119
+msgid "Remove Bank"
+msgstr ""
+
+#: templates/registrant/status-waiting-payment.php:26
+msgid "Select one of the following bank accounts you want to transfer to"
+msgstr ""
+
+#: class-offline-payment.php:269
+msgid "Successfully confirmed transfer"
+msgstr ""
+
+#: class-offline-payment.php:375
+msgid "Successfully rejected"
+msgstr ""
+
+#: class-offline-payment.php:372
+msgid "Successfully verified"
+msgstr ""
+
+#: templates/registrant/status-waiting-payment.php:22
+msgid ""
+"The transfer amount must be exactly same as above, including the coma if any"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:34
+msgid "This is one time action, once you click the action, you can not undo"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:23
+msgid "Transferred to"
+msgstr ""
+
+#: templates/admin/registrant-detail.php:32
+msgid "Verify"
+msgstr ""
+
+#. Name of the plugin
+msgid "Wacara - Offline Payment"
+msgstr ""
+
+#: class-offline-payment.php:232
+msgid "Waiting payment"
+msgstr ""
+
+#: class-offline-payment.php:233
+msgid "Waiting verification"
+msgstr ""
+
+#: class-offline-payment.php:453
+msgid ""
+"We are verifying your payment, we'll get back to you once we have an update"
+msgstr ""
+
+#: class-offline-payment.php:456
+msgid ""
+"We have declined your payment, if you think this is not supposed to be, "
+"please contact us."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPerfekt"
+msgstr ""
