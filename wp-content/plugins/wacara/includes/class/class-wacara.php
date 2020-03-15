@@ -93,7 +93,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 * Callback for loading language.
 		 */
 		public function load_language_callback() {
-			load_plugin_textdomain( 'wacara', false, basename( dirname( __FILE__ ) ) . '/i18n/' );
+			load_plugin_textdomain( 'wacara', false, WACARA_PATH . 'i18n/' );
 		}
 
 		/**
