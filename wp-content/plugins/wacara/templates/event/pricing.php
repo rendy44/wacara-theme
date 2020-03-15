@@ -69,4 +69,3 @@ if ( ! empty( $price_lists ) ) {
 	</div>
 	<?php
 }
-?>

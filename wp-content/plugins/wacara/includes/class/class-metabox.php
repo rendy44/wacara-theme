@@ -440,6 +440,15 @@ if ( ! class_exists( 'Wacara\Metabox' ) ) {
 								'desc' => __( 'Allow registrant register this event', 'wacara' ),
 							],
 							[
+								'name'       => __( 'No registration message', 'wacara' ),
+								'id'         => $this->meta_prefix . 'no_registration_message',
+								'type'       => 'textarea_small',
+								'attributes' => [
+									'data-conditional-id' => $this->meta_prefix . 'allow_register',
+									'data-conditional-value' => 'off',
+								],
+							],
+							[
 								'name'       => __( 'Limit register', 'wacara' ),
 								'id'         => $this->meta_prefix . 'limit_register',
 								'type'       => 'checkbox',

@@ -216,6 +216,15 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		}
 
 		/**
+		 * Get not registration message.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_direct_message_content() {
+			return $this->get_meta( 'no_registration_message' );
+		}
+
+		/**
 		 * Check whether the event is past or not.
 		 *
 		 * @return bool

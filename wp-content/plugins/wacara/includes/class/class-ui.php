@@ -679,6 +679,10 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Set default message.
 			$direct_message = __( 'This event does not require any registration, you can attend the event immediately', 'wacara' );
 
+			// Maybe override direct content.
+			$direct_content = $event->get_direct_message_content();
+			$direct_message = $direct_content ? $direct_content : $direct_message;
+
 			/**
 			 * Wacara event direct registration message filter hook.
 			 *
