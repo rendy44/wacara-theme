@@ -187,7 +187,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		public function get_nav_menus() {
 
 			// Prepare empty result.
-			$result = [];
+			$result = array();
 
 			// Fetch sections ordering.
 			$sections = $this->get_meta( 'section_order' );
@@ -398,7 +398,7 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		public function maybe_recount_limitation() {
 			$current_number_of_registered_registrant = (int) $this->get_meta( 'number_of_registrant' );
 			$new_number_of_registered_registrant     = $current_number_of_registered_registrant + 1;
-			$this->save_meta( [ 'number_of_registrant' => $new_number_of_registered_registrant ] );
+			$this->save_meta( array( 'number_of_registrant' => $new_number_of_registered_registrant ) );
 		}
 
 		/**
@@ -407,18 +407,18 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		public function get_all_done_registrants() {
 			$key = WACARA_PREFIX;
 			$this->get_all_registrants(
-				[
-					'meta_query' => [
-						[
+				array(
+					'meta_query' => array(
+						array(
 							'key'   => $key . 'reg_status',
 							'value' => 'done',
-						],
-						[
+						),
+						array(
 							'key'   => $key . 'event_id',
 							'value' => $this->post_id,
-						],
-					],
-				]
+						),
+					),
+				)
 			);
 		}
 
@@ -430,12 +430,12 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		public function get_all_registrants_by_registration_status( $page = 1 ) {
 			$key = WACARA_PREFIX;
 			$this->get_all_registrants(
-				[
+				array(
 					'paged'          => $page,
 					'posts_per_page' => 50,
 					'meta_key'       => $key . 'reg_status', // phpcs:ignore
 					'orderby'        => 'meta_value',
-				]
+				)
 			);
 		}
 
@@ -444,22 +444,22 @@ if ( ! class_exists( 'Wacara\Event' ) ) {
 		 *
 		 * @param array $custom_args override args.
 		 */
-		public function get_all_registrants( $custom_args = [] ) {
+		public function get_all_registrants( $custom_args = array() ) {
 			$key          = WACARA_PREFIX;
-			$default_args = [
+			$default_args = array(
 				'post_type'      => 'registrant',
 				'post_status'    => 'publish',
 				'posts_per_page' => - 1,
 				'orderby'        => 'date',
 				'order'          => 'desc',
 				'fields'         => 'ids',
-				'meta_query'     => [
-					[
+				'meta_query'     => array(
+					array(
 						'key'   => $key . 'event_id',
 						'value' => $this->post_id,
-					],
-				],
-			];
+					),
+				),
+			);
 
 			$args = wp_parse_args( $custom_args, $default_args );
 

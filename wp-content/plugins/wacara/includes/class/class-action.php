@@ -46,7 +46,7 @@ if ( ! class_exists( 'Wacara\Action' ) ) {
 		 * Action constructor.
 		 */
 		private function __construct() {
-			add_action( 'admin_post_download_csv', [ $this, 'download_csv_callback' ] );
+			add_action( 'admin_post_download_csv', array( $this, 'download_csv_callback' ) );
 		}
 
 		/**
@@ -75,25 +75,25 @@ if ( ! class_exists( 'Wacara\Action' ) ) {
 						// Write the header.
 						fputcsv(
 							$fp,
-							[
+							array(
 								__( 'Booking Code', 'wacara' ),
 								__( 'Name', 'wacara' ),
 								__( 'Email', 'wacara' ),
 								__( 'Status', 'wacara' ),
 								__( 'Registered', 'wacara' ),
-							]
+							)
 						);
 
 						// Start looping.
 						foreach ( $event->items as $item ) {
 							$item_data = $item->get_data();
-							$used_item = [
+							$used_item = array(
 								$item_data['booking_code'],
 								$item_data['name'],
 								$item_data['email'],
 								$item->get_readable_registrant_status(),
 								$item->get_created_date(),
-							];
+							);
 							fputcsv( $fp, $used_item );
 						}
 					}

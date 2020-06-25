@@ -35,7 +35,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param int   $post_id post id.
 		 * @param array $options meta_key => meta_value formatted array.
 		 */
-		public static function save_post_meta( $post_id, $options = [] ) {
+		public static function save_post_meta( $post_id, $options = array() ) {
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option_value ) {
 					update_post_meta( $post_id, self::$meta_prefix . $option_key, $option_value );
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param string $user_id user id.
 		 * @param array  $options meta_key => meta_value formatterd array.
 		 */
-		public static function save_user_meta( $user_id, $options = [] ) {
+		public static function save_user_meta( $user_id, $options = array() ) {
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option_value ) {
 					update_user_meta( $user_id, self::$meta_prefix . $option_key, $option_value );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 */
 		public static function get_serialized_val( $unserialized_data, $key ) {
 			$result           = '';
-			$temporary_result = [];
+			$temporary_result = array();
 			foreach ( $unserialized_data as $obj ) {
 				if ( $obj['name'] === $key ) {
 					$temporary_result[] = $obj['value'];
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 *
 		 * @return bool|mixed will be returned false once aray does not have key.
 		 */
-		public static function array_val( array $array, $key, $return_false = [] ) {
+		public static function array_val( array $array, $key, $return_false = array() ) {
 			return ! empty( $array[ $key ] ) ? $array[ $key ] : $return_false;
 		}
 
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function convert_wpdb_into_array( array $data ) {
-			$result = [];
+			$result = array();
 			if ( ! empty( $data ) ) {
 				foreach ( $data as $id => $obj ) {
 					$result[ $id ] = $obj->post_title;
@@ -395,7 +395,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param array  $obj_css css object.
 		 */
 		public static function load_css( $name, array $obj_css ) {
-			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : [];
+			$depth = ! empty( $obj_css['depth'] ) ? $obj_css['depth'] : array();
 			wp_enqueue_style( $name, $obj_css['url'], $depth, WACARA_VERSION );
 		}
 
@@ -408,7 +408,7 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		public static function load_js( $name, array $obj_js ) {
 			$js_prefix = WACARA_PREFIX . 'module_';
 			$is_module = false === $obj_js['module'] ? false : true;
-			$depth     = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : [];
+			$depth     = ! empty( $obj_js['depth'] ) ? $obj_js['depth'] : array();
 			$name      = $is_module ? $js_prefix . $name : $name;
 			wp_enqueue_script( $name, $obj_js['url'], $depth, WACARA_VERSION, true );
 		}
@@ -447,11 +447,11 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @return array
 		 */
 		public static function maybe_convert_ajax_endpoint_obj( $endpoint_object ) {
-			$default_args = [
+			$default_args = array(
 				'callback'  => false,
 				'public'    => true,
 				'logged_in' => true,
-			];
+			);
 
 			return wp_parse_args( $endpoint_object, $default_args );
 		}
@@ -483,12 +483,12 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param array  $setting_args setting configuration.
 		 * @param string $dashicon dashicon name.
 		 */
-		public static function register_post_type( $name, $label_args = [], $setting_args = [], $dashicon = '' ) {
+		public static function register_post_type( $name, $label_args = array(), $setting_args = array(), $dashicon = '' ) {
 			$readable_string        = self::convert_to_readable_string( $name );
 			$readable_string_plural = $readable_string . 's';
 
 			// Prepare default args for label configuration.
-			$default_label_args = [
+			$default_label_args = array(
 				'name'               => $readable_string_plural,
 				'singular_name'      => $readable_string,
 				'menu_name'          => $readable_string_plural,
@@ -512,24 +512,24 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 				'not_found'          => sprintf( _x( 'No %s found.', 'No post types found', 'wacara' ), $readable_string_plural ),
 				/* translators: %s: plural post type */
 				'not_found_in_trash' => sprintf( _x( 'No %s found in Trash.', 'No post types found in trash.', 'wacara' ), $readable_string_plural ),
-			];
+			);
 
 			$label_args = wp_parse_args( $label_args, $default_label_args );
 
 			// Prepare default args for setting configuration.
-			$default_args = [
+			$default_args = array(
 				'labels'             => $label_args,
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
 				'show_in_menu'       => true,
 				'query_var'          => true,
-				'rewrite'            => [ 'slug' => $name ],
+				'rewrite'            => array( 'slug' => $name ),
 				'capability_type'    => 'post',
 				'has_archive'        => false,
 				'hierarchical'       => false,
-				'supports'           => [ 'title' ],
-			];
+				'supports'           => array( 'title' ),
+			);
 			if ( $dashicon ) {
 				$default_args['menu_icon'] = $dashicon;
 			}
@@ -587,12 +587,12 @@ if ( ! class_exists( 'Wacara\Helper' ) ) {
 		 * @param string $footer footer content of the modal.
 		 */
 		public static function add_modal( $id, $body, $title = '', $footer = '' ) {
-			$modal_args = [
+			$modal_args = array(
 				'modal_id'     => $id,
 				'modal_title'  => $title,
 				'modal_body'   => $body,
 				'modal_footer' => $footer,
-			];
+			);
 
 			/**
 			 * Wacara modal args filter hook.

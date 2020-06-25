@@ -48,10 +48,10 @@ if ( ! class_exists( 'Wacara\Mailer_Event' ) ) {
 		private function __construct() {
 
 			// Send email after registrant filling details.
-			add_action( 'wacara_after_filling_registration', [ $this, 'send_email_after_register_callback' ], 10, 3 );
+			add_action( 'wacara_after_filling_registration', array( $this, 'send_email_after_register_callback' ), 10, 3 );
 
 			// Send email each time status being changed.
-			add_action( 'wacara_after_setting_registrant_status', [ $this, 'send_email_each_status_changed_callback' ], 10, 3 );
+			add_action( 'wacara_after_setting_registrant_status', array( $this, 'send_email_each_status_changed_callback' ), 10, 3 );
 		}
 
 		/**

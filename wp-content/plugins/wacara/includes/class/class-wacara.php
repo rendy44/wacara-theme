@@ -33,14 +33,14 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 *
 		 * @var array
 		 */
-		private $classes = [];
+		private $classes = array();
 
 		/**
 		 * Libraries variable
 		 *
 		 * @var array
 		 */
-		private $libraries = [];
+		private $libraries = array();
 
 		/**
 		 * Singleton
@@ -69,8 +69,8 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 * Trigger loaded plugin hook.
 		 */
 		private function load_hooks() {
-			add_action( 'plugins_loaded', [ $this, 'trigger_hook_loader_callback' ], - 1 );
-			add_action( 'plugins_loaded', [ $this, 'load_language_callback' ] );
+			add_action( 'plugins_loaded', array( $this, 'trigger_hook_loader_callback' ), - 1 );
+			add_action( 'plugins_loaded', array( $this, 'load_language_callback' ) );
 		}
 
 		/**
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 		 * Map all dependency classes that's required by our theme
 		 */
 		private function map_classes() {
-			$this->classes = [
+			$this->classes = array(
 				'class-result',
 				'class-helper',
 				'class-master',
@@ -132,19 +132,19 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 				'class-asset',
 				'class-post-columns',
 				'abstract/class-payment-method',
-			];
+			);
 		}
 
 		/**
 		 * Map all dependency libraries that`s required by our theme
 		 */
 		private function map_libraries() {
-			$this->libraries = [
+			$this->libraries = array(
 				'cmb2/init',
 				'cmb2-tabs/plugin',
 				'cmb2-select2/cmb-field-select2',
 				'phpqrcode/qrlib',
-			];
+			);
 		}
 
 		/**

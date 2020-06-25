@@ -4,7 +4,7 @@
  *
  * @author WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 namespace Wacara;
@@ -28,12 +28,13 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 		 * @param string $key filter options by key.
 		 *
 		 * @return mixed|void
+		 * @version 0.0.2
 		 */
 		public static function get_wacara_options( $key = '' ) {
 			$result = self::get_option( 'options' );
 
 			// Maybe filter by key.
-			if ( $key ) {
+			if ( $key && $result ) {
 				$result = Helper::array_val( $result, $key );
 			}
 
@@ -61,7 +62,7 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 		public static function get_list_of_countries( $use_blank = false ) {
 			$countries = include WACARA_PATH . '/i18n/country.php';
 			if ( $use_blank ) {
-				$countries = array_merge( [ '' => __( 'Select country', 'wacara' ) ], $countries );
+				$countries = array_merge( array( '' => __( 'Select country', 'wacara' ) ), $countries );
 			}
 
 			return $countries;
@@ -145,7 +146,7 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 		 * @return mixed|void
 		 */
 		public static function get_list_of_currency_codes() {
-			$currencies = [
+			$currencies = array(
 				'USD' => '$',
 				'AUD' => 'AU$',
 				'SGD' => 'SG$',
@@ -154,7 +155,7 @@ if ( ! class_exists( 'Wacara\Master' ) ) {
 				'JPY' => '¥',
 				'EUR' => '€',
 				'GBP' => '£',
-			];
+			);
 
 			/**
 			 * Wacara currency symbol filter hook.

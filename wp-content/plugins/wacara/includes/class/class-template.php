@@ -105,7 +105,7 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 		 *
 		 * @return string
 		 */
-		private static function render_template( $template, $variables = [] ) {
+		private static function render_template( $template, $variables = array() ) {
 			ob_start();
 			foreach ( $variables as $key => $value ) {
 				${$key} = $value;
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Wacara\Template' ) ) {
 		 *
 		 * @return void|string
 		 */
-		public static function render( $file_name, $variables = [], $echo = false ) {
+		public static function render( $file_name, $variables = array(), $echo = false ) {
 			$template = self::find_template( $file_name );
 			$output   = '';
 			if ( $template ) {

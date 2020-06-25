@@ -48,8 +48,8 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 		private function __construct() {
 
 			// Modify registrant callback.
-			add_filter( 'manage_registrant_posts_columns', [ $this, 'modify_registrant_columns_callback' ], 10, 1 );
-			add_action( 'manage_registrant_posts_custom_column', [ $this, 'modify_registrant_column_content' ], 10, 2 );
+			add_filter( 'manage_registrant_posts_columns', array( $this, 'modify_registrant_columns_callback' ), 10, 1 );
+			add_action( 'manage_registrant_posts_custom_column', array( $this, 'modify_registrant_column_content' ), 10, 2 );
 		}
 
 		/**
@@ -65,11 +65,11 @@ if ( ! class_exists( 'Wacara\Post_Columns' ) ) {
 			unset( $default_columns['date'] );
 
 			// Prepare default registrant columns.
-			$new_columns = [
+			$new_columns = array(
 				'event'   => __( 'Event', 'wacara' ),
 				'pricing' => __( 'Pricing', 'wacara' ),
 				'status'  => __( 'Status', 'wacara' ),
-			];
+			);
 
 			/**
 			 * Wacara registrant admin column filter hook.

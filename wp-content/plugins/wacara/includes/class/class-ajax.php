@@ -70,23 +70,23 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 		 * @return array
 		 */
 		private function get_default_endpoints() {
-			return [
-				'select_price'    => [
-					'callback' => [ $this, 'register_callback' ],
-				],
-				'fill_detail'     => [
-					'callback' => [ $this, 'payment_callback' ],
-				],
-				'checkout'        => [
-					'callback' => [ $this, 'checkout_callback' ],
-				],
-				'find_registrant' => [
-					'callback' => [ $this, 'find_by_booking_code_callback' ],
-				],
-				'checkin'         => [
-					'callback' => [ $this, 'registrant_checkin_callback' ],
-				],
-			];
+			return array(
+				'select_price'    => array(
+					'callback' => array( $this, 'register_callback' ),
+				),
+				'fill_detail'     => array(
+					'callback' => array( $this, 'payment_callback' ),
+				),
+				'checkout'        => array(
+					'callback' => array( $this, 'checkout_callback' ),
+				),
+				'find_registrant' => array(
+					'callback' => array( $this, 'find_by_booking_code_callback' ),
+				),
+				'checkin'         => array(
+					'callback' => array( $this, 'registrant_checkin_callback' ),
+				),
+			);
 		}
 
 		/**
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 						$pricing_price_in_cent = $pricing_price * 100;
 
 						// Save cached data.
-						$cached_data = [
+						$cached_data = array(
 							'event_id'                    => $event_id,
 							'pricing_id'                  => $pricing_id,
 							'pricing_cache_name'          => $pricing->post_title,
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 							'pricing_cache_cons'          => $pricing->get_cons(),
 							'pricing_cache_recommended'   => $pricing->is_recommended(),
 							'pricing_cache_unique_number' => $pricing->is_unique_number(),
-						];
+						);
 
 						// create registrant.
 						$new_registrant = new Registrant( false, $cached_data );
@@ -407,7 +407,7 @@ if ( ! class_exists( 'Wacara\Ajax' ) ) {
 					// Validate registrant.
 					if ( $registrant->success ) {
 						$result->success  = true;
-						$result->items    = [ $registrant->get_registrant_name(), $registrant->get_registrant_email( true ) ];
+						$result->items    = array( $registrant->get_registrant_name(), $registrant->get_registrant_email( true ) );
 						$result->callback = $registrant->get_public_key();
 					} else {
 						$result->message = $registrant->message;

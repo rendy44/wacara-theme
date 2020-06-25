@@ -79,7 +79,7 @@ if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 		 *
 		 * @var array
 		 */
-		protected $maybe_required_form_elms = [
+		protected $maybe_required_form_elms = array(
 			'list_input',
 			'input',
 			'textarea',
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 			'taxonomy_radio',
 			'taxonomy_multicheck',
 			'multicheck_inline',
-		];
+		);
 
 		/**
 		 * Singleton
@@ -114,15 +114,15 @@ if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 				return;
 			}
 
-			add_action( 'admin_init', [ $this, 'admin_init' ], self::PRIORITY );
+			add_action( 'admin_init', array( $this, 'admin_init' ), self::PRIORITY );
 
 			foreach ( $this->maybe_required_form_elms as $element ) {
 				add_filter(
 					"cmb2_{$element}_attributes",
-					[
+					array(
 						$this,
 						'maybe_set_required_attribute',
-					],
+					),
 					self::PRIORITY
 				);
 			}
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 		 * Decide whether to include the js-script or not.
 		 */
 		public function admin_footer() {
-			if ( ! in_array( $GLOBALS['pagenow'], [ 'post-new.php', 'post.php' ], true ) ) {
+			if ( ! in_array( $GLOBALS['pagenow'], array( 'post-new.php', 'post.php' ), true ) ) {
 				return;
 			}
 		}
@@ -168,10 +168,10 @@ if ( ! class_exists( 'Wacara\CMB2_Conditionals', false ) ) {
 			foreach ( $cmb2_boxes as $cmb_id => $cmb2_box ) {
 				add_action(
 					"cmb2_{$cmb2_box->object_type()}_process_fields_{$cmb_id}",
-					[
+					array(
 						$this,
 						'filter_data_to_save',
-					],
+					),
 					self::PRIORITY,
 					2
 				);

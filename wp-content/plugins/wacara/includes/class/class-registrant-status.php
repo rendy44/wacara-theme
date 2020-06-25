@@ -27,7 +27,7 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 		 *
 		 * @var array
 		 */
-		private static $status = [];
+		private static $status = array();
 
 		/**
 		 * Init registrant default status.
@@ -35,12 +35,12 @@ if ( ! class_exists( 'Wacara\Registrant_Status' ) ) {
 		public static function init() {
 
 			// Prepare default status.
-			$default_status = [
+			$default_status = array(
 				'hold'   => __( 'Waiting details', 'wacara' ),
 				'done'   => __( 'Done', 'wacara' ),
 				'fail'   => __( 'Fail', 'wacara' ),
 				'reject' => __( 'Rejected', 'wacara' ),
-			];
+			);
 
 			/**
 			 * Wacara registrant default status filter hook.

@@ -37,7 +37,7 @@ if ( ! defined( 'Wacara\Result' ) ) {
 		 *
 		 * @var array
 		 */
-		public $items = [];
+		public $items = array();
 
 		/**
 		 * Callback to display another response.

@@ -30,7 +30,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 *
 		 * @var array
 		 */
-		private $registrant_data = [];
+		private $registrant_data = array();
 
 		/**
 		 * Registrant constructor.
@@ -40,16 +40,16 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param array $args arguments to create a new registrant.
 		 *                              Or list of field to displaying registrant.
 		 */
-		public function __construct( $registrant_id = false, $args = [] ) {
+		public function __construct( $registrant_id = false, $args = array() ) {
 
 			// Create a new registrant.
 			if ( ! $registrant_id ) {
 
 				// Prepare default args.
-				$default_args = [
+				$default_args = array(
 					'event_id'   => false,
 					'pricing_id' => false,
-				];
+				);
 
 				// Parse the arguments.
 				$args = wp_parse_args( $args, $default_args );
@@ -80,12 +80,12 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 					// Proceed creating registrant.
 					$new_registrant = wp_insert_post(
-						[
+						array(
 							'post_type'   => 'registrant',
 							'post_title'  => strtoupper( $registrant_key ),
 							'post_name'   => sanitize_title( $registrant_key ),
 							'post_status' => 'publish',
-						]
+						)
 					);
 
 					/**
@@ -137,14 +137,14 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 				if ( $this->success ) {
 
 					// Maybe merge displayed fields with args from parameter.
-					$used_args = [
+					$used_args = array(
 						'booking_code',
 						'email',
 						'name',
 						'booking_code',
 						'event_id',
 						'pricing_id',
-					];
+					);
 					if ( ! empty( $args ) ) {
 						$used_args = array_merge( $used_args, $args );
 					}
@@ -153,10 +153,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					$this->registrant_data = $this->get_meta( $used_args );
 
 					// Add more fields to be displayed.
-					$more_data = [
+					$more_data = array(
 						'reg_status'          => $this->get_registration_status(),
 						'readable_reg_status' => $this->get_readable_registrant_status(),
-					];
+					);
 
 					/**
 					 * Wacara registrant more detail filter hooks.
@@ -200,10 +200,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 
 			// Save qrcode into registrant.
 			$this->save_meta(
-				[
+				array(
 					'qrcode_name' => $created_qrcode,
 					'qrcode_url'  => $qrcode_uri,
-				]
+				)
 			);
 
 			// Save registrant id into variable.
@@ -241,9 +241,9 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$booking_code = apply_filters( 'wacara_filter_registrant_booking_code', $booking_code, $event_id, $registrant_id );
 
 			$this->save_meta(
-				[
+				array(
 					'booking_code' => $booking_code,
-				]
+				)
 			);
 		}
 
@@ -259,10 +259,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$secret_key = Helper::encryption( $this->post_id );
 
 			$this->save_meta(
-				[
+				array(
 					'secret_key' => $secret_key,
 					'public_key' => $public_key,
-				]
+				)
 			);
 		}
 
@@ -294,10 +294,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function save_more_details( $name = '', $email = '' ) {
 			$this->save_meta(
-				[
+				array(
 					'name'  => $name,
 					'email' => $email,
-				]
+				)
 			);
 		}
 
@@ -365,7 +365,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 					} else {
 						$this->success  = false;
 						$this->message  = __( 'You have already checked in for today', 'wacara' );
-						$this->callback = [ Helper::get_today_timestamp(), $this->get_checkin_lists() ];
+						$this->callback = array( Helper::get_today_timestamp(), $this->get_checkin_lists() );
 					}
 				} else {
 					$this->success = false;
@@ -386,7 +386,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$previous_checkin[] = $today_timestamp;
 
 			// Update the checkin dates.
-			$this->save_meta( [ 'checkin_dates' => $previous_checkin ] );
+			$this->save_meta( array( 'checkin_dates' => $previous_checkin ) );
 		}
 
 		/**
@@ -448,7 +448,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$old_status = $this->get_registration_status();
 
 			// Change the status.
-			$this->save_meta( [ 'reg_status' => $status ] );
+			$this->save_meta( array( 'reg_status' => $status ) );
 
 			/**
 			 * Perform action when registrant status changed.
@@ -468,7 +468,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * @param string $payment_method selected payment method.
 		 */
 		public function save_payment_method_info( $payment_method ) {
-			$this->save_meta( [ 'payment_method' => $payment_method ] );
+			$this->save_meta( array( 'payment_method' => $payment_method ) );
 		}
 
 		/**
@@ -516,10 +516,10 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$time = time();
 
 			// Convert content into array.
-			$log_content = [
+			$log_content = array(
 				'time'    => $time,
 				'content' => $content,
-			];
+			);
 
 			$this->add_meta( 'logs', $log_content );
 		}
@@ -560,11 +560,11 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			$new_price_with_unique_number_in_cent = $old_price_in_cent + $unique;
 
 			$this->save_meta(
-				[
+				array(
 					'maybe_unique_number'             => $unique,
 					'maybe_price_with_unique'         => $new_price_with_unique_number_in_cent / 100,
 					'maybe_price_with_unique_in_cent' => $new_price_with_unique_number_in_cent,
-				]
+				)
 			);
 		}
 

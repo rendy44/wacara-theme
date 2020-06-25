@@ -4,7 +4,7 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 namespace Wacara;
@@ -138,8 +138,8 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * Add custom hooks.
 		 */
 		private function hooks() {
-			add_action( 'wp_enqueue_scripts', [ $this, 'maybe_load_front_assets_callback' ] );
-			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_load_admin_assets_callback' ] );
+			add_action( 'wp_enqueue_scripts', array( $this, 'maybe_load_front_assets_callback' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_load_admin_assets_callback' ) );
 		}
 
 		/**
@@ -198,12 +198,13 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 		 * @param string $key specific key to filter the admin setting.
 		 *
 		 * @return bool|mixed|void
+		 * @version 0.0.2
 		 */
 		public function get_admin_setting( $key = '' ) {
 			$result = Master::get_option( $this->id );
 
 			// Filter the result by key.
-			if ( $key ) {
+			if ( $key && ! empty( $result ) ) {
 				$result = Helper::array_val( $result, $key );
 			}
 
@@ -222,10 +223,10 @@ if ( ! class_exists( 'Wacara\Payment_Method' ) ) {
 			// Override template folder.
 			Template::override_folder( $this->path );
 
-			$temp_args = [
+			$temp_args = array(
 				'registrant' => $registrant,
 				'reg_status' => $reg_status,
-			];
+			);
 
 			/**
 			 * Wacara filter registrant custom content args hook.

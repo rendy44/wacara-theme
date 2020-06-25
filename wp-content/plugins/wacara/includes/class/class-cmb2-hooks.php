@@ -47,7 +47,7 @@ if ( ! class_exists( 'Wacara\CMB2_Hooks' ) ) {
 		 */
 		private function __construct() {
 			// Add filter to override cmb2-select2 assets uri.
-			add_filter( 'pw_cmb2_field_select2_asset_path', [ $this, 'override_cmb2_select2_assets_uri_callback' ] );
+			add_filter( 'pw_cmb2_field_select2_asset_path', array( $this, 'override_cmb2_select2_assets_uri_callback' ) );
 		}
 
 		/**

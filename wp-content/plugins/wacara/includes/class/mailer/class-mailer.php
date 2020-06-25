@@ -55,7 +55,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		 *
 		 * @var array|string
 		 */
-		private $recipients = [];
+		private $recipients = array();
 
 		/**
 		 * Email subject variable.
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		 * @param Registrant   $registrant object of the current registrant.
 		 * @param array        $plain_template_args default template args.
 		 */
-		public function __construct( $id, $title, $enabled, $recipients, $subject, $registrant, $plain_template_args = [] ) {
+		public function __construct( $id, $title, $enabled, $recipients, $subject, $registrant, $plain_template_args = array() ) {
 
 			// Save the properties.
 			$this->id         = $id;
@@ -109,12 +109,12 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 			$this->subject = apply_filters( 'wacara_filter_mailer_subject', $subject, $id, $registrant );
 
 			// Add default plain template args.
-			$default_template_args = [
+			$default_template_args = array(
 				'recipient_name'  => $registrant->get_registrant_name(),
 				'recipient_email' => $registrant->get_registrant_email(),
 				'event_name'      => $registrant->get_event_object()->post_title,
 				'registrant'      => $registrant,
-			];
+			);
 			$plain_template_args   = wp_parse_args( $plain_template_args, $default_template_args );
 
 			/**
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		 * @return bool
 		 */
 		public function send() {
-			return wp_mail( $this->get_formatted_recipients(), $this->subject, $this->get_formatted_content(), [ 'Content-Type: text/html; charset=UTF-8' ] );
+			return wp_mail( $this->get_formatted_recipients(), $this->subject, $this->get_formatted_content(), array( 'Content-Type: text/html; charset=UTF-8' ) );
 		}
 
 		/**
@@ -155,10 +155,10 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		private function get_formatted_content() {
 
 			// Prepare template args.
-			$template_args = [
+			$template_args = array(
 				'plain_content' => $this->basic_content,
 				'registrant'    => $this->registrant,
-			];
+			);
 
 			/**
 			 * Wacara mailer template args filter hook.
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Wacara\Mailer' ) ) {
 		 */
 		private function get_formatted_recipients() {
 			if ( is_array( $this->recipients ) ) {
-				$result = array_map( [ $this, 'get_formatted_single_recipient' ], $this->recipients );
+				$result = array_map( array( $this, 'get_formatted_single_recipient' ), $this->recipients );
 			} else {
 				$result = $this->get_formatted_single_recipient( $this->recipients );
 			}

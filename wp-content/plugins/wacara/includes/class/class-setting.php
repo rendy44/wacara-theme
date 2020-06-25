@@ -50,25 +50,25 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 		 */
 		private function __construct() {
 			// Override single post template.
-			add_filter( 'single_template', [ $this, 'override_single_post_callback' ], 10, 3 );
+			add_filter( 'single_template', array( $this, 'override_single_post_callback' ), 10, 3 );
 
 			// Add custom image size.
 			add_image_size( 'wacara-location-image', 570, 300, true );
 
 			// Manage post row actions.
-			add_filter( 'post_row_actions', [ $this, 'manage_post_row_actions_callback' ], 10, 2 );
+			add_filter( 'post_row_actions', array( $this, 'manage_post_row_actions_callback' ), 10, 2 );
 
 			// Manage post filters.
-			add_action( 'restrict_manage_posts', [ $this, 'manage_post_filters_callback' ], 10, 2 );
+			add_action( 'restrict_manage_posts', array( $this, 'manage_post_filters_callback' ), 10, 2 );
 
 			// Remove bulk actions in registrant.
-			add_filter( 'bulk_actions-edit-registrant', [ $this, 'bulk_actions_callback' ], 10, 1 );
+			add_filter( 'bulk_actions-edit-registrant', array( $this, 'bulk_actions_callback' ), 10, 1 );
 
 			// Manage post filter before displayed.
-			add_action( 'pre_get_posts', [ $this, 'post_format_filter_to_posts_callback' ], 10, 1 );
+			add_action( 'pre_get_posts', array( $this, 'post_format_filter_to_posts_callback' ), 10, 1 );
 
 			// Remove metabox in registrant post types.
-			add_action( 'admin_menu', [ $this, 'remove_registrant_publish_metabox_callback' ], 10, 1 );
+			add_action( 'admin_menu', array( $this, 'remove_registrant_publish_metabox_callback' ), 10, 1 );
 		}
 
 		/**
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 		public function override_single_post_callback( $template, $type, $templates ) {
 			global $post;
 
-			$used_post_types   = [ 'event', 'registrant' ];
+			$used_post_types   = array( 'event', 'registrant' );
 			$current_post_type = $post->post_type;
 			if ( in_array( $current_post_type, $used_post_types, true ) ) {
 				$template_found = Helper::locate_template( "single-{$current_post_type}" );
@@ -195,12 +195,12 @@ if ( ! class_exists( 'Wacara\Setting' ) ) {
 					if ( '0' !== $post_format ) {
 
 						// Override the query.
-						$query->query_vars['meta_query'] = [
-							[
+						$query->query_vars['meta_query'] = array(
+							array(
 								'key'   => WACARA_PREFIX . 'reg_status',
 								'value' => $current_filter,
-							],
-						];
+							),
+						);
 
 					}
 				}

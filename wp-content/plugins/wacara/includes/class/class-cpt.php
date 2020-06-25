@@ -58,7 +58,7 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		 * Register event post type.
 		 */
 		private function register_event_post_type() {
-			Helper::register_post_type( 'event', [], [], 'dashicons-calendar-alt' );
+			Helper::register_post_type( 'event', array(), array(), 'dashicons-calendar-alt' );
 		}
 
 		/**
@@ -67,13 +67,13 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_header_post_type() {
 			Helper::register_post_type(
 				'header',
-				[
+				array(
 					'all_items' => __( 'Headers', 'wacara' ),
-				],
-				[
+				),
+				array(
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
-				]
+				)
 			);
 		}
 
@@ -83,13 +83,13 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_location_post_type() {
 			Helper::register_post_type(
 				'location',
-				[
+				array(
 					'all_items' => __( 'Locations', 'wacara' ),
-				],
-				[
+				),
+				array(
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
-				]
+				)
 			);
 		}
 
@@ -99,13 +99,13 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_speaker_post_type() {
 			Helper::register_post_type(
 				'speaker',
-				[
+				array(
 					'all_items' => __( 'Speakers', 'wacara' ),
-				],
-				[
+				),
+				array(
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
-				]
+				)
 			);
 		}
 
@@ -115,13 +115,13 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_price_post_type() {
 			Helper::register_post_type(
 				'price',
-				[
+				array(
 					'all_items' => __( 'Prices', 'wacara' ),
-				],
-				[
+				),
+				array(
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
-				]
+				)
 			);
 		}
 
@@ -131,17 +131,17 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 		private function register_registrant_post_type() {
 			Helper::register_post_type(
 				'registrant',
-				[],
-				[
+				array(),
+				array(
 					'public'       => false,
 					'query_var'    => false,
-					'rewrite'      => [ 'slug' => 'reg' ],
-					'capabilities' => [
+					'rewrite'      => array( 'slug' => 'reg' ),
+					'capabilities' => array(
 						'create_posts' => 'do_not_allow',
-					],
+					),
 					'map_meta_cap' => true,
-					'supports'     => [ 'none' ],
-				],
+					'supports'     => array( 'none' ),
+				),
 				'dashicons-businessperson'
 			);
 		}

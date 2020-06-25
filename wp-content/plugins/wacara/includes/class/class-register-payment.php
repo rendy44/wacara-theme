@@ -27,7 +27,7 @@ if ( ! class_exists( 'Wacara\Register_Payment' ) ) {
 		 *
 		 * @var array
 		 */
-		private static $payment_methods = [];
+		private static $payment_methods = array();
 
 		/**
 		 * Register payment methods.
@@ -46,7 +46,7 @@ if ( ! class_exists( 'Wacara\Register_Payment' ) ) {
 		 * @return array
 		 */
 		public static function get_registered( $enabled_only = true ) {
-			$result = [];
+			$result = array();
 
 			// Check whether we need to filter payment methods by enable status or not.
 			if ( $enabled_only ) {

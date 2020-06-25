@@ -34,35 +34,35 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 *
 		 * @var array
 		 */
-		private $front_css = [];
+		private $front_css = array();
 
 		/**
 		 * Variable to mapping all js in front-end
 		 *
 		 * @var array
 		 */
-		private $front_js = [];
+		private $front_js = array();
 
 		/**
 		 * Variable for mapping all css in admin
 		 *
 		 * @var array
 		 */
-		private $admin_css = [];
+		private $admin_css = array();
 
 		/**
 		 * Variable for mapping all js in admin
 		 *
 		 * @var array
 		 */
-		private $admin_js = [];
+		private $admin_js = array();
 
 		/**
 		 * Variable for mapping modules.
 		 *
 		 * @var array
 		 */
-		private $module_js = [];
+		private $module_js = array();
 
 		/**
 		 * Singleton
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			$this->load_admin_asset();
 			$this->global_vars();
 
-			add_filter( 'script_loader_tag', [ $this, 'load_as_module' ], 10, 3 );
+			add_filter( 'script_loader_tag', array( $this, 'load_as_module' ), 10, 3 );
 		}
 
 		/**
@@ -123,37 +123,37 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		 */
 		private function map_front_asset() {
 			// CSS files.
-			$this->front_css = [
-				'google_font'       => [
+			$this->front_css = array(
+				'google_font'       => array(
 					'url' => 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap',
-				],
-				'sweetalert2'       => [
+				),
+				'sweetalert2'       => array(
 					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',
-				],
-				'wacara_main_style' => [
+				),
+				'wacara_main_style' => array(
 					'url' => WACARA_URI . 'assets/css/wacara.css',
-				],
-			];
+				),
+			);
 
 			// JS files.
-			$this->front_js = [
-				'sweetalert2'       => [
+			$this->front_js = array(
+				'sweetalert2'       => array(
 					'url'    => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
 					'module' => false,
-				],
-				'jquery-validation' => [
+				),
+				'jquery-validation' => array(
 					'url'    => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
 					'module' => false,
-				],
-				'wacara_checkin'    => [
+				),
+				'wacara_checkin'    => array(
 					'url'   => WACARA_URI . 'assets/js/checkin.js',
-					'depth' => [ 'jquery' ],
-				],
-				'wacara_main_js'    => [
+					'depth' => array( 'jquery' ),
+				),
+				'wacara_main_js'    => array(
 					'url'   => WACARA_URI . 'assets/js/wacara.js',
-					'depth' => [ 'jquery' ],
-				],
-			];
+					'depth' => array( 'jquery' ),
+				),
+			);
 		}
 
 		/**
@@ -162,38 +162,38 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function load_front_asset() {
 			$this->map_front_asset();
 
-			add_action( 'wp_enqueue_scripts', [ $this, 'front_asset_callback' ] );
+			add_action( 'wp_enqueue_scripts', array( $this, 'front_asset_callback' ) );
 		}
 
 		/**
 		 * Map all assets that will be loaded in admin
 		 */
 		private function map_admin_asset() {
-			$this->admin_js = [
-				'cmb2_conditionals' => [
+			$this->admin_js = array(
+				'cmb2_conditionals' => array(
 					'url'    => WACARA_URI . 'assets/admin/js/cmb2-conditionals.js',
-					'depth'  => [ 'jquery', 'cmb2-scripts' ],
+					'depth'  => array( 'jquery', 'cmb2-scripts' ),
 					'module' => false,
-				],
-				'inputosaurus'      => [
+				),
+				'inputosaurus'      => array(
 					'url'    => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.js',
-					'depth'  => [ 'jquery', 'cmb2-scripts' ],
+					'depth'  => array( 'jquery', 'cmb2-scripts' ),
 					'module' => false,
-				],
-				'app_be'            => [
+				),
+				'app_be'            => array(
 					'url' => WACARA_URI . 'assets/admin/js/app.js',
-				],
-			];
+				),
+			);
 
-			$this->admin_css = [
-				'inputosaurus' => [
+			$this->admin_css = array(
+				'inputosaurus' => array(
 					'url'   => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.css',
-					'depth' => [ 'cmb2-styles' ],
-				],
-				'app'          => [
+					'depth' => array( 'cmb2-styles' ),
+				),
+				'app'          => array(
 					'url' => WACARA_URI . 'assets/admin/css/app.css',
-				],
-			];
+				),
+			);
 		}
 
 		/**
@@ -202,7 +202,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function load_admin_asset() {
 			$this->map_admin_asset();
 
-			add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets_callback' ] );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets_callback' ) );
 		}
 
 		/**
@@ -211,8 +211,8 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		private function global_vars() {
 
 			// Embed variable in head.
-			add_action( 'wp_head', [ $this, 'global_vars_callback' ], 10, 1 );
-			add_action( 'admin_head', [ $this, 'global_vars_callback' ], 10, 1 );
+			add_action( 'wp_head', array( $this, 'global_vars_callback' ), 10, 1 );
+			add_action( 'admin_head', array( $this, 'global_vars_callback' ), 10, 1 );
 		}
 
 		/**
@@ -255,10 +255,10 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 		public function global_vars_callback() {
 
 			// Prepare default variable.
-			$variables = [
+			$variables = array(
 				'prefix'   => WACARA_PREFIX,
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-			];
+			);
 
 			/**
 			 * Wacara global variable filter hook.

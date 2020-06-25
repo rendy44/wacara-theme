@@ -48,16 +48,16 @@ if ( ! class_exists( 'Wacara\Registrant_Logs' ) ) {
 		private function __construct() {
 
 			// Log registrant after selecting pricing.
-			add_action( 'wacara_after_creating_registrant_ajax', [ $this, 'log_after_selecting_pricing_callback' ], 10, 2 );
+			add_action( 'wacara_after_creating_registrant_ajax', array( $this, 'log_after_selecting_pricing_callback' ), 10, 2 );
 
 			// Log registrant after filling details.
-			add_action( 'wacara_after_filling_registration', [ $this, 'log_after_filling_details_callback' ], 10, 3 );
+			add_action( 'wacara_after_filling_registration', array( $this, 'log_after_filling_details_callback' ), 10, 3 );
 
 			// Log registrant each time the status being changed.
-			add_action( 'wacara_after_setting_registrant_status', [ $this, 'log_after_status_changed_callback' ], 10, 3 );
+			add_action( 'wacara_after_setting_registrant_status', array( $this, 'log_after_status_changed_callback' ), 10, 3 );
 
 			// Log registrant after making checking-out.
-			add_action( 'wacara_after_registrant_payment_process', [ $this, 'log_after_checking_out_callback' ], 10, 3 );
+			add_action( 'wacara_after_registrant_payment_process', array( $this, 'log_after_checking_out_callback' ), 10, 3 );
 		}
 
 		/**

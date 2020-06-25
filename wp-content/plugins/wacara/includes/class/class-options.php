@@ -41,7 +41,7 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 *
 		 * @var array
 		 */
-		private $options_fields = [];
+		private $options_fields = array();
 
 		/**
 		 * Singleton function.
@@ -65,10 +65,10 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 			$this->global_option_key = 'options';
 
 			// Add options page.
-			add_action( 'cmb2_admin_init', [ $this, 'options_page_callback' ] );
+			add_action( 'cmb2_admin_init', array( $this, 'options_page_callback' ) );
 
 			// Maybe add options from payment methods.
-			add_action( 'cmb2_admin_init', [ $this, 'maybe_payment_methods_options_page_callback' ] );
+			add_action( 'cmb2_admin_init', array( $this, 'maybe_payment_methods_options_page_callback' ) );
 		}
 
 		/**
@@ -117,31 +117,31 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 * Map options page's fields.
 		 */
 		private function map_options_page() {
-			$this->options_fields = [
-				$this->global_option_key => [
+			$this->options_fields = array(
+				$this->global_option_key => array(
 					'title'  => esc_html__( 'Wacara Options', 'wacara' ),
-					'fields' => [
-						[
+					'fields' => array(
+						array(
 							'name'         => __( 'Logo', 'wacara' ),
 							'desc'         => __( 'Only file with .png extension is allowed', 'wacara' ),
 							'id'           => 'logo',
 							'type'         => 'file',
-							'options'      => [
+							'options'      => array(
 								'url' => false,
-							],
-							'text'         => [
+							),
+							'text'         => array(
 								'add_upload_file_text' => __( 'Select Image', 'wacara' ),
-							],
-							'query_args'   => [
-								'type' => [
+							),
+							'query_args'   => array(
+								'type' => array(
 									'image/png',
-								],
-							],
+								),
+							),
 							'preview_size' => 'medium',
-						],
-					],
-				],
-			];
+						),
+					),
+				),
+			);
 		}
 
 		/**
@@ -155,12 +155,12 @@ if ( ! class_exists( 'Wacara\Options' ) ) {
 		 */
 		private function register_option_page( $option_id, $option_name, $option_fields, $parent_slug = false, $prefix = WACARA_PREFIX ) {
 			// Register custom option page.
-			$option_args = [
+			$option_args = array(
 				'id'           => $prefix . $option_id,
 				'title'        => $option_name,
-				'object_types' => [ 'options-page' ],
+				'object_types' => array( 'options-page' ),
 				'option_key'   => $prefix . $option_id,
-			];
+			);
 
 			// Maybe set default parent slug.
 			if ( false === $parent_slug ) {

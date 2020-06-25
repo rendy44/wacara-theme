@@ -34,7 +34,7 @@ if ( ! class_exists( 'Wacara\Page_Template' ) ) {
 		 *
 		 * @var array
 		 */
-		private $templates = [];
+		private $templates = array();
 
 		/**
 		 * Singleton.
@@ -55,18 +55,18 @@ if ( ! class_exists( 'Wacara\Page_Template' ) ) {
 		private function __construct() {
 
 			// Define new templates.
-			$this->templates = [
+			$this->templates = array(
 				'self-checkin-page.php' => __( 'Self-Checkin Page', 'wcara' ),
-			];
+			);
 
 			// Add template list in page metabox.
-			add_filter( 'theme_page_templates', [ $this, 'page_templates_callback' ] );
+			add_filter( 'theme_page_templates', array( $this, 'page_templates_callback' ) );
 
 			// Add a filter to the save post to inject out template into the page cache.
-			add_filter( 'wp_insert_post_data', [ $this, 'register_page_templates_callback' ] );
+			add_filter( 'wp_insert_post_data', array( $this, 'register_page_templates_callback' ) );
 
 			// Add a filter to the template include to determine if the page has our template assigned and return it's path.
-			add_filter( 'template_include', [ $this, 'view_page_template_callback' ] );
+			add_filter( 'template_include', array( $this, 'view_page_template_callback' ) );
 		}
 
 		/**
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Wacara\Page_Template' ) ) {
 			// If it doesn't exist, or it's empty prepare an array.
 			$templates = wp_get_theme()->get_page_templates();
 			if ( empty( $templates ) ) {
-				$templates = [];
+				$templates = array();
 			}
 
 			// New cache, therefore remove the old one.
