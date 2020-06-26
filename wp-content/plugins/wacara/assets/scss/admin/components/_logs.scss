@@ -1,0 +1,50 @@
+$log_color: lighten($base_color, 20%);
+.wcr-registrant-logs-wrapper {
+  ul.wcr-registrant-logs {
+    li.wcr-registrant-log {
+      margin-bottom: .75rem;
+
+      p.wcr-registrant-log-content {
+        position: relative;
+        background-color: $log_color;
+        padding: .5rem;
+        margin: 0;
+        line-height: 1.4;
+
+        &:first-letter {
+          text-transform: uppercase;
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: -.75rem;
+          left: 1rem;
+          width: 0;
+          height: 0;
+          border-width: .75rem .75rem 0 0;
+          border-style: solid;
+          border-color: $log_color transparent;
+        }
+      }
+
+      .wcr-registrant-log-date-wrapper {
+        padding-top: .5rem;
+
+        span.wcr-registrant-log-date {
+          margin-left: .75rem;
+          font-size: 80%;
+          color: lighten($black, 55%);
+          display: inline;
+          border-bottom: 1px dotted gray;
+
+          &:before {
+            //content: '->';
+            //margin-right: .5rem;
+          }
+        }
+      }
+    }
+  }
+}

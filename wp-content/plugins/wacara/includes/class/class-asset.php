@@ -128,7 +128,7 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'url' => 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600&display=swap',
 				),
 				'sweetalert2'       => array(
-					'url' => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.css',
+					'url' => WACARA_URI . 'assets/vendor/css/sweetalert2.min.css',
 				),
 				'wacara_main_style' => array(
 					'url' => WACARA_URI . 'assets/css/wacara.css',
@@ -138,11 +138,11 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 			// JS files.
 			$this->front_js = array(
 				'sweetalert2'       => array(
-					'url'    => WACARA_URI . 'assets/vendor/sweetalert2/dist/sweetalert2.min.js',
+					'url'    => WACARA_URI . 'assets/vendor/js/sweetalert2.min.js',
 					'module' => false,
 				),
 				'jquery-validation' => array(
-					'url'    => WACARA_URI . 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
+					'url'    => WACARA_URI . 'assets/vendor/js/jquery.validate.min.js',
 					'module' => false,
 				),
 				'wacara_checkin'    => array(
@@ -167,31 +167,33 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 
 		/**
 		 * Map all assets that will be loaded in admin
+		 *
+		 * @version 0.0.2
 		 */
 		private function map_admin_asset() {
 			$this->admin_js = array(
 				'cmb2_conditionals' => array(
-					'url'    => WACARA_URI . 'assets/admin/js/cmb2-conditionals.js',
+					'url'    => WACARA_URI . 'assets/js/admin/cmb2-conditionals.js',
 					'depth'  => array( 'jquery', 'cmb2-scripts' ),
 					'module' => false,
 				),
 				'inputosaurus'      => array(
-					'url'    => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.js',
+					'url'    => WACARA_URI . 'assets/vendor/js/inputosaurus.js',
 					'depth'  => array( 'jquery', 'cmb2-scripts' ),
 					'module' => false,
 				),
 				'app_be'            => array(
-					'url' => WACARA_URI . 'assets/admin/js/app.js',
+					'url' => WACARA_URI . 'assets/js/admin/app.js',
 				),
 			);
 
 			$this->admin_css = array(
 				'inputosaurus' => array(
-					'url'   => WACARA_URI . 'assets/vendor/inputosaurus/inputosaurus.css',
+					'url'   => WACARA_URI . 'assets/vendor/css/inputosaurus.css',
 					'depth' => array( 'cmb2-styles' ),
 				),
 				'app'          => array(
-					'url' => WACARA_URI . 'assets/admin/css/app.css',
+					'url' => WACARA_URI . 'assets/css/admin/app.css',
 				),
 			);
 		}
