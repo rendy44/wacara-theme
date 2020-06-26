@@ -14,20 +14,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        sassadmin: {
-            options: {
-                style: 'compressed'
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'admin/assets/scss',
-                    src: ['**/*.scss', '**/*/*.scss'],
-                    dest: 'admin/assets/css',
-                    ext: '.css'
-                }]
-            }
-        },
         uglify: {
             my_target: {
                 files: [{
