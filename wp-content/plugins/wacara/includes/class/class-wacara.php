@@ -4,7 +4,7 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 namespace Wacara;
@@ -137,13 +137,13 @@ if ( ! class_exists( 'Wacara\Wacara' ) ) {
 
 		/**
 		 * Map all dependency libraries that`s required by our theme
+		 *
+		 * @version 0.0.2
 		 */
 		private function map_libraries() {
 			$this->libraries = array(
-				'cmb2/init',
 				'cmb2-tabs/plugin',
 				'cmb2-select2/cmb-field-select2',
-				'phpqrcode/qrlib',
 			);
 		}
 

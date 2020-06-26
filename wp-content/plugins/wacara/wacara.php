@@ -4,7 +4,7 @@
  * Description: Ultimate Conference Ticket Organizer for WordPress
  * Author: WPerfekt
  * Author URI: http://wperfekt.com
- * Version: 0.0.1
+ * Version: 0.0.2
  * Text Domain: wacara
  * Domain Path: /i18n
  *
@@ -23,7 +23,8 @@ defined( 'WACARA_MAYBE_THEME_PATH' ) || define( 'WACARA_MAYBE_THEME_PATH', get_s
 defined( 'WACARA_PREFIX' ) || define( 'WACARA_PREFIX', 'wcr_' );
 defined( 'WACARA_VERSION' ) || define( 'WACARA_VERSION', '0.0.1' );
 
-// Require our main class.
+// Require dependencies.
 if ( ! class_exists( 'Wacara\Wacara' ) ) {
 	require_once WACARA_PATH . '/includes/class/class-wacara.php';
+	require_once WACARA_PATH . '/vendor/autoload.php';
 }

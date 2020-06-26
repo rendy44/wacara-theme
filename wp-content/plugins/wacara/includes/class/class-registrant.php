@@ -4,12 +4,11 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 namespace Wacara;
 
-use QRcode;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,9 +35,11 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *                                            and assign with registrant id to fetch the registrant's detail.
+		 *              and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
-		 *                              Or list of field to displaying registrant.
+		 *              Or list of field to displaying registrant.
+		 *
+		 * @version 0.0.2
 		 */
 		public function __construct( $registrant_id = false, $args = array() ) {
 
@@ -58,8 +59,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 				if ( $args['event_id'] && $args['pricing_id'] ) {
 
 					// Save details into variable.
-					$event_id   = $args['event_id'];
-					$pricing_id = $args['pricing_id'];
+					$event_id = $args['event_id'];
 
 					// Generate unique key based on timestamp and random string..
 					$registrant_key = current_time( 'timestamp' ) . wp_generate_password( 6, false );
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 						$this->registrant_data = $args;
 
 						// Create registrant booking code.
-						$this->save_registrant_booking_code( $event_id, $pricing_id, $new_registrant );
+						$this->save_registrant_booking_code( $event_id, $new_registrant );
 
 						// Create qrcode for registrant.
 						$this->save_qrcode_to_registrant();
@@ -177,12 +177,14 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Save qrcode image locally.
 		 *
 		 * @return string
+		 * @version 0.0.2
 		 */
 		private function generate_qrcode_locally() {
 			$booking_code = $this->get_booking_code();
 			$file_name    = "/assets/qrcode/{$booking_code}.png";
 			$file_path    = WACARA_PATH . $file_name;
-			QRcode::png( $booking_code, $file_path, QR_ECLEVEL_H, 5 );
+
+			// QRcode::png( $booking_code, $file_path, QR_ECLEVEL_H, 5 );
 
 			return $file_name;
 		}
