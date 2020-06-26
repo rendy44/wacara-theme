@@ -2,5 +2,13 @@
     "require": {
         "endroid/qr-code": "^3.8",
         "cmb2/cmb2": "^2.7"
+    },
+    "autoload": {
+        "files": ["vendor/cmb2/init.php"]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": ["cmb2/cmb2"]
+        }
     }
 }
