@@ -4,11 +4,16 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 namespace Wacara;
 
+// use Endroid\QrCode\ErrorCorrectionLevel;
+// use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Response\QrCodeResponse;
+use mysql_xdevapi\Exception;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +40,7 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 * Registrant constructor.
 		 *
 		 * @param bool  $registrant_id leave it empty to create a new registrant,
-		 *              and assign with registrant id to fetch the registrant's detail.
+		 *                and assign with registrant id to fetch the registrant's detail.
 		 * @param array $args arguments to create a new registrant.
 		 *              Or list of field to displaying registrant.
 		 *
@@ -176,26 +181,40 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		/**
 		 * Save qrcode image locally.
 		 *
-		 * @return string
-		 * @version 0.0.2
+		 * @return string|WP_Error
+		 * @version 0.0.3
 		 */
 		private function generate_qrcode_locally() {
 			$booking_code = $this->get_booking_code();
-			$file_name    = "/assets/qrcode/{$booking_code}.png";
+			$booking_code = strtolower( $booking_code );
+			$file_name    = "assets/qrcode/{$booking_code}.png";
 			$file_path    = WACARA_PATH . $file_name;
 
-			// QRcode::png( $booking_code, $file_path, QR_ECLEVEL_H, 5 );
+			try {
+				$qr_code = new QrCode();
+				$qr_code->setText( $booking_code );
+				$qr_code->writeFile( $file_path );
+			} catch ( Exception $e ) {
+				return new WP_Error( $e->getCode(), $e->getMessage() );
+			}
 
 			return $file_name;
 		}
 
 		/**
 		 * Save qrcode information into registrant.
+		 *
+		 * @version 0.0.2
 		 */
 		private function save_qrcode_to_registrant() {
 
 			// Generate qrcode locally.
 			$created_qrcode = $this->generate_qrcode_locally();
+
+			// Validate the qrcode.
+			if ( is_wp_error( $created_qrcode ) ) {
+				$this->save_meta( array( 'debug' => $created_qrcode->get_error_message() ) );
+			}
 
 			// Save qrcode data.
 			$qrcode_uri = WACARA_URI . $created_qrcode;
@@ -710,42 +729,6 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 			/* translators: %1$s : currency symbol : %2$s : formatted amount */
 
 			return sprintf( '<span class="wcr-amount"><span class="wcr-currency">%1$s</span><span class="wcr-value">%2$s</span></span>', $currency_symbol, number_format_i18n( $price, 2 ) );
-		}
-
-		/**
-		 * Get pricing pros that already attached into registrant.
-		 *
-		 * @param bool $raw whether get result in raw array or convert it into string.
-		 *
-		 * @return array|bool|mixed|string
-		 */
-		public function get_pricing_pros( $raw = true ) {
-			$result = $this->get_meta( 'pricing_cache_pros' );
-
-			// Maybe convert into string.
-			if ( ! $raw ) {
-				$result = implode( ', ', $result );
-			}
-
-			return $result;
-		}
-
-		/**
-		 * Get pricing cons that already attached into registrant.
-		 *
-		 * @param bool $raw whether get result in raw array or convert it into string.
-		 *
-		 * @return array|bool|mixed|string
-		 */
-		public function get_pricing_cons( $raw = true ) {
-			$result = $this->get_meta( 'pricing_cache_cons' );
-
-			// Maybe convert into string.
-			if ( ! $raw ) {
-				$result = implode( ', ', $result );
-			}
-
-			return $result;
 		}
 
 		/**
