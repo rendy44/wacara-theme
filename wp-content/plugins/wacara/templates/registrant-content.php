@@ -78,7 +78,7 @@ if ( '' === $reg_status ) {
 	 */
 	do_action( 'wacara_before_registrant_form_content', $registrant );
 
-	$used_fields = [ 'name', 'email' ];
+	$used_fields = array( 'name', 'email' );
 
 	// Render all the fields.
 	foreach ( $used_fields as $field ) {
@@ -171,9 +171,9 @@ if ( '' === $reg_status ) {
 	 */
 	$submit_label = apply_filters( 'wacara_filter_hold_registrant_submit_label', $submit_label, $registrant );
 
-	$submit_args = [
+	$submit_args = array(
 		'submit_label' => $submit_label,
-	];
+	);
 
 	// Render submit button.
 	Template::render( 'registrant/form-submit', $submit_args, true );
@@ -241,9 +241,9 @@ if ( '' === $reg_status ) {
 	 */
 	$alert_message = apply_filters( 'wacara_filter_registrant_success_desc', $alert_message, $registrant );
 
-	$success_args = [
+	$success_args = array(
 		'alert_message' => $alert_message,
-	];
+	);
 
 	// Render the success template.
 	Template::render( 'registrant/status-done', $success_args, true );

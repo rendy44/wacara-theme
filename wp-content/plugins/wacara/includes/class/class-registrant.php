@@ -4,13 +4,11 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 namespace Wacara;
 
-// use Endroid\QrCode\ErrorCorrectionLevel;
-// use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 use mysql_xdevapi\Exception;
@@ -294,6 +292,15 @@ if ( ! class_exists( 'Wacara\Registrant' ) ) {
 		 */
 		public function get_public_key() {
 			return $this->get_meta( 'public_key' );
+		}
+
+		/**
+		 * Get generate qrcode url.
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_qrcode_url() {
+			return $this->get_meta( 'qrcode_url' );
 		}
 
 		/**

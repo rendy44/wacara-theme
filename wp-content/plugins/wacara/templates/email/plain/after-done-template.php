@@ -4,7 +4,7 @@
  *
  * @author WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 use Wacara\Registrant;
@@ -26,8 +26,12 @@ echo sprintf( __( '<p>Hi <strong>%s</strong>,</p>', 'wacara' ), $recipient_name 
 echo sprintf( __( '<p>Congratulation, you have secured your seat to join %s.</p>', 'wacara' ), $event_name ); // phpcs:ignore
 echo __('<p>Below is your booking code:</p>','wacara'); // phpcs:ignore
 ?>
-<div style="padding: 1rem; text-align: center; border: 2px dashed #777777">
-	<p style="font-size: 40px; color: #333; margin: 0; line-height: 1; font-weight: 700"><?php echo esc_html( $registrant->get_booking_code() ); ?></p>
+<div style="padding: 1rem; margin-bottom: 1rem; text-align: center; border: 2px dashed #777777">
+	<p style="font-size: 32px; color: #333; margin: 0; line-height: 1; font-weight: 700"><?php echo esc_html( $registrant->get_booking_code() ); ?></p>
+</div>
+<p style="margin-bottom: 1rem"><?php esc_html_e( 'You can use your qrcode below as an alternative', 'wacara' ); ?></p>
+<div style="text-align: center">
+	<img src="<?php echo esc_attr( $registrant->get_qrcode_url() ); ?>" alt="QR Code" style="max-width: 300px; max-height: 300px; text-align: center">
 </div>
 <?php
 /**

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wcr-section-content-wrapper">
 	<div class="frow">
 		<?php
-		$maybe_socnet_accounts = [ 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'website' ];
+		$maybe_socnet_accounts = array( 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'website' );
 		foreach ( $speakers as $speaker ) {
 			?>
 			<div class="col-sm-1-2 col-md-1-3">
