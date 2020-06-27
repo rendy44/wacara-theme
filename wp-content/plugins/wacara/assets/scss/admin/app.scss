@@ -1,5 +1,8 @@
 // Include frow.
-//@import "node_modules/frow/frow";
+@import "node_modules/frow/variables";
+@import "node_modules/frow/src/flexbox";
+@import "node_modules/frow/src/scaffolding";
+@import "node_modules/frow/src/grid";
 
 @import "assets/scss/base/variables";
 @import "assets/scss/base/mixins";
