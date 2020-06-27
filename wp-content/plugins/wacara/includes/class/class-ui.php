@@ -118,7 +118,9 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			add_action( 'wacara_header_global_email_template', array( $this, 'header_global_email_template' ), 10, 1 );
 
 			// Render self-checkin page.
+			add_action( 'wacara_after_self_checkin_form', array( $this, 'button_scan_qrcode' ), 10, 1 );
 			add_action( 'wacara_after_self_checkin_content', array( $this, 'modal_checkin_callback' ), 10, 1 );
+			add_action( 'wacara_after_self_checkin_content', array( $this, 'modal_self_checkin_callback' ), 20, 1 );
 		}
 
 		/**
@@ -1051,6 +1053,17 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		}
 
 		/**
+		 * Callback for rendering scan qrcodo modal button
+		 */
+		public function button_scan_qrcode() {
+			?>
+			<div class="wcr-button-qrcode-wrapper" style="display: none">
+				<button id="btnOpenScanner" class="wcr-button wcr-button-main wcr-button-qrcode"><?php esc_html_e( 'Scan QRCode', 'wacara' ); ?></button>
+			</div>
+			<?php
+		}
+
+		/**
 		 * Callback for rendering checkin modal.
 		 */
 		public function modal_checkin_callback() {
@@ -1071,6 +1084,17 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			$checkin_content = Template::render( 'modal/self-checkin', $checkin_content_args );
 
 			Helper::add_modal( 'checkin', $checkin_content, __( 'Checkin', 'wacara' ) );
+		}
+
+		/**
+		 * Callback for rendering self-checkin modal.
+		 */
+		public function modal_self_checkin_callback(){
+
+			// Load template for detail content.
+			$scanner_content = Template::render('modal/qrcode-scanner');
+
+			Helper::add_modal('qrcode-scanner',$scanner_content,__('QRCode Scanner','wacara'));
 		}
 	}
 

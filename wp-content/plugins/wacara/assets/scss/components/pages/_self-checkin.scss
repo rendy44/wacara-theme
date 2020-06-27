@@ -2,5 +2,15 @@ body.page-template.page-template-self-checkin-page.page {
   .wcr-form-self-checkin-wrapper {
     max-width: 550px;
     margin: auto;
+
+    form.wcr-form {
+      margin-bottom: 1rem;
+    }
+
+    .wcr-button-qrcode-wrapper {
+      button.wcr-button-qrcode {
+        //background-color: $white !important;
+      }
+    }
   }
 }

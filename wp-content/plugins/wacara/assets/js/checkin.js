@@ -3,6 +3,7 @@
 import Action from "./class/action.js";
 import Modal from "./class/modal.js";
 import Helper from "./class/helper.js";
+import QrScanner from '../vendor/js/qr-scanner.min.js';
 
 (function ($) {
     /**
@@ -10,12 +11,29 @@ import Helper from "./class/helper.js";
      */
     new class {
         modalCheckin = new Modal('checkin', true);
+        modalScanner = new Modal('qrcode-scanner', false);
 
         /**
          * Class constructor.
          */
         constructor() {
             this.eventCheckinFormSubmitted();
+            this.eventScannerOpened();
+        }
+
+        /**
+         * Event when open scanner clicked
+         */
+        eventScannerOpened() {
+            QrScanner.WORKER_PATH = '../vendor/js/qr-scanner-worker.min.js';
+            const instance = this,
+                videoElm = document.getElementById('scannerVid');
+            $('#btnOpenScanner').click(function (e) {
+                instance.modalScanner.show();
+
+                const scanner = new QrScanner(videoElm, result => console.log(result));
+                scanner.start();
+            })
         }
 
         /**

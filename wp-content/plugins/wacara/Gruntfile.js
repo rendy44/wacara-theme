@@ -55,6 +55,8 @@ module.exports = function (grunt) {
                 src: [
                     './sweetalert2/dist/sweetalert2.min.js',
                     './jquery-validation/dist/jquery.validate.min.js',
+                    './qr-scanner/qr-scanner.min.js',
+                    './qr-scanner/qr-scanner-worker.min.js',
                 ]
             },
             css: {
