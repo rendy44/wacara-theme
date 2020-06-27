@@ -141,7 +141,8 @@ table.wp-list-table.posts th#pricing {
       font-size: 13px;
       position: relative;
       display: block;
-      font-weight: 500; }
+      font-weight: 500;
+      margin-bottom: 0 !important; }
       #registrant_detail_mb .wcr-registrant-info-wrapper > .wcr-registrant-info-detail-wrapper > .frow label.wcr-registrant-detail-label:after {
         position: absolute;
         content: ':';
