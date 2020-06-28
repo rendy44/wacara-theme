@@ -4,7 +4,7 @@
  *
  * @author  WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 namespace Wacara;
@@ -95,6 +95,8 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 
 		/**
 		 * Register speaker post type.
+		 *
+		 * @version 0.0.2
 		 */
 		private function register_speaker_post_type() {
 			Helper::register_post_type(
@@ -105,6 +107,7 @@ if ( ! class_exists( 'Wacara\CPT' ) ) {
 				array(
 					'publicly_queryable' => false,
 					'show_in_menu'       => 'edit.php?post_type=event',
+					'supports'           => array( 'title', 'thumbnail' ),
 				)
 			);
 		}
