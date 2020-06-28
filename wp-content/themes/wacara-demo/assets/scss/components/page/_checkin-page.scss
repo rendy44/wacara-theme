@@ -89,6 +89,20 @@ body.page-template.page-template-self-checkin-page.page {
           }
         }
       }
+
+      .wcr-button-qrcode-wrapper {
+        width: 100%;
+
+        .wcr-button {
+          width: 100%;
+          background-color: $white;
+          color: inherit;
+        }
+
+        @include breakpoint($size_tablet) {
+          width: auto;
+        }
+      }
     }
   }
 }
