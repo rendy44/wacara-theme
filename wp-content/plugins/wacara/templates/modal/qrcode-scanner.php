@@ -12,6 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="wcr-scanner-wrapper">
-	<div id="qr-reader" style="width:500px"></div>
+	<div id="qr-reader" style="text-align: center"></div>
 	<div id="qr-reader-results"></div>
 </div>

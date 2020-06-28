@@ -11,6 +11,8 @@ import Helper from "./class/helper.js";
     new class {
         modalCheckin = new Modal('checkin', true);
         modalScanner = new Modal('qrcode-scanner', false);
+        lastScanned = null;
+        scanBusy = false;
 
         /**
          * Class constructor.
@@ -35,16 +37,87 @@ import Helper from "./class/helper.js";
 
                         if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
 
-                            navigator.mediaDevices.enumerateDevices()
-                                .then(function (devices) {
-                                    devices.forEach(function (device) {
-                                        console.log(device.kind + ": " + device.label +
-                                            " id = " + device.deviceId);
+                            Html5Qrcode.getCameras().then(devices => {
+                                /**
+                                 * devices would be an array of objects of type:
+                                 * { id: "id", label: "label" }
+                                 */
+                                if (devices && devices.length) {
+                                    let deviceId = '';
+                                    devices.forEach(device => {
+                                        deviceId = device.id;
+                                        return false;
                                     });
-                                })
-                                .catch(function (err) {
-                                    instance.modalScanner.customContent('<p>' + err.message + '</p>');
-                                });
+
+                                    const html5QrCode = new Html5Qrcode('qr-reader');
+                                    html5QrCode.start(
+                                        deviceId,
+                                        {
+                                            fps: 10,    // Optional frame per seconds for qr code scanning
+                                            // qrbox: 50  // Optional if you want bounded box UI
+                                        },
+                                        qrCodeMessage => {
+                                            if (qrCodeMessage !== instance.lastScanned && false === instance.scanBusy) {
+                                                const booking_code = qrCodeMessage.toUpperCase();
+
+                                                // Change state.
+                                                instance.lastScanned = booking_code;
+                                                instance.scanBusy = true;
+
+                                                // Loading.
+                                                instance.modalScanner.startLoadingContent();
+
+                                                Action.doFindRegistrant(booking_code)
+                                                    .done(function (data) {
+                                                        if (data.success) {
+                                                            Action.doCheckin(data.callback)
+                                                                .done(function (checkinData) {
+
+                                                                    // Stop loading.
+                                                                    instance.modalScanner.stopLoadingContent();
+
+                                                                    // Change state.
+                                                                    instance.scanBusy = false;
+
+                                                                    // Normalize the modal.
+                                                                    instance.modalCheckin.normalize(checkinData);
+                                                                })
+                                                                .fail(function (qwe) {
+                                                                    // TODO: validate on failed ajax.
+                                                                })
+                                                        } else {
+
+                                                            // Stop loading.
+                                                            instance.modalScanner.stopLoadingContent();
+
+                                                            // Change state.
+                                                            instance.scanBusy = false;
+
+                                                            // Show alert.
+                                                            Swal.fire('Sorry', 'QRCode is not valid', 'error');
+                                                        }
+                                                    })
+                                            }
+                                        },
+                                        errorMessage => {
+                                            // alert(errorMessage);
+                                            // parse error, ignore it.
+                                        })
+                                        .catch(err => {
+                                            Swal.fire(
+                                                'Sorry!',
+                                                err.message,
+                                                'error'
+                                            );
+                                        });
+                                }
+                            }).catch(err => {
+                                Swal.fire(
+                                    'Sorry!',
+                                    err.message,
+                                    'error'
+                                );
+                            });
 
                         } else {
                             instance.modalScanner.customContent('<p>Your browser is not supported</p>');

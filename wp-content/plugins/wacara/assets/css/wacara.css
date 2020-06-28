@@ -2891,6 +2891,22 @@ a {
         margin: 0; }
     .wcr-modal .wcr-modal-content-wrapper .wcr-modal-body {
       padding: 1rem; }
+      .wcr-modal .wcr-modal-content-wrapper .wcr-modal-body.loading {
+        position: relative; }
+        .wcr-modal .wcr-modal-content-wrapper .wcr-modal-body.loading:before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          content: 'Loading...';
+          background-color: rgba(255, 255, 255, 0.75);
+          z-index: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+          font-weight: 700; }
     .wcr-modal .wcr-modal-content-wrapper .wcr-modal-footer {
       text-align: right;
       padding: 1rem;

@@ -81,6 +81,20 @@ export default class Modal {
     }
 
     /**
+     * Display loading in body
+     */
+    startLoadingContent() {
+        this.modalBodyElement.addClass('loading');
+    }
+
+    /**
+     * Remove loading in body
+     */
+    stopLoadingContent() {
+        this.modalBodyElement.removeClass('loading');
+    }
+
+    /**
      * Save callback
      *
      * @param callback

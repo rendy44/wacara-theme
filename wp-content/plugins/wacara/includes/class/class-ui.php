@@ -1057,7 +1057,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		 */
 		public function button_scan_qrcode() {
 			?>
-			<div class="wcr-button-qrcode-wrapper" style="display: none">
+			<div class="wcr-button-qrcode-wrapper">
 				<button id="btnOpenScanner" class="wcr-button wcr-button-main wcr-button-qrcode"><?php esc_html_e( 'Scan QRCode', 'wacara' ); ?></button>
 			</div>
 			<?php
