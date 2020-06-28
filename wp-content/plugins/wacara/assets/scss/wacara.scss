@@ -1,5 +1,17 @@
 // Style from library
-@import "node_modules/frow/frow";
+//@import "node_modules/frow/frow";
+@import "node_modules/frow/variables";
+
+// Reset and dependencies
+@import "node_modules/frow/src/normalize";
+
+// Core CSS
+@import "node_modules/frow/src/flexbox";
+//@import "node_modules/frow/src/scaffolding";
+@import "node_modules/frow/src/grid";
+
+@import "node_modules/frow/src/responsive-utilities";
+@import "node_modules/frow/src/utilities";
 
 // Base styling
 @import "base/variables";
