@@ -37,6 +37,15 @@ export default class Modal {
     }
 
     /**
+     * Customize modal body
+     *
+     * @param content
+     */
+    customContent(content) {
+        this.modalBodyElement.html(content);
+    }
+
+    /**
      * Method to open modal.
      */
     show() {

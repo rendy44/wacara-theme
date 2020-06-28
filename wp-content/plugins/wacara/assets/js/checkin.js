@@ -3,7 +3,6 @@
 import Action from "./class/action.js";
 import Modal from "./class/modal.js";
 import Helper from "./class/helper.js";
-import QrScanner from '../vendor/js/qr-scanner.min.js';
 
 (function ($) {
     /**
@@ -25,14 +24,33 @@ import QrScanner from '../vendor/js/qr-scanner.min.js';
          * Event when open scanner clicked
          */
         eventScannerOpened() {
-            QrScanner.WORKER_PATH = '../vendor/js/qr-scanner-worker.min.js';
-            const instance = this,
-                videoElm = document.getElementById('scannerVid');
+            const instance = this;
             $('#btnOpenScanner').click(function (e) {
                 instance.modalScanner.show();
 
-                const scanner = new QrScanner(videoElm, result => console.log(result));
-                scanner.start();
+                // see if DOM is already available
+                if (document.readyState === "complete" || document.readyState === "interactive") {
+                    // call on next available tick
+                    setTimeout(function () {
+
+                        if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+
+                            navigator.mediaDevices.enumerateDevices()
+                                .then(function (devices) {
+                                    devices.forEach(function (device) {
+                                        console.log(device.kind + ": " + device.label +
+                                            " id = " + device.deviceId);
+                                    });
+                                })
+                                .catch(function (err) {
+                                    instance.modalScanner.customContent('<p>' + err.message + '</p>');
+                                });
+
+                        } else {
+                            instance.modalScanner.customContent('<p>Your browser is not supported</p>');
+                        }
+                    }, 1);
+                }
             })
         }
 

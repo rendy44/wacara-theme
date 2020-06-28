@@ -120,7 +120,7 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 			// Render self-checkin page.
 			add_action( 'wacara_after_self_checkin_form', array( $this, 'button_scan_qrcode' ), 10, 1 );
 			add_action( 'wacara_after_self_checkin_content', array( $this, 'modal_checkin_callback' ), 10, 1 );
-			add_action( 'wacara_after_self_checkin_content', array( $this, 'modal_self_checkin_callback' ), 20, 1 );
+			add_action( 'wacara_after_self_checkin_content', array( $this, 'modal_scan_qrcode_callback' ), 20, 1 );
 		}
 
 		/**
@@ -1089,12 +1089,12 @@ if ( ! class_exists( 'Wacara\UI' ) ) {
 		/**
 		 * Callback for rendering self-checkin modal.
 		 */
-		public function modal_self_checkin_callback(){
+		public function modal_scan_qrcode_callback() {
 
 			// Load template for detail content.
-			$scanner_content = Template::render('modal/qrcode-scanner');
+			$scanner_content = Template::render( 'modal/qrcode-scanner' );
 
-			Helper::add_modal('qrcode-scanner',$scanner_content,__('QRCode Scanner','wacara'));
+			Helper::add_modal( 'qrcode-scanner', $scanner_content, __( 'QRCode Scanner', 'wacara' ), false );
 		}
 	}
 

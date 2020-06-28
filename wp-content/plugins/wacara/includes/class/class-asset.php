@@ -145,6 +145,10 @@ if ( ! class_exists( 'Wacara\Asset' ) ) {
 					'url'    => WACARA_URI . 'assets/vendor/js/jquery.validate.min.js',
 					'module' => false,
 				),
+				'html5-qrcode'      => array(
+					'url'    => WACARA_URI . 'assets/vendor/js/html5-qrcode.min.js',
+					'module' => false,
+				),
 				'wacara_checkin'    => array(
 					'url'   => WACARA_URI . 'assets/js/checkin.js',
 					'depth' => array( 'jquery' ),

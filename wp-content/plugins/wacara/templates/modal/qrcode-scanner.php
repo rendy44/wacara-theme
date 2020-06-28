@@ -4,13 +4,14 @@
  *
  * @author WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wcr-registrant-detail-wrapper">
-	<video id="scannerVid"></video>
+<div class="wcr-scanner-wrapper">
+	<div id="qr-reader" style="width:500px"></div>
+	<div id="qr-reader-results"></div>
 </div>

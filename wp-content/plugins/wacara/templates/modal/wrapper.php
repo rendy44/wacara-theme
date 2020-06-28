@@ -4,7 +4,7 @@
  *
  * @author WPerfekt
  * @package Wacara
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,8 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo $modal_body; // phpcs:ignore ?>
 		</div>
 
-		<div class="wcr-modal-footer">
-			<button class="wcr-button wcr-button-main wcr-modal-confirm"><?php esc_html_e( 'Confirm', 'wacara' ); ?></button>
-		</div>
+		<?php
+		if ( false !== $modal_footer ) {
+			?>
+			<div class="wcr-modal-footer">
+				<button class="wcr-button wcr-button-main wcr-modal-confirm"><?php esc_html_e( 'Confirm', 'wacara' ); ?></button>
+			</div>
+			<?php
+		}
+		?>
 	</div>
 </div>
