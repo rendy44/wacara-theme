@@ -22,7 +22,7 @@
   "dependencies": {
     "frow": "^3.3.2",
     "html5-qrcode": "^1.1.5",
-    "jquery-validation": "^1.19.2",
+    "jquery-validation": "^1.19.3",
     "sweetalert2": "^9.15.2"
   }
 }
